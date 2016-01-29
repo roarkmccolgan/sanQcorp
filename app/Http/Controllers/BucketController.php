@@ -44,7 +44,7 @@ class BucketController extends Controller
         $name = explode("@",$input['sender']);
         Bucket::create([
             'username'=>$name[0],
-            'email'=>$input['sender'],
+            'fromEmail'=>$input['sender'],
             'message'=>$input['subject'],
             'calendar'=>Carbon::now()
         ]);
