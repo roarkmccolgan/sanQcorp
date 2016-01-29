@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Bucket extends Model
@@ -12,4 +13,8 @@ class Bucket extends Model
     	'message',
     	'calendar'
     ];
+
+    public funtion setCalendarAttribute($date){
+    	$this->attributes['calendar'] = Carbon::parse($date);
+    }
 }

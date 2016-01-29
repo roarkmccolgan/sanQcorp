@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Carbon\Carbon;
 use App\Bucket;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -40,10 +41,17 @@ class BucketController extends Controller
     public function store(Request $request)
     {
         $input = Request::all();
-        return $input;
+        $name = split("@",$input['sender']);
+        Bucket::create([
+            'username'=>$name[0],
+            'email'=>$input['sender'],
+            'message'=>$input['subject'],
+            'calendar'=>Carbon::now()
+        ])
+        //return $input;
         //$input['calendar'] = Carbon::now();
 
-        Bucket::create($input);
+        //Bucket::create($input);
         return Response::make('success', 200);
     }
 
