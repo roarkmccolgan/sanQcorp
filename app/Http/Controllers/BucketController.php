@@ -41,7 +41,7 @@ class BucketController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        $name = split("@",$input['sender']);
+        $name = explode("@",$input['sender']);
         Bucket::create([
             'username'=>$name[0],
             'email'=>$input['sender'],
