@@ -53,7 +53,7 @@ class BucketController extends Controller
         //$input['calendar'] = Carbon::now();
 
         //Bucket::create($input);
-        return Response::make('success', 200);
+        return (new Response('success', 200));
     }
 
     /**
