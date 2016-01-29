@@ -47,7 +47,7 @@ class BucketController extends Controller
             'email'=>$input['sender'],
             'message'=>$input['subject'],
             'calendar'=>Carbon::now()
-        ])
+        ]);
         //return $input;
         //$input['calendar'] = Carbon::now();
 
