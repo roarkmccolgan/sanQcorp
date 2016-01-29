@@ -14,7 +14,7 @@ class Bucket extends Model
     	'calendar'
     ];
 
-    public funtion setCalendarAttribute($date){
+    public function setCalendarAttribute($date){
     	$this->attributes['calendar'] = Carbon::parse($date);
     }
 }
