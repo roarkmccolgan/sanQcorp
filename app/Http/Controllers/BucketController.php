@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 
 use Carbon\Carbon;
 use App\Bucket;
+use app\User;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -44,7 +45,7 @@ class BucketController extends Controller
         $input = $request->all();
         $name = explode("@",$input['sender']);
         $user = User::where('email',$input['sender'])->get();
-        if(!user->isEmpty()){
+        if(!$user->isEmpty()){
             Bucket::create( 
                 'username'=>$name[0],
                 'fromEmail'=>$input['sender'],
