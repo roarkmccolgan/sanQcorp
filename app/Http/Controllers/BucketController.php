@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 
 use Carbon\Carbon;
 use App\Bucket;
-use app\User;
+use App\User;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
