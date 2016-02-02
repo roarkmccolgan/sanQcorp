@@ -43,12 +43,18 @@ class BucketController extends Controller
     {
         $input = $request->all();
         $name = explode("@",$input['sender']);
-        Bucket::create([
-            'username'=>$name[0],
-            'fromEmail'=>$input['sender'],
-            'message'=>$input['subject'],
-            'calendar'=>Carbon::now()
-        ]);
+        $user = User::where('email',$input['sender'])->get();
+        if(!user->isEmpty()){
+            Bucket::create( 
+                'username'=>$name[0],
+                'fromEmail'=>$input['sender'],
+                'message'=>$input['subject'],
+                'calendar'=>Carbon::now(),
+                'user_id' =>$user->id
+            ]);
+        }
+
+        
         //return $input;
         //$input['calendar'] = Carbon::now();
 
