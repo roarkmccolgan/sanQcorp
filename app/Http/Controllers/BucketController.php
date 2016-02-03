@@ -45,7 +45,7 @@ class BucketController extends Controller
         $input = $request->all();
         $name = explode("@",$input['sender']);
         $user = User::where('email',$input['sender'])->get();
-        echo $input['sender'];
+        //Return $input['sender']." ".$input['subject'];
         if(!$user->isEmpty()){
             Bucket::create([
                 'username'=>$name[0],
@@ -54,6 +54,8 @@ class BucketController extends Controller
                 'calendar'=>Carbon::now(),
                 'user_id' =>$user->id
             ]);
+        }else{
+            dd($user);
         }
 
         
