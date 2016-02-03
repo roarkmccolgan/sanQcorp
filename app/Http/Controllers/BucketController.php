@@ -46,7 +46,7 @@ class BucketController extends Controller
         $name = explode("@",$input['sender']);
         $user = User::where('username',$name[0])->get()->first();
         //Return $input['sender']." ".$input['subject'];
-        if(!$user->isEmpty()){
+        if($user !== null){
             Bucket::create([
                 'username'=>$name[0],
                 'fromEmail'=>$input['sender'],
