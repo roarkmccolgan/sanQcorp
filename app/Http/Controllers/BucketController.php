@@ -54,8 +54,6 @@ class BucketController extends Controller
                 'calendar'=>Carbon::now(),
                 'user_id' =>$user->id
             ]);
-        }else{
-            dd($user);
         }
 
         
