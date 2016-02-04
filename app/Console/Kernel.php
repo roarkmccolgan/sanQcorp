@@ -28,6 +28,6 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
         $schedule->command('bucket:sendsms')
-                 ->dailyAt('08:10');
+                 ->dailyAt('06:10');
     }
 }
