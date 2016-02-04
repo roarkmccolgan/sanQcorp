@@ -143,7 +143,7 @@ class BucketController extends Controller
                     //$bucket->delete();
                     $deleted .= ' '+$i;
                 }else{
-                    $deleted = json_encode($bucket);
+                    $deleted = json_encode($input);
                 }
             }
             return (new Response('success '.$deleted, 200));
