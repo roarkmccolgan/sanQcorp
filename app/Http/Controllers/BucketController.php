@@ -141,7 +141,7 @@ class BucketController extends Controller
             $deleted = '';
             for ($i=1; $i <= (count($parts)-1); $i++) { 
                 $bucket = Bucket::where('id',$parts[$i])->get()->first();
-                if($bucket!==null && $bucket->user->cell==$input['sender']){
+                if($bucket!==null && $bucket->user->cell==str_replace('+','',$input['sender'])){
                     $bucket->delete();
                     $deleted .= ' '+$parts[$i];
                 }else{
