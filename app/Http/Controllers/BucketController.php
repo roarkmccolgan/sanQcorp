@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 use Carbon\Carbon;
+use Log;
 use App\Bucket;
 use App\User;
 use App\Http\Requests;
@@ -131,6 +132,7 @@ class BucketController extends Controller
     public function smscommand(Request $request)
     {
         $input = $request->all();
+        Log::info('SMS Parameters: '.json_encode($input));
         $recipient = $input['sender'];
         $message = $input['message'];
         if (strpos($message, 'delete') !== false || strpos($message, 'Delete') !== false || strpos($message, 'DELETE') !== false) {
@@ -138,17 +140,18 @@ class BucketController extends Controller
             $parts = explode(" ", $message);
             $deleted = '';
             for ($i=1; $i <= (count($parts)-1); $i++) { 
-                $bucket = Bucket::where('id',$i)->get()->first();
+                $bucket = Bucket::where('id',$parts[$i])->get()->first();
                 if($bucket!==null && $bucket->user->cell==$input['sender']){
-                    //$bucket->delete();
-                    $deleted .= ' '+$i;
+                    $bucket->delete();
+                    $deleted .= ' '+$parts[$i];
                 }else{
-                    $deleted = json_encode($input);
+                    $deleted = 'No bucket '.json_encode($parts[$i]);
                 }
             }
             return (new Response('success '.$deleted, 200));
         }else{
            return (new Response('fail', 200));
         }
+        return (new Response('No input', 200));
     }
 }

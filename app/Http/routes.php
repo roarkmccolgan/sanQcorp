@@ -16,9 +16,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::resource('bucket', 'BucketController', ['only' => [
-    'index', 'store', 'show', 'edit'
+    'index', 'store', 'edit'
 ]]);
-Route::post('/bucket/smscommand', 'BucketController@smsCommand');
+Route::get('/bucket/smscommand', 'BucketController@smsCommand');
 
 Route::get('/testsms', function(){
 	// $sms = new Artistan\Nexmo\Service\Message\Sms;
