@@ -18,6 +18,8 @@ Route::get('/', function () {
 Route::resource('bucket', 'BucketController', ['only' => [
     'index', 'store', 'show', 'edit'
 ]]);
+Route::post('/bucket/smscommand', 'BucketController@smsCommand');
+
 Route::get('/testsms', function(){
 	// $sms = new Artistan\Nexmo\Service\Message\Sms;
 	// //$sms->sendText('27712871097','27877460123','dude, this is from a laravel package');

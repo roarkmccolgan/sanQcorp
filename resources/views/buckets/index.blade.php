@@ -16,10 +16,10 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <td>id</td>
-            <td>Name</td>
+            <td width="3%">id</td>
+            <td width="8%">Name</td>
             <td>Message</td>
-            <td>Reminder</td>
+            <td width="18%">Reminder</td>
         </tr>
     </thead>
     <tbody>

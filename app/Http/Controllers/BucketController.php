@@ -51,8 +51,9 @@ class BucketController extends Controller
                 $attachments = [];
                 for($i=0;$i<=$input['attachment-count'];$i++){
                     if ($input->file('attachment-'+$i)->isValid()) {
-                        ($input->file('attachment-'+$i)->move($destinationPath);
+                        $file = $input->file('attachment-'+$i);
                         Storage::disk('local')->put($file->getFilename().'.'.$extension,  File::get($file));
+
                     }
                     
                 }
@@ -116,6 +117,36 @@ class BucketController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $bucket = Bucket::findOrFail($id);
+        $bucket->delete();
+        return Redirect::to('/bucket');
+    }
+
+    /**
+     * handle sms commands from bulk sms.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function smscommand(Request $request)
+    {
+        $input = $request->all();
+        $recipient = $input['sender'];
+        $message = $input['message'];
+        if (strpos($message, 'delete') !== false || strpos($message, 'Delete') !== false || strpos($message, 'DELETE') !== false) {
+            //user would like to delete bucket/s
+            $parts = explode(" ", $parts);
+            $deleted = '';
+            for ($i=1; $i <= (count($parts)-1); $i++) { 
+                $bucket = Bucket::where('id',$i)->get()->first();
+                if($bucket!==null && $bucket->user->cell==$input['sender']){
+                    //$bucket->delete();
+                    $deleted .= ' '+$i;
+                }
+            }
+            return (new Response('success '.$deleted, 200));
+        }else{
+           return (new Response('fail', 200));
+        }
     }
 }
