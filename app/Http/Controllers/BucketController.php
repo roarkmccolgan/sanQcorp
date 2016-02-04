@@ -142,6 +142,8 @@ class BucketController extends Controller
                 if($bucket!==null && $bucket->user->cell==$input['sender']){
                     //$bucket->delete();
                     $deleted .= ' '+$i;
+                }else{
+                    $deleted = json_encode($bucket);
                 }
             }
             return (new Response('success '.$deleted, 200));
