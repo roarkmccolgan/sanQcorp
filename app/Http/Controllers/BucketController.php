@@ -135,7 +135,7 @@ class BucketController extends Controller
         $message = $input['message'];
         if (strpos($message, 'delete') !== false || strpos($message, 'Delete') !== false || strpos($message, 'DELETE') !== false) {
             //user would like to delete bucket/s
-            $parts = explode(" ", $parts);
+            $parts = explode(" ", $message);
             $deleted = '';
             for ($i=1; $i <= (count($parts)-1); $i++) { 
                 $bucket = Bucket::where('id',$i)->get()->first();
