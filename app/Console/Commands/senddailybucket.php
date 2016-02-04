@@ -42,13 +42,11 @@ class senddailybucket extends Command
         $users = User::has('buckets')->get();
         $messages = [];
         foreach ($users as $user) {
-            if($user->username=='roark'){            
-                $message = "Your Bucket List\n";
-                foreach ($user->buckets as $bucket) {
-                    $message.=$bucket->message."\n";
-                }
-                $messages[] = new \anlutro\BulkSms\Message($user->cell, rtrim($message));
+            $message = "Your Bucket List\n";
+            foreach ($user->buckets as $bucket) {
+                $message.=$bucket->message."\n";
             }
+            $messages[] = new \anlutro\BulkSms\Message($user->cell, rtrim($message));
         }
         $bulkResponse = $bulkSms->sendBulkMessages($messages);
         $this->info('SMS\'s Sent.');
