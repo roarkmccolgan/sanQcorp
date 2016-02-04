@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         // Commands\Inspire::class,
-        //Commands\senddailybucket::class,
+        Commands\senddailybucket::class,
     ];
 
     /**

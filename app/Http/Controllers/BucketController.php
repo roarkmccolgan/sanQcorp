@@ -47,6 +47,16 @@ class BucketController extends Controller
         $user = User::where('username',$name[0])->get()->first();
         //Return $input['sender']." ".$input['subject'];
         if($user !== null){
+            /*if($input['attachment-count']>0){
+                $attachments = [];
+                for($i=0;$i<=$input['attachment-count'];$i++){
+                    if ($input->file('attachment-'+$i)->isValid()) {
+                        ($input->file('attachment-'+$i)->move($destinationPath);
+                        Storage::disk('local')->put($file->getFilename().'.'.$extension,  File::get($file));
+                    }
+                    
+                }
+            }*/
             Bucket::create([
                 'username'=>$name[0],
                 'fromEmail'=>$input['sender'],

@@ -16,7 +16,7 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <td>Added</td>
+            <td>id</td>
             <td>Name</td>
             <td>Message</td>
             <td>Reminder</td>
@@ -25,7 +25,7 @@
     <tbody>
     @foreach($buckets as $bucket)
         <tr>
-            <td></td>
+            <td>{{$bucket->id}}</td>
             <td>
                 <strong>{{$bucket->username}}</strong>
             </td>
