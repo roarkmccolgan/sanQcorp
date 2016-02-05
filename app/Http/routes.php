@@ -26,7 +26,7 @@ Route::get('/testsms', function(){
 	// return($sms->sendText('27712871097','27877460123','dude, this is from a laravel package'));
 
 	$bulkSms = new anlutro\BulkSms\BulkSmsService('roark', 's4n1k@WP', 'https://bulksms.2way.co.za');
-	return($bulkSms->sendMessage('+27712871097', 'Hello there!'));
+	return($bulkSms->sendMessage('+27712871097', 'A free character counter tool provides instant character count statistics for a given text. The tool reports the number of character with spaces and without spaces, also the number of words and sentences. Character Count Tool monitors and reports the character counts of the text that you type in real time. Thus it is h'));
 });
 
 /*

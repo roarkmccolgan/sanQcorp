@@ -38,20 +38,20 @@ class senddailybucket extends Command
      */
     public function handle()
     {
-        $bulkSms = new \anlutro\BulkSms\BulkSmsService(config('bulksms.username'), config('bulksms.password'), config('bulksms.baseurl'));
+        
         $users = User::has('buckets')->get();
-        $messages = [];
+        $responses = [];
         foreach ($users as $user) {
             //if($user->username=='roark'){
                 $message = "Your Bucket List\n";
                 foreach ($user->buckets as $bucket) {
                     $message.=$bucket->id.": ".$bucket->message."\n";
                 }
-                $messages[] = new \anlutro\BulkSms\Message($user->cell, rtrim($message));
+                $bulkSms = new anlutro\BulkSms\BulkSmsService('roark', 's4n1k@WP', 'https://bulksms.2way.co.za');
+                $responses[] = $bulkSms->sendMessage($user->cell, rtrim($message));
             //}
         }
-        $bulkResponse = $bulkSms->sendBulkMessages($messages);
         $this->info('SMS\'s Sent.');
-        $this->info('Bulk SMS batch id: '.$bulkResponse['batch_id']);
+        $this->info('Bulk SMS responses: '.json_encode($responses[]));
     }
 }
