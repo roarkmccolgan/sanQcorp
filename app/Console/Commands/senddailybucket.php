@@ -52,6 +52,6 @@ class senddailybucket extends Command
             //}
         }
         $this->info('SMS\'s Sent.');
-        $this->info('Bulk SMS responses: '.json_encode($responses[]));
+        $this->info('Bulk SMS responses: '.json_encode($responses));
     }
 }
