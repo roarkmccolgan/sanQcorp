@@ -47,7 +47,7 @@ class senddailybucket extends Command
                 foreach ($user->buckets as $bucket) {
                     $message.=$bucket->id.": ".$bucket->message."\n";
                 }
-                $bulkSms = new anlutro\BulkSms\BulkSmsService('roark', 's4n1k@WP', 'https://bulksms.2way.co.za');
+                $bulkSms = new \anlutro\BulkSms\BulkSmsService('roark', 's4n1k@WP', 'https://bulksms.2way.co.za');
                 $responses[] = $bulkSms->sendMessage($user->cell, rtrim($message));
             //}
         }
