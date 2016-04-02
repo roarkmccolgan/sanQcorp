@@ -11,10 +11,9 @@
 |
 */
 use App\User;
+use App\Contacts;
+use Illuminate\Http\Request;
 
-Route::get('/', function () {
-    return view('welcome');
-});
 Route::resource('bucket', 'BucketController', ['only' => [
     'index', 'store', 'edit'
 ]]);
@@ -41,5 +40,26 @@ Route::get('/testsms', function(){
 */
 
 Route::group(['middleware' => ['web']], function () {
-    //
+    Route::auth();
+    Route::get('/', 'HomeController@index');
+
+    Route::group(['prefix' => 'jobs'], function(){
+        Route::get('/', ['uses' => 'JobController@showJobs']);
+        Route::get('/newjob', ['uses' => 'JobController@createJob']);
+    	Route::post('/newjob', ['uses' => 'JobController@saveJob']);
+    });
+
+    //API ROUTES
+    Route::group(['prefix'=>'api'],function(){
+
+        //Get Contacts
+        Route::get('contacts', function(Request $request)
+        {
+            $name = $request->input('name');
+            $contacts = Contacts::where('first_name', 'LIKE', '%'.$name.'%')->with('company')->get();
+            return $contacts;
+        });
+
+    });
+
 });

@@ -155,7 +155,8 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        anlutro\BulkSms\Laravel\BulkSmsServiceProvider::class
+        anlutro\BulkSms\Laravel\BulkSmsServiceProvider::class,
+        Laravelista\Ekko\EkkoServiceProvider::class
 
     ],
 
@@ -202,7 +203,8 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
-        'BulkSms'   => anlutro\BulkSms\Laravel\BulkSms::class
+        'BulkSms'   => anlutro\BulkSms\Laravel\BulkSms::class,
+        'Ekko'      => Laravelista\Ekko\Facades\Ekko::class,
 
     ],
 

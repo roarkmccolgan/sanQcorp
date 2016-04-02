@@ -14,7 +14,7 @@ class AddColumnsToBucketsTable extends Migration
     {
         Schema::table('buckets', function ($table) {
             $table->longText('body')->nullable();
-            $table->json('attachments')->nullable();
+            $table->text('attachments')->nullable();
         });
     }
 

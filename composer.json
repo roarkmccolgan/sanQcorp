@@ -8,7 +8,8 @@
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
         "aws/aws-sdk-php": "~3.0",
-        "anlutro/bulk-sms": "2.*"
+        "anlutro/bulk-sms": "2.*",
+        "laravelista/ekko": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -1,19 +1,17 @@
-@extends('_layout.default')
-
-@section('pagetitle', 'sanQCorp')
-
-@section('head')
-@parent
-<meta name="description" content="">
-@stop
-
-
-@section('header')
-<header id="intro">
-    <h1>Welcome to sanQcorp</h1>
-</header>
-@stop
+@extends('layouts.app')
 
 @section('content')
-content
-@stop
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading">Welcome</div>
+
+                <div class="panel-body">
+                    Your Application's Landing Page.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

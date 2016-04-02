@@ -32,7 +32,7 @@ class Bucket extends Model
     }
 
     /**
-    * Get the post that owns the comment.
+    * Get the user that owns the Bucket.
     */
     public function user()
     {
