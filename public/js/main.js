@@ -11774,6 +11774,31 @@ exports.insert = function (css) {
 }
 
 },{}],32:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = {
+    props: ['contact'],
+    ready: function ready() {
+        jQuery(':checkbox').radiocheck();
+    }
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"col-md-3\">\n    <div class=\"tile\">\n        <label class=\"checkbox\">\n            <input type=\"checkbox\" name=\"contact[]\" value=\"{{ contact.id }}\"> {{ contact.first_name+' '+contact.last_name }}\n        </label>\n    </div>\n</div>\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  var id = "/Users/roark/Code/sanqcorp/resources/assets/js/components/CompanyContacts.vue"
+  if (!module.hot.data) {
+    hotAPI.createRecord(id, module.exports)
+  } else {
+    hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"vue":30,"vue-hot-reload-api":5}],33:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11783,11 +11808,123 @@ exports.default = {
 	data: function data() {
 		return {
 			vModelLike: "",
-			data: {}
+			vModelPrivateLike: "",
+			is_estate: '',
+			selected_company: '',
+			new_contacts: [{ message: 'Foo' }],
+			contacts: [],
+			address: '',
+			suburb: '',
+			city: '',
+			estate: '',
+			estate_address: '',
+			estate_suburb: '',
+			estate_city: '',
+			distance: '',
+			distance_problem: false
 		};
+	},
+	components: {
+		VueAutocomplete: require('./vue-autocomplete.vue'),
+		CompanyContacts: require('./CompanyContacts.vue')
 	},
 	created: function created() {
 		console.log('HomeView Component Loaded');
+	},
+
+	methods: {
+		addContact: function addContact() {
+			this.new_contacts.push({ message: 'Baz' });
+		},
+		removeContact: function removeContact(contact) {
+			console.log(contact);
+			this.new_contacts.$remove(contact);
+		},
+		getDistance: function getDistance() {
+			var vueinst = this;
+			var dest1 = !this.is_estate ? this.address : this.estate;
+			var dest2 = !this.is_estate ? this.suburb : this.estate_address;
+			var dest3 = !this.is_estate ? this.city : this.estate_suburb;
+			var dest4 = !this.is_estate ? '' : this.estate_city;
+
+			if (dest1 != '' && this.dest2 != '' && this.dest3 != '') {
+				var destination = dest1 + '+' + dest2 + '+' + dest3;
+				if (dest4 != '') destination += '+' + dest4;
+
+				destination = destination.replace(/ /g, "+");
+
+				var distanceService = new google.maps.DistanceMatrixService();
+				distanceService.getDistanceMatrix({
+					origins: ['24+Davidson+Street+Rynfield+Benoni'],
+					destinations: [destination],
+					travelMode: google.maps.TravelMode.DRIVING,
+					unitSystem: google.maps.UnitSystem.METRIC,
+					durationInTraffic: true,
+					avoidHighways: false,
+					avoidTolls: false
+				}, function (response, status) {
+					if (status !== google.maps.DistanceMatrixStatus.OK) {
+						console.log('Error:', status);
+					} else {
+						var status = response.rows[0].elements[0].status;
+						if (status != 'NOT_FOUND' && status != 'ZERO_RESULTS') {
+							vueinst.distance = response.rows[0].elements[0].distance.text;
+							vueinst.distance_problem = false;
+						} else {
+							vueinst.distance_problem = true;
+							vueinst.distance = '';
+						}
+					}
+				});
+			}
+			/*if(this.address!='' && this.suburb!='' && this.city!='') {
+   	var destination = this.address+'+'+this.suburb+'+'+this.city;
+   	if(this.post_code!='') address+='+'+this.post_code;
+   	console.log(destination);
+   	destination = destination.replace(/ /g,"+");
+   		console.log(destination);
+   	console.log('https://maps.googleapis.com/maps/api/distancematrix/json?origins=24+Davidson+Street+Rynfield+Benoni&destinations='+destination+'&key=AIzaSyCgLR143qOquM7hvx202r_NLklslqdSNMI');
+   	this.$http.jsonp('https://maps.googleapis.com/maps/api/distancematrix/json?origins=24+Davidson+Street+Rynfield+Benoni&destinations='+destination+'&key=AIzaSyCgLR143qOquM7hvx202r_NLklslqdSNMI',{
+   		jsonp: 'callback'
+   	}).then(function (response) {
+   			// set data on vm
+   		//this.$set('someData', response.data)
+   		console.log(response.data);
+   		}, function (response) {
+   		// error callback
+   	});
+   }else{
+   	console.log('Need more address');
+   }*/
+		}
+	},
+	events: {
+		// Autocomplete on selected
+		'autocomplete-company_name:selected': function autocompleteCompany_nameSelected(data) {
+			console.log('selected', data);
+			if (data.name !== 'Private') {
+				this.selected_company = data.id;
+				this.contacts = data.contacts;
+				this.new_contacts = [];
+			} else {
+				this.selected_company = 'private';
+				console.log('Private Company');
+			}
+		},
+		'autocomplete-contact[]:selected': function autocompleteContactSelected(data) {
+			console.log('selected', data);
+			this.new_contacts = [];
+			this.contacts.push(data);
+			this.vModelPrivateLike = "";
+
+			/*if(data.name!=='Private'){
+   	this.selected_company = data.id;
+   	this.contacts = data.contacts;
+   	this.new_contacts = [];
+   }else{
+   	console.log('Private Company');
+   }*/
+		}
 	}
 };
 if (module.exports.__esModule) module.exports = module.exports.default
@@ -11795,15 +11932,15 @@ if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
-  var id = "/Users/roark/Code/sanqcorp/resources/assets/js/components/HomeView.vue"
+  var id = "/Users/roark/Code/sanqcorp/resources/assets/js/components/NewJobView.vue"
   if (!module.hot.data) {
     hotAPI.createRecord(id, module.exports)
   } else {
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":30,"vue-hot-reload-api":5}],33:[function(require,module,exports){
-var __vueify_style__ = require("vueify-insert-css").insert("\n.transition, .autocomplete, .showAll-transition, .autocomplete ul, .autocomplete ul li a{\n\ttransition:all 0.3s ease-out;\n\t-moz-transition:all 0.3s ease-out;\n\t-webkit-transition:all 0.3s ease-out;\n\t-o-transition:all 0.3s ease-out;\n}\n\n.autocomplete ul{\n\tposition: absolute;\n\tz-index: 1;\n}\n\n.autocomplete ul:before{\n\tcontent: \"\";\n\tdisplay: block;\n\tposition: absolute;\n\theight: 0;\n\twidth: 0;\n\tborder: 10px solid transparent;\n\tborder-bottom: 10px solid #f8f8f8;\n\tleft: 46%;\n\ttop: -20px\n}\n\n.autocomplete ul li a{\n\ttext-decoration: none;\n\tdisplay: block;\n\tbackground: #f8f8f8;\n\tcolor: #2b2b2b;\n\tpadding: 5px;\n\tpadding-left: 10px;\n}\n\n.autocomplete ul li a:hover, .autocomplete ul li.focus-list a{\n\tcolor: white;\n\tbackground: #2F9AF7;\n}\n\n.autocomplete ul li a span{\n\tdisplay: block;\n\tmargin-top: 3px;\n\tcolor: grey;\n\tfont-size: 13px;\n}\n\n.autocomplete ul li a:hover span, .autocomplete ul li.focus-list a span{\n\tcolor: white;\n}\n\n.showAll-transition{\n\topacity: 1;\n\theight: 50px;\n\toverflow: hidden;\n}\n\n.showAll-enter{\n\topacity: 0.3;\n\theight: 0;\n}\n\n.showAll-leave{\n\tdisplay: none;\n}\n\n")
+},{"./CompanyContacts.vue":32,"./vue-autocomplete.vue":34,"vue":30,"vue-hot-reload-api":5}],34:[function(require,module,exports){
+var __vueify_style__ = require("vueify-insert-css").insert("\n.transition, .autocomplete, .showAll-transition, .autocomplete ul, .autocomplete ul li a{\n\ttransition:all 0.3s ease-out;\n\t-moz-transition:all 0.3s ease-out;\n\t-webkit-transition:all 0.3s ease-out;\n\t-o-transition:all 0.3s ease-out;\n}\n\n.autocomplete ul{\n\tposition: absolute;\n\tz-index: 1;\n\tpadding-top: 15px;\n}\n\n.autocomplete ul:before{\n\tcontent: \"\";\n\tdisplay: block;\n\tposition: absolute;\n\theight: 0;\n\twidth: 0;\n\tborder: 10px solid transparent;\n\tborder-bottom: 10px solid #bdc3c7;\n\tleft: 46%;\n\ttop: -5px\n}\n\n.autocomplete ul li a{\n\ttext-decoration: none;\n\tdisplay: block;\n\tbackground: #f8f8f8;\n\tcolor: #2b2b2b;\n\tpadding: 5px;\n\tpadding-left: 10px;\n}\n\n.autocomplete ul li a:hover, .autocomplete ul li.focus-list a{\n\tcolor: white;\n\tbackground: #2F9AF7;\n}\n\n.autocomplete ul li a span{\n\tdisplay: block;\n\tmargin-top: 3px;\n\tcolor: grey;\n\tfont-size: 13px;\n}\n\n.autocomplete ul li a:hover span, .autocomplete ul li.focus-list a span{\n\tcolor: white;\n}\n\n.showAll-transition{\n\topacity: 1;\n\theight: 50px;\n\toverflow: hidden;\n}\n\n.showAll-enter{\n\topacity: 0.3;\n\theight: 0;\n}\n\n.showAll-leave{\n\tdisplay: none;\n}\n\n")
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -12041,14 +12178,14 @@ exports.default = {
 	}
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<input type=\"text\" :id=\"id\" :class=\"class\" :name=\"name\" :placeholder=\"placeholder\" v-model=\"type\" @input=\"input(type)\" @dblclick=\"showAll\" @blur=\"hideAll\" @keydown=\"keydown\" @focus=\"focus\">\n\n<div class=\"autocomplete transition autocomplete-{{ name }}\" id=\"autocomplete-{{ name }}\" v-show=\"showList\">\n\t<ul class=\"list-group\">\n\t\t<li class=\"list-group-item\" v-for=\"data in json\" transition=\"showAll\" :class=\"activeClass($index)\">\n\n\t\t\t<a href=\"#\" @click.prevent=\"$emit('selectList',data)\" @mousemove=\"mousemove($index)\">\n\t\t\t\t<b>{{ data[anchor] }}</b>\n\t\t\t\t<span>{{ data[label] }}</span>\n\t\t\t</a>\n\n\t\t</li>\n\t</ul>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<input autocomplete=\"off\" type=\"text\" :id=\"id\" :class=\"class\" :name=\"name\" :placeholder=\"placeholder\" v-model=\"type\" @input=\"input(type)\" @dblclick=\"showAll\" @blur=\"hideAll\" @keydown=\"keydown\" @focus=\"focus\">\n\n<div class=\"autocomplete transition autocomplete-{{ name }}\" id=\"autocomplete-{{ name }}\" v-show=\"showList\">\n\t<ul class=\"list-group\">\n\t\t<a href=\"#\" @click.prevent=\"$emit('selectList',data)\" @mousemove=\"mousemove($index)\" class=\"list-group-item\" v-for=\"data in json\" transition=\"showAll\" :class=\"activeClass($index)\">\n\t\t\t<b>{{ data[anchor] }}</b>\n\t\t\t<span>{{ data[label] }}</span>\n\n\t\t</a>\n\t</ul>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   var id = "/Users/roark/Code/sanqcorp/resources/assets/js/components/vue-autocomplete.vue"
   module.hot.dispose(function () {
-    require("vueify-insert-css").cache["\n.transition, .autocomplete, .showAll-transition, .autocomplete ul, .autocomplete ul li a{\n\ttransition:all 0.3s ease-out;\n\t-moz-transition:all 0.3s ease-out;\n\t-webkit-transition:all 0.3s ease-out;\n\t-o-transition:all 0.3s ease-out;\n}\n\n.autocomplete ul{\n\tposition: absolute;\n\tz-index: 1;\n}\n\n.autocomplete ul:before{\n\tcontent: \"\";\n\tdisplay: block;\n\tposition: absolute;\n\theight: 0;\n\twidth: 0;\n\tborder: 10px solid transparent;\n\tborder-bottom: 10px solid #f8f8f8;\n\tleft: 46%;\n\ttop: -20px\n}\n\n.autocomplete ul li a{\n\ttext-decoration: none;\n\tdisplay: block;\n\tbackground: #f8f8f8;\n\tcolor: #2b2b2b;\n\tpadding: 5px;\n\tpadding-left: 10px;\n}\n\n.autocomplete ul li a:hover, .autocomplete ul li.focus-list a{\n\tcolor: white;\n\tbackground: #2F9AF7;\n}\n\n.autocomplete ul li a span{\n\tdisplay: block;\n\tmargin-top: 3px;\n\tcolor: grey;\n\tfont-size: 13px;\n}\n\n.autocomplete ul li a:hover span, .autocomplete ul li.focus-list a span{\n\tcolor: white;\n}\n\n.showAll-transition{\n\topacity: 1;\n\theight: 50px;\n\toverflow: hidden;\n}\n\n.showAll-enter{\n\topacity: 0.3;\n\theight: 0;\n}\n\n.showAll-leave{\n\tdisplay: none;\n}\n\n"] = false
+    require("vueify-insert-css").cache["\n.transition, .autocomplete, .showAll-transition, .autocomplete ul, .autocomplete ul li a{\n\ttransition:all 0.3s ease-out;\n\t-moz-transition:all 0.3s ease-out;\n\t-webkit-transition:all 0.3s ease-out;\n\t-o-transition:all 0.3s ease-out;\n}\n\n.autocomplete ul{\n\tposition: absolute;\n\tz-index: 1;\n\tpadding-top: 15px;\n}\n\n.autocomplete ul:before{\n\tcontent: \"\";\n\tdisplay: block;\n\tposition: absolute;\n\theight: 0;\n\twidth: 0;\n\tborder: 10px solid transparent;\n\tborder-bottom: 10px solid #bdc3c7;\n\tleft: 46%;\n\ttop: -5px\n}\n\n.autocomplete ul li a{\n\ttext-decoration: none;\n\tdisplay: block;\n\tbackground: #f8f8f8;\n\tcolor: #2b2b2b;\n\tpadding: 5px;\n\tpadding-left: 10px;\n}\n\n.autocomplete ul li a:hover, .autocomplete ul li.focus-list a{\n\tcolor: white;\n\tbackground: #2F9AF7;\n}\n\n.autocomplete ul li a span{\n\tdisplay: block;\n\tmargin-top: 3px;\n\tcolor: grey;\n\tfont-size: 13px;\n}\n\n.autocomplete ul li a:hover span, .autocomplete ul li.focus-list a span{\n\tcolor: white;\n}\n\n.showAll-transition{\n\topacity: 1;\n\theight: 50px;\n\toverflow: hidden;\n}\n\n.showAll-enter{\n\topacity: 0.3;\n\theight: 0;\n}\n\n.showAll-leave{\n\tdisplay: none;\n}\n\n"] = false
     document.head.removeChild(__vueify_style__)
   })
   if (!module.hot.data) {
@@ -12057,22 +12194,22 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":30,"vue-hot-reload-api":5,"vueify-insert-css":31}],34:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":30,"vue-hot-reload-api":5,"vueify-insert-css":31}],35:[function(require,module,exports){
 'use strict';
 
 var _vueAutocomplete = require('./components/vue-autocomplete.vue');
 
 var _vueAutocomplete2 = _interopRequireDefault(_vueAutocomplete);
 
-var _HomeView = require('./components/HomeView.vue');
+var _NewJobView = require('./components/NewJobView.vue');
 
-var _HomeView2 = _interopRequireDefault(_HomeView);
+var _NewJobView2 = _interopRequireDefault(_NewJobView);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Vue = require('vue');
 Vue.use(require('vue-resource'));
-
+//Vue.config.debug = true;
 //import Greeter from './components/Greeter.vue';
 
 Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('value');
@@ -12083,8 +12220,7 @@ new Vue({
 
     components: {
         // Greeter,
-        HomeView: _HomeView2.default,
-        VueAutocomplete: _vueAutocomplete2.default
+        NewJobView: _NewJobView2.default
     },
 
     ready: function ready() {
@@ -12106,6 +12242,6 @@ new Vue({
 	}
 })*/
 
-},{"./components/HomeView.vue":32,"./components/vue-autocomplete.vue":33,"vue":30,"vue-resource":19}]},{},[34]);
+},{"./components/NewJobView.vue":33,"./components/vue-autocomplete.vue":34,"vue":30,"vue-resource":19}]},{},[35]);
 
 //# sourceMappingURL=main.js.map

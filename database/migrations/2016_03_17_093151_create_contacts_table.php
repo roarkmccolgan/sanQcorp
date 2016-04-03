@@ -29,7 +29,7 @@ class CreateContactsTable extends Migration
             $table->timestamps();
             $table->SoftDeletes();
 
-            $table->foreign('company_id')->references('id')->on('company');
+            $table->foreign('company_id')->references('id')->on('company')->onDelete('cascade');
         });
     }
 

@@ -18,23 +18,21 @@ class CreateJobsTable extends Migration
 
             $table->string('order_number')->unique();
             $table->string('name');
-            $table->decimal('value', 15, 2);
+            $table->decimal('value', 15, 2)->nullable();
             $table->integer('distance');
 
             $table->boolean('accepted')->default(0);
             $table->string('status');
-            $table->timestamp('start_date');
-            $table->timestamp('end_date');
+            $table->timestamp('start_date')->nullable;
+            $table->timestamp('end_date')->nullable;
 
             $table->string('estate')->nullable();
-            $table->string('estate_number')->nullable();
-            $table->string('estate_street')->nullable();
+            $table->string('estate_address')->nullable();
+            $table->string('estate_suburb')->nullable();
 
-            $table->string('street_number');
-            $table->string('street');
+            $table->string('address');
             $table->string('suburb')->nullable();
             $table->string('city')->nullable();
-            $table->integer('post_code')->nullable();
             $table->string('country')->nullable();
             $table->timestamps();
             $table->softDeletes();

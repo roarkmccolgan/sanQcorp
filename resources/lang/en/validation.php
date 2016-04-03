@@ -89,8 +89,17 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'new_contact.*.first_name' => [
+            'required_without' => 'At least 1 contact is required and it must have a first name',
+        ],
+        'new_contact.*.last_name' => [
+            'required_without' => 'At least 1 contact is required and it must have a last name',
+        ],
+        'new_contact.*.email' => [
+            'required_without' => 'At least 1 contact is required and it must have an email address',
+        ],
+        'new_contact.*.contact1' => [
+            'required_without' => 'At least 1 contact is required and it must have at least 1 contact number',
         ],
     ],
 

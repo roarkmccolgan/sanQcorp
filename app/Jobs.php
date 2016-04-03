@@ -9,6 +9,20 @@ class Jobs extends Model
 {
     use SoftDeletes;
 
+    protected $fillable = [
+        'order_number',
+        'name',
+        'distance',
+        'status',
+        'estate',
+        'estate_address',
+        'estate_suburb',
+        'address',
+        'suburb',
+        'city',
+        'country'
+    ];
+
     public function barcode()
     {
         return $this->morphOne('App\Barcodes', 'barcodable');
@@ -19,7 +33,7 @@ class Jobs extends Model
      */
     public function contacts()
     {
-        return $this->belongToMany('App\Contacts');
+        return $this->belongsToMany('App\Contacts');
     }
 
 
@@ -38,4 +52,5 @@ class Jobs extends Model
     {
         return $this->hasMany('App\Log');
     }
+
 }

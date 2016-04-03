@@ -32,6 +32,6 @@ class Company extends Model
      */
     public function contacts()
     {
-        return $this->hasMany('App\Contact');
+        return $this->hasMany('App\Contacts');
     }
 }

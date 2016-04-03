@@ -1,3 +1,12 @@
 h4.page-title{
 	margin-top: 0;
 }
+.tile.form{
+	text-align: left;
+}
+.checkbox, .radio{
+	text-align: left;
+}
+.checkbox input[type=checkbox].custom-checkbox, .radio input[type=checkbox].custom-checkbox, .checkbox input[type=radio].custom-radio, .radio input[type=radio].custom-radio{
+	z-index: 2
+}

@@ -9,6 +9,7 @@
 	.autocomplete ul{
 		position: absolute;
 		z-index: 1;
+		padding-top: 15px;
 	}
 
 	.autocomplete ul:before{
@@ -18,9 +19,9 @@
 		height: 0;
 		width: 0;
 		border: 10px solid transparent;
-		border-bottom: 10px solid #f8f8f8;
+		border-bottom: 10px solid #bdc3c7;
 		left: 46%;
-		top: -20px
+		top: -5px
 	}
 
 	.autocomplete ul li a{
@@ -66,7 +67,7 @@
 </style>
 
 <template>
-	<input 	type="text"
+	<input autocomplete="off" type="text"
 					:id="id"
 					:class="class"
 					:name="name"
@@ -80,18 +81,18 @@
 
 	<div class="autocomplete transition autocomplete-{{ name }}" id="autocomplete-{{ name }}" v-show="showList">
 		<ul class="list-group">
-			<li class="list-group-item" v-for="data in json"
-					transition="showAll"
-					:class="activeClass($index)">
+			<a  href="#"
+				@click.prevent="$emit('selectList',data)"
+				@mousemove="mousemove($index)"
+				class="list-group-item"
+				v-for="data in json"
+				transition="showAll"
+				:class="activeClass($index)"
+			>
+				<b>{{ data[anchor] }}</b>
+				<span>{{ data[label] }}</span>
 
-				<a 	href="#"
-						@click.prevent="$emit('selectList',data)"
-						@mousemove="mousemove($index)">
-					<b>{{ data[anchor] }}</b>
-					<span>{{ data[label] }}</span>
-				</a>
-
-			</li>
+			</a>
 		</ul>
 	</div>
 </template>

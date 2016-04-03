@@ -19,20 +19,30 @@
                 <td width="12%">Order Number</td>
                 <td width="20%">Client</td>
                 <td>Name</td>
-                <td width="10%" class="text-right">Status</td>
+                <td width="10%" class="text-center">Status</td>
+                <td width="10%" class="text-center">Action</td>
             </tr>
         </thead>
         <tbody>
-        @foreach($jobs as $job)
-            <tr>
-                <td>{{$job->id}}</td>
-                <td>
-                    <strong>{{$job->username}}</strong>
-                </td>
-                <td>{{$job->message}}</td>
-                <td>{{$job->calendar}}</td>
-            </tr>
-        @endforeach
+        @if(!$jobs->isEmpty())
+            @foreach($jobs as $job)
+                <tr>
+                    <td>{{$job->order_number}}</td>
+                    <td>{{$job->contacts[0]->company->name}}</td>
+                    <td>
+                        <strong>{{$job->name}}</strong>
+                    </td>
+                    <td class="text-center"><span class="label {{$job->status=='build'?'label-default':'label-primary'}}">{{$job->status}}</span></td>
+                    <td class="text-center">
+                        <div class="btn-group">
+                            <a class="btn btn-xs btn-embossed btn-inverse" ><i class="fui-list"></i></a>
+                            <a class="btn btn-xs btn-embossed btn-default" ><i class="fui-new"></i></a>
+                            <a class="btn btn-xs btn-embossed btn-danger" ><i class="fui-cross"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            @endforeach
+        @endif
         </tbody>
     </table>
 @stop

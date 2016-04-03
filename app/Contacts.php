@@ -11,6 +11,7 @@ class Contacts extends Model
     //use SoftDeletes;
 
     protected $fillable = [
+        'company_id',
     	'first_name',
         'last_name',
         'job_title',

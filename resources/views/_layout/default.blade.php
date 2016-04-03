@@ -76,7 +76,7 @@
 	        </div>
 	    </nav>
 	    @if(isset($vueView))
-		<component is="{{$vueView}}">
+		<component is="{{$vueView}}" inline-template>
 		@endif
 			<div class="container">
 				@yield('header')

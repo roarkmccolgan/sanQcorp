@@ -11,6 +11,7 @@
 |
 */
 use App\User;
+use App\Company;
 use App\Contacts;
 use Illuminate\Http\Request;
 
@@ -52,12 +53,47 @@ Route::group(['middleware' => ['web']], function () {
     //API ROUTES
     Route::group(['prefix'=>'api'],function(){
 
-        //Get Contacts
-        Route::get('contacts', function(Request $request)
+        //Get Companys
+        Route::get('company', function(Request $request)
         {
             $name = $request->input('name');
-            $contacts = Contacts::where('first_name', 'LIKE', '%'.$name.'%')->with('company')->get();
-            return $contacts;
+            $company = Company::where('name', 'LIKE', '%'.$name.'%')->with('contacts')->get();
+            return $company;
+        });
+
+        //Get Contacts
+        Route::get('privatecontacts', function(Request $request)
+        {
+            $name = $request->input('name');
+            $contacts = Contacts::where('first_name', 'LIKE', '%'.$name.'%')
+                                ->orWhere(function($query) use( &$name)
+                                {
+                                    $query->where('last_name', 'LIKE', '%'.$name.'%');
+                                })
+                                ->with('company')
+                                ->get();
+            $contacts_new = [];
+            foreach ($contacts as $contact) {
+                if($contact->company->name=='Private'){
+                    $contacts_new[] =[
+                        'id'=>$contact->id,
+                        'name'=>$contact->first_name." ".$contact->last_name,
+                        'description'=>$contact->company->name,
+                        'first_name'=>$contact->first_name,
+                        'last_name'=>$contact->last_name,
+                        'job_title'=>$contact->job_title,
+                        'department'=>$contact->department,
+                        'send_invoice'=>$contact->send_invoice,
+                        'region'=>$contact->region,
+                        'country'=>$contact->country,
+                        'contact1'=>$contact->contact1,
+                        'contact2'=>$contact->contact2,
+                        'contact3'=>$contact->contact3,
+                        'email'=>$contact->email,
+                    ];
+                }
+            }
+            return $contacts_new;
         });
 
     });
