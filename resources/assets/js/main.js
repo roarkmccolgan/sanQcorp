@@ -2,9 +2,9 @@ var Vue = require('vue');
 Vue.use(require('vue-resource'));
 //Vue.config.debug = true;
 //import Greeter from './components/Greeter.vue';
-
 import VueAutocomplete from './components/vue-autocomplete.vue';
 import NewJobView from './components/NewJobView.vue';
+import JobBuildView from './components/JobBuildView.vue';
 
 Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('value');
 //Vue.transition('showAll',{});
@@ -14,7 +14,8 @@ new Vue({
 
     components: {
     	// Greeter,
-    	NewJobView
+    	NewJobView,
+        JobBuildView
     },
 
     ready() {

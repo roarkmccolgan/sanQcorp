@@ -44,11 +44,21 @@ Route::group(['middleware' => ['web']], function () {
     Route::auth();
     Route::get('/', 'HomeController@index');
 
+    //jobs
+    Route::bind('job', function ($value) {
+        return App\Jobs::with('contacts.company','section.tasks')->findOrFail($value);
+    });
     Route::group(['prefix' => 'jobs'], function(){
         Route::get('/', ['uses' => 'JobController@showJobs']);
-        Route::get('/newjob', ['uses' => 'JobController@createJob']);
-    	Route::post('/newjob', ['uses' => 'JobController@saveJob']);
+        Route::get('/new', ['uses' => 'JobController@createJob']);
+        Route::post('/', ['uses' => 'JobController@saveJob']);
+        Route::get('/{id}/edit', ['uses' => 'JobController@editJob']);
+        Route::post('/{id}', ['uses' => 'JobController@updateJob']);
+        Route::get('/{job}/build', ['uses' => 'JobController@showBuildJob']);
+    	Route::post('/{id}/build', ['uses' => 'JobController@updateBuildJob']);
     });
+
+
 
     //API ROUTES
     Route::group(['prefix'=>'api'],function(){

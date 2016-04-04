@@ -26,4 +26,12 @@ class Materials extends Model
     {
         return $this->belongsToMany('App\System');
     }
+
+    /**
+     * @return Material Logs
+     */
+    public function logs()
+    {
+        return $this->belongsToMany('App\Log');
+    }
 }

@@ -11,7 +11,7 @@
 @section('header', '<h4 class="pull-left page-title">Job</h4>')
 
 @section('content')
-    <a href="/jobs/newjob" class="btn btn-inverse pull-right"><i class="fui-plus"></i> New Job</a>
+    <a href="/jobs/new" class="btn btn-inverse pull-right"><i class="fui-plus"></i> New Job</a>
     <div class="clearfix"></div>
     <table class="table table-striped table-bordered">
         <thead>
@@ -35,9 +35,9 @@
                     <td class="text-center"><span class="label {{$job->status=='build'?'label-default':'label-primary'}}">{{$job->status}}</span></td>
                     <td class="text-center">
                         <div class="btn-group">
-                            <a class="btn btn-xs btn-embossed btn-inverse" ><i class="fui-list"></i></a>
-                            <a class="btn btn-xs btn-embossed btn-default" ><i class="fui-new"></i></a>
-                            <a class="btn btn-xs btn-embossed btn-danger" ><i class="fui-cross"></i></a>
+                            <a href="{{ url('/jobs/'.$job->id.'/build') }}" class="btn btn-xs btn-embossed btn-inverse" data-toggle="tooltip" data-placement="bottom" title="Add Job Tasks"><i class="fui-list"></i></a>
+                            <a class="btn btn-xs btn-embossed btn-default" data-toggle="tooltip" data-placement="bottom" title="Edit Job Details"><i class="fui-new"></i></a>
+                            <a class="btn btn-xs btn-embossed btn-danger" data-toggle="tooltip" data-placement="bottom" title="Delete Job"><i class="fui-cross"></i></a>
                         </div>
                     </td>
                 </tr>

@@ -11799,6 +11799,136 @@ if (module.hot) {(function () {  module.hot.accept()
   }
 })()}
 },{"vue":30,"vue-hot-reload-api":5}],33:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = {
+	data: function data() {
+		return {
+			'sections': laravel.job.sections
+		};
+	},
+	components: {
+		VueAutocomplete: require('./vue-autocomplete.vue'),
+		JobSection: require('./JobSection.vue')
+	},
+	created: function created() {
+		console.log('NewJobBuild Component Loaded');
+	},
+
+	methods: {
+		addContact: function addContact() {
+			this.new_contacts.push({ message: 'Baz' });
+		},
+		removeContact: function removeContact(contact) {
+			console.log(contact);
+			this.new_contacts.$remove(contact);
+		},
+		getDistance: function getDistance() {
+			var vueinst = this;
+			var dest1 = !this.is_estate ? this.address : this.estate;
+			var dest2 = !this.is_estate ? this.suburb : this.estate_address;
+			var dest3 = !this.is_estate ? this.city : this.estate_suburb;
+			var dest4 = !this.is_estate ? '' : this.estate_city;
+
+			if (dest1 != '' && this.dest2 != '' && this.dest3 != '') {
+				var destination = dest1 + '+' + dest2 + '+' + dest3;
+				if (dest4 != '') destination += '+' + dest4;
+
+				destination = destination.replace(/ /g, "+");
+
+				var distanceService = new google.maps.DistanceMatrixService();
+				distanceService.getDistanceMatrix({
+					origins: ['24+Davidson+Street+Rynfield+Benoni'],
+					destinations: [destination],
+					travelMode: google.maps.TravelMode.DRIVING,
+					unitSystem: google.maps.UnitSystem.METRIC,
+					durationInTraffic: true,
+					avoidHighways: false,
+					avoidTolls: false
+				}, function (response, status) {
+					if (status !== google.maps.DistanceMatrixStatus.OK) {
+						console.log('Error:', status);
+					} else {
+						var status = response.rows[0].elements[0].status;
+						if (status != 'NOT_FOUND' && status != 'ZERO_RESULTS') {
+							vueinst.distance = response.rows[0].elements[0].distance.text;
+							vueinst.distance_problem = false;
+						} else {
+							vueinst.distance_problem = true;
+							vueinst.distance = '';
+						}
+					}
+				});
+			}
+		}
+	},
+	events: {
+		// Autocomplete on selected
+		'autocomplete-company_name:selected': function autocompleteCompany_nameSelected(data) {
+			console.log('selected', data);
+			if (data.name !== 'Private') {
+				this.selected_company = data.id;
+				this.contacts = data.contacts;
+				this.new_contacts = [];
+			} else {
+				this.selected_company = 'private';
+				console.log('Private Company');
+			}
+		},
+		'autocomplete-contact[]:selected': function autocompleteContactSelected(data) {
+			console.log('selected', data);
+			this.new_contacts = [];
+			this.contacts.push(data);
+			this.vModelPrivateLike = "";
+
+			/*if(data.name!=='Private'){
+   	this.selected_company = data.id;
+   	this.contacts = data.contacts;
+   	this.new_contacts = [];
+   }else{
+   	console.log('Private Company');
+   }*/
+		}
+	}
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  var id = "/Users/roark/Code/sanqcorp/resources/assets/js/components/JobBuildView.vue"
+  if (!module.hot.data) {
+    hotAPI.createRecord(id, module.exports)
+  } else {
+    hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"./JobSection.vue":34,"./vue-autocomplete.vue":36,"vue":30,"vue-hot-reload-api":5}],34:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = {
+    props: ['section']
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"row\">\n    <div class=\"tile\">\n        <div class=\"row\">\n            <h5>{{section.name}}</h5>\n            <p>{{section.survey}}</p>\n        </div>\n    </div>\n</div>\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  var id = "/Users/roark/Code/sanqcorp/resources/assets/js/components/JobSection.vue"
+  if (!module.hot.data) {
+    hotAPI.createRecord(id, module.exports)
+  } else {
+    hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"vue":30,"vue-hot-reload-api":5}],35:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11939,7 +12069,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"./CompanyContacts.vue":32,"./vue-autocomplete.vue":34,"vue":30,"vue-hot-reload-api":5}],34:[function(require,module,exports){
+},{"./CompanyContacts.vue":32,"./vue-autocomplete.vue":36,"vue":30,"vue-hot-reload-api":5}],36:[function(require,module,exports){
 var __vueify_style__ = require("vueify-insert-css").insert("\n.transition, .autocomplete, .showAll-transition, .autocomplete ul, .autocomplete ul li a{\n\ttransition:all 0.3s ease-out;\n\t-moz-transition:all 0.3s ease-out;\n\t-webkit-transition:all 0.3s ease-out;\n\t-o-transition:all 0.3s ease-out;\n}\n\n.autocomplete ul{\n\tposition: absolute;\n\tz-index: 1;\n\tpadding-top: 15px;\n}\n\n.autocomplete ul:before{\n\tcontent: \"\";\n\tdisplay: block;\n\tposition: absolute;\n\theight: 0;\n\twidth: 0;\n\tborder: 10px solid transparent;\n\tborder-bottom: 10px solid #bdc3c7;\n\tleft: 46%;\n\ttop: -5px\n}\n\n.autocomplete ul li a{\n\ttext-decoration: none;\n\tdisplay: block;\n\tbackground: #f8f8f8;\n\tcolor: #2b2b2b;\n\tpadding: 5px;\n\tpadding-left: 10px;\n}\n\n.autocomplete ul li a:hover, .autocomplete ul li.focus-list a{\n\tcolor: white;\n\tbackground: #2F9AF7;\n}\n\n.autocomplete ul li a span{\n\tdisplay: block;\n\tmargin-top: 3px;\n\tcolor: grey;\n\tfont-size: 13px;\n}\n\n.autocomplete ul li a:hover span, .autocomplete ul li.focus-list a span{\n\tcolor: white;\n}\n\n.showAll-transition{\n\topacity: 1;\n\theight: 50px;\n\toverflow: hidden;\n}\n\n.showAll-enter{\n\topacity: 0.3;\n\theight: 0;\n}\n\n.showAll-leave{\n\tdisplay: none;\n}\n\n")
 'use strict';
 
@@ -12194,7 +12324,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":30,"vue-hot-reload-api":5,"vueify-insert-css":31}],35:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":30,"vue-hot-reload-api":5,"vueify-insert-css":31}],37:[function(require,module,exports){
 'use strict';
 
 var _vueAutocomplete = require('./components/vue-autocomplete.vue');
@@ -12205,12 +12335,17 @@ var _NewJobView = require('./components/NewJobView.vue');
 
 var _NewJobView2 = _interopRequireDefault(_NewJobView);
 
+var _JobBuildView = require('./components/JobBuildView.vue');
+
+var _JobBuildView2 = _interopRequireDefault(_JobBuildView);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Vue = require('vue');
 Vue.use(require('vue-resource'));
 //Vue.config.debug = true;
 //import Greeter from './components/Greeter.vue';
+
 
 Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('value');
 //Vue.transition('showAll',{});
@@ -12220,7 +12355,8 @@ new Vue({
 
     components: {
         // Greeter,
-        NewJobView: _NewJobView2.default
+        NewJobView: _NewJobView2.default,
+        JobBuildView: _JobBuildView2.default
     },
 
     ready: function ready() {
@@ -12242,6 +12378,6 @@ new Vue({
 	}
 })*/
 
-},{"./components/NewJobView.vue":33,"./components/vue-autocomplete.vue":34,"vue":30,"vue-resource":19}]},{},[35]);
+},{"./components/JobBuildView.vue":33,"./components/NewJobView.vue":35,"./components/vue-autocomplete.vue":36,"vue":30,"vue-resource":19}]},{},[37]);
 
 //# sourceMappingURL=main.js.map

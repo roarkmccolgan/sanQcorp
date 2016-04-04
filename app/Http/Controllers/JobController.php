@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Jobs;
 use App\Company;
 use App\Contacts;
+use JavaScript;
 
 class JobController extends Controller
 {
@@ -101,8 +102,20 @@ class JobController extends Controller
         ]);
         $job->contacts()->sync($job_contacts);
 
+        return redirect('/jobs');
+    }
 
-
-        return view('jobs');
+    /**
+     * Show the form for editing the job build
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showBuildJob(Jobs $job)
+    {
+        JavaScript::put([
+            'job' => $job,
+        ]);
+        return view('jobs.build', compact(['job']));
+        //return $job;
     }
 }

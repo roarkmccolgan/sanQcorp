@@ -14,14 +14,14 @@ class CreateSectionTable extends Migration
     {
         Schema::create('section', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('job_id')->unsigned();            
+            $table->integer('jobs_id')->unsigned();            
             $table->boolean('accepted')->default(0);          
             $table->string('name');
             $table->longText('survey')->nullable();
             $table->boolean('complete')->default(0);
             $table->timestamps();
 
-            $table->foreign('job_id')->references('id')->on('jobs');
+            $table->foreign('jobs_id')->references('id')->on('jobs');
         });
     }
 

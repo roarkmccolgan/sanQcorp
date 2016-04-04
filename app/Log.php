@@ -23,7 +23,7 @@ class Log extends Model
      */
     public function materials()
     {
-        return $this->hasMany('App\Materials');
+        return $this->belongsToMany('App\Materials');
     }
 
     /**

@@ -44,6 +44,6 @@ class Contacts extends Model
      */
     public function jobs()
     {
-        return $this->belongsToMany('App\Jobs');
+        return $this->belongsToMany('App\Jobs','contact_job','job_id','contact_id');
     }
 }

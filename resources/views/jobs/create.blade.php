@@ -12,7 +12,7 @@
 
 @section('content')
 	@include('_layout.form_errors')
-	<form action="{{ url('/jobs/newjob')}}" method="POST" enctype="multipart/form-data" role="form">
+	<form action="{{ url('/jobs')}}" method="POST" enctype="multipart/form-data" role="form">
 	{{ csrf_field() }}
     <div class="row">
     	<legend>Create a new Job</legend>

@@ -33,14 +33,14 @@ class Jobs extends Model
      */
     public function contacts()
     {
-        return $this->belongsToMany('App\Contacts');
+        return $this->belongsToMany('App\Contacts','contact_job','contact_id','job_id');
     }
 
 
     /**
      * @return Job Sections
      */
-    public function sections()
+    public function section()
     {
         return $this->hasMany('App\Section');
     }

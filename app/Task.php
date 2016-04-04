@@ -13,4 +13,12 @@ class Task extends Model
     {
         return $this->hasMany('App\Log');
     }
+
+    /**
+     * @return Task sections
+     */
+    public function sections()
+    {
+        return $this->belongsToMany('App\Section');
+    }
 }
