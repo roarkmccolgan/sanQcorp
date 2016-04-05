@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class SystemMaterialsSeeder extends Seeder
@@ -11,6 +12,7 @@ class SystemMaterialsSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('material_system')->insert([
             'material_id' => 1,
             'system_id' => 1,
@@ -36,5 +38,6 @@ class SystemMaterialsSeeder extends Seeder
             'system_id' => 1,
             'quantity' => 0.00
         ]);
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

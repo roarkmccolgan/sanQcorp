@@ -19,7 +19,7 @@ class CreateScopeSystemPivotTable extends Migration
             $table->foreign('system_id')->references('id')->on('system')->onDelete('cascade');
             $table->primary(['scope_id', 'system_id']);
             
-            $table->int('order')->unsigned();
+            $table->integer('order')->unsigned();
         });
     }
 

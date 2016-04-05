@@ -17,12 +17,12 @@ class CreateMaterialsTable extends Migration
             $table->string('name');
             $table->integer('category_id')->unsigned();
             $table->longText('description');
+            $table->string('image');
             $table->decimal('stock',10,2);
             $table->integer('pack_size');
             $table->decimal('price',8,2);
             $table->decimal('day_rate',8,2);
             $table->string('unit_of_measure');
-            $table->string('type');
             $table->timestamps();
             $table->softDeletes();
 

@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ContactsSeeder::class);
         $this->call(ContactsJobsSeeder::class);
 
+        $this->call(CategorySeeder::class);
         $this->call(MaterialsSeeder::class);
         $this->call(SystemSeeder::class);
         $this->call(SystemMaterialsSeeder::class);

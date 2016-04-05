@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class ContactsSeeder extends Seeder
@@ -11,6 +12,7 @@ class ContactsSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('contacts')->insert([
             'company_id' => 1,
             'first_name' => 'Samuel',
@@ -23,5 +25,6 @@ class ContactsSeeder extends Seeder
             'email' => 'sam@libprop.co.za',
             'created_at' => Carbon::now()
         ]);
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }
