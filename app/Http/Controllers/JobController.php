@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Jobs;
 use App\Company;
 use App\Contacts;
+use App\System;
 use JavaScript;
 
 class JobController extends Controller
@@ -112,8 +113,11 @@ class JobController extends Controller
      */
     public function showBuildJob(Jobs $job)
     {
+        $systems = System::all();
+
         JavaScript::put([
             'job' => $job,
+            'systems' => $systems
         ]);
         return view('jobs.build', compact(['job']));
         //return $job;

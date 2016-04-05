@@ -17,8 +17,8 @@ class Task extends Model
     /**
      * @return Task sections
      */
-    public function sections()
+    public function section()
     {
-        return $this->belongsToMany('App\Section');
+        return $this->belongsTo('App\Section');
     }
 }
