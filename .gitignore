@@ -1,5 +1,6 @@
 /vendor
 /_res
+.DS_Store
 /node_modules
 Homestead.yaml
 Homestead.json

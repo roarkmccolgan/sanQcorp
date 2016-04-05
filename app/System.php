@@ -6,6 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class System extends Model
 {
+    protected $table = 'system';
+
+    protected $fillable = [
+        'name',
+        'unit',
+        'base_rate',
+        'component'
+    ];
+
     /**
      * @return System Scopes
      */

@@ -11802,97 +11802,69 @@ if (module.hot) {(function () {  module.hot.accept()
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = {
+    props: ['system'],
+    ready: function ready() {
+        jQuery(':checkbox').radiocheck();
+    }
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<h6>{{system.name}}</h6>\n<div class=\"col-md-3\">\n    <div class=\"tile\">\n        Yeah MAN\n    </div>\n</div>\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  var id = "/Users/roark/Code/sanqcorp/resources/assets/js/components/ConcreteMineralTorchOnSystem.vue"
+  if (!module.hot.data) {
+    hotAPI.createRecord(id, module.exports)
+  } else {
+    hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"vue":30,"vue-hot-reload-api":5}],34:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 exports.default = {
 	data: function data() {
 		return {
-			'sections': laravel.job.sections
+			'sections': laravel.job.sections == undefined ? [] : laravel.job.sections,
+			'add_section': '',
+			'new_section': {
+				name: '',
+				survey: ''
+			},
+			systems: laravel.systems
 		};
 	},
 	components: {
 		VueAutocomplete: require('./vue-autocomplete.vue'),
 		JobSection: require('./JobSection.vue')
 	},
+	computed: {},
 	created: function created() {
 		console.log('NewJobBuild Component Loaded');
 	},
 
 	methods: {
-		addContact: function addContact() {
-			this.new_contacts.push({ message: 'Baz' });
+		addSection: function addSection() {
+			this.sections.push({
+				job_id: laravel.job.id,
+				name: this.new_section.name,
+				survey: this.new_section.survey,
+				tasks: this.new_section.tasks
+			});
+			this.add_section = '';
+			this.new_section.name = '';
+			this.new_section.survey = '';
 		},
-		removeContact: function removeContact(contact) {
-			console.log(contact);
-			this.new_contacts.$remove(contact);
-		},
-		getDistance: function getDistance() {
-			var vueinst = this;
-			var dest1 = !this.is_estate ? this.address : this.estate;
-			var dest2 = !this.is_estate ? this.suburb : this.estate_address;
-			var dest3 = !this.is_estate ? this.city : this.estate_suburb;
-			var dest4 = !this.is_estate ? '' : this.estate_city;
-
-			if (dest1 != '' && this.dest2 != '' && this.dest3 != '') {
-				var destination = dest1 + '+' + dest2 + '+' + dest3;
-				if (dest4 != '') destination += '+' + dest4;
-
-				destination = destination.replace(/ /g, "+");
-
-				var distanceService = new google.maps.DistanceMatrixService();
-				distanceService.getDistanceMatrix({
-					origins: ['24+Davidson+Street+Rynfield+Benoni'],
-					destinations: [destination],
-					travelMode: google.maps.TravelMode.DRIVING,
-					unitSystem: google.maps.UnitSystem.METRIC,
-					durationInTraffic: true,
-					avoidHighways: false,
-					avoidTolls: false
-				}, function (response, status) {
-					if (status !== google.maps.DistanceMatrixStatus.OK) {
-						console.log('Error:', status);
-					} else {
-						var status = response.rows[0].elements[0].status;
-						if (status != 'NOT_FOUND' && status != 'ZERO_RESULTS') {
-							vueinst.distance = response.rows[0].elements[0].distance.text;
-							vueinst.distance_problem = false;
-						} else {
-							vueinst.distance_problem = true;
-							vueinst.distance = '';
-						}
-					}
-				});
-			}
-		}
+		getDistance: function getDistance() {}
 	},
-	events: {
-		// Autocomplete on selected
-		'autocomplete-company_name:selected': function autocompleteCompany_nameSelected(data) {
-			console.log('selected', data);
-			if (data.name !== 'Private') {
-				this.selected_company = data.id;
-				this.contacts = data.contacts;
-				this.new_contacts = [];
-			} else {
-				this.selected_company = 'private';
-				console.log('Private Company');
-			}
-		},
-		'autocomplete-contact[]:selected': function autocompleteContactSelected(data) {
-			console.log('selected', data);
-			this.new_contacts = [];
-			this.contacts.push(data);
-			this.vModelPrivateLike = "";
-
-			/*if(data.name!=='Private'){
-   	this.selected_company = data.id;
-   	this.contacts = data.contacts;
-   	this.new_contacts = [];
-   }else{
-   	console.log('Private Company');
-   }*/
-		}
-	}
+	events: {}
 };
 if (module.exports.__esModule) module.exports = module.exports.default
 if (module.hot) {(function () {  module.hot.accept()
@@ -11906,17 +11878,33 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"./JobSection.vue":34,"./vue-autocomplete.vue":36,"vue":30,"vue-hot-reload-api":5}],34:[function(require,module,exports){
+},{"./JobSection.vue":35,"./vue-autocomplete.vue":37,"vue":30,"vue-hot-reload-api":5}],35:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.default = {
-    props: ['section']
+    props: ['section', 'systems'],
+    data: function data() {
+        return {
+            'system_selected': '',
+            'add_section': '',
+            new_option: {
+                description: ''
+            }
+
+        };
+    },
+    components: {
+        ConcreteMineralTorchOnSystem: require('./ConcreteMineralTorchOnSystem.vue')
+    }
+    /*ready(){
+        jQuery(':checkbox').radiocheck();
+    }*/
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"row\">\n    <div class=\"tile\">\n        <div class=\"row\">\n            <h5>{{section.name}}</h5>\n            <p>{{section.survey}}</p>\n        </div>\n    </div>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"tile\" style=\"text-align:left\">\n    <div class=\"row\">\n        <div class=\"col-md-12\">\n\n            <h6 style=\"margin: 0\">{{section.name}}</h6>\n            <p style=\"margin-bottom: 5px;\">{{section.survey}}</p>\n            <hr style=\"border-top: 1px solid #FFF;\">\n            <div class=\"clearfix\"></div>\n            <button class=\"btn btn-primary pull-right btn-sm\" @click=\"add_section=true\">add Option</button>\n            <strong>Options</strong>\n        \n            <div class=\"clearfix\"></div>\n        </div>\n    </div>\n    <div class=\"clearfix\" style=\"margin-top: 10px;\"></div>\n    <div class=\"panel panel-default\" v-show=\"add_section\">\n        <div class=\"panel-heading\">\n            <button type=\"button\" class=\"close\" aria-label=\"Close\" @click=\"add_section=''\"><span aria-hidden=\"true\">×</span></button>\n            <h3 class=\"panel-title\">Add Option</h3>\n        </div>\n        <div class=\"panel-body\">\n            <form>\n                <!-- <div class=\"col-md-12\">\n                    <label for=\"section_name\">Name</label>\n                    <input type=\"text\" class=\"form-control\" name=\"option_name\" v-model=\"new_option.name\">\n                </div> -->\n                <div class=\"col-md-12\">\n                    <div class=\"form-group\">\n                        <label for=\"system\">System</label>\n                        <select data-toggle=\"select\" class=\"form-control select select-primary select-lg\" v-select=\"system_selected\">\n                            <option>Please Select</option>\n                            <option v-for=\"system in systems\" v-bind:value=\"system.id\">\n                            {{ system.name }}\n                            </option>\n                        </select>\n                    </div>\n                </div>\n                <div class=\"col-md-12\">\n                    <label for=\"section_survey\">Description</label>\n                    <textarea class=\"form-control\" rows=\"3\" name=\"option_description\" v-model=\"new_option.description\"></textarea>\n                </div>\n            </form>\n        </div>\n    </div>\n    <div v-show=\"system_selected==1\">\n        <concrete-mineral-torch-on-system :system=\"new_option\"></concrete-mineral-torch-on-system>\n    </div>\n    \n\n    <div class=\"row\" v-for=\"task in section.tasks\">\n        <div class=\"col-md-4\">\n            <h5>{{task.name}}</h5>\n        </div>\n        <div class=\"col-md-4\">\n            <p>{{task.qty}}</p>\n        </div>\n        <div class=\"col-md-4\">\n            <p>{{task.total}}</p>\n        </div>\n    </div>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -11928,7 +11916,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":30,"vue-hot-reload-api":5}],35:[function(require,module,exports){
+},{"./ConcreteMineralTorchOnSystem.vue":33,"vue":30,"vue-hot-reload-api":5}],36:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -12069,7 +12057,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"./CompanyContacts.vue":32,"./vue-autocomplete.vue":36,"vue":30,"vue-hot-reload-api":5}],36:[function(require,module,exports){
+},{"./CompanyContacts.vue":32,"./vue-autocomplete.vue":37,"vue":30,"vue-hot-reload-api":5}],37:[function(require,module,exports){
 var __vueify_style__ = require("vueify-insert-css").insert("\n.transition, .autocomplete, .showAll-transition, .autocomplete ul, .autocomplete ul li a{\n\ttransition:all 0.3s ease-out;\n\t-moz-transition:all 0.3s ease-out;\n\t-webkit-transition:all 0.3s ease-out;\n\t-o-transition:all 0.3s ease-out;\n}\n\n.autocomplete ul{\n\tposition: absolute;\n\tz-index: 1;\n\tpadding-top: 15px;\n}\n\n.autocomplete ul:before{\n\tcontent: \"\";\n\tdisplay: block;\n\tposition: absolute;\n\theight: 0;\n\twidth: 0;\n\tborder: 10px solid transparent;\n\tborder-bottom: 10px solid #bdc3c7;\n\tleft: 46%;\n\ttop: -5px\n}\n\n.autocomplete ul li a{\n\ttext-decoration: none;\n\tdisplay: block;\n\tbackground: #f8f8f8;\n\tcolor: #2b2b2b;\n\tpadding: 5px;\n\tpadding-left: 10px;\n}\n\n.autocomplete ul li a:hover, .autocomplete ul li.focus-list a{\n\tcolor: white;\n\tbackground: #2F9AF7;\n}\n\n.autocomplete ul li a span{\n\tdisplay: block;\n\tmargin-top: 3px;\n\tcolor: grey;\n\tfont-size: 13px;\n}\n\n.autocomplete ul li a:hover span, .autocomplete ul li.focus-list a span{\n\tcolor: white;\n}\n\n.showAll-transition{\n\topacity: 1;\n\theight: 50px;\n\toverflow: hidden;\n}\n\n.showAll-enter{\n\topacity: 0.3;\n\theight: 0;\n}\n\n.showAll-leave{\n\tdisplay: none;\n}\n\n")
 'use strict';
 
@@ -12324,7 +12312,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":30,"vue-hot-reload-api":5,"vueify-insert-css":31}],37:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":30,"vue-hot-reload-api":5,"vueify-insert-css":31}],38:[function(require,module,exports){
 'use strict';
 
 var _vueAutocomplete = require('./components/vue-autocomplete.vue');
@@ -12343,11 +12331,32 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var Vue = require('vue');
 Vue.use(require('vue-resource'));
-//Vue.config.debug = true;
+Vue.config.debug = true;
 //import Greeter from './components/Greeter.vue';
 
 
 Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('value');
+Vue.directive('select', {
+    twoWay: true,
+    priority: 1000,
+
+    params: ['options'],
+
+    bind: function bind() {
+        var self = this;
+        $(this.el).select2({
+            data: this.params.options
+        }).on('change', function () {
+            self.set(this.value);
+        });
+    },
+    update: function update(value) {
+        $(this.el).val(value).trigger('change');
+    },
+    unbind: function unbind() {
+        $(this.el).off().select2('destroy');
+    }
+});
 //Vue.transition('showAll',{});
 
 new Vue({
@@ -12378,6 +12387,6 @@ new Vue({
 	}
 })*/
 
-},{"./components/JobBuildView.vue":33,"./components/NewJobView.vue":35,"./components/vue-autocomplete.vue":36,"vue":30,"vue-resource":19}]},{},[37]);
+},{"./components/JobBuildView.vue":34,"./components/NewJobView.vue":36,"./components/vue-autocomplete.vue":37,"vue":30,"vue-resource":19}]},{},[38]);
 
 //# sourceMappingURL=main.js.map

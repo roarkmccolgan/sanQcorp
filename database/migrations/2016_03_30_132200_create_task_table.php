@@ -16,6 +16,7 @@ class CreateTaskTable extends Migration
             $table->increments('id');
             $table->boolean('accepted')->default(0);          
             $table->string('name');
+            $table->integer('section_id')->unsigned();
             $table->integer('system_id')->unsigned();
             $table->decimal('rate',5,2);
             $table->integer('done')->default(0);
@@ -23,7 +24,8 @@ class CreateTaskTable extends Migration
             $table->boolean('complete')->default(0);
             $table->timestamps();
 
-            $table->foreign('system_id')->references('id')->on('system');
+            $table->foreign('section_id')->references('id')->on('section')->onDelete('cascade');
+            $table->foreign('system_id')->references('id')->on('system')->onDelete('cascade');
         });
     }
 
