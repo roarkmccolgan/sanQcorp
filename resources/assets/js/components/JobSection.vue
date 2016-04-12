@@ -33,13 +33,6 @@
             </div>
             <div class="col-md-12">
                 <div class="form-group">
-                    <!-- <label for="system">System</label>
-                    <select data-toggle="select" class="form-control select select-primary select-lg" v-select="option_system" placeholder="Please Select System">
-                        <option></option>
-                        <option v-for="system in systems" v-bind:value="system" number>
-                        {{ system.name }}
-                        </option>
-                    </select> -->
                     <div class="form-group">
                         <label for="system">System</label>
                         <select v-model="option.system" class="form-control">
@@ -48,13 +41,11 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12" v-show="option.system.name=='Concrete Roof Maintenance-Free Torch-on'">
-                <component is="ConcreteMineralTorchOnSystem" :option="option" :option-key="optionKey"></component>
-            </div>
-            <div class="col-md-12" v-show="option.system.name=='Sanika Boarded Maintenance-Free Torch-on'">
-                <component is="SanikaBoardedMineralTorchOnSystem" :option="option" :option-key="optionKey"></component>
-            </div>
-            <!-- <component is="ConcreteMineralTorchOnSystem" v-for="selected_system in option_system" :system="selected_system" :option="option" :option-key="optionKey"></component> -->
+            <template v-if="option.system">
+                <div class="col-md-12">
+                    <component :is="option.system.component" :option="option" :option-key="optionKey"></component>
+                </div>
+            </template>
         </div>
     </div>
     <hr>

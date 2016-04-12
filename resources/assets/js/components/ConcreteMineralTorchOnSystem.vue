@@ -39,15 +39,23 @@
     </div>
     <div class="clearfix" style="height:20px;"></div>
     <!-- Loop through system materials and show line costings -->
-    <div class="row" v-show="size && perimeter" v-for="(material_key, material) in option">
+    <div class="row" v-show="size && perimeter" v-for="(material_type, material) in option.system.materials">
         <div class="col-md-2">
-            <strong>{{material.name}}</strong>
+            <strong>{{material_type}}</strong>
         </div>
         <div class="col-md-4">
             <div class="form-group">
-                <select v-model="material.material" @change="setMaterial(material_key)" class="form-control">
-                    <option v-for="dbmaterial in option.system.materials | filterByType material_key" v-bind:value="dbmaterial.id">{{dbmaterial.name}}</option><!--  v-show="dbmaterial.product_type==material_key" -->
-                </select>
+                <template v-if="getObjSize(material)>1">
+                    <select v-model="material.material_type.id" class="form-control"><!-- @change="setMaterial(material_type)" -->
+                        <option v-for="(material_id, chosen_material) in material" v-bind:value="material_id">{{chosen_material.name}}</option><!--  v-show="dbmaterial.product_type==material_type" -->
+                    </select>
+                </template>
+                <template v-else>
+                    <template v-for="(material_id, chosen_material) in material">
+                        <input type="hidden" v-model="material.material_type.id">
+                        <strong v-for="">{{chosen_material.name}}</strong><!--  v-show="dbmaterial.product_type==material_type" -->
+                    </template>
+                </template>
             </div>
         </div>
         <div class="col-md-4">
@@ -69,6 +77,58 @@
                 stripping: false,
                 perimeter: false,
                 wastage: '',
+                systemMaterials: {
+                    torchon: {
+                        id: '',
+                        name: '',
+                        qty: '',
+                        cost_price: '',
+                        price: '',
+                        unit_of_measure: '',
+                        pack_size: '',
+                        stock: '',
+                    },
+                    primer: {
+                        id: '',
+                        name: '',
+                        qty: '',
+                        cost_price: '',
+                        price: '',
+                        unit_of_measure: '',
+                        pack_size: '',
+                        stock: '',
+                    },
+                    gas: {
+                        id: '',
+                        name: '',
+                        qty: '',
+                        cost_price: '',
+                        price: '',
+                        unit_of_measure: '',
+                        pack_size: '',
+                        stock: '',
+                    },
+                    membrane: {
+                        id: '',
+                        name: '',
+                        qty: '',
+                        cost_price: '',
+                        price: '',
+                        unit_of_measure: '',
+                        pack_size: '',
+                        stock: '',
+                    },
+                    acrylic: {
+                        id: '',
+                        name: '',
+                        qty: '',
+                        cost_price: '',
+                        price: '',
+                        unit_of_measure: '',
+                        pack_size: '',
+                        stock: '',
+                    },
+                }
             };
         },
         computed: {
@@ -96,7 +156,7 @@
             total_cost_price: function(){
                 var price = 0;
                 if(this.size){
-                    var curMats = this.optionMaterials;
+                    var curMats = this.systemMaterials;
                     
                     for (var key in curMats) {
                         if (curMats.hasOwnProperty(key)) {
@@ -115,14 +175,17 @@
                 var system_mats = this.option.system.materials;
                 for (var key in system_mats) {
                     if (system_mats.hasOwnProperty(key)) {
-                        var type = system_mats[key].product_type;
-                        console.log(type);
-                        if(this.optionMaterials[type].material==''){
-                            this.optionMaterials[type].material = system_mats[key].id;
-                            this.optionMaterials[type].cost_price = Number(system_mats[key].price);
-                            this.optionMaterials[type].pack_size = Number(system_mats[key].pack_size);
-                            this.optionMaterials[type].unit_of_measure = system_mats[key].unit_of_measure;
-                            this.optionMaterials[type].stock = system_mats[key].stock;
+                        //loop through materials
+                        for (var material_id in system_mats[key]) {
+                            if (system_mats[key].hasOwnProperty(material_id)) {
+                                if(this.systemMaterials[key].id==''){
+                                    this.systemMaterials[key].id = system_mats[key][material_id].id;
+                                    this.systemMaterials[key].cost_price = Number(system_mats[key][material_id].price);
+                                    this.systemMaterials[key].pack_size = Number(system_mats[key][material_id].pack_size);
+                                    this.systemMaterials[key].unit_of_measure = system_mats[key][material_id].unit_of_measure;
+                                    this.systemMaterials[key].stock = system_mats[key][material_id].stock;
+                                }
+                            }
                         }
                     }
                 }
@@ -131,42 +194,49 @@
                 var system_mats = this.option.system.materials;
                 for (var key in system_mats) {
                     if (system_mats.hasOwnProperty(key)) {
-                        if(system_mats[key].id == this.optionMaterials[type].material){
-                            //this.optionMaterials[type].material = system_mats[key].id;
-                            this.optionMaterials[type].cost_price = Number(system_mats[key].price);
-                            this.optionMaterials[type].pack_size = Number(system_mats[key].pack_size);
-                            this.optionMaterials[type].unit_of_measure = system_mats[key].unit_of_measure;
-                            this.optionMaterials[type].stock = system_mats[key].stock;
+                        if(system_mats[key].id == this.systemMaterials[type].material){
+                            //this.systemMaterials[type].material = system_mats[key].id;
+                            this.systemMaterials[type].cost_price = Number(system_mats[key].price);
+                            this.systemMaterials[type].pack_size = Number(system_mats[key].pack_size);
+                            this.systemMaterials[type].unit_of_measure = system_mats[key].unit_of_measure;
+                            this.systemMaterials[type].stock = system_mats[key].stock;
                         }
                     }
                 }
                 this.calcMaterial;
             },
             calcMaterial: function(){
-                var option_mats = this.optionMaterials;
+                var option_mats = this.systemMaterials;
                 for (var key in option_mats) {
                     if (option_mats.hasOwnProperty(key)) {
                         var material = key;
                         switch(material){
                             case 'torchon':
-                                this.optionMaterials[material].qty = Math.ceil(this.size/9) + Math.ceil((this.new_size-this.size)/9);
+                                this.systemMaterials[material].qty = Math.ceil(this.size/9) + Math.ceil((this.new_size-this.size)/9);
                             break;
                             case 'primer':
-                                this.optionMaterials[material].qty = Math.ceil((this.size/5)/25);
+                                this.systemMaterials[material].qty = Math.ceil((this.size/5)/25);
                             break;
                             case 'gas':
-                                this.optionMaterials[material].qty = Math.ceil(this.new_size/80);
+                                this.systemMaterials[material].qty = Math.ceil(this.new_size/80);
                             break;
                             case 'membrane':
-                                this.optionMaterials[material].qty = Math.ceil(this.perimeter/20);
+                                this.systemMaterials[material].qty = Math.ceil(this.perimeter/20);
                             break;
                             case 'acrylic':
-                                this.optionMaterials[material].qty = Math.ceil((this.perimeter*0.2)*1.3/this.optionMaterials[material].pack_size);
+                                this.systemMaterials[material].qty = Math.ceil((this.perimeter*0.2)*1.3/this.systemMaterials[material].pack_size);
                             break;
                         }
                     }
                 }
-                this.optionMaterials[material].price = this.optionMaterials[material].qty * this.optionMaterials[material].cost_price;
+                this.systemMaterials[material].price = this.systemMaterials[material].qty * this.systemMaterials[material].cost_price;
+            },
+            getObjSize: function(obj) {
+                var size = 0, key;
+                for (key in obj) {
+                    if (obj.hasOwnProperty(key)) size++;
+                }
+                return size;
             }
         },
         filters: {

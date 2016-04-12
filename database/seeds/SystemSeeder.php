@@ -17,6 +17,7 @@ class SystemSeeder extends Seeder
             'description' => '',
             'unit' => 'm2',
             'base_rate' => 250.00,
+            'component' => 'ConcreteMineralTorchOnSystem',
             'created_at' => Carbon::now()
         ]);
         DB::table('system')->insert([
@@ -24,6 +25,7 @@ class SystemSeeder extends Seeder
             'description' => '',
             'unit' => 'm2',
             'base_rate' => 450.00,
+            'component' => 'SanikaBoardedMineralTorchOnSystem',
             'created_at' => Carbon::now()
         ]);
     }

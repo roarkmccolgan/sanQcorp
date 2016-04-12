@@ -11857,7 +11857,59 @@ exports.default = {
             size: '',
             stripping: false,
             perimeter: false,
-            wastage: ''
+            wastage: '',
+            systemMaterials: {
+                torchon: {
+                    id: '',
+                    name: '',
+                    qty: '',
+                    cost_price: '',
+                    price: '',
+                    unit_of_measure: '',
+                    pack_size: '',
+                    stock: ''
+                },
+                primer: {
+                    id: '',
+                    name: '',
+                    qty: '',
+                    cost_price: '',
+                    price: '',
+                    unit_of_measure: '',
+                    pack_size: '',
+                    stock: ''
+                },
+                gas: {
+                    id: '',
+                    name: '',
+                    qty: '',
+                    cost_price: '',
+                    price: '',
+                    unit_of_measure: '',
+                    pack_size: '',
+                    stock: ''
+                },
+                membrane: {
+                    id: '',
+                    name: '',
+                    qty: '',
+                    cost_price: '',
+                    price: '',
+                    unit_of_measure: '',
+                    pack_size: '',
+                    stock: ''
+                },
+                acrylic: {
+                    id: '',
+                    name: '',
+                    qty: '',
+                    cost_price: '',
+                    price: '',
+                    unit_of_measure: '',
+                    pack_size: '',
+                    stock: ''
+                }
+            }
         };
     },
     computed: {
@@ -11885,7 +11937,7 @@ exports.default = {
         total_cost_price: function total_cost_price() {
             var price = 0;
             if (this.size) {
-                var curMats = this.optionMaterials;
+                var curMats = this.systemMaterials;
 
                 for (var key in curMats) {
                     if (curMats.hasOwnProperty(key)) {
@@ -11904,14 +11956,17 @@ exports.default = {
             var system_mats = this.option.system.materials;
             for (var key in system_mats) {
                 if (system_mats.hasOwnProperty(key)) {
-                    var type = system_mats[key].product_type;
-                    console.log(type);
-                    if (this.optionMaterials[type].material == '') {
-                        this.optionMaterials[type].material = system_mats[key].id;
-                        this.optionMaterials[type].cost_price = Number(system_mats[key].price);
-                        this.optionMaterials[type].pack_size = Number(system_mats[key].pack_size);
-                        this.optionMaterials[type].unit_of_measure = system_mats[key].unit_of_measure;
-                        this.optionMaterials[type].stock = system_mats[key].stock;
+                    //loop through materials
+                    for (var material_id in system_mats[key]) {
+                        if (system_mats[key].hasOwnProperty(material_id)) {
+                            if (this.systemMaterials[key].id == '') {
+                                this.systemMaterials[key].id = system_mats[key][material_id].id;
+                                this.systemMaterials[key].cost_price = Number(system_mats[key][material_id].price);
+                                this.systemMaterials[key].pack_size = Number(system_mats[key][material_id].pack_size);
+                                this.systemMaterials[key].unit_of_measure = system_mats[key][material_id].unit_of_measure;
+                                this.systemMaterials[key].stock = system_mats[key][material_id].stock;
+                            }
+                        }
                     }
                 }
             }
@@ -11920,42 +11975,50 @@ exports.default = {
             var system_mats = this.option.system.materials;
             for (var key in system_mats) {
                 if (system_mats.hasOwnProperty(key)) {
-                    if (system_mats[key].id == this.optionMaterials[type].material) {
-                        //this.optionMaterials[type].material = system_mats[key].id;
-                        this.optionMaterials[type].cost_price = Number(system_mats[key].price);
-                        this.optionMaterials[type].pack_size = Number(system_mats[key].pack_size);
-                        this.optionMaterials[type].unit_of_measure = system_mats[key].unit_of_measure;
-                        this.optionMaterials[type].stock = system_mats[key].stock;
+                    if (system_mats[key].id == this.systemMaterials[type].material) {
+                        //this.systemMaterials[type].material = system_mats[key].id;
+                        this.systemMaterials[type].cost_price = Number(system_mats[key].price);
+                        this.systemMaterials[type].pack_size = Number(system_mats[key].pack_size);
+                        this.systemMaterials[type].unit_of_measure = system_mats[key].unit_of_measure;
+                        this.systemMaterials[type].stock = system_mats[key].stock;
                     }
                 }
             }
             this.calcMaterial;
         },
         calcMaterial: function calcMaterial() {
-            var option_mats = this.optionMaterials;
+            var option_mats = this.systemMaterials;
             for (var key in option_mats) {
                 if (option_mats.hasOwnProperty(key)) {
                     var material = key;
                     switch (material) {
                         case 'torchon':
-                            this.optionMaterials[material].qty = Math.ceil(this.size / 9) + Math.ceil((this.new_size - this.size) / 9);
+                            this.systemMaterials[material].qty = Math.ceil(this.size / 9) + Math.ceil((this.new_size - this.size) / 9);
                             break;
                         case 'primer':
-                            this.optionMaterials[material].qty = Math.ceil(this.size / 5 / 25);
+                            this.systemMaterials[material].qty = Math.ceil(this.size / 5 / 25);
                             break;
                         case 'gas':
-                            this.optionMaterials[material].qty = Math.ceil(this.new_size / 80);
+                            this.systemMaterials[material].qty = Math.ceil(this.new_size / 80);
                             break;
                         case 'membrane':
-                            this.optionMaterials[material].qty = Math.ceil(this.perimeter / 20);
+                            this.systemMaterials[material].qty = Math.ceil(this.perimeter / 20);
                             break;
                         case 'acrylic':
-                            this.optionMaterials[material].qty = Math.ceil(this.perimeter * 0.2 * 1.3 / this.optionMaterials[material].pack_size);
+                            this.systemMaterials[material].qty = Math.ceil(this.perimeter * 0.2 * 1.3 / this.systemMaterials[material].pack_size);
                             break;
                     }
                 }
             }
-            this.optionMaterials[material].price = this.optionMaterials[material].qty * this.optionMaterials[material].cost_price;
+            this.systemMaterials[material].price = this.systemMaterials[material].qty * this.systemMaterials[material].cost_price;
+        },
+        getObjSize: function getObjSize(obj) {
+            var size = 0,
+                key;
+            for (key in obj) {
+                if (obj.hasOwnProperty(key)) size++;
+            }
+            return size;
         }
     },
     filters: {
@@ -11977,7 +12040,7 @@ exports.default = {
     }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<form>\n<div class=\"row\">\n    <div class=\"col-md-4\">\n        <div class=\"input-group\" style=\"padding-top:14px\">\n            <input type=\"number\" class=\"form-control input-lg flat\" placeholder=\"Size\" v-model=\"size\" number=\"\" @keyup=\"calcMaterial | debounce 500\">\n            <span class=\"input-group-addon\">{{option.system.unit}}</span>\n        </div>\n    </div>\n    <div class=\"col-md-4\">\n        <div class=\"input-group\" style=\"padding-top:14px\">\n            <input type=\"number\" class=\"form-control input-lg flat\" placeholder=\"Perimeter\" v-model=\"perimeter\" number=\"\" @keyup=\"calcMaterial | debounce 500\">\n            <span class=\"input-group-addon\">lm</span>\n        </div>\n    </div>\n    <div class=\"col-md-2\">\n        <div class=\"form-group\">\n            <small>Stripping?</small><br>\n            <input type=\"checkbox\" v-switch=\"stripping\">\n        </div>\n    </div>\n    <div class=\"col-md-2\">\n        <div class=\"form-group\" style=\"padding-top:14px\">\n            <input type=\"number\" class=\"form-control flat\" placeholder=\"Difficulty %\" v-model=\"wastage\" number=\"\">\n        </div>\n    </div>\n</div>\n<div class=\"row\">\n    <div class=\"col-md-6\">\n        Labour Cost: <strong>{{total_labour_price | currency 'R'}}</strong> <small>{{total_labour_price/size | currency 'R'}} / {{option.system.unit}}</small><br>\n        Supervisor Cost: <strong>{{total_supervisor | currency 'R'}}</strong><br>\n        Transport: <strong>{{total_transport | currency 'R'}}</strong>\n    </div>\n    <div class=\"col-md-6\">\n        Total Days: <h4 style=\"margin:0\">{{total_days}}</h4>\n        Cost Price: <h4 style=\"margin:0\">{{total_cost_price | currency 'R'}}</h4>\n    </div>\n        \n</div>\n<div class=\"clearfix\" style=\"height:20px;\"></div>\n<!-- Loop through system materials and show line costings -->\n<div class=\"row\" v-show=\"size &amp;&amp; perimeter\" v-for=\"(material_key, material) in option\">\n    <div class=\"col-md-2\">\n        <strong>{{material.name}}</strong>\n    </div>\n    <div class=\"col-md-4\">\n        <div class=\"form-group\">\n            <select v-model=\"material.material\" @change=\"setMaterial(material_key)\" class=\"form-control\">\n                <option v-for=\"dbmaterial in option.system.materials | filterByType material_key\" v-bind:value=\"dbmaterial.id\">{{dbmaterial.name}}</option><!--  v-show=\"dbmaterial.product_type==material_key\" -->\n            </select>\n        </div>\n    </div>\n    <div class=\"col-md-4\">\n        <div class=\"form-group\">\n            Quantity: <strong>{{material.qty}}</strong><br>\n            Cost Price: <strong>{{material.price | currency 'R'}}</strong>\n        </div>\n    </div>\n</div>\n</form>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<form>\n<div class=\"row\">\n    <div class=\"col-md-4\">\n        <div class=\"input-group\" style=\"padding-top:14px\">\n            <input type=\"number\" class=\"form-control input-lg flat\" placeholder=\"Size\" v-model=\"size\" number=\"\" @keyup=\"calcMaterial | debounce 500\">\n            <span class=\"input-group-addon\">{{option.system.unit}}</span>\n        </div>\n    </div>\n    <div class=\"col-md-4\">\n        <div class=\"input-group\" style=\"padding-top:14px\">\n            <input type=\"number\" class=\"form-control input-lg flat\" placeholder=\"Perimeter\" v-model=\"perimeter\" number=\"\" @keyup=\"calcMaterial | debounce 500\">\n            <span class=\"input-group-addon\">lm</span>\n        </div>\n    </div>\n    <div class=\"col-md-2\">\n        <div class=\"form-group\">\n            <small>Stripping?</small><br>\n            <input type=\"checkbox\" v-switch=\"stripping\">\n        </div>\n    </div>\n    <div class=\"col-md-2\">\n        <div class=\"form-group\" style=\"padding-top:14px\">\n            <input type=\"number\" class=\"form-control flat\" placeholder=\"Difficulty %\" v-model=\"wastage\" number=\"\">\n        </div>\n    </div>\n</div>\n<div class=\"row\">\n    <div class=\"col-md-6\">\n        Labour Cost: <strong>{{total_labour_price | currency 'R'}}</strong> <small>{{total_labour_price/size | currency 'R'}} / {{option.system.unit}}</small><br>\n        Supervisor Cost: <strong>{{total_supervisor | currency 'R'}}</strong><br>\n        Transport: <strong>{{total_transport | currency 'R'}}</strong>\n    </div>\n    <div class=\"col-md-6\">\n        Total Days: <h4 style=\"margin:0\">{{total_days}}</h4>\n        Cost Price: <h4 style=\"margin:0\">{{total_cost_price | currency 'R'}}</h4>\n    </div>\n        \n</div>\n<div class=\"clearfix\" style=\"height:20px;\"></div>\n<!-- Loop through system materials and show line costings -->\n<div class=\"row\" v-show=\"size &amp;&amp; perimeter\" v-for=\"(material_type, material) in option.system.materials\">\n    <div class=\"col-md-2\">\n        <strong>{{material_type}}</strong>\n    </div>\n    <div class=\"col-md-4\">\n        <div class=\"form-group\">\n            <template v-if=\"getObjSize(material)>1\">\n                <select v-model=\"material.material_type.id\" class=\"form-control\"><!-- @change=\"setMaterial(material_type)\" -->\n                    <option v-for=\"(material_id, chosen_material) in material\" v-bind:value=\"material_id\">{{chosen_material.name}}</option><!--  v-show=\"dbmaterial.product_type==material_type\" -->\n                </select>\n            </template>\n            <template v-else=\"\">\n                <template v-for=\"(material_id, chosen_material) in material\">\n                    <input type=\"hidden\" v-model=\"material.material_type.id\">\n                    <strong v-for=\"\">{{chosen_material.name}}</strong><!--  v-show=\"dbmaterial.product_type==material_type\" -->\n                </template>\n            </template>\n        </div>\n    </div>\n    <div class=\"col-md-4\">\n        <div class=\"form-group\">\n            Quantity: <strong>{{material.qty}}</strong><br>\n            Cost Price: <strong>{{material.price | currency 'R'}}</strong>\n        </div>\n    </div>\n</div>\n</form>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -12085,7 +12148,7 @@ exports.default = {
     }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"row\">\n    <div class=\"col-md-12\">\n        <button class=\"btn btn-danger pull-right btn-xs\" @click.prevent=\"removeSection(key)\"><i class=\"fui-cross\"></i></button>\n        <br>\n        <form>\n            <!-- <h6 style=\"margin: 0\">{{section.name}}</h6> -->\n            <div class=\"form-group\">\n                <input type=\"text\" class=\"form-control input-lg\" placeholder=\"Section Name\" v-model=\"section.name\">\n            </div>\n            <div class=\"form-group\">\n                <textarea class=\"form-control\" rows=\"3\" placeholder=\"Site Survey\" v-model=\"section.survey\"></textarea>\n            </div>\n            <hr style=\"border-top: 1px solid #FFF;\">\n            <div class=\"clearfix\"></div>\n            <button class=\"btn btn-primary pull-right btn-sm\" @click.prevent=\"addOption\">add Option</button>\n            <strong>Options</strong>\n        </form>\n        <div class=\"clearfix\"></div>\n    </div>\n</div>\n<div class=\"clearfix\" style=\"margin-top: 10px;\"></div>\n<div class=\"tile\" style=\"text-align:left\" v-show=\"section.options\" v-for=\"(optionKey, option) in section.options\">\n    <div class=\"row\">\n        <div class=\"col-md-12\">\n            <button class=\"btn btn-danger btn-xs pull-right\" style=\"z-index:1\" @click.prevent=\"removeOption(optionKey)\"><i class=\"fui-cross\"></i></button><br>\n            <div class=\"form-group\">\n                <input type=\"text\" class=\"form-control input-lg flat\" placeholder=\"Option #\" v-model=\"option.name\">\n            </div>\n            <div class=\"form-group\">\n                <textarea class=\"form-control flat\" rows=\"2\" placeholder=\"Explanation / description\" v-model=\"option.description\"></textarea>\n            </div>\n        </div>\n        <div class=\"col-md-12\">\n            <div class=\"form-group\">\n                <!-- <label for=\"system\">System</label>\n                <select data-toggle=\"select\" class=\"form-control select select-primary select-lg\" v-select=\"option_system\" placeholder=\"Please Select System\">\n                    <option></option>\n                    <option v-for=\"system in systems\" v-bind:value=\"system\" number>\n                    {{ system.name }}\n                    </option>\n                </select> -->\n                <div class=\"form-group\">\n                    <label for=\"system\">System</label>\n                    <select v-model=\"option.system\" class=\"form-control\">\n                      <option v-for=\"system in systems\" v-bind:value=\"system\">{{system.name}}</option>\n                    </select>\n                </div>\n            </div>\n        </div>\n        <div class=\"col-md-12\" v-show=\"option.system.name=='Concrete Roof Maintenance-Free Torch-on'\">\n            <component is=\"ConcreteMineralTorchOnSystem\" :option=\"option\" :option-key=\"optionKey\"></component>\n        </div>\n        <div class=\"col-md-12\" v-show=\"option.system.name=='Sanika Boarded Maintenance-Free Torch-on'\">\n            <component is=\"SanikaBoardedMineralTorchOnSystem\" :option=\"option\" :option-key=\"optionKey\"></component>\n        </div>\n        <!-- <component is=\"ConcreteMineralTorchOnSystem\" v-for=\"selected_system in option_system\" :system=\"selected_system\" :option=\"option\" :option-key=\"optionKey\"></component> -->\n    </div>\n</div>\n<hr>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"row\">\n    <div class=\"col-md-12\">\n        <button class=\"btn btn-danger pull-right btn-xs\" @click.prevent=\"removeSection(key)\"><i class=\"fui-cross\"></i></button>\n        <br>\n        <form>\n            <!-- <h6 style=\"margin: 0\">{{section.name}}</h6> -->\n            <div class=\"form-group\">\n                <input type=\"text\" class=\"form-control input-lg\" placeholder=\"Section Name\" v-model=\"section.name\">\n            </div>\n            <div class=\"form-group\">\n                <textarea class=\"form-control\" rows=\"3\" placeholder=\"Site Survey\" v-model=\"section.survey\"></textarea>\n            </div>\n            <hr style=\"border-top: 1px solid #FFF;\">\n            <div class=\"clearfix\"></div>\n            <button class=\"btn btn-primary pull-right btn-sm\" @click.prevent=\"addOption\">add Option</button>\n            <strong>Options</strong>\n        </form>\n        <div class=\"clearfix\"></div>\n    </div>\n</div>\n<div class=\"clearfix\" style=\"margin-top: 10px;\"></div>\n<div class=\"tile\" style=\"text-align:left\" v-show=\"section.options\" v-for=\"(optionKey, option) in section.options\">\n    <div class=\"row\">\n        <div class=\"col-md-12\">\n            <button class=\"btn btn-danger btn-xs pull-right\" style=\"z-index:1\" @click.prevent=\"removeOption(optionKey)\"><i class=\"fui-cross\"></i></button><br>\n            <div class=\"form-group\">\n                <input type=\"text\" class=\"form-control input-lg flat\" placeholder=\"Option #\" v-model=\"option.name\">\n            </div>\n            <div class=\"form-group\">\n                <textarea class=\"form-control flat\" rows=\"2\" placeholder=\"Explanation / description\" v-model=\"option.description\"></textarea>\n            </div>\n        </div>\n        <div class=\"col-md-12\">\n            <div class=\"form-group\">\n                <div class=\"form-group\">\n                    <label for=\"system\">System</label>\n                    <select v-model=\"option.system\" class=\"form-control\">\n                      <option v-for=\"system in systems\" v-bind:value=\"system\">{{system.name}}</option>\n                    </select>\n                </div>\n            </div>\n        </div>\n        <template v-if=\"option.system\">\n            <div class=\"col-md-12\">\n                <component :is=\"option.system.component\" :option=\"option\" :option-key=\"optionKey\"></component>\n            </div>\n        </template>\n    </div>\n</div>\n<hr>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
