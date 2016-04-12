@@ -23,6 +23,7 @@ class CreateMaterialsTable extends Migration
             $table->decimal('price',8,2);
             $table->decimal('day_rate',8,2);
             $table->string('unit_of_measure');
+            $table->string('product_type');
             $table->timestamps();
             $table->softDeletes();
 

@@ -113,7 +113,17 @@ class JobController extends Controller
      */
     public function showBuildJob(Jobs $job)
     {
-        $systems = System::all();
+        $systems = System::with('materials')->get()->keyBy('id')->toArray();
+        foreach ($systems as $key => $item) {
+            $modified_systems = [];
+            foreach ($item['materials'] as $matkey => $mat) {
+                $modified_systems[$mat['product_type']][$mat['id']] = $mat;
+            };
+            //$item['materials'] = $modified_systems;
+            $systems[$key]['materials'] = $modified_systems;
+        };
+
+        //dd($systems);
 
         JavaScript::put([
             'job' => $job,

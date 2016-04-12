@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMaterialSystemPivotTable extends Migration
+class CreateMaterialOptionPivotTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,14 @@ class CreateMaterialSystemPivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('material_system', function (Blueprint $table) {
+        Schema::create('material_option', function (Blueprint $table) {
             $table->integer('material_id')->unsigned()->index();
             $table->foreign('material_id')->references('id')->on('materials')->onDelete('cascade');
-            $table->integer('system_id')->unsigned()->index();
-            $table->foreign('system_id')->references('id')->on('system')->onDelete('cascade');
-            $table->primary(['material_id', 'system_id']);
+            $table->integer('option_id')->unsigned()->index();
+            $table->foreign('option_id')->references('id')->on('option')->onDelete('cascade');
+            $table->primary(['material_id', 'option_id']);
+
+            $table->decimal('quantity',5,2)->nullable();
         });
     }
 
@@ -28,6 +30,6 @@ class CreateMaterialSystemPivotTable extends Migration
      */
     public function down()
     {
-        Schema::drop('material_system');
+        Schema::drop('material_option');
     }
 }

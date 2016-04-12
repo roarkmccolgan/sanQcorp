@@ -29,8 +29,8 @@ class Log extends Model
     /**
      * @return Log task
      */
-    public function task()
+    public function option()
     {
-        return $this->belongsTo('App\Task');
+        return $this->belongsTo('App\Option');
     }
 }

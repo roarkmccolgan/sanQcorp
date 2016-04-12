@@ -1,83 +1,91 @@
 <template>
-    <div class="tile" style="text-align:left">
-        <div class="row">
-            <div class="col-md-12">
-
-                <h6 style="margin: 0">{{section.name}}</h6>
-                <p style="margin-bottom: 5px;">{{section.survey}}</p>
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-danger pull-right btn-xs" @click.prevent="removeSection(key)"><i class="fui-cross"></i></button>
+            <br/>
+            <form>
+                <!-- <h6 style="margin: 0">{{section.name}}</h6> -->
+                <div class="form-group">
+                    <input type="text" class="form-control input-lg" placeholder="Section Name" v-model="section.name" />
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" rows="3" placeholder="Site Survey" v-model="section.survey"></textarea>
+                </div>
                 <hr style="border-top: 1px solid #FFF;">
                 <div class="clearfix"></div>
-                <button class="btn btn-primary pull-right btn-sm" @click="add_section=true">add Option</button>
+                <button class="btn btn-primary pull-right btn-sm" @click.prevent="addOption">add Option</button>
                 <strong>Options</strong>
-            
-                <div class="clearfix"></div>
-            </div>
-        </div>
-        <div class="clearfix" style="margin-top: 10px;"></div>
-        <div class="panel panel-default" v-show="add_section">
-            <div class="panel-heading">
-                <button type="button" class="close" aria-label="Close" @click="add_section=''"><span aria-hidden="true">&times;</span></button>
-                <h3 class="panel-title">Add Option</h3>
-            </div>
-            <div class="panel-body">
-                <form>
-                    <!-- <div class="col-md-12">
-                        <label for="section_name">Name</label>
-                        <input type="text" class="form-control" name="option_name" v-model="new_option.name">
-                    </div> -->
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="system">System</label>
-                            <select data-toggle="select" class="form-control select select-primary select-lg" v-select="system_selected">
-                                <option>Please Select</option>
-                                <option v-for="system in systems" v-bind:value="system.id">
-                                {{ system.name }}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <label for="section_survey">Description</label>
-                        <textarea class="form-control" rows="3" name="option_description" v-model="new_option.description"></textarea>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div v-show="system_selected==1">
-            <concrete-mineral-torch-on-system :system="new_option"></concrete-mineral-torch-on-system>
-        </div>
-        
-
-        <div class="row" v-for="task in section.tasks">
-            <div class="col-md-4">
-                <h5>{{task.name}}</h5>
-            </div>
-            <div class="col-md-4">
-                <p>{{task.qty}}</p>
-            </div>
-            <div class="col-md-4">
-                <p>{{task.total}}</p>
-            </div>
+            </form>
+            <div class="clearfix"></div>
         </div>
     </div>
+    <div class="clearfix" style="margin-top: 10px;"></div>
+    <div class="tile" style="text-align:left" v-show="section.options" v-for="(optionKey, option) in section.options">
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-danger btn-xs pull-right" style="z-index:1" @click.prevent="removeOption(optionKey)"><i class="fui-cross"></i></button><br>
+                <div class="form-group">
+                    <input type="text" class="form-control input-lg flat" placeholder="Option #" v-model="option.name" />
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control flat" rows="2" placeholder="Explanation / description" v-model="option.description"></textarea>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <!-- <label for="system">System</label>
+                    <select data-toggle="select" class="form-control select select-primary select-lg" v-select="option_system" placeholder="Please Select System">
+                        <option></option>
+                        <option v-for="system in systems" v-bind:value="system" number>
+                        {{ system.name }}
+                        </option>
+                    </select> -->
+                    <div class="form-group">
+                        <label for="system">System</label>
+                        <select v-model="option.system" class="form-control">
+                          <option v-for="system in systems" v-bind:value="system">{{system.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12" v-show="option.system.name=='Concrete Roof Maintenance-Free Torch-on'">
+                <component is="ConcreteMineralTorchOnSystem" :option="option" :option-key="optionKey"></component>
+            </div>
+            <div class="col-md-12" v-show="option.system.name=='Sanika Boarded Maintenance-Free Torch-on'">
+                <component is="SanikaBoardedMineralTorchOnSystem" :option="option" :option-key="optionKey"></component>
+            </div>
+            <!-- <component is="ConcreteMineralTorchOnSystem" v-for="selected_system in option_system" :system="selected_system" :option="option" :option-key="optionKey"></component> -->
+        </div>
+    </div>
+    <hr>
 </template>
 
 <script>
     export default {
-        props: ['section','systems'],
+        props: ['section','systems','key','removeSection'],
         data: function() {
             return {
-                'system_selected': '',
-                'add_section': '',
-                new_option: {
-                    description:''
-                }
-
+                //system_selected: '',
+                option_system:''
             };
         },
         components:{
-            ConcreteMineralTorchOnSystem: require('./ConcreteMineralTorchOnSystem.vue')
-        }
+            ConcreteMineralTorchOnSystem: require('./ConcreteMineralTorchOnSystem.vue'),
+            SanikaBoardedMineralTorchOnSystem: require('./SanikaBoardedMineralTorchOnSystem.vue'),
+        },
+        methods:{
+            addOption: function(){
+                this.section.options.push({
+                    id:'',
+                    name: '',
+                    description: '',
+                    system: ''
+                });
+            },
+            removeOption: function(key){
+                this.section.options.splice(key);
+            },
+        },
         /*ready(){
             jQuery(':checkbox').radiocheck();
         }*/

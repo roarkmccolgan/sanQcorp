@@ -19,8 +19,8 @@ class Section extends Model
     /**
      * @return Section task
      */
-    public function tasks()
+    public function options()
     {
-        return $this->hasMany('App\Task');
+        return $this->hasMany('App\Option');
     }
 }

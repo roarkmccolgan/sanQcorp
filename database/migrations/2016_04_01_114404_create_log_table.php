@@ -14,12 +14,12 @@ class CreateLogTable extends Migration
     {
         Schema::create('log', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('task_id')->unsigned()->index();
+            $table->integer('option_id')->unsigned()->index();
             $table->longText('comment');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('task_id')->references('id')->on('task');
+            $table->foreign('option_id')->references('id')->on('option');
         });
     }
 

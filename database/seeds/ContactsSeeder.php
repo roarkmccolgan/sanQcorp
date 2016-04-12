@@ -25,6 +25,30 @@ class ContactsSeeder extends Seeder
             'email' => 'sam@libprop.co.za',
             'created_at' => Carbon::now()
         ]);
+        DB::table('contacts')->insert([
+            'company_id' => 2,
+            'first_name' => 'Trevor',
+            'last_name' => 'Michaels',
+            'job_title' => '',
+            'department' => '',
+            'region' => 'Johannesburg',
+            'country' => 'South Africa',
+            'contact1' => '828344545',
+            'email' => 'trevor@michaels.co.za',
+            'created_at' => Carbon::now()
+        ]);
+        DB::table('contacts')->insert([
+            'company_id' => 2,
+            'first_name' => 'Granny',
+            'last_name' => 'Seape',
+            'job_title' => '',
+            'department' => '',
+            'region' => 'Johannesburg',
+            'country' => 'South Africa',
+            'contact1' => '715647890',
+            'email' => 'granny@seape.co.za',
+            'created_at' => Carbon::now()
+        ]);
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

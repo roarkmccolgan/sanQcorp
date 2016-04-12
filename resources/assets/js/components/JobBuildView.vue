@@ -2,12 +2,7 @@
 	export default{
 		data: function() {
 			return {
-				'sections': laravel.job.sections==undefined?[]:laravel.job.sections,
-				'add_section':'',
-				'new_section': {
-					name:'',
-					survey:''
-				},
+				sections: laravel.job.sections==undefined?[]:laravel.job.sections,
 				systems: laravel.systems
 			};
 		},
@@ -16,23 +11,34 @@
 			JobSection: require('./JobSection.vue'),
 		},
 		computed:{
-			
+			can_save: function(){
+				return true
+			}
 		},
 		created(){
 			console.log('NewJobBuild Component Loaded');
 		},
 		methods:{
+			saveJob: function(){
+				for (var key in this.sections) {
+					if (this.sections.hasOwnProperty(key)) {
+						console.log((key + " -> " + this.sections[key]));
+					}
+				}
+			},
 			addSection: function(){
 				this.sections.push({
+					id: '',
 					job_id: laravel.job.id,
-					name: this.new_section.name,
-					survey: this.new_section.survey,
-					tasks: this.new_section.tasks
+					name: '',
+					survey: '',
+					options: [],
+                    show: true
 				});
-				this.add_section = '';
-				this.new_section.name = '';
-				this.new_section.survey = '';
 			},
+            removeSection: function(key){
+                this.sections.splice(key);
+            },
 			getDistance: function(){
 				
 			}

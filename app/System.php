@@ -28,6 +28,14 @@ class System extends Model
      */
     public function materials()
     {
-        return $this->belongsToMany('App\Materials');
+        return $this->belongsToMany('App\Materials', 'material_system', 'system_id', 'material_id');
+    }
+
+    /**
+     * @return System Materials by product_type
+     */
+    public function materialsByType()
+    {
+        return $this->belongsToMany('App\Materials', 'material_system', 'system_id', 'material_id')->keyBy('product_type');
     }
 }

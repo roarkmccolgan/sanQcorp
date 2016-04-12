@@ -11,15 +11,17 @@ Vue.directive('select', {
     twoWay: true,
     priority: 1000,
 
-    params: ['options'],
+    params: ['options','placeholder'],
 
     bind: function () {
         var self = this
         $(this.el)
             .select2({
-            data: this.params.options
+            data: this.params.options,
+            placeholder: this.params.placeholder
         })
         .on('change', function () {
+            console.log(typeof this.value)
             self.set(this.value);
         })
     },
@@ -28,6 +30,26 @@ Vue.directive('select', {
     },
     unbind: function () {
         $(this.el).off().select2('destroy')
+    }
+})
+
+Vue.directive('switch', {
+    twoWay: true,
+    priority: 1000,
+
+    bind: function () {
+        var self = this
+        $(this.el)
+            .bootstrapSwitch()
+        .on('switchChange.bootstrapSwitch', function () {
+            self.set(this.checked);
+        })
+    },
+    update: function (value) {
+        $(this.el).val(value).trigger('switchChange.bootstrapSwitch')
+    },
+    unbind: function () {
+        $(this.el).off().bootstrapSwitch('destroy')
     }
 })
 //Vue.transition('showAll',{});
@@ -43,6 +65,12 @@ new Vue({
 
     ready() {
         console.log('Vue and Vueify all set to go!');
+        jQuery(document).on("keydown", function (e) {
+            if (e.which === 8 && !$(e.target).is("input, textarea")) {
+                e.preventDefault();
+            }
+        });
+
     }
 });
 /*var Vue = require('vue');

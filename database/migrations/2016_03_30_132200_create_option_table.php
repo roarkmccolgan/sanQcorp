@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTaskTable extends Migration
+class CreateOptionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateTaskTable extends Migration
      */
     public function up()
     {
-        Schema::create('task', function (Blueprint $table) {
+        Schema::create('option', function (Blueprint $table) { //Change to Option??
             $table->increments('id');
             $table->boolean('accepted')->default(0);          
             $table->string('name');
@@ -36,6 +36,6 @@ class CreateTaskTable extends Migration
      */
     public function down()
     {
-        Schema::drop('task');
+        Schema::drop('option');
     }
 }

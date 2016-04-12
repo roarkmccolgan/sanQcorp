@@ -1,14 +1,60 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/json/stringify"), __esModule: true };
-},{"core-js/library/fn/json/stringify":2}],2:[function(require,module,exports){
+},{"core-js/library/fn/json/stringify":4}],2:[function(require,module,exports){
+module.exports = { "default": require("core-js/library/fn/object/define-property"), __esModule: true };
+},{"core-js/library/fn/object/define-property":5}],3:[function(require,module,exports){
+"use strict";
+
+exports.__esModule = true;
+
+var _defineProperty = require("../core-js/object/define-property");
+
+var _defineProperty2 = _interopRequireDefault(_defineProperty);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (obj, key, value) {
+  if (key in obj) {
+    (0, _defineProperty2.default)(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+};
+},{"../core-js/object/define-property":2}],4:[function(require,module,exports){
 var core = require('../../modules/$.core');
 module.exports = function stringify(it){ // eslint-disable-line no-unused-vars
   return (core.JSON && core.JSON.stringify || JSON.stringify).apply(JSON, arguments);
 };
-},{"../../modules/$.core":3}],3:[function(require,module,exports){
+},{"../../modules/$.core":6}],5:[function(require,module,exports){
+var $ = require('../../modules/$');
+module.exports = function defineProperty(it, key, desc){
+  return $.setDesc(it, key, desc);
+};
+},{"../../modules/$":7}],6:[function(require,module,exports){
 var core = module.exports = {version: '1.2.6'};
 if(typeof __e == 'number')__e = core; // eslint-disable-line no-undef
-},{}],4:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
+var $Object = Object;
+module.exports = {
+  create:     $Object.create,
+  getProto:   $Object.getPrototypeOf,
+  isEnum:     {}.propertyIsEnumerable,
+  getDesc:    $Object.getOwnPropertyDescriptor,
+  setDesc:    $Object.defineProperty,
+  setDescs:   $Object.defineProperties,
+  getKeys:    $Object.keys,
+  getNames:   $Object.getOwnPropertyNames,
+  getSymbols: $Object.getOwnPropertySymbols,
+  each:       [].forEach
+};
+},{}],8:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -101,7 +147,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],5:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 var Vue // late bind
 var map = Object.create(null)
 var shimmed = false
@@ -401,7 +447,7 @@ function format (id) {
   return id.match(/[^\/]+\.vue$/)[0]
 }
 
-},{}],6:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 /**
  * Before Interceptor.
  */
@@ -421,7 +467,7 @@ module.exports = {
 
 };
 
-},{"../util":29}],7:[function(require,module,exports){
+},{"../util":33}],11:[function(require,module,exports){
 /**
  * Base client.
  */
@@ -488,7 +534,7 @@ function parseHeaders(str) {
     return headers;
 }
 
-},{"../../promise":22,"../../util":29,"./xhr":10}],8:[function(require,module,exports){
+},{"../../promise":26,"../../util":33,"./xhr":14}],12:[function(require,module,exports){
 /**
  * JSONP client.
  */
@@ -538,7 +584,7 @@ module.exports = function (request) {
     });
 };
 
-},{"../../promise":22,"../../util":29}],9:[function(require,module,exports){
+},{"../../promise":26,"../../util":33}],13:[function(require,module,exports){
 /**
  * XDomain client (Internet Explorer).
  */
@@ -577,7 +623,7 @@ module.exports = function (request) {
     });
 };
 
-},{"../../promise":22,"../../util":29}],10:[function(require,module,exports){
+},{"../../promise":26,"../../util":33}],14:[function(require,module,exports){
 /**
  * XMLHttp client.
  */
@@ -629,7 +675,7 @@ module.exports = function (request) {
     });
 };
 
-},{"../../promise":22,"../../util":29}],11:[function(require,module,exports){
+},{"../../promise":26,"../../util":33}],15:[function(require,module,exports){
 /**
  * CORS Interceptor.
  */
@@ -668,7 +714,7 @@ function crossOrigin(request) {
     return (requestUrl.protocol !== originUrl.protocol || requestUrl.host !== originUrl.host);
 }
 
-},{"../util":29,"./client/xdr":9}],12:[function(require,module,exports){
+},{"../util":33,"./client/xdr":13}],16:[function(require,module,exports){
 /**
  * Header Interceptor.
  */
@@ -696,7 +742,7 @@ module.exports = {
 
 };
 
-},{"../util":29}],13:[function(require,module,exports){
+},{"../util":33}],17:[function(require,module,exports){
 /**
  * Service for sending network requests.
  */
@@ -796,7 +842,7 @@ Http.headers = {
 
 module.exports = _.http = Http;
 
-},{"../promise":22,"../util":29,"./before":6,"./client":7,"./cors":11,"./header":12,"./interceptor":14,"./jsonp":15,"./method":16,"./mime":17,"./timeout":18}],14:[function(require,module,exports){
+},{"../promise":26,"../util":33,"./before":10,"./client":11,"./cors":15,"./header":16,"./interceptor":18,"./jsonp":19,"./method":20,"./mime":21,"./timeout":22}],18:[function(require,module,exports){
 /**
  * Interceptor factory.
  */
@@ -843,7 +889,7 @@ function when(value, fulfilled, rejected) {
     return promise.then(fulfilled, rejected);
 }
 
-},{"../promise":22,"../util":29}],15:[function(require,module,exports){
+},{"../promise":26,"../util":33}],19:[function(require,module,exports){
 /**
  * JSONP Interceptor.
  */
@@ -863,7 +909,7 @@ module.exports = {
 
 };
 
-},{"./client/jsonp":8}],16:[function(require,module,exports){
+},{"./client/jsonp":12}],20:[function(require,module,exports){
 /**
  * HTTP method override Interceptor.
  */
@@ -882,7 +928,7 @@ module.exports = {
 
 };
 
-},{}],17:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 /**
  * Mime Interceptor.
  */
@@ -920,7 +966,7 @@ module.exports = {
 
 };
 
-},{"../util":29}],18:[function(require,module,exports){
+},{"../util":33}],22:[function(require,module,exports){
 /**
  * Timeout Interceptor.
  */
@@ -952,7 +998,7 @@ module.exports = function () {
     };
 };
 
-},{}],19:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 /**
  * Install plugin.
  */
@@ -1007,7 +1053,7 @@ if (window.Vue) {
 
 module.exports = install;
 
-},{"./http":13,"./promise":22,"./resource":23,"./url":24,"./util":29}],20:[function(require,module,exports){
+},{"./http":17,"./promise":26,"./resource":27,"./url":28,"./util":33}],24:[function(require,module,exports){
 /**
  * Promises/A+ polyfill v1.1.4 (https://github.com/bramstein/promis)
  */
@@ -1188,7 +1234,7 @@ p.catch = function (onRejected) {
 
 module.exports = Promise;
 
-},{"../util":29}],21:[function(require,module,exports){
+},{"../util":33}],25:[function(require,module,exports){
 /**
  * URL Template v2.0.6 (https://github.com/bramstein/url-template)
  */
@@ -1340,7 +1386,7 @@ exports.encodeReserved = function (str) {
     }).join('');
 };
 
-},{}],22:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 /**
  * Promise adapter.
  */
@@ -1451,7 +1497,7 @@ p.always = function (callback) {
 
 module.exports = Promise;
 
-},{"./lib/promise":20,"./util":29}],23:[function(require,module,exports){
+},{"./lib/promise":24,"./util":33}],27:[function(require,module,exports){
 /**
  * Service for interacting with RESTful services.
  */
@@ -1563,7 +1609,7 @@ Resource.actions = {
 
 module.exports = _.resource = Resource;
 
-},{"./util":29}],24:[function(require,module,exports){
+},{"./util":33}],28:[function(require,module,exports){
 /**
  * Service for URL templating.
  */
@@ -1695,7 +1741,7 @@ function serialize(params, obj, scope) {
 
 module.exports = _.url = Url;
 
-},{"../util":29,"./legacy":25,"./query":26,"./root":27,"./template":28}],25:[function(require,module,exports){
+},{"../util":33,"./legacy":29,"./query":30,"./root":31,"./template":32}],29:[function(require,module,exports){
 /**
  * Legacy Transform.
  */
@@ -1743,7 +1789,7 @@ function encodeUriQuery(value, spaces) {
         replace(/%20/g, (spaces ? '%20' : '+'));
 }
 
-},{"../util":29}],26:[function(require,module,exports){
+},{"../util":33}],30:[function(require,module,exports){
 /**
  * Query Parameter Transform.
  */
@@ -1769,7 +1815,7 @@ module.exports = function (options, next) {
     return url;
 };
 
-},{"../util":29}],27:[function(require,module,exports){
+},{"../util":33}],31:[function(require,module,exports){
 /**
  * Root Prefix Transform.
  */
@@ -1787,7 +1833,7 @@ module.exports = function (options, next) {
     return url;
 };
 
-},{"../util":29}],28:[function(require,module,exports){
+},{"../util":33}],32:[function(require,module,exports){
 /**
  * URL Template (RFC 6570) Transform.
  */
@@ -1805,7 +1851,7 @@ module.exports = function (options) {
     return url;
 };
 
-},{"../lib/url-template":21}],29:[function(require,module,exports){
+},{"../lib/url-template":25}],33:[function(require,module,exports){
 /**
  * Utility functions.
  */
@@ -1929,7 +1975,7 @@ function merge(target, source, deep) {
     }
 }
 
-},{}],30:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 (function (process,global){
 /*!
  * Vue.js v1.0.20
@@ -11753,7 +11799,7 @@ if (config.devtools) {
 
 module.exports = Vue;
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":4}],31:[function(require,module,exports){
+},{"_process":8}],35:[function(require,module,exports){
 var inserted = exports.cache = {}
 
 exports.insert = function (css) {
@@ -11773,7 +11819,7 @@ exports.insert = function (css) {
   return elem
 }
 
-},{}],32:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -11798,20 +11844,140 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":30,"vue-hot-reload-api":5}],33:[function(require,module,exports){
+},{"vue":34,"vue-hot-reload-api":9}],37:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.default = {
-    props: ['system'],
+    props: ['option', 'optionKey'],
+    data: function data() {
+        return {
+            size: '',
+            stripping: false,
+            perimeter: false,
+            wastage: ''
+        };
+    },
+    computed: {
+        stripping_days: function stripping_days() {
+            return this.size && this.stripping ? Math.ceil(this.size / 200) : 0;
+        },
+        new_size: function new_size() {
+            return this.size && this.wastage ? this.size + this.size / 100 * this.wastage : this.size;
+        },
+        total_days: function total_days() {
+            if (this.size) {
+                return Math.ceil(this.new_size / 80 + this.stripping_days);
+            }
+            return 0;
+        },
+        total_labour_price: function total_labour_price() {
+            return this.total_days ? this.total_days * 1645 : 0; //1200 labour + 245 Driver
+        },
+        total_transport: function total_transport() {
+            return laravel.job.distance * this.total_days * 2 * 6.5;
+        },
+        total_supervisor: function total_supervisor() {
+            return this.total_days * 681;
+        },
+        total_cost_price: function total_cost_price() {
+            var price = 0;
+            if (this.size) {
+                var curMats = this.optionMaterials;
+
+                for (var key in curMats) {
+                    if (curMats.hasOwnProperty(key)) {
+                        price += curMats[key].price ? curMats[key].price : 0;
+                    }
+                }
+            }
+            price += this.total_labour_price == 0 ? 0 : this.total_labour_price;
+            price += this.total_transport == 0 ? 0 : this.total_transport;
+            price += this.total_supervisor == 0 ? 0 : this.total_supervisor;
+            return price == 0 ? 0 : price;
+        }
+    },
+    methods: {
+        setDefaults: function setDefaults() {
+            var system_mats = this.option.system.materials;
+            for (var key in system_mats) {
+                if (system_mats.hasOwnProperty(key)) {
+                    var type = system_mats[key].product_type;
+                    console.log(type);
+                    if (this.optionMaterials[type].material == '') {
+                        this.optionMaterials[type].material = system_mats[key].id;
+                        this.optionMaterials[type].cost_price = Number(system_mats[key].price);
+                        this.optionMaterials[type].pack_size = Number(system_mats[key].pack_size);
+                        this.optionMaterials[type].unit_of_measure = system_mats[key].unit_of_measure;
+                        this.optionMaterials[type].stock = system_mats[key].stock;
+                    }
+                }
+            }
+        },
+        setMaterial: function setMaterial(type) {
+            var system_mats = this.option.system.materials;
+            for (var key in system_mats) {
+                if (system_mats.hasOwnProperty(key)) {
+                    if (system_mats[key].id == this.optionMaterials[type].material) {
+                        //this.optionMaterials[type].material = system_mats[key].id;
+                        this.optionMaterials[type].cost_price = Number(system_mats[key].price);
+                        this.optionMaterials[type].pack_size = Number(system_mats[key].pack_size);
+                        this.optionMaterials[type].unit_of_measure = system_mats[key].unit_of_measure;
+                        this.optionMaterials[type].stock = system_mats[key].stock;
+                    }
+                }
+            }
+            this.calcMaterial;
+        },
+        calcMaterial: function calcMaterial() {
+            var option_mats = this.optionMaterials;
+            for (var key in option_mats) {
+                if (option_mats.hasOwnProperty(key)) {
+                    var material = key;
+                    switch (material) {
+                        case 'torchon':
+                            this.optionMaterials[material].qty = Math.ceil(this.size / 9) + Math.ceil((this.new_size - this.size) / 9);
+                            break;
+                        case 'primer':
+                            this.optionMaterials[material].qty = Math.ceil(this.size / 5 / 25);
+                            break;
+                        case 'gas':
+                            this.optionMaterials[material].qty = Math.ceil(this.new_size / 80);
+                            break;
+                        case 'membrane':
+                            this.optionMaterials[material].qty = Math.ceil(this.perimeter / 20);
+                            break;
+                        case 'acrylic':
+                            this.optionMaterials[material].qty = Math.ceil(this.perimeter * 0.2 * 1.3 / this.optionMaterials[material].pack_size);
+                            break;
+                    }
+                }
+            }
+            this.optionMaterials[material].price = this.optionMaterials[material].qty * this.optionMaterials[material].cost_price;
+        }
+    },
+    filters: {
+        filterByType: function filterByType(object, product_type) {
+            var newObject = [];
+            for (var key in object) {
+                if (object.hasOwnProperty(key)) {
+                    if (object[key].product_type == product_type) {
+                        newObject.push(object[key]);
+                    }
+                }
+            }
+            return newObject;
+        }
+    },
     ready: function ready() {
-        jQuery(':checkbox').radiocheck();
+        console.log('ready');
+        this.setDefaults();
     }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<h6>{{system.name}}</h6>\n<div class=\"col-md-3\">\n    <div class=\"tile\">\n        Yeah MAN\n    </div>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<form>\n<div class=\"row\">\n    <div class=\"col-md-4\">\n        <div class=\"input-group\" style=\"padding-top:14px\">\n            <input type=\"number\" class=\"form-control input-lg flat\" placeholder=\"Size\" v-model=\"size\" number=\"\" @keyup=\"calcMaterial | debounce 500\">\n            <span class=\"input-group-addon\">{{option.system.unit}}</span>\n        </div>\n    </div>\n    <div class=\"col-md-4\">\n        <div class=\"input-group\" style=\"padding-top:14px\">\n            <input type=\"number\" class=\"form-control input-lg flat\" placeholder=\"Perimeter\" v-model=\"perimeter\" number=\"\" @keyup=\"calcMaterial | debounce 500\">\n            <span class=\"input-group-addon\">lm</span>\n        </div>\n    </div>\n    <div class=\"col-md-2\">\n        <div class=\"form-group\">\n            <small>Stripping?</small><br>\n            <input type=\"checkbox\" v-switch=\"stripping\">\n        </div>\n    </div>\n    <div class=\"col-md-2\">\n        <div class=\"form-group\" style=\"padding-top:14px\">\n            <input type=\"number\" class=\"form-control flat\" placeholder=\"Difficulty %\" v-model=\"wastage\" number=\"\">\n        </div>\n    </div>\n</div>\n<div class=\"row\">\n    <div class=\"col-md-6\">\n        Labour Cost: <strong>{{total_labour_price | currency 'R'}}</strong> <small>{{total_labour_price/size | currency 'R'}} / {{option.system.unit}}</small><br>\n        Supervisor Cost: <strong>{{total_supervisor | currency 'R'}}</strong><br>\n        Transport: <strong>{{total_transport | currency 'R'}}</strong>\n    </div>\n    <div class=\"col-md-6\">\n        Total Days: <h4 style=\"margin:0\">{{total_days}}</h4>\n        Cost Price: <h4 style=\"margin:0\">{{total_cost_price | currency 'R'}}</h4>\n    </div>\n        \n</div>\n<div class=\"clearfix\" style=\"height:20px;\"></div>\n<!-- Loop through system materials and show line costings -->\n<div class=\"row\" v-show=\"size &amp;&amp; perimeter\" v-for=\"(material_key, material) in option\">\n    <div class=\"col-md-2\">\n        <strong>{{material.name}}</strong>\n    </div>\n    <div class=\"col-md-4\">\n        <div class=\"form-group\">\n            <select v-model=\"material.material\" @change=\"setMaterial(material_key)\" class=\"form-control\">\n                <option v-for=\"dbmaterial in option.system.materials | filterByType material_key\" v-bind:value=\"dbmaterial.id\">{{dbmaterial.name}}</option><!--  v-show=\"dbmaterial.product_type==material_key\" -->\n            </select>\n        </div>\n    </div>\n    <div class=\"col-md-4\">\n        <div class=\"form-group\">\n            Quantity: <strong>{{material.qty}}</strong><br>\n            Cost Price: <strong>{{material.price | currency 'R'}}</strong>\n        </div>\n    </div>\n</div>\n</form>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -11823,7 +11989,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":30,"vue-hot-reload-api":5}],34:[function(require,module,exports){
+},{"vue":34,"vue-hot-reload-api":9}],38:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -11832,12 +11998,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = {
 	data: function data() {
 		return {
-			'sections': laravel.job.sections == undefined ? [] : laravel.job.sections,
-			'add_section': '',
-			'new_section': {
-				name: '',
-				survey: ''
-			},
+			sections: laravel.job.sections == undefined ? [] : laravel.job.sections,
 			systems: laravel.systems
 		};
 	},
@@ -11845,22 +12006,35 @@ exports.default = {
 		VueAutocomplete: require('./vue-autocomplete.vue'),
 		JobSection: require('./JobSection.vue')
 	},
-	computed: {},
+	computed: {
+		can_save: function can_save() {
+			return true;
+		}
+	},
 	created: function created() {
 		console.log('NewJobBuild Component Loaded');
 	},
 
 	methods: {
+		saveJob: function saveJob() {
+			for (var key in this.sections) {
+				if (this.sections.hasOwnProperty(key)) {
+					console.log(key + " -> " + this.sections[key]);
+				}
+			}
+		},
 		addSection: function addSection() {
 			this.sections.push({
+				id: '',
 				job_id: laravel.job.id,
-				name: this.new_section.name,
-				survey: this.new_section.survey,
-				tasks: this.new_section.tasks
+				name: '',
+				survey: '',
+				options: [],
+				show: true
 			});
-			this.add_section = '';
-			this.new_section.name = '';
-			this.new_section.survey = '';
+		},
+		removeSection: function removeSection(key) {
+			this.sections.splice(key);
 		},
 		getDistance: function getDistance() {}
 	},
@@ -11878,33 +12052,40 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"./JobSection.vue":35,"./vue-autocomplete.vue":37,"vue":30,"vue-hot-reload-api":5}],35:[function(require,module,exports){
+},{"./JobSection.vue":39,"./vue-autocomplete.vue":42,"vue":34,"vue-hot-reload-api":9}],39:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.default = {
-    props: ['section', 'systems'],
+    props: ['section', 'systems', 'key', 'removeSection'],
     data: function data() {
         return {
-            'system_selected': '',
-            'add_section': '',
-            new_option: {
-                description: ''
-            }
-
+            //system_selected: '',
+            option_system: ''
         };
     },
     components: {
-        ConcreteMineralTorchOnSystem: require('./ConcreteMineralTorchOnSystem.vue')
+        ConcreteMineralTorchOnSystem: require('./ConcreteMineralTorchOnSystem.vue'),
+        SanikaBoardedMineralTorchOnSystem: require('./SanikaBoardedMineralTorchOnSystem.vue')
+    },
+    methods: {
+        addOption: function addOption() {
+            this.section.options.push({
+                id: '',
+                name: '',
+                description: '',
+                system: ''
+            });
+        },
+        removeOption: function removeOption(key) {
+            this.section.options.splice(key);
+        }
     }
-    /*ready(){
-        jQuery(':checkbox').radiocheck();
-    }*/
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"tile\" style=\"text-align:left\">\n    <div class=\"row\">\n        <div class=\"col-md-12\">\n\n            <h6 style=\"margin: 0\">{{section.name}}</h6>\n            <p style=\"margin-bottom: 5px;\">{{section.survey}}</p>\n            <hr style=\"border-top: 1px solid #FFF;\">\n            <div class=\"clearfix\"></div>\n            <button class=\"btn btn-primary pull-right btn-sm\" @click=\"add_section=true\">add Option</button>\n            <strong>Options</strong>\n        \n            <div class=\"clearfix\"></div>\n        </div>\n    </div>\n    <div class=\"clearfix\" style=\"margin-top: 10px;\"></div>\n    <div class=\"panel panel-default\" v-show=\"add_section\">\n        <div class=\"panel-heading\">\n            <button type=\"button\" class=\"close\" aria-label=\"Close\" @click=\"add_section=''\"><span aria-hidden=\"true\">×</span></button>\n            <h3 class=\"panel-title\">Add Option</h3>\n        </div>\n        <div class=\"panel-body\">\n            <form>\n                <!-- <div class=\"col-md-12\">\n                    <label for=\"section_name\">Name</label>\n                    <input type=\"text\" class=\"form-control\" name=\"option_name\" v-model=\"new_option.name\">\n                </div> -->\n                <div class=\"col-md-12\">\n                    <div class=\"form-group\">\n                        <label for=\"system\">System</label>\n                        <select data-toggle=\"select\" class=\"form-control select select-primary select-lg\" v-select=\"system_selected\">\n                            <option>Please Select</option>\n                            <option v-for=\"system in systems\" v-bind:value=\"system.id\">\n                            {{ system.name }}\n                            </option>\n                        </select>\n                    </div>\n                </div>\n                <div class=\"col-md-12\">\n                    <label for=\"section_survey\">Description</label>\n                    <textarea class=\"form-control\" rows=\"3\" name=\"option_description\" v-model=\"new_option.description\"></textarea>\n                </div>\n            </form>\n        </div>\n    </div>\n    <div v-show=\"system_selected==1\">\n        <concrete-mineral-torch-on-system :system=\"new_option\"></concrete-mineral-torch-on-system>\n    </div>\n    \n\n    <div class=\"row\" v-for=\"task in section.tasks\">\n        <div class=\"col-md-4\">\n            <h5>{{task.name}}</h5>\n        </div>\n        <div class=\"col-md-4\">\n            <p>{{task.qty}}</p>\n        </div>\n        <div class=\"col-md-4\">\n            <p>{{task.total}}</p>\n        </div>\n    </div>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"row\">\n    <div class=\"col-md-12\">\n        <button class=\"btn btn-danger pull-right btn-xs\" @click.prevent=\"removeSection(key)\"><i class=\"fui-cross\"></i></button>\n        <br>\n        <form>\n            <!-- <h6 style=\"margin: 0\">{{section.name}}</h6> -->\n            <div class=\"form-group\">\n                <input type=\"text\" class=\"form-control input-lg\" placeholder=\"Section Name\" v-model=\"section.name\">\n            </div>\n            <div class=\"form-group\">\n                <textarea class=\"form-control\" rows=\"3\" placeholder=\"Site Survey\" v-model=\"section.survey\"></textarea>\n            </div>\n            <hr style=\"border-top: 1px solid #FFF;\">\n            <div class=\"clearfix\"></div>\n            <button class=\"btn btn-primary pull-right btn-sm\" @click.prevent=\"addOption\">add Option</button>\n            <strong>Options</strong>\n        </form>\n        <div class=\"clearfix\"></div>\n    </div>\n</div>\n<div class=\"clearfix\" style=\"margin-top: 10px;\"></div>\n<div class=\"tile\" style=\"text-align:left\" v-show=\"section.options\" v-for=\"(optionKey, option) in section.options\">\n    <div class=\"row\">\n        <div class=\"col-md-12\">\n            <button class=\"btn btn-danger btn-xs pull-right\" style=\"z-index:1\" @click.prevent=\"removeOption(optionKey)\"><i class=\"fui-cross\"></i></button><br>\n            <div class=\"form-group\">\n                <input type=\"text\" class=\"form-control input-lg flat\" placeholder=\"Option #\" v-model=\"option.name\">\n            </div>\n            <div class=\"form-group\">\n                <textarea class=\"form-control flat\" rows=\"2\" placeholder=\"Explanation / description\" v-model=\"option.description\"></textarea>\n            </div>\n        </div>\n        <div class=\"col-md-12\">\n            <div class=\"form-group\">\n                <!-- <label for=\"system\">System</label>\n                <select data-toggle=\"select\" class=\"form-control select select-primary select-lg\" v-select=\"option_system\" placeholder=\"Please Select System\">\n                    <option></option>\n                    <option v-for=\"system in systems\" v-bind:value=\"system\" number>\n                    {{ system.name }}\n                    </option>\n                </select> -->\n                <div class=\"form-group\">\n                    <label for=\"system\">System</label>\n                    <select v-model=\"option.system\" class=\"form-control\">\n                      <option v-for=\"system in systems\" v-bind:value=\"system\">{{system.name}}</option>\n                    </select>\n                </div>\n            </div>\n        </div>\n        <div class=\"col-md-12\" v-show=\"option.system.name=='Concrete Roof Maintenance-Free Torch-on'\">\n            <component is=\"ConcreteMineralTorchOnSystem\" :option=\"option\" :option-key=\"optionKey\"></component>\n        </div>\n        <div class=\"col-md-12\" v-show=\"option.system.name=='Sanika Boarded Maintenance-Free Torch-on'\">\n            <component is=\"SanikaBoardedMineralTorchOnSystem\" :option=\"option\" :option-key=\"optionKey\"></component>\n        </div>\n        <!-- <component is=\"ConcreteMineralTorchOnSystem\" v-for=\"selected_system in option_system\" :system=\"selected_system\" :option=\"option\" :option-key=\"optionKey\"></component> -->\n    </div>\n</div>\n<hr>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -11916,7 +12097,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"./ConcreteMineralTorchOnSystem.vue":33,"vue":30,"vue-hot-reload-api":5}],36:[function(require,module,exports){
+},{"./ConcreteMineralTorchOnSystem.vue":37,"./SanikaBoardedMineralTorchOnSystem.vue":41,"vue":34,"vue-hot-reload-api":9}],40:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -12057,7 +12238,250 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"./CompanyContacts.vue":32,"./vue-autocomplete.vue":37,"vue":30,"vue-hot-reload-api":5}],37:[function(require,module,exports){
+},{"./CompanyContacts.vue":36,"./vue-autocomplete.vue":42,"vue":34,"vue-hot-reload-api":9}],41:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    props: ['option', 'optionKey'],
+    data: function data() {
+        var _ref;
+
+        return _ref = {
+            size: '',
+            perimeter: '',
+            boxgutter: false,
+            boxgutter_sizes: {
+                width: '',
+                length: ''
+            }
+        }, (0, _defineProperty3.default)(_ref, 'perimeter', false), (0, _defineProperty3.default)(_ref, 'wastage', ''), (0, _defineProperty3.default)(_ref, 'optionMaterials', {
+            torchon: {
+                name: 'Torch-on',
+                material: '',
+                qty: '',
+                price: '',
+                cost_price: '',
+                pack_size: '',
+                unit_of_measure: ''
+            },
+            primer: {
+                name: 'Primer',
+                material: '',
+                qty: '',
+                price: '',
+                cost_price: '',
+                pack_size: '',
+                unit_of_measure: ''
+            },
+            gas: {
+                name: 'Gas',
+                material: '',
+                qty: '',
+                price: '',
+                cost_price: '',
+                pack_size: '',
+                unit_of_measure: ''
+            },
+            membrane: {
+                name: 'Membrane',
+                material: '',
+                qty: '',
+                price: '',
+                cost_price: '',
+                pack_size: '',
+                unit_of_measure: ''
+            },
+            acrylic: {
+                name: 'Acrylic',
+                material: '',
+                qty: '',
+                price: '',
+                cost_price: '',
+                pack_size: '',
+                unit_of_measure: ''
+            },
+            sanika_board: {
+                name: 'Sanika Board',
+                material: '',
+                qty: '',
+                price: '',
+                cost_price: '',
+                pack_size: '',
+                unit_of_measure: ''
+            },
+            fillets: {
+                name: 'Fillets',
+                material: '',
+                qty: '',
+                price: '',
+                cost_price: '',
+                pack_size: '',
+                unit_of_measure: ''
+            },
+            screws: {
+                name: 'Screws',
+                material: '',
+                qty: '',
+                price: '',
+                cost_price: '',
+                pack_size: '',
+                unit_of_measure: ''
+            },
+            washers: {
+                name: 'Washers',
+                material: '',
+                qty: '',
+                price: '',
+                cost_price: '',
+                pack_size: '',
+                unit_of_measure: ''
+            },
+            flashing: {
+                name: 'Flashing',
+                material: '',
+                qty: '',
+                price: '',
+                cost_price: '',
+                pack_size: '',
+                unit_of_measure: ''
+            }
+        }), _ref;
+    },
+    computed: {
+        boarding_days: function boarding_days() {
+            return this.size ? this.new_size / 90 : 0;
+        },
+        boxgutter_size: function boxgutter_size() {
+            return this.size && this.boxgutter && this.boxgutter_sizes.width && this.boxgutter_sizes.length ? this.boxgutter_sizes.width * this.boxgutter_sizes.length : 0;
+        },
+        boxgutter_days: function boxgutter_days() {
+            return Math.ceil(this.boxgutter_size / 45);
+        },
+        new_size: function new_size() {
+            return this.size && this.wastage ? this.size + this.size / 100 * this.wastage : this.size;
+        },
+        total_days: function total_days() {
+            if (this.size) {
+                return Math.ceil(this.new_size / 110 + this.boarding_days + this.boxgutter_days);
+            }
+            return 0;
+        },
+        total_labour_price: function total_labour_price() {
+            return this.total_days ? this.total_days * 1645 : 0; //1200 labour + 245 Driver
+        },
+        total_transport: function total_transport() {
+            return laravel.job.distance * this.total_days * 2 * 6.5;
+        },
+        total_supervisor: function total_supervisor() {
+            return this.total_days * 681;
+        },
+        total_cost_price: function total_cost_price() {
+            var price = 0;
+            if (this.size) {
+                var curMats = this.optionMaterials;
+
+                for (var key in curMats) {
+                    if (curMats.hasOwnProperty(key)) {
+                        price += curMats[key].price ? curMats[key].price : 0;
+                    }
+                }
+            }
+            price += this.total_labour_price == 0 ? 0 : this.total_labour_price;
+            price += this.total_transport == 0 ? 0 : this.total_transport;
+            price += this.total_supervisor == 0 ? 0 : this.total_supervisor;
+            return price == 0 ? 0 : price;
+        }
+    },
+    methods: {
+        calcMaterial: function calcMaterial(material) {
+            var system_mats = this.option.system.materials;
+            for (var key in system_mats) {
+                if (system_mats.hasOwnProperty(key)) {
+                    if (system_mats[key].id == this.optionMaterials[material].material) {
+                        this.optionMaterials[material].cost_price = Number(system_mats[key].price);
+                        this.optionMaterials[material].pack_size = Number(system_mats[key].pack_size);
+                        this.optionMaterials[material].unit_of_measure = system_mats[key].unit_of_measure;
+                    }
+                }
+            }
+            switch (material) {
+                case 'torchon':
+                    this.optionMaterials[material].qty = Math.ceil((this.size + this.boxgutter_size) / 9) + Math.ceil((this.new_size - this.size) / 9);
+                    break;
+                case 'primer':
+                    this.optionMaterials[material].qty = Math.ceil((this.size + this.boxgutter_size) / 5 / 25);
+                    break;
+                case 'gas':
+                    this.optionMaterials[material].qty = Math.ceil((this.size + this.boxgutter_size) / 80);
+                    break;
+                case 'membrane':
+                    this.optionMaterials[material].qty = Math.ceil(this.perimeter / 20);
+                    break;
+                case 'acrylic':
+                    this.optionMaterials[material].qty = Math.ceil(this.perimeter * 0.2 * 1.3 / this.optionMaterials[material].pack_size);
+                    break;
+                case 'sanika_board':
+                    this.optionMaterials[material].qty = Math.ceil(this.new_size / 2.97);
+                    break;
+                case 'fillets':
+                    this.optionMaterials[material].qty = Math.ceil(this.new_size * 2.43);
+                    break;
+                case 'screws':
+                case 'washers':
+                    this.optionMaterials[material].qty = Math.ceil(this.new_size / 2.97 * 10 / this.optionMaterials[material].pack_size);
+                    break;
+                case 'flashing':
+                    this.optionMaterials[material].qty = this.boxgutter_size ? Math.ceil(this.boxgutter_sizes.length / 2.4) : 0;
+                    break;
+            }
+
+            this.optionMaterials[material].price = this.optionMaterials[material].qty * this.optionMaterials[material].cost_price;
+        }
+    },
+    filters: {
+        filterByType: function filterByType(object, product_type) {
+            var newObject = [];
+            for (var key in object) {
+                if (object.hasOwnProperty(key)) {
+                    if (object[key].product_type == product_type) {
+                        newObject.push(object[key]);
+                    }
+                }
+            }
+            return newObject;
+        }
+    },
+    created: function created() {
+        console.log('system Component Loaded');
+    },
+    ready: function ready() {
+        //console.log(this.option.system)
+    }
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<form>\n<div class=\"row\">\n    <div class=\"col-md-4\">\n        <div class=\"input-group\" style=\"padding-top:14px\">\n            <input type=\"number\" class=\"form-control input-lg flat\" placeholder=\"Size\" v-model=\"size\" number=\"\">\n            <span class=\"input-group-addon\">{{option.system.unit}}</span>\n        </div>\n    </div>\n    <div class=\"col-md-4\">\n        <div class=\"input-group\" style=\"padding-top:14px\">\n            <input type=\"number\" class=\"form-control input-lg flat\" placeholder=\"Perimeter\" v-model=\"perimeter\" number=\"\">\n            <span class=\"input-group-addon\">lm</span>\n        </div>\n    </div>\n    <div class=\"col-md-2\">\n        <div class=\"form-group\">\n            <small>Box Gutter?</small><br>\n            <input type=\"checkbox\" v-switch=\"boxgutter\">\n        </div>\n    </div>\n    <div class=\"col-md-2\">\n        <div class=\"form-group\" style=\"padding-top:14px\">\n            <input type=\"number\" class=\"form-control flat\" placeholder=\"Difficulty %\" v-model=\"wastage\" number=\"\">\n        </div>\n    </div>\n</div>\n<div class=\"row\" v-show=\"boxgutter\">\n    <div class=\"col-md-4\">\n        <small>Box Gutter Sizes</small><br>\n        <div class=\"input-group\" style=\"padding-top:14px\">\n            <input type=\"number\" class=\"form-control flat\" placeholder=\"Width\" v-model=\"boxgutter_sizes.width\" number=\"\">\n            <span class=\"input-group-addon\">w (m)</span>\n        </div>\n    </div>\n    <div class=\"col-md-4\">\n        <small>&nbsp;</small><br>\n        <div class=\"input-group\" style=\"padding-top:14px\">\n            <input type=\"number\" class=\"form-control flat\" placeholder=\"Length\" v-model=\"boxgutter_sizes.length\" number=\"\">\n            <span class=\"input-group-addon\">l (m)</span>\n        </div>\n    </div>\n</div>\n<div class=\"row\">\n    <div class=\"col-md-6\">\n        Labour Cost: <strong>{{total_labour_price | currency 'R'}}</strong> <small>{{total_labour_price/size | currency 'R'}} / {{option.system.unit}}</small><br>\n        Supervisor Cost: <strong>{{total_supervisor | currency 'R'}}</strong><br>\n        Transport: <strong>{{total_transport | currency 'R'}}</strong>\n    </div>\n    <div class=\"col-md-6\">\n        Total Days: <h4 style=\"margin:0\">{{total_days}}</h4>\n        Cost Price: <h4 style=\"margin:0\">{{total_cost_price | currency 'R'}}</h4>\n    </div>\n        \n</div>\n<div class=\"clearfix\" style=\"height:20px;\"></div>\n<!-- Loop through system materials and show line costings -->\n<div class=\"row\" v-show=\"size\" v-for=\"(material_key, material) in optionMaterials\">\n    <fieldset v-bind:class=\"{ 'disabled': material[material.show] }\">\n    <div class=\"col-md-2\">\n        <strong>{{material.name}} {{material.show}}</strong>\n    </div>\n    <div class=\"col-md-4\">\n        <div class=\"form-group\">\n            <select v-model=\"material.material\" @change=\"calcMaterial(material_key)\" class=\"form-control\">\n                <option v-for=\"dbmaterial in option.system.materials | filterByType material_key\" v-bind:value=\"dbmaterial.id\">{{dbmaterial.name}}</option><!--  v-show=\"dbmaterial.product_type==material_key\" -->\n            </select>\n        </div>\n    </div>\n    <div class=\"col-md-4\">\n        <div class=\"form-group\">\n            Quantity: <strong>{{material.qty}}</strong><br>\n            Cost Price: <strong>{{material.price | currency 'R'}}</strong>\n        </div>\n    </div>\n    </fieldset>\n</div>\n</form>\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  var id = "/Users/roark/Code/sanqcorp/resources/assets/js/components/SanikaBoardedMineralTorchOnSystem.vue"
+  if (!module.hot.data) {
+    hotAPI.createRecord(id, module.exports)
+  } else {
+    hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"babel-runtime/helpers/defineProperty":3,"vue":34,"vue-hot-reload-api":9}],42:[function(require,module,exports){
 var __vueify_style__ = require("vueify-insert-css").insert("\n.transition, .autocomplete, .showAll-transition, .autocomplete ul, .autocomplete ul li a{\n\ttransition:all 0.3s ease-out;\n\t-moz-transition:all 0.3s ease-out;\n\t-webkit-transition:all 0.3s ease-out;\n\t-o-transition:all 0.3s ease-out;\n}\n\n.autocomplete ul{\n\tposition: absolute;\n\tz-index: 1;\n\tpadding-top: 15px;\n}\n\n.autocomplete ul:before{\n\tcontent: \"\";\n\tdisplay: block;\n\tposition: absolute;\n\theight: 0;\n\twidth: 0;\n\tborder: 10px solid transparent;\n\tborder-bottom: 10px solid #bdc3c7;\n\tleft: 46%;\n\ttop: -5px\n}\n\n.autocomplete ul li a{\n\ttext-decoration: none;\n\tdisplay: block;\n\tbackground: #f8f8f8;\n\tcolor: #2b2b2b;\n\tpadding: 5px;\n\tpadding-left: 10px;\n}\n\n.autocomplete ul li a:hover, .autocomplete ul li.focus-list a{\n\tcolor: white;\n\tbackground: #2F9AF7;\n}\n\n.autocomplete ul li a span{\n\tdisplay: block;\n\tmargin-top: 3px;\n\tcolor: grey;\n\tfont-size: 13px;\n}\n\n.autocomplete ul li a:hover span, .autocomplete ul li.focus-list a span{\n\tcolor: white;\n}\n\n.showAll-transition{\n\topacity: 1;\n\theight: 50px;\n\toverflow: hidden;\n}\n\n.showAll-enter{\n\topacity: 0.3;\n\theight: 0;\n}\n\n.showAll-leave{\n\tdisplay: none;\n}\n\n")
 'use strict';
 
@@ -12312,8 +12736,10 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":30,"vue-hot-reload-api":5,"vueify-insert-css":31}],38:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":34,"vue-hot-reload-api":9,"vueify-insert-css":35}],43:[function(require,module,exports){
 'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
 var _vueAutocomplete = require('./components/vue-autocomplete.vue');
 
@@ -12340,13 +12766,15 @@ Vue.directive('select', {
     twoWay: true,
     priority: 1000,
 
-    params: ['options'],
+    params: ['options', 'placeholder'],
 
     bind: function bind() {
         var self = this;
         $(this.el).select2({
-            data: this.params.options
+            data: this.params.options,
+            placeholder: this.params.placeholder
         }).on('change', function () {
+            console.log(_typeof(this.value));
             self.set(this.value);
         });
     },
@@ -12355,6 +12783,24 @@ Vue.directive('select', {
     },
     unbind: function unbind() {
         $(this.el).off().select2('destroy');
+    }
+});
+
+Vue.directive('switch', {
+    twoWay: true,
+    priority: 1000,
+
+    bind: function bind() {
+        var self = this;
+        $(this.el).bootstrapSwitch().on('switchChange.bootstrapSwitch', function () {
+            self.set(this.checked);
+        });
+    },
+    update: function update(value) {
+        $(this.el).val(value).trigger('switchChange.bootstrapSwitch');
+    },
+    unbind: function unbind() {
+        $(this.el).off().bootstrapSwitch('destroy');
     }
 });
 //Vue.transition('showAll',{});
@@ -12370,6 +12816,11 @@ new Vue({
 
     ready: function ready() {
         console.log('Vue and Vueify all set to go!');
+        jQuery(document).on("keydown", function (e) {
+            if (e.which === 8 && !$(e.target).is("input, textarea")) {
+                e.preventDefault();
+            }
+        });
     }
 });
 /*var Vue = require('vue');
@@ -12387,6 +12838,6 @@ new Vue({
 	}
 })*/
 
-},{"./components/JobBuildView.vue":34,"./components/NewJobView.vue":36,"./components/vue-autocomplete.vue":37,"vue":30,"vue-resource":19}]},{},[38]);
+},{"./components/JobBuildView.vue":38,"./components/NewJobView.vue":40,"./components/vue-autocomplete.vue":42,"vue":34,"vue-resource":23}]},{},[43]);
 
 //# sourceMappingURL=main.js.map

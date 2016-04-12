@@ -13,9 +13,17 @@ class SystemSeeder extends Seeder
     public function run()
     {
         DB::table('system')->insert([
-            'name' => 'Concrete Roof Maintenance-Free Torh-on',
+            'name' => 'Concrete Roof Maintenance-Free Torch-on',
+            'description' => '',
             'unit' => 'm2',
             'base_rate' => 250.00,
+            'created_at' => Carbon::now()
+        ]);
+        DB::table('system')->insert([
+            'name' => 'Sanika Boarded Maintenance-Free Torch-on',
+            'description' => '',
+            'unit' => 'm2',
+            'base_rate' => 450.00,
             'created_at' => Carbon::now()
         ]);
     }

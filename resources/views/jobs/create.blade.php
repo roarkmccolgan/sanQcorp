@@ -18,7 +18,7 @@
     	<legend>Create a new Job</legend>
     	<div class="col-md-2">
 			<div class="form-group">
-				<label for="order_number">Order Number</label>
+				<label for="order_number">SAN Ref Number</label>
 				<input type="text" class="form-control" name="order_number" placeholder="SANXXXX-XX" value="{{ old('order_number') }}">
 			</div>
 		</div>

@@ -21,5 +21,14 @@ class CompanySeeder extends Seeder
             'vat' => 123456789,
             'created_at' => Carbon::now()
         ]);
+        DB::table('company')->insert([
+            'name' => 'Private',
+            'address1' => '',
+            'address2' => '',
+            'address3' => '',
+            'post_code' => 0,
+            'vat' => 123456789,
+            'created_at' => Carbon::now()
+        ]);
     }
 }
