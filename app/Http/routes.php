@@ -55,7 +55,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/{id}/edit', ['uses' => 'JobController@editJob']);
         Route::post('/{id}', ['uses' => 'JobController@updateJob']);
         Route::get('/{job}/build', ['uses' => 'JobController@showBuildJob']);
-    	Route::post('/{id}/build', ['uses' => 'JobController@updateBuildJob']);
+    	Route::post('/{id}/build', ['uses' => 'JobController@saveBuildJob']);
     });
 
 

@@ -113,17 +113,22 @@ class JobController extends Controller
      */
     public function showBuildJob(Jobs $job)
     {
-        $systems = System::with('materials')->get()->keyBy('id')->toArray();
+        $systems = System::with('tasks.materials')->get()->keyBy('id')->toArray();
+        //return $systems;
         foreach ($systems as $key => $item) {
-            $modified_systems = [];
-            foreach ($item['materials'] as $matkey => $mat) {
-                $modified_systems[$mat['product_type']][$mat['id']] = $mat;
-            };
-            //$item['materials'] = $modified_systems;
-            $systems[$key]['materials'] = $modified_systems;
+            $modifiedtasks = [];
+            foreach ($item['tasks'] as $taskKey => $task) {
+                $modifiedtasks[$task['alias']] = $task;
+                $modifiedMaterials = [];
+                foreach ($modifiedtasks[$task['alias']]['materials'] as $matkey => $mat) {
+                    $modifiedMaterials[$mat['product_type']][$mat['id']] = $mat;
+                }
+                $modifiedtasks[$task['alias']]['materials'] = $modifiedMaterials;
+            }
+            $systems[$key]['tasks'] = $modifiedtasks;
         };
 
-        //dd($systems);
+        //return ($systems);
 
         JavaScript::put([
             'job' => $job,
@@ -131,5 +136,15 @@ class JobController extends Controller
         ]);
         return view('jobs.build', compact(['job']));
         //return $job;
+    }
+
+    /**
+     * Show the form for editing the job build
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function saveBuildJob(Request $request)
+    {
+        return $request->all();
     }
 }

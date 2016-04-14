@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSystemTable extends Migration
+class CreateTasksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,11 @@ class CreateSystemTable extends Migration
      */
     public function up()
     {
-        Schema::create('system', function (Blueprint $table) {
+        Schema::create('tasks', function (Blueprint $table) {
             $table->increments('id');         
             $table->string('name');
-            $table->string('description');
-            $table->string('alias');
-            $table->string('unit');
-            $table->decimal('base_rate',5,2);
-            $table->string('component')->nullable();
+            $table->string('alias')->unique();
+            $table->string('unit_of_measure');
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateSystemTable extends Migration
      */
     public function down()
     {
-        Schema::drop('system');
+        Schema::drop('tasks');
     }
 }

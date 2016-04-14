@@ -24,18 +24,18 @@ class System extends Model
     }
 
     /**
-     * @return System Materials
+     * @return System Tasks
      */
-    public function materials()
+    public function tasks()
     {
-        return $this->belongsToMany('App\Materials', 'material_system', 'system_id', 'material_id');
+        return $this->belongsToMany('App\Tasks', 'system_task', 'system_id', 'task_id');
     }
 
-    /**
-     * @return System Materials by product_type
-     */
-    public function materialsByType()
-    {
-        return $this->belongsToMany('App\Materials', 'material_system', 'system_id', 'material_id')->keyBy('product_type');
-    }
+    // /**
+    //  * @return System Materials by product_type
+    //  */
+    // public function materialsByType()
+    // {
+    //     return $this->belongsToMany('App\Materials', 'material_system', 'system_id', 'material_id')->keyBy('product_type');
+    // }
 }

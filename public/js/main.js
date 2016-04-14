@@ -11851,13 +11851,72 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.default = {
-    props: ['option', 'optionKey'],
+    props: ['option', 'optionKey', 'sectionKey'],
     data: function data() {
         return {
             size: '',
+            distance: laravel.job.distance,
             stripping: false,
             perimeter: false,
             wastage: '',
+            markup: 100,
+            tasks: {
+                torchmineral: {
+                    torchon: {
+                        id: '',
+                        name: '',
+                        qty: '',
+                        cost_price: '',
+                        price: '',
+                        unit_of_measure: '',
+                        pack_size: '',
+                        stock: ''
+                    },
+                    primer: {
+                        id: '',
+                        name: '',
+                        qty: '',
+                        cost_price: '',
+                        price: '',
+                        unit_of_measure: '',
+                        pack_size: '',
+                        stock: ''
+                    },
+                    gas: {
+                        id: '',
+                        name: '',
+                        qty: '',
+                        cost_price: '',
+                        price: '',
+                        unit_of_measure: '',
+                        pack_size: '',
+                        stock: ''
+                    }
+                },
+                acrylicflashing: {
+                    membrane: {
+                        id: '',
+                        name: '',
+                        qty: '',
+                        cost_price: '',
+                        price: '',
+                        unit_of_measure: '',
+                        pack_size: '',
+                        stock: ''
+                    },
+                    acrylic: {
+                        id: '',
+                        name: '',
+                        qty: '',
+                        cost_price: '',
+                        price: '',
+                        unit_of_measure: '',
+                        pack_size: '',
+                        stock: ''
+                    }
+                },
+                stripping: {}
+            },
             systemMaterials: {
                 torchon: {
                     id: '',
@@ -11949,68 +12008,86 @@ exports.default = {
             price += this.total_transport == 0 ? 0 : this.total_transport;
             price += this.total_supervisor == 0 ? 0 : this.total_supervisor;
             return price == 0 ? 0 : price;
+        },
+        total_selling_price: function total_selling_price() {
+            return this.total_cost_price + this.total_cost_price / 100 * this.markup;
         }
     },
     methods: {
         setDefaults: function setDefaults() {
+            var system_tasks = this.option.system.tasks;
+            for (var task in system_tasks) {
+                if (system_tasks.hasOwnProperty(task)) {
+                    //loop through tasks
+                    for (var material_type in system_tasks[task]['materials']) {
+                        if (system_tasks[task]['materials'].hasOwnProperty(material_type)) {
+                            //loop through materials
+                            for (var material_id in system_tasks[task]['materials'][material_type]) {
+                                if (system_tasks[task]['materials'][material_type].hasOwnProperty(material_id)) {
+                                    if (this.tasks[task][material_type].id == '') {
+                                        this.tasks[task][material_type].id = system_tasks[task]['materials'][material_type][material_id].id;
+                                        this.tasks[task][material_type].name = system_tasks[task]['materials'][material_type][material_id].name;
+                                        this.tasks[task][material_type].cost_price = Number(system_tasks[task]['materials'][material_type][material_id].price);
+                                        this.tasks[task][material_type].pack_size = Number(system_tasks[task]['materials'][material_type][material_id].pack_size);
+                                        this.tasks[task][material_type].unit_of_measure = system_tasks[task]['materials'][material_type][material_id].unit_of_measure;
+                                        this.tasks[task][material_type].stock = system_tasks[task]['materials'][material_type][material_id].stock;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            this.calcMaterial();
+        },
+        setMaterial: function setMaterial(type) {
             var system_mats = this.option.system.materials;
             for (var key in system_mats) {
                 if (system_mats.hasOwnProperty(key)) {
                     //loop through materials
                     for (var material_id in system_mats[key]) {
                         if (system_mats[key].hasOwnProperty(material_id)) {
-                            if (this.systemMaterials[key].id == '') {
-                                this.systemMaterials[key].id = system_mats[key][material_id].id;
-                                this.systemMaterials[key].cost_price = Number(system_mats[key][material_id].price);
-                                this.systemMaterials[key].pack_size = Number(system_mats[key][material_id].pack_size);
-                                this.systemMaterials[key].unit_of_measure = system_mats[key][material_id].unit_of_measure;
-                                this.systemMaterials[key].stock = system_mats[key][material_id].stock;
+                            if (system_mats[key][material_id].id == this.systemMaterials[type].id) {
+                                //this.systemMaterials[type].material = system_mats[key].id;
+                                this.systemMaterials[type].cost_price = Number(system_mats[key][material_id].price);
+                                this.systemMaterials[type].pack_size = Number(system_mats[key][material_id].pack_size);
+                                this.systemMaterials[type].unit_of_measure = system_mats[key][material_id].unit_of_measure;
+                                this.systemMaterials[type].stock = system_mats[key][material_id].stock;
                             }
                         }
                     }
                 }
             }
-        },
-        setMaterial: function setMaterial(type) {
-            var system_mats = this.option.system.materials;
-            for (var key in system_mats) {
-                if (system_mats.hasOwnProperty(key)) {
-                    if (system_mats[key].id == this.systemMaterials[type].material) {
-                        //this.systemMaterials[type].material = system_mats[key].id;
-                        this.systemMaterials[type].cost_price = Number(system_mats[key].price);
-                        this.systemMaterials[type].pack_size = Number(system_mats[key].pack_size);
-                        this.systemMaterials[type].unit_of_measure = system_mats[key].unit_of_measure;
-                        this.systemMaterials[type].stock = system_mats[key].stock;
-                    }
-                }
-            }
-            this.calcMaterial;
+            this.calcMaterial();
         },
         calcMaterial: function calcMaterial() {
-            var option_mats = this.systemMaterials;
-            for (var key in option_mats) {
-                if (option_mats.hasOwnProperty(key)) {
-                    var material = key;
-                    switch (material) {
-                        case 'torchon':
-                            this.systemMaterials[material].qty = Math.ceil(this.size / 9) + Math.ceil((this.new_size - this.size) / 9);
-                            break;
-                        case 'primer':
-                            this.systemMaterials[material].qty = Math.ceil(this.size / 5 / 25);
-                            break;
-                        case 'gas':
-                            this.systemMaterials[material].qty = Math.ceil(this.new_size / 80);
-                            break;
-                        case 'membrane':
-                            this.systemMaterials[material].qty = Math.ceil(this.perimeter / 20);
-                            break;
-                        case 'acrylic':
-                            this.systemMaterials[material].qty = Math.ceil(this.perimeter * 0.2 * 1.3 / this.systemMaterials[material].pack_size);
-                            break;
+            var tasks = this.tasks;
+            for (var task in tasks) {
+                if (tasks.hasOwnProperty(task)) {
+                    for (var material_type in tasks[task]) {
+                        if (tasks[task].hasOwnProperty(material_type)) {
+                            switch (material_type) {
+                                case 'torchon':
+                                    this.tasks[task][material_type].qty = Math.ceil(this.size / 9) + Math.ceil((this.new_size - this.size) / 9);
+                                    break;
+                                case 'primer':
+                                    this.tasks[task][material_type].qty = Math.ceil(this.size / 5 / 25);
+                                    break;
+                                case 'gas':
+                                    this.tasks[task][material_type].qty = Math.ceil(this.new_size / 80);
+                                    break;
+                                case 'membrane':
+                                    this.tasks[task][material_type].qty = Math.ceil(this.perimeter / 20);
+                                    break;
+                                case 'acrylic':
+                                    this.tasks[task][material_type].qty = Math.ceil(this.perimeter * 0.2 * 1.3 / this.tasks[task][material_type].pack_size);
+                                    break;
+                            }
+                            this.tasks[task][material_type].price = this.tasks[task][material_type].qty * this.tasks[task][material_type].cost_price;
+                        }
                     }
                 }
             }
-            this.systemMaterials[material].price = this.systemMaterials[material].qty * this.systemMaterials[material].cost_price;
         },
         getObjSize: function getObjSize(obj) {
             var size = 0,
@@ -12040,7 +12117,7 @@ exports.default = {
     }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<form>\n<div class=\"row\">\n    <div class=\"col-md-4\">\n        <div class=\"input-group\" style=\"padding-top:14px\">\n            <input type=\"number\" class=\"form-control input-lg flat\" placeholder=\"Size\" v-model=\"size\" number=\"\" @keyup=\"calcMaterial | debounce 500\">\n            <span class=\"input-group-addon\">{{option.system.unit}}</span>\n        </div>\n    </div>\n    <div class=\"col-md-4\">\n        <div class=\"input-group\" style=\"padding-top:14px\">\n            <input type=\"number\" class=\"form-control input-lg flat\" placeholder=\"Perimeter\" v-model=\"perimeter\" number=\"\" @keyup=\"calcMaterial | debounce 500\">\n            <span class=\"input-group-addon\">lm</span>\n        </div>\n    </div>\n    <div class=\"col-md-2\">\n        <div class=\"form-group\">\n            <small>Stripping?</small><br>\n            <input type=\"checkbox\" v-switch=\"stripping\">\n        </div>\n    </div>\n    <div class=\"col-md-2\">\n        <div class=\"form-group\" style=\"padding-top:14px\">\n            <input type=\"number\" class=\"form-control flat\" placeholder=\"Difficulty %\" v-model=\"wastage\" number=\"\">\n        </div>\n    </div>\n</div>\n<div class=\"row\">\n    <div class=\"col-md-6\">\n        Labour Cost: <strong>{{total_labour_price | currency 'R'}}</strong> <small>{{total_labour_price/size | currency 'R'}} / {{option.system.unit}}</small><br>\n        Supervisor Cost: <strong>{{total_supervisor | currency 'R'}}</strong><br>\n        Transport: <strong>{{total_transport | currency 'R'}}</strong>\n    </div>\n    <div class=\"col-md-6\">\n        Total Days: <h4 style=\"margin:0\">{{total_days}}</h4>\n        Cost Price: <h4 style=\"margin:0\">{{total_cost_price | currency 'R'}}</h4>\n    </div>\n        \n</div>\n<div class=\"clearfix\" style=\"height:20px;\"></div>\n<!-- Loop through system materials and show line costings -->\n<div class=\"row\" v-show=\"size &amp;&amp; perimeter\" v-for=\"(material_type, material) in option.system.materials\">\n    <div class=\"col-md-2\">\n        <strong>{{material_type}}</strong>\n    </div>\n    <div class=\"col-md-4\">\n        <div class=\"form-group\">\n            <template v-if=\"getObjSize(material)>1\">\n                <select v-model=\"material.material_type.id\" class=\"form-control\"><!-- @change=\"setMaterial(material_type)\" -->\n                    <option v-for=\"(material_id, chosen_material) in material\" v-bind:value=\"material_id\">{{chosen_material.name}}</option><!--  v-show=\"dbmaterial.product_type==material_type\" -->\n                </select>\n            </template>\n            <template v-else=\"\">\n                <template v-for=\"(material_id, chosen_material) in material\">\n                    <input type=\"hidden\" v-model=\"material.material_type.id\">\n                    <strong v-for=\"\">{{chosen_material.name}}</strong><!--  v-show=\"dbmaterial.product_type==material_type\" -->\n                </template>\n            </template>\n        </div>\n    </div>\n    <div class=\"col-md-4\">\n        <div class=\"form-group\">\n            Quantity: <strong>{{material.qty}}</strong><br>\n            Cost Price: <strong>{{material.price | currency 'R'}}</strong>\n        </div>\n    </div>\n</div>\n</form>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"row\">\n    <div class=\"col-sm-3\">\n        <div class=\"input-group\" style=\"padding-top:14px\">\n            <input name=\"section[{{sectionKey}}][options][{{optionKey}}][size]\" type=\"number\" class=\"form-control\" placeholder=\"Size\" v-model=\"size\" number=\"\" @keyup=\"calcMaterial | debounce 500\">\n            <span class=\"input-group-addon\">{{option.system.unit}}</span>\n        </div>\n    </div>\n    <div class=\"col-sm-3\">\n        <div class=\"input-group\" style=\"padding-top:14px\">\n            <input name=\"section[{{sectionKey}}][options][{{optionKey}}][perimeter]\" type=\"number\" class=\"form-control\" placeholder=\"Perimeter\" v-model=\"perimeter\" number=\"\" @keyup=\"calcMaterial | debounce 500\">\n            <span class=\"input-group-addon\">lm</span>\n        </div>\n    </div>\n    <div class=\"col-sm-3\">\n        <div class=\"form-group\">\n            <small>Stripping?</small><br>\n            <input name=\"section[{{sectionKey}}][options][{{optionKey}}][stripping]\" type=\"checkbox\" v-switch=\"stripping\" data-on-text=\"Yes\" data-off-text=\"No\">\n        </div>\n    </div>\n    <div class=\"col-sm-3\">\n        <div class=\"form-group\" style=\"padding-top:14px\">\n            <input name=\"section[{{sectionKey}}][options][{{optionKey}}][difficulty]\" type=\"number\" class=\"form-control\" placeholder=\"Difficulty %\" v-model=\"wastage\" number=\"\">\n        </div>\n    </div>\n</div>\n<div class=\"clearfix\" style=\"height:20px;\"></div>\n<!-- Loop through system materials and show line costings -->\n<div class=\"row\">\n    <div class=\"col-sm-12\">\n        <table class=\"table table-striped table-bordered\">\n            <thead>\n                <tr>\n                    <th width=\"10%\">Type</th>\n                    <th>Product</th>\n                    <th>Qty</th>\n                    <th width=\"23%\">Cost Price</th>\n                </tr>\n            </thead>\n            <tbody>\n                <template v-for=\"(task_type, task) in option.system.tasks\">\n                    <tr v-for=\"(material_type, material) in task.materials\">\n                        <td>{{material_type}}</td>\n                        <td>\n                            <template v-if=\"getObjSize(material)>1\">\n                                <select name=\"section[{{sectionKey}}][options][{{optionKey}}][tasks][{{task_type}}][materials][{{material_type}}][material_id]\" v-model=\"tasks[task_type][material_type].id\" class=\"form-control\" @change=\"setMaterial(task_type,material_type)\">\n                                    <option v-for=\"(material_id, chosen_material) in material\" v-bind:value=\"material_id\">{{chosen_material.name}}</option>\n                                </select>\n                            </template>\n                            <template v-else=\"\">\n                                <template v-for=\"(material_id, chosen_material) in material\">\n                                    <input name=\"section[{{sectionKey}}][options][{{optionKey}}][tasks][{{task_type}}][materials][{{material_type}}][material_id]\" type=\"hidden\" v-model=\"tasks[task_type][material_type].id\">\n                                    {{chosen_material.name}}\n                                </template>\n                            </template>\n                        </td>\n                        <td>\n                            {{tasks[task_type][material_type].qty}}\n                            <input name=\"section[{{sectionKey}}][options][{{optionKey}}][materials][{{material_type}}][qty]\" type=\"hidden\" v-model=\"tasks[task_type][material_type].qty\">\n                        </td>\n                        <td>\n                            {{tasks[task_type][material_type].price | currency 'R'}}\n                            <input name=\"section[{{sectionKey}}][options][{{optionKey}}][materials][{{material_type}}][price]\" type=\"hidden\" v-model=\"tasks[task_type][material_type].price\">\n                            <input name=\"section[{{sectionKey}}][options][{{optionKey}}][materials][{{material_type}}][cost_price]\" type=\"hidden\" v-model=\"tasks[task_type][material_type].cost_price\">\n                        </td>\n                    </tr>\n                </template>\n\n                <tr>\n                    <td>Labour</td>\n                    <td>Crew of 4</td>\n                    <td>{{total_days}}</td>\n                    <td>\n                        {{total_labour_price | currency 'R'}}\n                        <input name=\"section[{{sectionKey}}][options][{{optionKey}}][labour_cost_price]\" type=\"hidden\" v-model=\"total_labour_price\">\n                    </td>\n                </tr>\n                <tr>\n                    <td>Supervisor</td>\n                    <td></td>\n                    <td>{{total_days}}</td>\n                    <td>\n                        {{total_supervisor | currency 'R'}}\n                        <input name=\"section[{{sectionKey}}][options][{{optionKey}}][supervisor_cost_price]\" type=\"hidden\" v-model=\"total_supervisor\">\n                    </td>\n                </tr>\n                <tr>\n                    <td>Transport</td>\n                    <td>{{distance}}km</td>\n                    <td>{{total_days}}</td>\n                    <td>{{total_transport | currency 'R'}}</td>\n                </tr>\n            </tbody>\n        </table>\n    </div>\n</div>    \n<!-- Totals -->\n<div class=\"row\">\n    <div class=\"col-sm-6 col-sm-offset-6\">\n        <div class=\"row\">\n            <div class=\"col-sm-6\">\n                <label>Total Days:</label> <h5 style=\"margin:0\">{{total_days}}</h5>\n                <input name=\"section[{{sectionKey}}][options][{{optionKey}}][days]\" type=\"hidden\" v-model=\"total_days\">\n            </div>\n            <div class=\"col-sm-6\">\n                <label>Cost Price:</label> <h5 style=\"margin:0\">{{total_cost_price | currency 'R'}}</h5>\n                <input name=\"section[{{sectionKey}}][options][{{optionKey}}][total_cost_price]\" type=\"hidden\" v-model=\"total_cost_price\">\n            </div>\n        </div>\n        <div class=\"row\">\n            <div class=\"col-sm-6\">\n                <label>Markup %</label>\n                <input name=\"section[{{sectionKey}}][options][{{optionKey}}][markup]\" type=\"number\" class=\"form-control\" placeholder=\"Markup %\" v-model=\"markup\" number=\"\">\n            </div>\n            <div class=\"col-sm-6\">\n                <label>Selling Price:</label> <h5 style=\"margin:0\">{{total_selling_price | currency 'R'}}</h5>\n                <input name=\"section[{{sectionKey}}][options][{{optionKey}}][selling_price]\" type=\"hidden\" v-model=\"total_selling_price\">\n            </div>\n        </div>\n    </div>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -12148,7 +12225,7 @@ exports.default = {
     }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"row\">\n    <div class=\"col-md-12\">\n        <button class=\"btn btn-danger pull-right btn-xs\" @click.prevent=\"removeSection(key)\"><i class=\"fui-cross\"></i></button>\n        <br>\n        <form>\n            <!-- <h6 style=\"margin: 0\">{{section.name}}</h6> -->\n            <div class=\"form-group\">\n                <input type=\"text\" class=\"form-control input-lg\" placeholder=\"Section Name\" v-model=\"section.name\">\n            </div>\n            <div class=\"form-group\">\n                <textarea class=\"form-control\" rows=\"3\" placeholder=\"Site Survey\" v-model=\"section.survey\"></textarea>\n            </div>\n            <hr style=\"border-top: 1px solid #FFF;\">\n            <div class=\"clearfix\"></div>\n            <button class=\"btn btn-primary pull-right btn-sm\" @click.prevent=\"addOption\">add Option</button>\n            <strong>Options</strong>\n        </form>\n        <div class=\"clearfix\"></div>\n    </div>\n</div>\n<div class=\"clearfix\" style=\"margin-top: 10px;\"></div>\n<div class=\"tile\" style=\"text-align:left\" v-show=\"section.options\" v-for=\"(optionKey, option) in section.options\">\n    <div class=\"row\">\n        <div class=\"col-md-12\">\n            <button class=\"btn btn-danger btn-xs pull-right\" style=\"z-index:1\" @click.prevent=\"removeOption(optionKey)\"><i class=\"fui-cross\"></i></button><br>\n            <div class=\"form-group\">\n                <input type=\"text\" class=\"form-control input-lg flat\" placeholder=\"Option #\" v-model=\"option.name\">\n            </div>\n            <div class=\"form-group\">\n                <textarea class=\"form-control flat\" rows=\"2\" placeholder=\"Explanation / description\" v-model=\"option.description\"></textarea>\n            </div>\n        </div>\n        <div class=\"col-md-12\">\n            <div class=\"form-group\">\n                <div class=\"form-group\">\n                    <label for=\"system\">System</label>\n                    <select v-model=\"option.system\" class=\"form-control\">\n                      <option v-for=\"system in systems\" v-bind:value=\"system\">{{system.name}}</option>\n                    </select>\n                </div>\n            </div>\n        </div>\n        <template v-if=\"option.system\">\n            <div class=\"col-md-12\">\n                <component :is=\"option.system.component\" :option=\"option\" :option-key=\"optionKey\"></component>\n            </div>\n        </template>\n    </div>\n</div>\n<hr>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"row\">\n    <div class=\"col-md-12\">\n        <button class=\"btn btn-danger pull-right btn-xs\" @click.prevent=\"removeSection(key)\"><i class=\"fui-cross\"></i></button>\n        <br>\n            <!-- <h6 style=\"margin: 0\">{{section.name}}</h6> -->\n            <div class=\"form-group\">\n                <input name=\"section[{{key}}][name]\" type=\"text\" class=\"form-control input-lg\" placeholder=\"Section Name\" v-model=\"section.name\" value=\"Section {{key+1}}\">\n            </div>\n            <div class=\"form-group\">\n                <textarea name=\"section[{{key}}][survey]\" class=\"form-control\" rows=\"3\" placeholder=\"Site Survey\" v-model=\"section.survey\"></textarea>\n            </div>\n            <div class=\"clearfix\"></div>\n            <button class=\"btn btn-primary pull-right btn-sm\" @click.prevent=\"addOption\">add Option</button>\n            <strong>Options</strong>\n        <div class=\"clearfix\"></div>\n    </div>\n</div>\n<div class=\"clearfix\" style=\"margin-top: 10px;\"></div>\n<div class=\"tile\" style=\"text-align:left\" v-show=\"section.options\" v-for=\"(optionKey, option) in section.options\">\n    <div class=\"row\">\n        <template v-if=\"option.system\">\n            <div class=\"col-md-12\">\n                <button class=\"btn btn-danger btn-xs pull-right\" style=\"z-index:1\" @click.prevent=\"removeOption(optionKey)\"><i class=\"fui-cross\"></i></button><br>\n                <div class=\"form-group\">\n                    <input name=\"section[{{key}}][options][{{optionKey}}][name]\" type=\"text\" class=\"form-control\" placeholder=\"Option #\" v-model=\"option.name\" value=\"Option {{optionKey+1}} - {{option.system.alias}}\">\n                </div>\n                <div class=\"form-group\">\n                    <textarea name=\"section[{{key}}][options][{{optionKey}}][description]\" class=\"form-control\" rows=\"2\" placeholder=\"Explanation / description\" v-model=\"option.description\">{{option.system.description}}</textarea>\n                </div>\n            </div>\n        </template>\n        <div class=\"col-md-12\">\n            <div class=\"form-group\">\n                <div class=\"form-group\">\n                    <label for=\"system\">System</label>\n                    <select v-model=\"option.system\" class=\"form-control\">\n                      <option v-for=\"system in systems\" v-bind:value=\"system\">{{system.name}}</option>\n                    </select>\n                </div>\n            </div>\n        </div>\n        <div class=\"col-md-12\" v-if=\"option.system\">\n            <component :is=\"option.system.component\" :option=\"option\" :option-key=\"optionKey\" :section-key=\"key\"></component>\n        </div>\n    </div>\n</div>\n<hr>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)

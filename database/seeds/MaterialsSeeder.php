@@ -13,7 +13,7 @@ class MaterialsSeeder extends Seeder
     public function run()
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        DB::table('materials')->insert([
+        DB::table('materials')->insert([ //1
             'name' => 'Coppernit Mineral Torch-on',
             'category_id' => 1,
             'description' => 'Blah Blah',
@@ -26,7 +26,7 @@ class MaterialsSeeder extends Seeder
             'product_type'=>'torchon',
             'created_at' => Carbon::now()
         ]);
-        DB::table('materials')->insert([
+        DB::table('materials')->insert([ //2
             'name' => 'Axter Mineral Torch-on',
             'category_id' => 1,
             'description' => 'French',
@@ -39,7 +39,7 @@ class MaterialsSeeder extends Seeder
             'product_type'=>'torchon',
             'created_at' => Carbon::now()
         ]);
-        DB::table('materials')->insert([
+        DB::table('materials')->insert([ //3
             'name' => 'ABE Bitu-Prime',
             'category_id' => 1,
             'description' => 'Blah Blah',
@@ -52,7 +52,7 @@ class MaterialsSeeder extends Seeder
             'product_type'=>'primer',
             'created_at' => Carbon::now()
         ]);
-        DB::table('materials')->insert([
+        DB::table('materials')->insert([ //4
             'name' => 'Gas 9kg',
             'category_id' => 1,
             'description' => 'Blah Blah',
@@ -65,7 +65,7 @@ class MaterialsSeeder extends Seeder
             'product_type'=>'gas',
             'created_at' => Carbon::now()
         ]);
-        DB::table('materials')->insert([
+        DB::table('materials')->insert([ //5
             'name' => 'Membrane 100',
             'category_id' => 1,
             'description' => 'Blah Blah',
@@ -78,7 +78,7 @@ class MaterialsSeeder extends Seeder
             'product_type'=>'membrane',
             'created_at' => Carbon::now()
         ]);
-        DB::table('materials')->insert([
+        DB::table('materials')->insert([ //6
             'name' => 'Membrane 200',
             'category_id' => 1,
             'description' => 'Blah Blah',
@@ -91,7 +91,7 @@ class MaterialsSeeder extends Seeder
             'product_type'=>'membrane',
             'created_at' => Carbon::now()
         ]);
-        DB::table('materials')->insert([
+        DB::table('materials')->insert([ //7
             'name' => 'Membrane 300',
             'category_id' => 1,
             'description' => 'Blah Blah',
@@ -104,7 +104,7 @@ class MaterialsSeeder extends Seeder
             'product_type'=>'membrane',
             'created_at' => Carbon::now()
         ]);
-        DB::table('materials')->insert([
+        DB::table('materials')->insert([ //8
             'name' => 'Membrane 500',
             'category_id' => 1,
             'description' => 'Blah Blah',
@@ -117,7 +117,7 @@ class MaterialsSeeder extends Seeder
             'product_type'=>'membrane',
             'created_at' => Carbon::now()
         ]);
-        DB::table('materials')->insert([
+        DB::table('materials')->insert([ //9
             'name' => 'Membrane 1000',
             'category_id' => 1,
             'description' => 'Blah Blah',
@@ -131,7 +131,7 @@ class MaterialsSeeder extends Seeder
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //10
-            'name' => 'ABE Super Laycryl',
+            'name' => 'ABE Super Laycryl', 
             'category_id' => 1,
             'description' => 'Blah Blah',
             'image' => 'blank.jpg',
@@ -156,7 +156,7 @@ class MaterialsSeeder extends Seeder
             'product_type' => 'sanika_board',
             'created_at' => Carbon::now()
         ]);
-        DB::table('materials')->insert([
+        DB::table('materials')->insert([ //12
             'name' => '20DV 15mm 4mm Fibre Cement',
             'category_id' => 1,
             'Description' => 'blah',
@@ -169,7 +169,7 @@ class MaterialsSeeder extends Seeder
             'product_type' => 'sanika_board',
             'created_at' => Carbon::now()
         ]);
-        DB::table('materials')->insert([
+        DB::table('materials')->insert([ //13
             'name' => '24DV 15mm 4mm Fibre Cement',
             'category_id' => 1,
             'Description' => 'blah',
@@ -182,7 +182,7 @@ class MaterialsSeeder extends Seeder
             'product_type' => 'sanika_board',
             'created_at' => Carbon::now()
         ]);
-        DB::table('materials')->insert([
+        DB::table('materials')->insert([ //14
             'name' => '16DV 25mm 4mm Fibre Cement',
             'category_id' => 1,
             'Description' => 'blah',
@@ -195,7 +195,7 @@ class MaterialsSeeder extends Seeder
             'product_type' => 'sanika_board',
             'created_at' => Carbon::now()
         ]);
-        DB::table('materials')->insert([
+        DB::table('materials')->insert([ //15
             'name' => '20DV 25mm 4mm Fibre Cement',
             'category_id' => 1,
             'Description' => 'blah',
@@ -208,7 +208,7 @@ class MaterialsSeeder extends Seeder
             'product_type' => 'sanika_board',
             'created_at' => Carbon::now()
         ]);
-        DB::table('materials')->insert([
+        DB::table('materials')->insert([ //16
             'name' => '24DV 25mm 4mm Fibre Cement',
             'category_id' => 1,
             'Description' => 'blah',
@@ -221,7 +221,7 @@ class MaterialsSeeder extends Seeder
             'product_type' => 'sanika_board',
             'created_at' => Carbon::now()
         ]);
-        DB::table('materials')->insert([
+        DB::table('materials')->insert([ //17
             'name' => '16DV 15mm 6mm Fibre Cement',
             'category_id' => 1,
             'Description' => 'blah',
@@ -234,7 +234,7 @@ class MaterialsSeeder extends Seeder
             'product_type' => 'sanika_board',
             'created_at' => Carbon::now()
         ]);
-        DB::table('materials')->insert([
+        DB::table('materials')->insert([ //18
             'name' => '20DV 15mm 6mm Fibre Cement',
             'category_id' => 1,
             'Description' => 'blah',
@@ -247,7 +247,7 @@ class MaterialsSeeder extends Seeder
             'product_type' => 'sanika_board',
             'created_at' => Carbon::now()
         ]);
-        DB::table('materials')->insert([
+        DB::table('materials')->insert([ //19
             'name' => '24DV 15mm 6mm Fibre Cement',
             'category_id' => 1,
             'Description' => 'blah',
@@ -260,7 +260,7 @@ class MaterialsSeeder extends Seeder
             'product_type' => 'sanika_board',
             'created_at' => Carbon::now()
         ]);
-        DB::table('materials')->insert([
+        DB::table('materials')->insert([ //20
             'name' => '16DV 25mm 6mm Fibre Cement',
             'category_id' => 1,
             'Description' => 'blah',
@@ -273,7 +273,7 @@ class MaterialsSeeder extends Seeder
             'product_type' => 'sanika_board',
             'created_at' => Carbon::now()
         ]);
-        DB::table('materials')->insert([
+        DB::table('materials')->insert([ //21
             'name' => '20DV 25mm 6mm Fibre Cement',
             'category_id' => 1,
             'Description' => 'blah',
@@ -286,7 +286,7 @@ class MaterialsSeeder extends Seeder
             'product_type' => 'sanika_board',
             'created_at' => Carbon::now()
         ]);
-        DB::table('materials')->insert([
+        DB::table('materials')->insert([ //22
             'name' => '24DV 25mm 6mm Fibre Cement',
             'category_id' => 1,
             'Description' => 'blah',
@@ -299,7 +299,7 @@ class MaterialsSeeder extends Seeder
             'product_type' => 'sanika_board',
             'created_at' => Carbon::now()
         ]);
-        DB::table('materials')->insert([
+        DB::table('materials')->insert([ //23
             'name' => 'Fillets IBR',
             'category_id' => 1,
             'Description' => 'blah',
@@ -312,7 +312,7 @@ class MaterialsSeeder extends Seeder
             'product_type' => 'fillets',
             'created_at' => Carbon::now()
         ]);
-        DB::table('materials')->insert([
+        DB::table('materials')->insert([ //24
             'name' => 'Fillets Clip Lock',
             'category_id' => 1,
             'Description' => 'blah',

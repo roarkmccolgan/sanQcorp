@@ -23,7 +23,9 @@ class DatabaseSeeder extends Seeder
         $this->call(CategorySeeder::class);
         $this->call(MaterialsSeeder::class);
         $this->call(SystemSeeder::class);
-        $this->call(SystemMaterialsSeeder::class);
+        $this->call(SystemTasksSeeder::class);
+        $this->call(TasksSeeder::class);
+        $this->call(TaskMaterialsSeeder::class);
 
         Model::reguard();
     }

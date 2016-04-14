@@ -17,7 +17,8 @@
 @stop
 
 @section('content')
-	<form action="" method="POST">
+	<form action="{{url('/jobs/'.$job->id.'/build/')}}" method="POST" enctype="">
+    {{ csrf_field() }}
     <div class="row">
         <div class="col-md-8">
     		<button class="btn btn-primary pull-right" style="margin-top: 15px;" @click.prevent="addSection"><i class="fui-plus"></i></button>
@@ -27,7 +28,7 @@
         
         	<job-section v-for="(key, section) in sections" :section="section" :systems="systems" :key="key" :remove-section="removeSection"></job-section>
         	<div class="form-group">
-        		<button type="submit" v-bind:class="{'disabled': !can_save}" @click.prevent="saveJob" class="btn btn-info btn-lg">Save</button>
+        		<button type="submit" v-bind:class="{'disabled': !can_save}" class="btn btn-info btn-lg">Save</button> <!-- @click.prevent="saveJob" -->
         	</div>
         </div>
     </div>

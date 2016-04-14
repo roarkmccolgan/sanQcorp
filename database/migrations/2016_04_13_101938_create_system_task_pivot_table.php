@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMaterialSystemPivotTable extends Migration
+class CreateSystemTaskPivotTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,12 @@ class CreateMaterialSystemPivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('material_system', function (Blueprint $table) {
-            $table->integer('material_id')->unsigned()->index();
-            $table->foreign('material_id')->references('id')->on('materials')->onDelete('cascade');
+        Schema::create('system_task', function (Blueprint $table) {
             $table->integer('system_id')->unsigned()->index();
             $table->foreign('system_id')->references('id')->on('system')->onDelete('cascade');
-            $table->primary(['material_id', 'system_id']);
+            $table->integer('task_id')->unsigned()->index();
+            $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');
+            $table->primary(['system_id', 'task_id']);
         });
     }
 
@@ -28,6 +28,6 @@ class CreateMaterialSystemPivotTable extends Migration
      */
     public function down()
     {
-        Schema::drop('material_system');
+        Schema::drop('system_task');
     }
 }

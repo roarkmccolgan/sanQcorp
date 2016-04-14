@@ -1,82 +1,196 @@
 <template>
-    <form>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-sm-3">
             <div class="input-group" style="padding-top:14px">
-                <input type="number" class="form-control input-lg flat" placeholder="Size" v-model="size" number @keyup="calcMaterial | debounce 500" />
+                <input name="section[{{sectionKey}}][options][{{optionKey}}][size]" type="number" class="form-control" placeholder="Size" v-model="size" number @keyup="calcMaterial | debounce 500" />
                 <span class="input-group-addon">{{option.system.unit}}</span>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-sm-3">
             <div class="input-group" style="padding-top:14px">
-                <input type="number" class="form-control input-lg flat" placeholder="Perimeter" v-model="perimeter" number @keyup="calcMaterial | debounce 500"/>
+                <input name="section[{{sectionKey}}][options][{{optionKey}}][perimeter]" type="number" class="form-control" placeholder="Perimeter" v-model="perimeter" number @keyup="calcMaterial | debounce 500"/>
                 <span class="input-group-addon">lm</span>
             </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-sm-3">
             <div class="form-group">
                 <small>Stripping?</small><br/>
-                <input type="checkbox" v-switch="stripping" />
+                <input name="section[{{sectionKey}}][options][{{optionKey}}][stripping]" type="checkbox" v-switch="stripping" data-on-text="Yes" data-off-text="No" />
             </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-sm-3">
             <div class="form-group" style="padding-top:14px">
-                <input type="number" class="form-control flat" placeholder="Difficulty %" v-model="wastage" number />
+                <input name="section[{{sectionKey}}][options][{{optionKey}}][difficulty]" type="number" class="form-control" placeholder="Difficulty %" v-model="wastage" number />
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            Labour Cost: <strong>{{total_labour_price | currency 'R'}}</strong> <small>{{total_labour_price/size | currency 'R'}} / {{option.system.unit}}</small><br>
-            Supervisor Cost: <strong>{{total_supervisor | currency 'R'}}</strong><br>
-            Transport: <strong>{{total_transport | currency 'R'}}</strong>
-        </div>
-        <div class="col-md-6">
-            Total Days: <h4 style="margin:0">{{total_days}}</h4>
-            Cost Price: <h4 style="margin:0">{{total_cost_price | currency 'R'}}</h4>
-        </div>
-            
     </div>
     <div class="clearfix" style="height:20px;"></div>
     <!-- Loop through system materials and show line costings -->
-    <div class="row" v-show="size && perimeter" v-for="(material_type, material) in option.system.materials">
-        <div class="col-md-2">
-            <strong>{{material_type}}</strong>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <template v-if="getObjSize(material)>1">
-                    <select v-model="material.material_type.id" class="form-control"><!-- @change="setMaterial(material_type)" -->
-                        <option v-for="(material_id, chosen_material) in material" v-bind:value="material_id">{{chosen_material.name}}</option><!--  v-show="dbmaterial.product_type==material_type" -->
-                    </select>
-                </template>
-                <template v-else>
-                    <template v-for="(material_id, chosen_material) in material">
-                        <input type="hidden" v-model="material.material_type.id">
-                        <strong v-for="">{{chosen_material.name}}</strong><!--  v-show="dbmaterial.product_type==material_type" -->
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th width="10%">Type</th>
+                        <th>Product</th>
+                        <th>Qty</th>
+                        <th width="23%">Cost Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template v-for="(task_type, task) in option.system.tasks">
+                        <tr v-for="(material_type, material) in task.materials">
+                            <td>{{material_type}}</td>
+                            <td>
+                                <template v-if="getObjSize(material)>1">
+                                    <select name="section[{{sectionKey}}][options][{{optionKey}}][tasks][{{task_type}}][materials][{{material_type}}][material_id]" v-model="tasks[task_type][material_type].id" class="form-control" @change="setMaterial(task_type,material_type)">
+                                        <option v-for="(material_id, chosen_material) in material" v-bind:value="material_id">{{chosen_material.name}}</option>
+                                    </select>
+                                </template>
+                                <template v-else>
+                                    <template v-for="(material_id, chosen_material) in material">
+                                        <input name="section[{{sectionKey}}][options][{{optionKey}}][tasks][{{task_type}}][materials][{{material_type}}][material_id]" type="hidden" v-model="tasks[task_type][material_type].id">
+                                        {{chosen_material.name}}
+                                    </template>
+                                </template>
+                            </td>
+                            <td>
+                                {{tasks[task_type][material_type].qty}}
+                                <input name="section[{{sectionKey}}][options][{{optionKey}}][materials][{{material_type}}][qty]" type="hidden" v-model="tasks[task_type][material_type].qty">
+                            </td>
+                            <td>
+                                {{tasks[task_type][material_type].price | currency 'R'}}
+                                <input name="section[{{sectionKey}}][options][{{optionKey}}][materials][{{material_type}}][price]" type="hidden" v-model="tasks[task_type][material_type].price">
+                                <input name="section[{{sectionKey}}][options][{{optionKey}}][materials][{{material_type}}][cost_price]" type="hidden" v-model="tasks[task_type][material_type].cost_price">
+                            </td>
+                        </tr>
                     </template>
-                </template>
-            </div>
+
+                    <tr>
+                        <td>Labour</td>
+                        <td>Crew of 4</td>
+                        <td>{{total_days}}</td>
+                        <td>
+                            {{total_labour_price | currency 'R'}}
+                            <input name="section[{{sectionKey}}][options][{{optionKey}}][labour_cost_price]" type="hidden" v-model="total_labour_price">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Supervisor</td>
+                        <td></td>
+                        <td>{{total_days}}</td>
+                        <td>
+                            {{total_supervisor | currency 'R'}}
+                            <input name="section[{{sectionKey}}][options][{{optionKey}}][supervisor_cost_price]" type="hidden" v-model="total_supervisor">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Transport</td>
+                        <td>{{distance}}km</td>
+                        <td>{{total_days}}</td>
+                        <td>{{total_transport | currency 'R'}}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                Quantity: <strong>{{material.qty}}</strong><br/>
-                Cost Price: <strong>{{material.price | currency 'R'}}</strong>
+    </div>    
+    <!-- Totals -->
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-6">
+            <div class="row">
+                <div class="col-sm-6">
+                    <label>Total Days:</label> <h5 style="margin:0">{{total_days}}</h5>
+                    <input name="section[{{sectionKey}}][options][{{optionKey}}][days]" type="hidden" v-model="total_days">
+                </div>
+                <div class="col-sm-6">
+                    <label>Cost Price:</label> <h5 style="margin:0">{{total_cost_price | currency 'R'}}</h5>
+                    <input name="section[{{sectionKey}}][options][{{optionKey}}][total_cost_price]" type="hidden" v-model="total_cost_price">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <label>Markup %</label>
+                    <input name="section[{{sectionKey}}][options][{{optionKey}}][markup]" type="number" class="form-control" placeholder="Markup %" v-model="markup" number />
+                </div>
+                <div class="col-sm-6">
+                    <label>Selling Price:</label> <h5 style="margin:0">{{total_selling_price | currency 'R'}}</h5>
+                    <input name="section[{{sectionKey}}][options][{{optionKey}}][selling_price]" type="hidden" v-model="total_selling_price">
+                </div>
             </div>
         </div>
     </div>
-    </form>
 </template>
 
 <script>
     export default {
-        props: ['option','optionKey'],
+        props: ['option','optionKey','sectionKey'],
         data: function() {
             return {
                 size: '',
+                distance: laravel.job.distance,
                 stripping: false,
                 perimeter: false,
                 wastage: '',
+                markup: 100,
+                tasks: {
+                    torchmineral: {
+                        torchon: {
+                            id: '',
+                            name: '',
+                            qty: '',
+                            cost_price: '',
+                            price: '',
+                            unit_of_measure: '',
+                            pack_size: '',
+                            stock: '',
+                        },
+                        primer: {
+                            id: '',
+                            name: '',
+                            qty: '',
+                            cost_price: '',
+                            price: '',
+                            unit_of_measure: '',
+                            pack_size: '',
+                            stock: '',
+                        },
+                        gas: {
+                            id: '',
+                            name: '',
+                            qty: '',
+                            cost_price: '',
+                            price: '',
+                            unit_of_measure: '',
+                            pack_size: '',
+                            stock: '',
+                        }
+                    },
+                    acrylicflashing: {
+                        membrane: {
+                            id: '',
+                            name: '',
+                            qty: '',
+                            cost_price: '',
+                            price: '',
+                            unit_of_measure: '',
+                            pack_size: '',
+                            stock: '',
+                        },
+                        acrylic: {
+                            id: '',
+                            name: '',
+                            qty: '',
+                            cost_price: '',
+                            price: '',
+                            unit_of_measure: '',
+                            pack_size: '',
+                            stock: '',
+                        }
+                    },
+                    stripping: {
+
+                    }
+                },
                 systemMaterials: {
                     torchon: {
                         id: '',
@@ -168,68 +282,86 @@
                 price += this.total_transport == 0 ? 0 : this.total_transport;
                 price += this.total_supervisor == 0 ? 0 : this.total_supervisor;
                 return price==0 ? 0: price;
+            },
+            total_selling_price: function(){
+                return this.total_cost_price+((this.total_cost_price/100)*this.markup);
             }
         },
         methods: {
             setDefaults: function(){
+                var system_tasks = this.option.system.tasks;
+                for (var task in system_tasks) {
+                    if (system_tasks.hasOwnProperty(task)) {
+                        //loop through tasks
+                        for (var material_type in system_tasks[task]['materials']) {
+                            if (system_tasks[task]['materials'].hasOwnProperty(material_type)) {
+                                //loop through materials
+                                for (var material_id in system_tasks[task]['materials'][material_type]) {
+                                    if (system_tasks[task]['materials'][material_type].hasOwnProperty(material_id)) {
+                                        if(this.tasks[task][material_type].id==''){
+                                            this.tasks[task][material_type].id = system_tasks[task]['materials'][material_type][material_id].id;
+                                            this.tasks[task][material_type].name = system_tasks[task]['materials'][material_type][material_id].name;
+                                            this.tasks[task][material_type].cost_price = Number(system_tasks[task]['materials'][material_type][material_id].price);
+                                            this.tasks[task][material_type].pack_size = Number(system_tasks[task]['materials'][material_type][material_id].pack_size);
+                                            this.tasks[task][material_type].unit_of_measure = system_tasks[task]['materials'][material_type][material_id].unit_of_measure;
+                                            this.tasks[task][material_type].stock = system_tasks[task]['materials'][material_type][material_id].stock;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                this.calcMaterial();
+            },
+            setMaterial: function(type){
                 var system_mats = this.option.system.materials;
                 for (var key in system_mats) {
                     if (system_mats.hasOwnProperty(key)) {
                         //loop through materials
                         for (var material_id in system_mats[key]) {
                             if (system_mats[key].hasOwnProperty(material_id)) {
-                                if(this.systemMaterials[key].id==''){
-                                    this.systemMaterials[key].id = system_mats[key][material_id].id;
-                                    this.systemMaterials[key].cost_price = Number(system_mats[key][material_id].price);
-                                    this.systemMaterials[key].pack_size = Number(system_mats[key][material_id].pack_size);
-                                    this.systemMaterials[key].unit_of_measure = system_mats[key][material_id].unit_of_measure;
-                                    this.systemMaterials[key].stock = system_mats[key][material_id].stock;
+                                if(system_mats[key][material_id].id == this.systemMaterials[type].id){
+                                    //this.systemMaterials[type].material = system_mats[key].id;
+                                    this.systemMaterials[type].cost_price = Number(system_mats[key][material_id].price);
+                                    this.systemMaterials[type].pack_size = Number(system_mats[key][material_id].pack_size);
+                                    this.systemMaterials[type].unit_of_measure = system_mats[key][material_id].unit_of_measure;
+                                    this.systemMaterials[type].stock = system_mats[key][material_id].stock;
                                 }
                             }
                         }
                     }
                 }
-            },
-            setMaterial: function(type){
-                var system_mats = this.option.system.materials;
-                for (var key in system_mats) {
-                    if (system_mats.hasOwnProperty(key)) {
-                        if(system_mats[key].id == this.systemMaterials[type].material){
-                            //this.systemMaterials[type].material = system_mats[key].id;
-                            this.systemMaterials[type].cost_price = Number(system_mats[key].price);
-                            this.systemMaterials[type].pack_size = Number(system_mats[key].pack_size);
-                            this.systemMaterials[type].unit_of_measure = system_mats[key].unit_of_measure;
-                            this.systemMaterials[type].stock = system_mats[key].stock;
-                        }
-                    }
-                }
-                this.calcMaterial;
+                this.calcMaterial();
             },
             calcMaterial: function(){
-                var option_mats = this.systemMaterials;
-                for (var key in option_mats) {
-                    if (option_mats.hasOwnProperty(key)) {
-                        var material = key;
-                        switch(material){
-                            case 'torchon':
-                                this.systemMaterials[material].qty = Math.ceil(this.size/9) + Math.ceil((this.new_size-this.size)/9);
-                            break;
-                            case 'primer':
-                                this.systemMaterials[material].qty = Math.ceil((this.size/5)/25);
-                            break;
-                            case 'gas':
-                                this.systemMaterials[material].qty = Math.ceil(this.new_size/80);
-                            break;
-                            case 'membrane':
-                                this.systemMaterials[material].qty = Math.ceil(this.perimeter/20);
-                            break;
-                            case 'acrylic':
-                                this.systemMaterials[material].qty = Math.ceil((this.perimeter*0.2)*1.3/this.systemMaterials[material].pack_size);
-                            break;
+                var tasks = this.tasks;
+                for (var task in tasks) {
+                    if (tasks.hasOwnProperty(task)) {
+                        for (var material_type in tasks[task]){
+                            if (tasks[task].hasOwnProperty(material_type)) {
+                                switch(material_type){
+                                    case 'torchon':
+                                        this.tasks[task][material_type].qty = Math.ceil(this.size/9) + Math.ceil((this.new_size-this.size)/9);
+                                    break;
+                                    case 'primer':
+                                        this.tasks[task][material_type].qty = Math.ceil((this.size/5)/25);
+                                    break;
+                                    case 'gas':
+                                        this.tasks[task][material_type].qty = Math.ceil(this.new_size/80);
+                                    break;
+                                    case 'membrane':
+                                        this.tasks[task][material_type].qty = Math.ceil(this.perimeter/20);
+                                    break;
+                                    case 'acrylic':
+                                        this.tasks[task][material_type].qty = Math.ceil((this.perimeter*0.2)*1.3/this.tasks[task][material_type].pack_size);
+                                    break;
+                                }
+                                this.tasks[task][material_type].price = this.tasks[task][material_type].qty * this.tasks[task][material_type].cost_price;
+                            }
                         }
                     }
                 }
-                this.systemMaterials[material].price = this.systemMaterials[material].qty * this.systemMaterials[material].cost_price;
             },
             getObjSize: function(obj) {
                 var size = 0, key;

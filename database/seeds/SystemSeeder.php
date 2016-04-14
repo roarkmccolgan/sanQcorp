@@ -14,7 +14,8 @@ class SystemSeeder extends Seeder
     {
         DB::table('system')->insert([
             'name' => 'Concrete Roof Maintenance-Free Torch-on',
-            'description' => '',
+            'description' => 'This heat bonded system has a mineral stone chip finish that is both aesthetically pleasing and comes with a 10 year, Maintenance-Free guarantee,',
+            'alias' => 'Mineral Maintenance-Free Torch-on System',
             'unit' => 'm2',
             'base_rate' => 250.00,
             'component' => 'ConcreteMineralTorchOnSystem',
@@ -22,7 +23,8 @@ class SystemSeeder extends Seeder
         ]);
         DB::table('system')->insert([
             'name' => 'Sanika Boarded Maintenance-Free Torch-on',
-            'description' => '',
+            'description' => 'Our insulative boarded system is awesome. This heat bonded system has a mineral stone chip finish that is both aesthetically pleasing and comes with a 10 year, Maintenance-Free guarantee,',
+            'alias' => 'Sanika\'s insulative Boarded System',
             'unit' => 'm2',
             'base_rate' => 450.00,
             'component' => 'SanikaBoardedMineralTorchOnSystem',

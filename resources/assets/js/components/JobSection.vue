@@ -3,34 +3,33 @@
         <div class="col-md-12">
             <button class="btn btn-danger pull-right btn-xs" @click.prevent="removeSection(key)"><i class="fui-cross"></i></button>
             <br/>
-            <form>
                 <!-- <h6 style="margin: 0">{{section.name}}</h6> -->
                 <div class="form-group">
-                    <input type="text" class="form-control input-lg" placeholder="Section Name" v-model="section.name" />
+                    <input name="section[{{key}}][name]" type="text" class="form-control input-lg" placeholder="Section Name" v-model="section.name" value="Section {{key+1}}" />
                 </div>
                 <div class="form-group">
-                    <textarea class="form-control" rows="3" placeholder="Site Survey" v-model="section.survey"></textarea>
+                    <textarea name="section[{{key}}][survey]" class="form-control" rows="3" placeholder="Site Survey" v-model="section.survey"></textarea>
                 </div>
-                <hr style="border-top: 1px solid #FFF;">
                 <div class="clearfix"></div>
                 <button class="btn btn-primary pull-right btn-sm" @click.prevent="addOption">add Option</button>
                 <strong>Options</strong>
-            </form>
             <div class="clearfix"></div>
         </div>
     </div>
     <div class="clearfix" style="margin-top: 10px;"></div>
     <div class="tile" style="text-align:left" v-show="section.options" v-for="(optionKey, option) in section.options">
         <div class="row">
-            <div class="col-md-12">
-                <button class="btn btn-danger btn-xs pull-right" style="z-index:1" @click.prevent="removeOption(optionKey)"><i class="fui-cross"></i></button><br>
-                <div class="form-group">
-                    <input type="text" class="form-control input-lg flat" placeholder="Option #" v-model="option.name" />
+            <template v-if="option.system">
+                <div class="col-md-12">
+                    <button class="btn btn-danger btn-xs pull-right" style="z-index:1" @click.prevent="removeOption(optionKey)"><i class="fui-cross"></i></button><br>
+                    <div class="form-group">
+                        <input name="section[{{key}}][options][{{optionKey}}][name]" type="text" class="form-control" placeholder="Option #" v-model="option.name" value="Option {{optionKey+1}} - {{option.system.alias}}" />
+                    </div>
+                    <div class="form-group">
+                        <textarea name="section[{{key}}][options][{{optionKey}}][description]" class="form-control" rows="2" placeholder="Explanation / description" v-model="option.description">{{option.system.description}}</textarea>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <textarea class="form-control flat" rows="2" placeholder="Explanation / description" v-model="option.description"></textarea>
-                </div>
-            </div>
+            </template>
             <div class="col-md-12">
                 <div class="form-group">
                     <div class="form-group">
@@ -41,11 +40,9 @@
                     </div>
                 </div>
             </div>
-            <template v-if="option.system">
-                <div class="col-md-12">
-                    <component :is="option.system.component" :option="option" :option-key="optionKey"></component>
-                </div>
-            </template>
+            <div class="col-md-12" v-if="option.system">
+                <component :is="option.system.component" :option="option" :option-key="optionKey" :section-key="key"></component>
+            </div>
         </div>
     </div>
     <hr>

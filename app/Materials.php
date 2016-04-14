@@ -20,18 +20,18 @@ class Materials extends Model
     }
 
     /**
-     * @return Material Systems
-     */
-    public function systems()
-    {
-        return $this->belongsToMany('App\System');
-    }
-
-    /**
      * @return Material Logs
      */
     public function logs()
     {
         return $this->belongsToMany('App\Log');
+    }
+
+    /**
+     * @return Materials tasks
+     */
+    public function tasks()
+    {
+        return $this->belongsToMany('App\Tasks', 'material_task', 'material_id', 'task_id');
     }
 }
