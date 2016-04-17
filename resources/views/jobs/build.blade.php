@@ -19,6 +19,7 @@
 @section('content')
 	<form action="{{url('/jobs/'.$job->id.'/build/')}}" method="POST" enctype="">
     {{ csrf_field() }}
+    <input type="hidden" name="job_id" value="{{$job->id}}">
     <div class="row">
         <div class="col-md-8">
     		<button class="btn btn-primary pull-right" style="margin-top: 15px;" @click.prevent="addSection"><i class="fui-plus"></i></button>

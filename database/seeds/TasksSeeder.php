@@ -23,6 +23,7 @@ class TasksSeeder extends Seeder
             'name' => 'Membrane and Acrylic Flashing',
             'alias' => 'acrylicflashing',
             'unit_of_measure' => 'lm',
+            'link_to' => 'perimeter',
             'created_at' => Carbon::now()
         ]);
         

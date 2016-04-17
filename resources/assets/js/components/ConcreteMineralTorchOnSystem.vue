@@ -15,7 +15,7 @@
         <div class="col-sm-3">
             <div class="form-group">
                 <small>Stripping?</small><br/>
-                <input name="section[{{sectionKey}}][options][{{optionKey}}][stripping]" type="checkbox" v-switch="stripping" data-on-text="Yes" data-off-text="No" />
+                <input name="section[{{sectionKey}}][options][{{optionKey}}][tasks][stripping]" type="checkbox" v-switch="tasks.stripping" data-on-text="Yes" data-off-text="No" />
             </div>
         </div>
         <div class="col-sm-3">
@@ -56,12 +56,12 @@
                             </td>
                             <td>
                                 {{tasks[task_type][material_type].qty}}
-                                <input name="section[{{sectionKey}}][options][{{optionKey}}][materials][{{material_type}}][qty]" type="hidden" v-model="tasks[task_type][material_type].qty">
+                                <input name="section[{{sectionKey}}][options][{{optionKey}}][tasks][{{task_type}}][materials][{{material_type}}][qty]" type="hidden" v-model="tasks[task_type][material_type].qty">
                             </td>
                             <td>
                                 {{tasks[task_type][material_type].price | currency 'R'}}
-                                <input name="section[{{sectionKey}}][options][{{optionKey}}][materials][{{material_type}}][price]" type="hidden" v-model="tasks[task_type][material_type].price">
-                                <input name="section[{{sectionKey}}][options][{{optionKey}}][materials][{{material_type}}][cost_price]" type="hidden" v-model="tasks[task_type][material_type].cost_price">
+                                <input name="section[{{sectionKey}}][options][{{optionKey}}][tasks][{{task_type}}][materials][{{material_type}}][price]" type="hidden" v-model="tasks[task_type][material_type].price">
+                                <input name="section[{{sectionKey}}][options][{{optionKey}}][tasks][{{task_type}}][materials][{{material_type}}][cost_price]" type="hidden" v-model="tasks[task_type][material_type].cost_price">
                             </td>
                         </tr>
                     </template>
@@ -128,7 +128,6 @@
             return {
                 size: '',
                 distance: laravel.job.distance,
-                stripping: false,
                 perimeter: false,
                 wastage: '',
                 markup: 100,
@@ -187,67 +186,13 @@
                             stock: '',
                         }
                     },
-                    stripping: {
-
-                    }
-                },
-                systemMaterials: {
-                    torchon: {
-                        id: '',
-                        name: '',
-                        qty: '',
-                        cost_price: '',
-                        price: '',
-                        unit_of_measure: '',
-                        pack_size: '',
-                        stock: '',
-                    },
-                    primer: {
-                        id: '',
-                        name: '',
-                        qty: '',
-                        cost_price: '',
-                        price: '',
-                        unit_of_measure: '',
-                        pack_size: '',
-                        stock: '',
-                    },
-                    gas: {
-                        id: '',
-                        name: '',
-                        qty: '',
-                        cost_price: '',
-                        price: '',
-                        unit_of_measure: '',
-                        pack_size: '',
-                        stock: '',
-                    },
-                    membrane: {
-                        id: '',
-                        name: '',
-                        qty: '',
-                        cost_price: '',
-                        price: '',
-                        unit_of_measure: '',
-                        pack_size: '',
-                        stock: '',
-                    },
-                    acrylic: {
-                        id: '',
-                        name: '',
-                        qty: '',
-                        cost_price: '',
-                        price: '',
-                        unit_of_measure: '',
-                        pack_size: '',
-                        stock: '',
-                    },
+                    stripping: false
                 }
             };
         },
         computed: {
             stripping_days: function(){
-                return this.size && this.stripping ? Math.ceil(this.size/200):0;
+                return this.size && this.tasks.stripping ? Math.ceil(this.size/200):0;
             },
             new_size: function(){
                 return this.size && this.wastage ? this.size+((this.size / 100) * this.wastage):this.size;
@@ -270,11 +215,15 @@
             total_cost_price: function(){
                 var price = 0;
                 if(this.size){
-                    var curMats = this.systemMaterials;
+                    var curTasks = this.tasks;
                     
-                    for (var key in curMats) {
-                        if (curMats.hasOwnProperty(key)) {
-                            price += curMats[key].price ? curMats[key].price : 0;
+                    for (var taskType in curTasks) {
+                        if (curTasks.hasOwnProperty(taskType)) {
+                            for(var material_type in curTasks[taskType]){
+                                if (curTasks[taskType].hasOwnProperty(material_type)) {
+                                    price += curTasks[taskType][material_type].price ? curTasks[taskType][material_type].price : 0;
+                                }
+                            }
                         }
                     }
                 }
@@ -314,21 +263,17 @@
                 }
                 this.calcMaterial();
             },
-            setMaterial: function(type){
-                var system_mats = this.option.system.materials;
-                for (var key in system_mats) {
-                    if (system_mats.hasOwnProperty(key)) {
-                        //loop through materials
-                        for (var material_id in system_mats[key]) {
-                            if (system_mats[key].hasOwnProperty(material_id)) {
-                                if(system_mats[key][material_id].id == this.systemMaterials[type].id){
-                                    //this.systemMaterials[type].material = system_mats[key].id;
-                                    this.systemMaterials[type].cost_price = Number(system_mats[key][material_id].price);
-                                    this.systemMaterials[type].pack_size = Number(system_mats[key][material_id].pack_size);
-                                    this.systemMaterials[type].unit_of_measure = system_mats[key][material_id].unit_of_measure;
-                                    this.systemMaterials[type].stock = system_mats[key][material_id].stock;
-                                }
-                            }
+            setMaterial: function(taskType, matType){
+                var system_mat = this.option.system.tasks[taskType]['materials'][matType];
+
+                for (var material_id in system_mat) {
+                    if (system_mat.hasOwnProperty(material_id)) {
+                        if(this.tasks[taskType][matType].id==material_id){
+                            this.tasks[taskType][matType].name = system_mat[material_id].name;
+                            this.tasks[taskType][matType].cost_price = Number(system_mat[material_id].price);
+                            this.tasks[taskType][matType].pack_size = Number(system_mat[material_id].pack_size);
+                            this.tasks[taskType][matType].unit_of_measure = system_mat[material_id].unit_of_measure;
+                            this.tasks[taskType][matType].stock = system_mat[material_id].stock;
                         }
                     }
                 }

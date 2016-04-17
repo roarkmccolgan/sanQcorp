@@ -1,6 +1,8 @@
 <template>
+    <input name="section[{{key}}][id]" type="hidden" v-model="section.id" />
     <div class="row">
         <div class="col-md-12">
+
             <button class="btn btn-danger pull-right btn-xs" @click.prevent="removeSection(key)"><i class="fui-cross"></i></button>
             <br/>
                 <!-- <h6 style="margin: 0">{{section.name}}</h6> -->
@@ -20,6 +22,7 @@
     <div class="tile" style="text-align:left" v-show="section.options" v-for="(optionKey, option) in section.options">
         <div class="row">
             <template v-if="option.system">
+                <input type="hidden" name="section[{{key}}][options][{{optionKey}}][system]" value="{{option.system.id}}">
                 <div class="col-md-12">
                     <button class="btn btn-danger btn-xs pull-right" style="z-index:1" @click.prevent="removeOption(optionKey)"><i class="fui-cross"></i></button><br>
                     <div class="form-group">

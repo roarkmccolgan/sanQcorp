@@ -30,4 +30,12 @@ class Tasks extends Model
         return $this->belongsToMany('App\Materials', 'material_task', 'task_id', 'material_id');
     }
 
+    /**
+     * @return Tasks Options
+     */
+    public function options()
+    {
+        return $this->belongsToMany('App\Option', 'option_task', 'task_id', 'option_id');
+    }
+
 }

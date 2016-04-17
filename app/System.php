@@ -24,6 +24,14 @@ class System extends Model
     }
 
     /**
+     * @return System Scopes
+     */
+    public function options()
+    {
+        return $this->hasMany('App\Option');
+    }
+
+    /**
      * @return System Tasks
      */
     public function tasks()

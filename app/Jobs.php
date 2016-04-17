@@ -40,9 +40,17 @@ class Jobs extends Model
     /**
      * @return Job Sections
      */
-    public function section()
+    public function sections()
     {
         return $this->hasMany('App\Section');
+    }
+
+    /**
+     * @return Job Options
+     */
+    public function options()
+    {
+        return $this->hasManyThrough('App\Option', 'App\Section');
     }
 
     /**
@@ -52,5 +60,7 @@ class Jobs extends Model
     {
         return $this->hasMany('App\Log');
     }
+
+
 
 }
