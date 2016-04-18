@@ -24,12 +24,14 @@ class TaskMaterialsSeeder extends Seeder
             'task_id' => 1
         ]);
         DB::table('material_task')->insert([
-            'material_id' => 3,
-            'task_id' => 1
-        ]);
-        DB::table('material_task')->insert([
             'material_id' => 4,
             'task_id' => 1
+        ]);
+
+        //Torch Primer
+        DB::table('material_task')->insert([
+            'material_id' => 3,
+            'task_id' => 6
         ]);
 
         //Membrane
@@ -135,6 +137,22 @@ class TaskMaterialsSeeder extends Seeder
             'material_id' => 29,
             'task_id' => 4
         ]);
+
+        //Screed Repair
+        DB::table('material_task')->insert([
+            'material_id' => 30,
+            'task_id' => 7
+        ]);
+        DB::table('material_task')->insert([
+            'material_id' => 31,
+            'task_id' => 7
+        ]);
+        DB::table('material_task')->insert([
+            'material_id' => 32,
+            'task_id' => 7
+        ]);
+
+        //Boarded
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }

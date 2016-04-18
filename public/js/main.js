@@ -11855,6 +11855,7 @@ exports.default = {
     data: function data() {
         return {
             size: '',
+            screed: '',
             distance: laravel.job.distance,
             perimeter: false,
             wastage: '',
@@ -11862,16 +11863,6 @@ exports.default = {
             tasks: {
                 torchmineral: {
                     torchon: {
-                        id: '',
-                        name: '',
-                        qty: '',
-                        cost_price: '',
-                        price: '',
-                        unit_of_measure: '',
-                        pack_size: '',
-                        stock: ''
-                    },
-                    primer: {
                         id: '',
                         name: '',
                         qty: '',
@@ -11914,11 +11905,51 @@ exports.default = {
                         stock: ''
                     }
                 },
+                primetorch: {
+                    primer: {
+                        id: '',
+                        name: '',
+                        qty: '',
+                        cost_price: '',
+                        price: '',
+                        unit_of_measure: '',
+                        pack_size: '',
+                        stock: ''
+                    }
+                },
+                screedrepair: {
+                    cement: {
+                        id: '',
+                        name: '',
+                        qty: '',
+                        cost_price: '',
+                        price: '',
+                        unit_of_measure: '',
+                        pack_size: '',
+                        stock: ''
+                    },
+                    sand: {
+                        id: '',
+                        name: '',
+                        qty: '',
+                        cost_price: '',
+                        price: '',
+                        unit_of_measure: '',
+                        pack_size: '',
+                        stock: ''
+                    }
+                },
                 stripping: false
             }
         };
     },
     computed: {
+        priming_days: function priming_days() {
+            return this.size ? Math.ceil(this.size / 400) : 0;
+        },
+        screeding_days: function screeding_days() {
+            return this.screed ? Math.ceil(this.screed / 10) : 0;
+        },
         stripping_days: function stripping_days() {
             return this.size && this.tasks.stripping ? Math.ceil(this.size / 200) : 0;
         },
@@ -11927,7 +11958,7 @@ exports.default = {
         },
         total_days: function total_days() {
             if (this.size) {
-                return Math.ceil(this.new_size / 80 + this.stripping_days);
+                return Math.ceil(this.new_size / 80 + this.stripping_days + this.screeding_days + this.priming_days);
             }
             return 0;
         },
@@ -12029,6 +12060,12 @@ exports.default = {
                                 case 'acrylic':
                                     this.tasks[task][material_type].qty = Math.ceil(this.perimeter * 0.2 * 1.3 / this.tasks[task][material_type].pack_size);
                                     break;
+                                case 'cement':
+                                    this.tasks[task][material_type].qty = Math.ceil(this.screed * 1.3 / this.tasks[task][material_type].pack_size);
+                                    break;
+                                case 'sand':
+                                    this.tasks[task][material_type].qty = Math.ceil(this.screed / 10);
+                                    break;
                             }
                             this.tasks[task][material_type].price = this.tasks[task][material_type].qty * this.tasks[task][material_type].cost_price;
                         }
@@ -12064,7 +12101,7 @@ exports.default = {
     }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"row\">\n    <div class=\"col-sm-3\">\n        <div class=\"input-group\" style=\"padding-top:14px\">\n            <input name=\"section[{{sectionKey}}][options][{{optionKey}}][size]\" type=\"number\" class=\"form-control\" placeholder=\"Size\" v-model=\"size\" number=\"\" @keyup=\"calcMaterial | debounce 500\">\n            <span class=\"input-group-addon\">{{option.system.unit}}</span>\n        </div>\n    </div>\n    <div class=\"col-sm-3\">\n        <div class=\"input-group\" style=\"padding-top:14px\">\n            <input name=\"section[{{sectionKey}}][options][{{optionKey}}][perimeter]\" type=\"number\" class=\"form-control\" placeholder=\"Perimeter\" v-model=\"perimeter\" number=\"\" @keyup=\"calcMaterial | debounce 500\">\n            <span class=\"input-group-addon\">lm</span>\n        </div>\n    </div>\n    <div class=\"col-sm-3\">\n        <div class=\"form-group\">\n            <small>Stripping?</small><br>\n            <input name=\"section[{{sectionKey}}][options][{{optionKey}}][tasks][stripping]\" type=\"checkbox\" v-switch=\"tasks.stripping\" data-on-text=\"Yes\" data-off-text=\"No\">\n        </div>\n    </div>\n    <div class=\"col-sm-3\">\n        <div class=\"form-group\" style=\"padding-top:14px\">\n            <input name=\"section[{{sectionKey}}][options][{{optionKey}}][difficulty]\" type=\"number\" class=\"form-control\" placeholder=\"Difficulty %\" v-model=\"wastage\" number=\"\">\n        </div>\n    </div>\n</div>\n<div class=\"clearfix\" style=\"height:20px;\"></div>\n<!-- Loop through system materials and show line costings -->\n<div class=\"row\">\n    <div class=\"col-sm-12\">\n        <table class=\"table table-striped table-bordered\">\n            <thead>\n                <tr>\n                    <th width=\"10%\">Type</th>\n                    <th>Product</th>\n                    <th>Qty</th>\n                    <th width=\"23%\">Cost Price</th>\n                </tr>\n            </thead>\n            <tbody>\n                <template v-for=\"(task_type, task) in option.system.tasks\">\n                    <tr v-for=\"(material_type, material) in task.materials\">\n                        <td>{{material_type}}</td>\n                        <td>\n                            <template v-if=\"getObjSize(material)>1\">\n                                <select name=\"section[{{sectionKey}}][options][{{optionKey}}][tasks][{{task_type}}][materials][{{material_type}}][material_id]\" v-model=\"tasks[task_type][material_type].id\" class=\"form-control\" @change=\"setMaterial(task_type,material_type)\">\n                                    <option v-for=\"(material_id, chosen_material) in material\" v-bind:value=\"material_id\">{{chosen_material.name}}</option>\n                                </select>\n                            </template>\n                            <template v-else=\"\">\n                                <template v-for=\"(material_id, chosen_material) in material\">\n                                    <input name=\"section[{{sectionKey}}][options][{{optionKey}}][tasks][{{task_type}}][materials][{{material_type}}][material_id]\" type=\"hidden\" v-model=\"tasks[task_type][material_type].id\">\n                                    {{chosen_material.name}}\n                                </template>\n                            </template>\n                        </td>\n                        <td>\n                            {{tasks[task_type][material_type].qty}}\n                            <input name=\"section[{{sectionKey}}][options][{{optionKey}}][tasks][{{task_type}}][materials][{{material_type}}][qty]\" type=\"hidden\" v-model=\"tasks[task_type][material_type].qty\">\n                        </td>\n                        <td>\n                            {{tasks[task_type][material_type].price | currency 'R'}}\n                            <input name=\"section[{{sectionKey}}][options][{{optionKey}}][tasks][{{task_type}}][materials][{{material_type}}][price]\" type=\"hidden\" v-model=\"tasks[task_type][material_type].price\">\n                            <input name=\"section[{{sectionKey}}][options][{{optionKey}}][tasks][{{task_type}}][materials][{{material_type}}][cost_price]\" type=\"hidden\" v-model=\"tasks[task_type][material_type].cost_price\">\n                        </td>\n                    </tr>\n                </template>\n\n                <tr>\n                    <td>Labour</td>\n                    <td>Crew of 4</td>\n                    <td>{{total_days}}</td>\n                    <td>\n                        {{total_labour_price | currency 'R'}}\n                        <input name=\"section[{{sectionKey}}][options][{{optionKey}}][labour_cost_price]\" type=\"hidden\" v-model=\"total_labour_price\">\n                    </td>\n                </tr>\n                <tr>\n                    <td>Supervisor</td>\n                    <td></td>\n                    <td>{{total_days}}</td>\n                    <td>\n                        {{total_supervisor | currency 'R'}}\n                        <input name=\"section[{{sectionKey}}][options][{{optionKey}}][supervisor_cost_price]\" type=\"hidden\" v-model=\"total_supervisor\">\n                    </td>\n                </tr>\n                <tr>\n                    <td>Transport</td>\n                    <td>{{distance}}km</td>\n                    <td>{{total_days}}</td>\n                    <td>{{total_transport | currency 'R'}}</td>\n                </tr>\n            </tbody>\n        </table>\n    </div>\n</div>    \n<!-- Totals -->\n<div class=\"row\">\n    <div class=\"col-sm-6 col-sm-offset-6\">\n        <div class=\"row\">\n            <div class=\"col-sm-6\">\n                <label>Total Days:</label> <h5 style=\"margin:0\">{{total_days}}</h5>\n                <input name=\"section[{{sectionKey}}][options][{{optionKey}}][days]\" type=\"hidden\" v-model=\"total_days\">\n            </div>\n            <div class=\"col-sm-6\">\n                <label>Cost Price:</label> <h5 style=\"margin:0\">{{total_cost_price | currency 'R'}}</h5>\n                <input name=\"section[{{sectionKey}}][options][{{optionKey}}][total_cost_price]\" type=\"hidden\" v-model=\"total_cost_price\">\n            </div>\n        </div>\n        <div class=\"row\">\n            <div class=\"col-sm-6\">\n                <label>Markup %</label>\n                <input name=\"section[{{sectionKey}}][options][{{optionKey}}][markup]\" type=\"number\" class=\"form-control\" placeholder=\"Markup %\" v-model=\"markup\" number=\"\">\n            </div>\n            <div class=\"col-sm-6\">\n                <label>Selling Price:</label> <h5 style=\"margin:0\">{{total_selling_price | currency 'R'}}</h5>\n                <input name=\"section[{{sectionKey}}][options][{{optionKey}}][selling_price]\" type=\"hidden\" v-model=\"total_selling_price\">\n            </div>\n        </div>\n    </div>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"row\">\n    <div class=\"col-sm-3\">\n        <div class=\"input-group\" style=\"padding-top:14px\">\n            <input name=\"section[{{sectionKey}}][options][{{optionKey}}][size]\" type=\"number\" class=\"form-control\" placeholder=\"Size\" v-model=\"size\" number=\"\" @keyup=\"calcMaterial | debounce 500\">\n            <span class=\"input-group-addon\">{{option.system.unit}}</span>\n        </div>\n    </div>\n    <div class=\"col-sm-3\">\n        <div class=\"input-group\" style=\"padding-top:14px\">\n            <input name=\"section[{{sectionKey}}][options][{{optionKey}}][perimeter]\" type=\"number\" class=\"form-control\" placeholder=\"Perimeter\" v-model=\"perimeter\" number=\"\" @keyup=\"calcMaterial | debounce 500\">\n            <span class=\"input-group-addon\">lm</span>\n        </div>\n    </div>\n    <div class=\"col-sm-3\">\n        <div class=\"form-group\">\n            <small>Stripping?</small><br>\n            <input name=\"section[{{sectionKey}}][options][{{optionKey}}][tasks][stripping]\" type=\"checkbox\" v-switch=\"tasks.stripping\" data-on-text=\"Yes\" data-off-text=\"No\">\n        </div>\n    </div>\n    <div class=\"col-sm-3\">\n        <div class=\"form-group\" style=\"padding-top:14px\">\n            <input name=\"section[{{sectionKey}}][options][{{optionKey}}][difficulty]\" type=\"number\" class=\"form-control\" placeholder=\"Difficulty %\" v-model=\"wastage\" number=\"\">\n        </div>\n    </div>\n</div>\n<div class=\"row\">\n    <div class=\"col-sm-3\">\n        <div class=\"input-group\" style=\"padding-top:14px\">\n            <input name=\"section[{{sectionKey}}][options][{{optionKey}}][screed]\" type=\"number\" class=\"form-control\" placeholder=\"Screed\" v-model=\"screed\" number=\"\" @keyup=\"calcMaterial | debounce 500\">\n            <span class=\"input-group-addon\">{{option.system.unit}}</span>\n        </div>\n    </div>\n</div>\n<div class=\"clearfix\" style=\"height:20px;\"></div>\n<!-- Loop through system materials and show line costings -->\n<div class=\"row\">\n    <div class=\"col-sm-12\">\n        <table class=\"table table-striped table-bordered\">\n            <thead>\n                <tr>\n                    <th width=\"10%\">Type</th>\n                    <th>Product</th>\n                    <th>Qty</th>\n                    <th width=\"23%\">Cost Price</th>\n                </tr>\n            </thead>\n            <tbody>\n                <template v-for=\"(task_type, task) in option.system.tasks\">\n                    <tr v-for=\"(material_type, material) in task.materials\">\n                        <td>{{material_type}}</td>\n                        <td>\n                            <template v-if=\"getObjSize(material)>1\">\n                                <select name=\"section[{{sectionKey}}][options][{{optionKey}}][tasks][{{task_type}}][materials][{{material_type}}][material_id]\" v-model=\"tasks[task_type][material_type].id\" class=\"form-control\" @change=\"setMaterial(task_type,material_type)\">\n                                    <option v-for=\"(material_id, chosen_material) in material\" v-bind:value=\"material_id\">{{chosen_material.name}}</option>\n                                </select>\n                            </template>\n                            <template v-else=\"\">\n                                <template v-for=\"(material_id, chosen_material) in material\">\n                                    <input name=\"section[{{sectionKey}}][options][{{optionKey}}][tasks][{{task_type}}][materials][{{material_type}}][material_id]\" type=\"hidden\" v-model=\"tasks[task_type][material_type].id\">\n                                    {{chosen_material.name}}\n                                </template>\n                            </template>\n                        </td>\n                        <td>\n                            {{tasks[task_type][material_type].qty}}\n                            <input name=\"section[{{sectionKey}}][options][{{optionKey}}][tasks][{{task_type}}][materials][{{material_type}}][qty]\" type=\"hidden\" v-model=\"tasks[task_type][material_type].qty\">\n                        </td>\n                        <td>\n                            {{tasks[task_type][material_type].price | currency 'R'}}\n                            <input name=\"section[{{sectionKey}}][options][{{optionKey}}][tasks][{{task_type}}][materials][{{material_type}}][price]\" type=\"hidden\" v-model=\"tasks[task_type][material_type].price\">\n                            <input name=\"section[{{sectionKey}}][options][{{optionKey}}][tasks][{{task_type}}][materials][{{material_type}}][cost_price]\" type=\"hidden\" v-model=\"tasks[task_type][material_type].cost_price\">\n                        </td>\n                    </tr>\n                </template>\n\n                <tr>\n                    <td>Labour</td>\n                    <td>Crew of 4</td>\n                    <td>{{total_days}}</td>\n                    <td>\n                        {{total_labour_price | currency 'R'}}\n                        <input name=\"section[{{sectionKey}}][options][{{optionKey}}][labour_cost_price]\" type=\"hidden\" v-model=\"total_labour_price\">\n                    </td>\n                </tr>\n                <tr>\n                    <td>Supervisor</td>\n                    <td></td>\n                    <td>{{total_days}}</td>\n                    <td>\n                        {{total_supervisor | currency 'R'}}\n                        <input name=\"section[{{sectionKey}}][options][{{optionKey}}][supervisor_cost_price]\" type=\"hidden\" v-model=\"total_supervisor\">\n                    </td>\n                </tr>\n                <tr>\n                    <td>Transport</td>\n                    <td>{{distance}}km</td>\n                    <td>{{total_days}}</td>\n                    <td>{{total_transport | currency 'R'}}</td>\n                </tr>\n            </tbody>\n        </table>\n    </div>\n</div>    \n<!-- Totals -->\n<div class=\"row\">\n    <div class=\"col-sm-6 col-sm-offset-6\">\n        <div class=\"row\">\n            <div class=\"col-sm-6\">\n                <label>Total Days:</label> <h5 style=\"margin:0\">{{total_days}}</h5>\n                <input name=\"section[{{sectionKey}}][options][{{optionKey}}][days]\" type=\"hidden\" v-model=\"total_days\">\n            </div>\n            <div class=\"col-sm-6\">\n                <label>Cost Price:</label> <h5 style=\"margin:0\">{{total_cost_price | currency 'R'}}</h5>\n                <input name=\"section[{{sectionKey}}][options][{{optionKey}}][total_cost_price]\" type=\"hidden\" v-model=\"total_cost_price\">\n            </div>\n        </div>\n        <div class=\"row\">\n            <div class=\"col-sm-6\">\n                <label>Markup %</label>\n                <input name=\"section[{{sectionKey}}][options][{{optionKey}}][markup]\" type=\"number\" class=\"form-control\" placeholder=\"Markup %\" v-model=\"markup\" number=\"\">\n            </div>\n            <div class=\"col-sm-6\">\n                <label>Selling Price:</label> <h5 style=\"margin:0\">{{total_selling_price | currency 'R'}}</h5>\n                <input name=\"section[{{sectionKey}}][options][{{optionKey}}][selling_price]\" type=\"hidden\" v-model=\"total_selling_price\">\n            </div>\n        </div>\n    </div>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)

@@ -47,5 +47,20 @@ class TasksSeeder extends Seeder
             'unit_of_measure' => 'm2',
             'created_at' => Carbon::now()
         ]);
+
+        DB::table('tasks')->insert([ //6
+            'name' => 'Priming Torch-on',
+            'alias' => 'primetorch',
+            'unit_of_measure' => 'm2',
+            'created_at' => Carbon::now()
+        ]);
+
+        DB::table('tasks')->insert([ //7
+            'name' => 'Screed Repair',
+            'alias' => 'screedrepair',
+            'unit_of_measure' => 'm2',,
+            'link_to' => 'screed',
+            'created_at' => Carbon::now()
+        ]);
     }
 }

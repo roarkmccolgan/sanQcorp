@@ -15,5 +15,11 @@ class CategorySeeder extends Seeder
         DB::table('category')->insert([
             'name' => 'Waterproofing'
         ]);
+        DB::table('category')->insert([
+            'name' => 'Cementitious'
+        ]);
+        DB::table('category')->insert([
+            'name' => 'Sand'
+        ]);
     }
 }

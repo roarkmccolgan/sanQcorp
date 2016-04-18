@@ -27,7 +27,7 @@ class JobController extends Controller
 
     public function showJobs()
     {
-        $jobs = Jobs::with('contacts.company')->get();
+        $jobs = Jobs::with('contacts.company','sections.options')->get();
         //return $jobs;
         return view('jobs.index', compact('jobs'));
     }

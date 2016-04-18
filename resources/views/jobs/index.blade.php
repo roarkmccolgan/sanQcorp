@@ -16,10 +16,10 @@
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
-                <td width="12%">SAN Ref Number</td>
-                <td width="20%">Client</td>
+                <td width="12%">Ref Number</td>
+                <td width="10%">Client</td>
                 <td>Name</td>
-                <td width="10%" class="text-center">Status</td>
+                <td width="8%" class="text-center">Status</td>
                 <td width="10%" class="text-center">Action</td>
             </tr>
         </thead>
@@ -31,6 +31,23 @@
                     <td>{{$job->contacts[0]->company->name}}</td>
                     <td>
                         <strong>{{$job->name}}</strong>
+                        @foreach($job->sections as $section)
+                        <div>
+                            {{$section->name}}
+                            @foreach($section->options as $option)
+                            <div>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$option->name}}
+                                <div class="btn-group">
+                                    <button data-toggle="dropdown" class="btn btn-sm btn-default dropdown-toggle" type="button">Pending <span class="caret"></span></button>
+                                    <ul role="menu" class="dropdown-menu">
+                                        <li><a href="#">Pending</a></li>
+                                        <li><a href="#">Accepted</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                        @endforeach
                     </td>
                     <td class="text-center"><span class="label {{$job->status=='build'?'label-default':'label-primary'}}">{{$job->status}}</span></td>
                     <td class="text-center">

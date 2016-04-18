@@ -24,6 +24,14 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="input-group" style="padding-top:14px">
+                <input name="section[{{sectionKey}}][options][{{optionKey}}][screed]" type="number" class="form-control" placeholder="Screed" v-model="screed" number @keyup="calcMaterial | debounce 500" />
+                <span class="input-group-addon">{{option.system.unit}}</span>
+            </div>
+        </div>
+    </div>
     <div class="clearfix" style="height:20px;"></div>
     <!-- Loop through system materials and show line costings -->
     <div class="row">
@@ -127,6 +135,7 @@
         data: function() {
             return {
                 size: '',
+                screed: '',
                 distance: laravel.job.distance,
                 perimeter: false,
                 wastage: '',
@@ -134,16 +143,6 @@
                 tasks: {
                     torchmineral: {
                         torchon: {
-                            id: '',
-                            name: '',
-                            qty: '',
-                            cost_price: '',
-                            price: '',
-                            unit_of_measure: '',
-                            pack_size: '',
-                            stock: '',
-                        },
-                        primer: {
                             id: '',
                             name: '',
                             qty: '',
@@ -186,11 +185,51 @@
                             stock: '',
                         }
                     },
+                    primetorch: {
+                        primer: {
+                            id: '',
+                            name: '',
+                            qty: '',
+                            cost_price: '',
+                            price: '',
+                            unit_of_measure: '',
+                            pack_size: '',
+                            stock: '',
+                        }
+                    },
+                    screedrepair: {
+                        cement: {
+                            id: '',
+                            name: '',
+                            qty: '',
+                            cost_price: '',
+                            price: '',
+                            unit_of_measure: '',
+                            pack_size: '',
+                            stock: '',
+                        },
+                        sand: {
+                            id: '',
+                            name: '',
+                            qty: '',
+                            cost_price: '',
+                            price: '',
+                            unit_of_measure: '',
+                            pack_size: '',
+                            stock: '',
+                        }
+                    },
                     stripping: false
                 }
             };
         },
         computed: {
+            priming_days: function(){
+                return this.size ? Math.ceil(this.size/400):0;
+            },
+            screeding_days: function(){
+                return this.screed ? Math.ceil(this.screed/10):0;
+            },
             stripping_days: function(){
                 return this.size && this.tasks.stripping ? Math.ceil(this.size/200):0;
             },
@@ -199,7 +238,7 @@
             },
             total_days: function(){
                 if(this.size){                    
-                    return Math.ceil(this.new_size/80 + this.stripping_days);
+                    return Math.ceil(this.new_size/80 + this.stripping_days + this.screeding_days + this.priming_days);
                 }
                 return 0;
             },
@@ -300,6 +339,12 @@
                                     break;
                                     case 'acrylic':
                                         this.tasks[task][material_type].qty = Math.ceil((this.perimeter*0.2)*1.3/this.tasks[task][material_type].pack_size);
+                                    break;
+                                    case 'cement':
+                                        this.tasks[task][material_type].qty = Math.ceil((this.screed*1.3)/this.tasks[task][material_type].pack_size);
+                                    break;
+                                    case 'sand':
+                                        this.tasks[task][material_type].qty = Math.ceil(this.screed/10);
                                     break;
                                 }
                                 this.tasks[task][material_type].price = this.tasks[task][material_type].qty * this.tasks[task][material_type].cost_price;

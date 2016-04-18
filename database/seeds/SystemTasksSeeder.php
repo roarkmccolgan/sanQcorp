@@ -27,6 +27,14 @@ class SystemTasksSeeder extends Seeder
             'system_id' => 1,
             'task_id' => 3,
         ]);
+        DB::table('system_task')->insert([
+            'system_id' => 1,
+            'task_id' => 6,
+        ]);
+        DB::table('system_task')->insert([
+            'system_id' => 1,
+            'task_id' => 7,
+        ]);
 
         //Boarded
         DB::table('system_task')->insert([
@@ -40,6 +48,10 @@ class SystemTasksSeeder extends Seeder
         DB::table('system_task')->insert([
             'system_id' => 2,
             'task_id' => 3,
+        ]);
+        DB::table('system_task')->insert([
+            'system_id' => 2,
+            'task_id' => 6,
         ]);
         DB::table('system_task')->insert([
             'system_id' => 2,

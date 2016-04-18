@@ -390,19 +390,47 @@ class MaterialsSeeder extends Seeder
             'product_type' => 'flashing',
             'created_at' => Carbon::now()
         ]);
-        // DB::table('materials')->insert([ //27 //9.5m2 per drum
-        //     'name' => 'ABE Rubberized Bitumen',
-        //     'category_id' => 1,
-        //     'Description' => 'blah',
-        //     'image' => 'blank.jpg',
-        //     'stock' => 1000,
-        //     'pack_size' => 200,
-        //     'price' => 370.51,
-        //     'day_rate' => 0.00,
-        //     'unit_of_measure' => 'each',
-        //     'product_type' => 'washers',
-        //     'created_at' => Carbon::now()
-        // ]);
+        DB::table('materials')->insert([ //30
+            'name' => 'MCC Grout',
+            'category_id' => 2,
+            'Description' => 'blah',
+            'image' => 'blank.jpg',
+            'stock' => 1000,
+            'pack_size' => 20,
+            'price' => 250.00,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'kg',
+            'product_type' => 'cement',
+            'created_at' => Carbon::now()
+        ]);
+
+        DB::table('materials')->insert([ //31
+            'name' => 'Cement',
+            'category_id' => 2,
+            'Description' => 'blah',
+            'image' => 'blank.jpg',
+            'stock' => 1000,
+            'pack_size' => 50,
+            'price' => 100.00,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'kg',
+            'product_type' => 'cement',
+            'created_at' => Carbon::now()
+        ]);
+
+        DB::table('materials')->insert([ //32
+            'name' => 'River Sand',
+            'category_id' => 3,
+            'Description' => 'blah',
+            'image' => 'blank.jpg',
+            'stock' => 1000,
+            'pack_size' => 1,
+            'price' => 380.00,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'm3',
+            'product_type' => 'sand',
+            'created_at' => Carbon::now()
+        ]);
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }
