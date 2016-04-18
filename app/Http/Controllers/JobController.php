@@ -113,6 +113,7 @@ class JobController extends Controller
      */
     public function showBuildJob(Jobs $job)
     {
+        //$job = $job->toArray();
         $systems = System::with('tasks.materials')->get()->keyBy('id')->toArray();
         //return $systems;
         foreach ($systems as $key => $item) {
@@ -128,7 +129,39 @@ class JobController extends Controller
             $systems[$key]['tasks'] = $modifiedtasks;
         };
 
-        //return ($systems);
+        //return $systems;
+
+        //if(count($job->sections)!=-1){
+            foreach ($job->sections as $secKey => $section) {
+                $mapOption = [];
+                foreach ($section->options as $optKey => $option) {
+                    //$sys = System::findOrFail($option['system_id']);
+                    $mapOption[$optKey]['id']= $option['id'];
+                    $mapOption[$optKey]['name']= $option['name'];
+                    $mapOption[$optKey]['description']= $option['description'];
+                    $mapOption[$optKey]['system'] = [
+                        'id'=>$systems[$option['system_id']]['id'],
+                        'description'=>$systems[$option['system_id']]['description'],
+                        'alias'=>$systems[$option['system_id']]['alias'],
+                        'unit'=>$systems[$option['system_id']]['unit'],
+                        'base_rate'=>$systems[$option['system_id']]['base_rate'],
+                        'component'=>$systems[$option['system_id']]['component'],
+                        'tasks'=>$systems[$option['system_id']]['tasks']
+                    ];
+                }
+                $job->sections[$secKey]->options = $mapOption;
+            }
+            $job = $job->sections->each(function ($section, $secKey) {
+                $section->options->each(function($option, $optKey){
+                    $option->system->id = $option->system_id;
+                    $option->system->name = $job->sections[$secKey]->options;
+                });
+            });
+        //}
+        //
+        //$job = collect($job);
+
+        //return ($job);
 
         JavaScript::put([
             'job' => $job,
@@ -232,5 +265,13 @@ class JobController extends Controller
         //return 'YAY!';
         $job->update(['status'=>'pending']);
         return redirect('/jobs');
+    }
+
+
+    //CURRENT JOBS
+    public function showCurrentJobs(){
+        $jobs = Jobs::with('contacts.company','sections.options')->get();
+        //return $jobs;
+        return view('jobs.index', compact('jobs'));
     }
 }

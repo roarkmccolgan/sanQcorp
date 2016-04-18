@@ -58,7 +58,7 @@ class TasksSeeder extends Seeder
         DB::table('tasks')->insert([ //7
             'name' => 'Screed Repair',
             'alias' => 'screedrepair',
-            'unit_of_measure' => 'm2',,
+            'unit_of_measure' => 'm2',
             'link_to' => 'screed',
             'created_at' => Carbon::now()
         ]);

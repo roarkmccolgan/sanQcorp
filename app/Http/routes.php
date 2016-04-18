@@ -46,7 +46,7 @@ Route::group(['middleware' => ['web']], function () {
 
     //jobs
     Route::bind('job', function ($value) {
-        return App\Jobs::with('contacts.company','sections.options.tasks')->findOrFail($value);
+        return App\Jobs::with('contacts.company','sections.options')->findOrFail($value);
     });
     Route::group(['prefix' => 'jobs'], function(){
         Route::get('/', ['uses' => 'JobController@showJobs']);
@@ -56,6 +56,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('/{id}', ['uses' => 'JobController@updateJob']);
         Route::get('/{job}/build', ['uses' => 'JobController@showBuildJob']);
     	Route::post('/{job}/build', ['uses' => 'JobController@saveBuildJob']);
+
+        Route::get('/current', ['uses' => 'JobController@showCurrentJobs']);
     });
 
 

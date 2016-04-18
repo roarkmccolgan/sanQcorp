@@ -40,6 +40,6 @@
 
 @section('pagescript')
 <script type="text/javascript">
-    $("select").select2({dropdownCssClass: 'dropdown-inverse'});
+    //$("select").select2({dropdownCssClass: 'dropdown-inverse'});
 </script>
 @stop

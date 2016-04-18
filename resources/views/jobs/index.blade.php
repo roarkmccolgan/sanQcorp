@@ -8,7 +8,7 @@
 @stop
 
 
-@section('header', '<h4 class="pull-left page-title">Job</h4>')
+@section('header', '<h4 class="pull-left page-title">Jobs</h4>')
 
 @section('content')
     <a href="/jobs/new" class="btn btn-inverse pull-right"><i class="fui-plus"></i> New Job</a>
@@ -39,6 +39,7 @@
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$option->name}}
                                 <div class="btn-group">
                                     <button data-toggle="dropdown" class="btn btn-sm btn-default dropdown-toggle" type="button">Pending <span class="caret"></span></button>
+
                                     <ul role="menu" class="dropdown-menu">
                                         <li><a href="#">Pending</a></li>
                                         <li><a href="#">Accepted</a></li>

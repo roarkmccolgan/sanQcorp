@@ -58,6 +58,15 @@
 	                <ul class="nav navbar-nav navbar-right">
 	                    <!-- Authentication Links -->
 	                    @if (Auth::guest())
+	                    	<li class="dropdown {{ Ekko::areActiveURLs(['/jobs','/jobs/new']) }}">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+									Admin <span class="caret"></span>
+								</a>
+								<ul class="dropdown-menu" role="menu">
+									<li class="{{ Ekko::isActiveURL('/jobs') }}"><a href="{{ url('/jobs') }}"><i class="fa fa-btn fa-sign-out"></i>Jobs</a></li>
+									<li class="{{ Ekko::isActiveURL('/jobs/new') }}"><a href="{{ url('/jobs/new') }}"><i class="fa fa-btn fa-sign-out"></i>New Job</a></li>
+								</ul>
+							</li>
 	                        <li><a href="{{ url('/login') }}">Login</a></li>
 	                        <li><a href="{{ url('/register') }}">Register</a></li>
 	                    @else

@@ -35,7 +35,7 @@
             </template>
             <div class="col-md-12">
                 <div class="form-group">
-                    <div class="form-group">
+                    <div class="form-group"><!--here-->
                         <label for="system">System</label>
                         <select v-model="option.system" class="form-control">
                           <option v-for="system in systems" v-bind:value="system">{{system.name}}</option>
