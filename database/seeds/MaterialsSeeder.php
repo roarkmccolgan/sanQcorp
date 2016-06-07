@@ -61,7 +61,7 @@ class MaterialsSeeder extends Seeder
             'pack_size' => 9,
             'price' => 186.00,
             'day_rate' => 0.00,
-            'unit_of_measure' => 'Lt',
+            'unit_of_measure' => 'Kg',
             'product_type'=>'gas',
             'created_at' => Carbon::now()
         ]);

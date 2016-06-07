@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use App\Contacts;
+use App\Employees;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Http\Requests\AddJobRequest;
 use App\Jobs;
+use App\Option;
 use App\Section;
 use App\System;
 use Illuminate\Http\Request;
@@ -113,9 +115,9 @@ class JobController extends Controller
      */
     public function showBuildJob(Jobs $job)
     {
-        //$job = $job->toArray();
+
         $systems = System::with('tasks.materials')->get()->keyBy('id')->toArray();
-        //return $systems;
+
         foreach ($systems as $key => $item) {
             $modifiedtasks = [];
             foreach ($item['tasks'] as $taskKey => $task) {
@@ -126,40 +128,37 @@ class JobController extends Controller
                 }
                 $modifiedtasks[$task['alias']]['materials'] = $modifiedMaterials;
             }
+            //sort by pivot order value
+            uasort($modifiedtasks, function($a, $b) {
+                return $a['pivot']['order'] - $b['pivot']['order'];
+            });
             $systems[$key]['tasks'] = $modifiedtasks;
         };
-
         //return $systems;
 
-        //if(count($job->sections)!=-1){
-            foreach ($job->sections as $secKey => $section) {
-                $mapOption = [];
-                foreach ($section->options as $optKey => $option) {
-                    //$sys = System::findOrFail($option['system_id']);
-                    $mapOption[$optKey]['id']= $option['id'];
-                    $mapOption[$optKey]['name']= $option['name'];
-                    $mapOption[$optKey]['description']= $option['description'];
-                    $mapOption[$optKey]['system'] = [
-                        'id'=>$systems[$option['system_id']]['id'],
-                        'description'=>$systems[$option['system_id']]['description'],
-                        'alias'=>$systems[$option['system_id']]['alias'],
-                        'unit'=>$systems[$option['system_id']]['unit'],
-                        'base_rate'=>$systems[$option['system_id']]['base_rate'],
-                        'component'=>$systems[$option['system_id']]['component'],
-                        'tasks'=>$systems[$option['system_id']]['tasks']
-                    ];
-                }
-                $job->sections[$secKey]->options = $mapOption;
-            }
-            $job = $job->sections->each(function ($section, $secKey) {
-                $section->options->each(function($option, $optKey){
-                    $option->system->id = $option->system_id;
-                    $option->system->name = $job->sections[$secKey]->options;
-                });
+        //existing jobs:
+        //$job->sections->options->load('system', 'mayerials');
+        
+        $job->sections->transform(function ($section, $secKey) use ($systems) {
+            $section->options->transform(function($option, $optKey) use ($systems){
+                $option->system->id = $option->system_id;
+                $option->system->name = $systems[$option['system_id']]['name'];
+                $option->system->description = $systems[$option['system_id']]['description'];
+                $option->system->alias = $systems[$option['system_id']]['alias'];
+                $option->system->unit = $systems[$option['system_id']]['unit'];
+                $option->system->base_rate = $systems[$option['system_id']]['base_rate'];
+                $option->system->component = $systems[$option['system_id']]['component'];
+                $option->selectedTasks = $option->tasks->keyBy('alias');
+                $option->selectedMaterials = $option->materials->keyBy('product_type');
+                
+                $option->system->tasks = $systems[$option['system_id']]['tasks'];
+
+
+                return $option;
             });
-        //}
-        //
-        //$job = collect($job);
+            $section->show=false;
+            return $section;
+        });
 
         //return ($job);
 
@@ -188,7 +187,8 @@ class JobController extends Controller
                 'survey'=>$sec['survey']
             ];
 
-            $section = Section::with('options')->find($secKey);
+            $section = Section::with('options')->find($sec['id']);
+            //return $section;
             if(!$section){
                 $section = $job->sections()->create($newSection);
             }else{
@@ -196,8 +196,8 @@ class JobController extends Controller
                 $section->survey = $sec['survey'];
                 $section->save();
 
-                $job->sections()->associate($section);
-                $job->save();
+                //$job->sections()->associate($section);
+                //$job->save();
             }
             //options
             foreach ($sec['options'] as $optKey => $opt) {
@@ -230,33 +230,38 @@ class JobController extends Controller
                     $option = $section->options()->create($newOption);
                 }else{
                     $option->update($newOption);
-                    $section->options()->associate($option);
-                    $section->save();
+                    //$section->options()->associate($option);
+                    //$section->save();
                 }
 
                 //create / update relationship to system -> option
-                $system->options()->save($option);
+                //$system->options()->save($option);
 
                 $syncMaterials = [];
+                $syncTasks = [];
                 foreach ($system->tasks as $taskKey => $task) {
                     if(isset($opt['tasks'][$task['alias']])){
                         $linkTo = $task->link_to;
 
-                        $option->tasks()->attach($task['id'],[
-                            'total' => $opt[$linkTo],
-                        ]);
                         if(isset($opt['tasks'][$task['alias']]['materials'])){
-                            
+                            $synctask = false;
                             foreach ($opt['tasks'][$task['alias']]['materials'] as $materialType => $material) {
-                                $syncMaterials[$material['material_id']]=[
-                                    'qty' => $material['qty'],
-                                    'price' => $material['price'],
-                                    'cost_price' => $material['cost_price']
-                                ];
+                                if($material['qty']!='0' && $material['qty']!=0){
+                                    $synctask=true;
+                                    $syncMaterials[$material['material_id']]=[
+                                        'qty' => $material['qty'],
+                                        'price' => $material['price'],
+                                        'cost_price' => $material['cost_price']
+                                    ];
+                                }
+                            }
+                            if($synctask){
+                                $syncTasks[$task['id']] = ['total' => $opt[$linkTo]];
                             }
                         }
                     }
                 }
+                $option->tasks()->sync($syncTasks);
                 //sync option materials
                 $option->materials()->sync($syncMaterials);
             }
@@ -272,6 +277,39 @@ class JobController extends Controller
     public function showCurrentJobs(){
         $jobs = Jobs::with('contacts.company','sections.options')->get();
         //return $jobs;
-        return view('jobs.index', compact('jobs'));
+        return view('jobs.current', compact('jobs'));
+    }
+
+    /**
+     * Show the form for editing the current job
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function editCurrentJob($job)
+    {
+        $job = Jobs::findOrFail($job);
+        $employees = Employees::get(['id', 'name AS text']);
+        //return $employees;
+        //
+        $sections = Section::with('options.materials','options.tasks.materials')->where('jobs_id',$job->id)->whereHas('options', function ($query) {
+            $query->where('accepted', 1);
+        })->get();
+
+        $sections->each(function($section,$secKey){
+            $section->options->each(function($option,$optKey){
+                $option->tasks->each(function($task,$taskKey){
+                    $task->groupedMaterials = $task->materials->GroupBy('product_type');
+                });
+            });
+        });
+
+        //return $sections;
+
+        JavaScript::put([
+            'job'=>$job,
+            'sections' => $sections,
+            'employees' => $employees
+        ]);
+        return view('jobs.editCurrent', compact(['job']));
     }
 }

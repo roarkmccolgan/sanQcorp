@@ -13,4 +13,12 @@ class Scope extends Model
     {
         return $this->belongsToMany('App\System');
     }
+
+    /**
+     * @return Scope Tasks
+     */
+    public function tasks()
+    {
+        return $this->belongsToMany('App\Tasks');
+    }
 }

@@ -38,8 +38,8 @@ class Materials extends Model
     /**
      * @return Materials Options
      */
-    public function options()
-    {
-        return $this->belongsToMany('App\Option','material_option','material_id','option_id');
-    }
+    // public function options()
+    // {
+    //     return $this->belongsToMany('App\Option','material_option','material_id','option_id');
+    // }
 }

@@ -7,10 +7,11 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="format-detection" id="token" content="telephone=no">
-		<meta name="csrf-token" content="{{ csrf_token() }}">
+		<meta name="format-detection" content="telephone=no">
+		<meta id="token" name="token" value="{{ csrf_token() }}">
 		<link rel="stylesheet" href="{{asset('css/vendor/bootstrap/css/bootstrap.min.css')}}" />
-		<link rel="stylesheet" href="{{asset('css/flat-ui.min.css')}}" />
+		<link rel="stylesheet" href="{{asset('css/flat-ui-pro.min.css')}}" />
+		<link rel="stylesheet" href="{{asset('css/vendor/select2/select2.min.css')}}" />
 		<link rel="stylesheet" href="{{asset('css/app.css')}}" />
 		<link rel="shortcut icon" href="{{asset('img/favicon.ico')}}">
 		<!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
@@ -96,8 +97,12 @@
 		@endif
 
 		<script src="{{asset('js/vendor/jquery.min.js')}}"></script>
-		<script src="{{asset('js/flat-ui.min.js')}}"></script>
+		
+    	<script src="//cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react-with-addons.js"></script>
+		<script src="{{asset('js/vendor/literallycanvas.js')}}"></script>
+		<script src="{{asset('js/flat-ui-pro.js')}}"></script>
 		<script src="{{asset('js/main.js')}}"></script>
+		
 		@yield('pagescript')
 	</body>
 </html>

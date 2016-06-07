@@ -46,7 +46,7 @@ Route::group(['middleware' => ['web']], function () {
 
     //jobs
     Route::bind('job', function ($value) {
-        return App\Jobs::with('contacts.company','sections.options')->findOrFail($value);
+        return App\Jobs::with('contacts.company','sections.options.tasks.materials','sections.options.materials','sections.options.system')->findOrFail($value);
     });
     Route::group(['prefix' => 'jobs'], function(){
         Route::get('/', ['uses' => 'JobController@showJobs']);
@@ -58,8 +58,16 @@ Route::group(['middleware' => ['web']], function () {
     	Route::post('/{job}/build', ['uses' => 'JobController@saveBuildJob']);
 
         Route::get('/current', ['uses' => 'JobController@showCurrentJobs']);
+        Route::get('/current/{jobid}', ['uses' => 'JobController@editCurrentJob']);
     });
 
+    Route::group(['prefix'=>'pdf'], function() {
+        Route::post('/', ['uses' => 'ProposalController@WKtoHTML']);
+    });
+
+    Route::get('/sanikakryton', function(){
+        return File::get(public_path() . '/sanikakryton/index.html');
+    });
 
 
     //API ROUTES
@@ -108,6 +116,24 @@ Route::group(['middleware' => ['web']], function () {
             return $contacts_new;
         });
 
+        Route::post('uploadproposalimage', function(Request $request){
+            $result = 'fail';
+            $filename = NULL;
+            if($request->hasFile('file')){
+                $file = $request->file('file');
+                $ref = $request->input('ref');
+                $filename = strtolower(str_replace(" ", "", $file->getClientOriginalName()));
+                Image::make($file)->fit(640, 480)->save(public_path().'/img/proposal/'.$ref.'/'.$filename);
+
+                //$file->move(public_path().'/img/proposal/'.$ref.'/', );
+                $result = 'success';
+            }
+            $data = [
+                'result'=>$result,
+                'filename'=>$filename
+            ];
+            return $data;
+        });
     });
 
 });

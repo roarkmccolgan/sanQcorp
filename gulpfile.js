@@ -14,5 +14,8 @@ require('laravel-elixir-vueify');
  */
 
 elixir(function(mix) {
-    mix.browserify('main.js');
+    mix.browserify('main.js')
+    .sass('app.scss')
+    .copy('node_modules/literallycanvas/lib/img', 'public/img/vendor/literallycanvas')
+    /*.scripts(['literallycanvas.js'], 'public/js/vendor/literallycanvas.js')*/;
 });

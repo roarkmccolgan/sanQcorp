@@ -157,7 +157,9 @@ return [
         App\Providers\RouteServiceProvider::class,
         anlutro\BulkSms\Laravel\BulkSmsServiceProvider::class,
         Laravelista\Ekko\EkkoServiceProvider::class,
-        Laracasts\Utilities\JavaScript\JavaScriptServiceProvider::class
+        Laracasts\Utilities\JavaScript\JavaScriptServiceProvider::class,
+        Barryvdh\Snappy\ServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class
 
     ],
 
@@ -206,6 +208,8 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
         'BulkSms'   => anlutro\BulkSms\Laravel\BulkSms::class,
         'Ekko'      => Laravelista\Ekko\Facades\Ekko::class,
+        'PDF'       => Barryvdh\Snappy\Facades\SnappyPdf::class,
+        'Image' => Intervention\Image\Facades\Image::class
     ],
 
 ];

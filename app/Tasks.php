@@ -15,11 +15,11 @@ class Tasks extends Model
 
 
     /**
-     * @return Tasks System
+     * @return Tasks Scope
      */
-    public function systems()
+    public function scope()
     {
-        return $this->belongsToMany('App\System', 'system_task', 'task_id', 'system_id');
+        return $this->belongsToMany('App\Scope', 'scope_task', 'task_id', 'scope_id');
     }
 
     /**

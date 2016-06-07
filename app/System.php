@@ -24,19 +24,19 @@ class System extends Model
     }
 
     /**
-     * @return System Scopes
+     * @return System Options
      */
-    public function options()
-    {
-        return $this->hasMany('App\Option');
-    }
+    // public function options()
+    // {
+    //     return $this->hasMany('App\Option');
+    // }
 
     /**
      * @return System Tasks
      */
     public function tasks()
     {
-        return $this->belongsToMany('App\Tasks', 'system_task', 'system_id', 'task_id');
+        return $this->belongsToMany('App\Tasks', 'system_task', 'system_id', 'task_id')->withPivot('order');
     }
 
     // /**

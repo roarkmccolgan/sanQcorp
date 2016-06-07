@@ -20,11 +20,16 @@ class DatabaseSeeder extends Seeder
         $this->call(ContactsSeeder::class);
         $this->call(ContactsJobsSeeder::class);
 
+        $this->call(SkillSeeder::class);
+        $this->call(EmployeesSeeder::class);
+
         $this->call(CategorySeeder::class);
         $this->call(MaterialsSeeder::class);
         $this->call(SystemSeeder::class);
-        $this->call(SystemTasksSeeder::class);
+        //$this->call(ScopeSeeder::class);
         $this->call(TasksSeeder::class);
+        $this->call(SystemTaskSeeder::class);
+        //$this->call(ScopeSystemSeeder::class);
         $this->call(TaskMaterialsSeeder::class);
 
         Model::reguard();

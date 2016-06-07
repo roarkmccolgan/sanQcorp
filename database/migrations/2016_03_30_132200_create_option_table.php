@@ -24,6 +24,7 @@ class CreateOptionTable extends Migration
 
             $table->decimal('size',5,2)->nullable();
             $table->decimal('perimeter',5,2)->nullable();
+            $table->decimal('screed',5,2)->nullable();
             $table->integer('difficulty')->nullable();
             $table->string('pitch')->nullable();
             $table->decimal('length',5,2)->nullable();

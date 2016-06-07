@@ -48,7 +48,7 @@ class Option extends Model
      */
     public function tasks()
     {
-        return $this->belongsToMany('App\Tasks','option_task','option_id','task_id');
+        return $this->belongsToMany('App\Tasks','option_task','option_id','task_id')->withPivot('total', 'done', 'complete');
     }
 
     /**
@@ -57,13 +57,5 @@ class Option extends Model
     public function system()
     {
         return $this->belongsTo('App\System');
-    }
-
-    /**
-     * @return Option Materials
-     */
-    public function materials()
-    {
-        return $this->belongsToMany('App\Materials','material_option','option_id','material_id');
     }
 }

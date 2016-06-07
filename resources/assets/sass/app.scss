@@ -1,2 +1,22 @@
-// @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+//@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "vendor/literallycanvas/literallycanvas.css";
 
+h4.page-title{
+	margin-top: 0;
+}
+.tile.form{
+	text-align: left;
+}
+.checkbox, .radio{
+	text-align: left;
+}
+.checkbox input[type=checkbox].custom-checkbox, .radio input[type=checkbox].custom-checkbox, .checkbox input[type=radio].custom-radio, .radio input[type=radio].custom-radio{
+	z-index: 2
+}
+
+/*Bootstrap Override:;*/
+
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus{
+	background-color: #1abc9c;
+    border-color: #1abc9c;
+}
