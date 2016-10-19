@@ -1,5 +1,6 @@
 //@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "vendor/literallycanvas/literallycanvas.css";
+@import "vendor/sweetalert/sweetalert.css";
 
 h4.page-title{
 	margin-top: 0;
@@ -12,6 +13,13 @@ h4.page-title{
 }
 .checkbox input[type=checkbox].custom-checkbox, .radio input[type=checkbox].custom-checkbox, .checkbox input[type=radio].custom-radio, .radio input[type=radio].custom-radio{
 	z-index: 2
+}
+
+.area{
+	background-color: #dce6e9;
+	border-radius: 6px;
+	padding: 14px;
+	margin: 20px 0;
 }
 
 /*Bootstrap Override:;*/

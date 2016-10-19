@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'from' => ['address' => 'app@mg.sanika.co.za', 'name' => 'Mainframe'],
+    'from' => ['address' => 'app@mg.sanika.co.za', 'name' => 'Sanika System'],
 
     /*
     |--------------------------------------------------------------------------

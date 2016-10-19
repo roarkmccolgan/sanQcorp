@@ -15,15 +15,16 @@ class CreateMaterialsTable extends Migration
         Schema::create('materials', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('category_id')->unsigned();
-            $table->longText('description');
-            $table->string('image');
-            $table->decimal('stock',10,2);
+            $table->integer('category_id')->unsigned()->nullable();
+            $table->longText('description')->nullable();
+            $table->string('image')->nullable();
+            $table->decimal('stock',10,2)->default(0);
             $table->integer('pack_size');
-            $table->decimal('price',8,2);
-            $table->decimal('day_rate',8,2);
+            $table->decimal('cost_price',8,2);
+            $table->decimal('day_rate',8,2)->nullable();
             $table->string('unit_of_measure');
             $table->string('product_type');
+            $table->decimal('coverage',6,2);
             $table->timestamps();
             $table->softDeletes();
 

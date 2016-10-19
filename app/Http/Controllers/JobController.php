@@ -9,9 +9,16 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Http\Requests\AddJobRequest;
 use App\Jobs;
+use App\Materials;
 use App\Option;
+use App\PandG;
+use App\Revision;
 use App\Section;
 use App\System;
+use App\Tasks;
+use App\Term;
+use App\User;
+use DB;
 use Illuminate\Http\Request;
 use JavaScript;
 
@@ -29,8 +36,22 @@ class JobController extends Controller
 
     public function showJobs()
     {
+    
         $jobs = Jobs::with('contacts.company','sections.options')->get();
-        //return $jobs;
+
+        $vueJob = [];
+        foreach ($jobs as $key => $job) {
+            $vueJob[$job->id] = [
+                'key'=> $key,
+                'show'=> false,
+                'sections'=>count($job->sections)
+            ];
+        }
+        //return $vueJob;
+        JavaScript::put([
+            'jobs' => $vueJob
+        ]);
+
         return view('jobs.index', compact('jobs'));
     }
 
@@ -52,6 +73,7 @@ class JobController extends Controller
     public function saveJob(AddJobRequest $request)
     {
         //return $request->all();
+        //return $this->generateOrderNumber();
 
         $company_id = $request->input('company_id');
         $new_contacts=[];
@@ -89,9 +111,11 @@ class JobController extends Controller
         $distance = explode(" ", $request->input('distance'));
         
         $job_contacts = $request->input('contact') ? array_merge($request->input('contact'),$new_contacts) : $new_contacts;
+        //return $job_contacts;
 
         $job = Jobs::create([
-            'order_number'=>$request->input('order_number'),
+            'order_number'=>$this->generateOrderNumber(),
+            'user_id'=>$request->input('user_id') ? $request->input('user_id') : 2,
             'name'=>$request->input('name'),
             'distance'=>$distance[0],
             'status'=>'build',
@@ -105,7 +129,7 @@ class JobController extends Controller
         ]);
         $job->contacts()->sync($job_contacts);
 
-        return redirect('/jobs');
+        return redirect('/jobs/'.$job->id.'/build');
     }
 
     /**
@@ -116,17 +140,31 @@ class JobController extends Controller
     public function showBuildJob(Jobs $job)
     {
 
-        $systems = System::with('tasks.materials')->get()->keyBy('id')->toArray();
+        $systems = System::with('terms','photos','tasks.materials','tasks.variables')->get()->keyBy('id')->toArray();
+        $terms = Term::where('default',1)->get();
+        $basic_systems = $systems;
+        $pandgs = PandG::all();
+        $job = $job->toArray();
+        $users = User::all()->keyBy('id');
+        
+        //return $job;
+        
 
         foreach ($systems as $key => $item) {
             $modifiedtasks = [];
             foreach ($item['tasks'] as $taskKey => $task) {
                 $modifiedtasks[$task['alias']] = $task;
                 $modifiedMaterials = [];
+                $modifiedVariables = [];
                 foreach ($modifiedtasks[$task['alias']]['materials'] as $matkey => $mat) {
                     $modifiedMaterials[$mat['product_type']][$mat['id']] = $mat;
                 }
+                foreach ($modifiedtasks[$task['alias']]['variables'] as $varKey => $var) {
+                    $slug = str_slug($var['name']);
+                    $modifiedVariables[$slug][] = $var;
+                }
                 $modifiedtasks[$task['alias']]['materials'] = $modifiedMaterials;
+                $modifiedtasks[$task['alias']]['variables'] = $modifiedVariables;
             }
             //sort by pivot order value
             uasort($modifiedtasks, function($a, $b) {
@@ -135,36 +173,100 @@ class JobController extends Controller
             $systems[$key]['tasks'] = $modifiedtasks;
         };
         //return $systems;
+        foreach ($job['photos'] as $photoKey => $photo) {
+            $meta = json_decode($photo['meta']);
+            if($meta->type==='main'){
+                $job['mainPhoto']['id'] = $photo['id'];
+                $job['mainPhoto']['photo'] = $photo['photo'];
+                unset($job['photos'][$photoKey]);
+            }
+        }
+        //return $job['images'];
 
-        //existing jobs:
-        //$job->sections->options->load('system', 'mayerials');
+
+        foreach ($job['sections'] as $secKey => $section) {
+            $job['sections'][$secKey]['images'] = [];
+            if(!empty($section['photos'])){
+                foreach ($section['photos'] as $photoKey => $photo) {
+                    $job['sections'][$secKey]['photos'][$photoKey]['meta'] = json_decode($photo['meta']);
+                    $job['sections'][$secKey]['images'][$job['sections'][$secKey]['photos'][$photoKey]['meta']->type]['id'] = $photo['id'];
+                    $job['sections'][$secKey]['images'][$job['sections'][$secKey]['photos'][$photoKey]['meta']->type]['photo'] = $photo['photo'];
+                }
+            }else{
+                $job['sections'][$secKey]['photos'] = [];
+            }
+            foreach ($section['options'] as $optKey => $option) {
+
+                foreach ($option['tasks'] as $tasKey => $task) {
+                    $reorderSystemTasks = false;
+                    if($task['alias']=='custom'){
+                        $task['alias'] = strtolower('custom-'.str_replace(" ", "", $task['name']));
+                    }
+                    $task['order'] = $task['pivot']['order'];
+                    $task['days'] = $task['pivot']['days'];
+                    $task['total_labour'] = $task['pivot']['total_labour_price'];
+                    $task['total_supervisor'] = $task['pivot']['total_supervisor_price'];
+                    $task['total_material'] = $task['pivot']['total_materials_price'];
+                    $task['total_cost_price'] = $task['pivot']['total_cost_price'];
+                    $task['system_id'] = $option['system_id'];
+                    
+
+                    $newMaterials = [];
+                    foreach ($option['materials'] as $matKey => $material) {
+                        if($material['pivot']['task']==$task['alias']){
+                            $flag = $material['pivot']['cost_price']!=$material['cost_price'] ? true:false;
+                            $newMaterials[] = [
+                                'id' => $material['id'],
+                                'name' => $material['name'],
+                                'material_type' => $material['product_type'],
+                                'coverage' => $material['coverage'],
+                                'pack_size' => $material['pack_size'],
+                                'cost_price' => $material['cost_price'],
+                                'qty' => $material['pivot']['qty'],
+                                'price' => $material['pivot']['price'],
+                                'stock' => $material['stock'],
+                                'unit_of_measure' => $material['unit_of_measure'],
+                                'task' => $task['alias'],
+                                'flag'=> $flag
+                            ];
+                        }
+                    }
+                    $task['materials'] = $newMaterials;
+                    $job['sections'][$secKey]['options'][$optKey]['tasks'][$tasKey] = $task;
+                   
+
+                    //If a custom task exists add it to the system tasks
+                    if(!isset($systems[$job['sections'][$secKey]['options'][$optKey]['system']['id']]['tasks'][$task['alias']])){
+                        $reorderSystemTasks = true;
+                        $systems[$option['system_id']]['tasks'][$task['alias']] = $task;
+                    }
+                    //Ensure order of system tasks matched option tasks
+                    $systems[$option['system_id']]['tasks'][$task['alias']]['pivot']['order'] = $task['order'];
+
+                    $job['sections'][$secKey]['options'][$optKey]['system']['tasks'][$task['alias']] = $task;
+
+                    if($reorderSystemTasks){
+                        uasort($systems[$option['system_id']]['tasks'], function($a, $b) {
+                            return $a['pivot']['order'] - $b['pivot']['order'];
+                        });
+                    }
+                }
+                $job['sections'][$secKey]['options'][$optKey]['show'] = false;
+            }
+            $job['sections'][$secKey]['show'] = false;
+        }
+        //return $job;
         
-        $job->sections->transform(function ($section, $secKey) use ($systems) {
-            $section->options->transform(function($option, $optKey) use ($systems){
-                $option->system->id = $option->system_id;
-                $option->system->name = $systems[$option['system_id']]['name'];
-                $option->system->description = $systems[$option['system_id']]['description'];
-                $option->system->alias = $systems[$option['system_id']]['alias'];
-                $option->system->unit = $systems[$option['system_id']]['unit'];
-                $option->system->base_rate = $systems[$option['system_id']]['base_rate'];
-                $option->system->component = $systems[$option['system_id']]['component'];
-                $option->selectedTasks = $option->tasks->keyBy('alias');
-                $option->selectedMaterials = $option->materials->keyBy('product_type');
-                
-                $option->system->tasks = $systems[$option['system_id']]['tasks'];
-
-
-                return $option;
-            });
-            $section->show=false;
-            return $section;
-        });
-
-        //return ($job);
+        $job = (object) $job;
+        //dd($job);
 
         JavaScript::put([
             'job' => $job,
-            'systems' => $systems
+            'systems' => $systems,
+            'terms' => $terms,
+            'basic_systems' => $basic_systems,
+            'pandg' => $pandgs,
+            'users' => $users
         ]);
         return view('jobs.build', compact(['job']));
         //return $job;
@@ -177,31 +279,44 @@ class JobController extends Controller
      */
     public function saveBuildJob(Jobs $job,Request $request)
     {
-        //return $request->all();
-
+        return ($request->all());
         foreach ($request->input('section') as $secKey => $sec) {
             //sections//
             //
             $newSection = [
                 'name'=>$sec['name'],
-                'survey'=>$sec['survey']
+                'survey'=>$sec['survey'],
+                'area'=>isset($sec['area']) ? $sec['area'] : null,
+                'perimeter'=>isset($sec['perimeter']) ? $sec['perimeter'] : null,
+                'difficulty'=>isset($sec['difficulty']) ? $sec['difficulty'] : null,
+                'pitch'=>isset($sec['pitch']) ? $sec['pitch'] : null,
+                'volume'=>isset($sec['volume']) ? $sec['volume'] : null,
+                'length'=>isset($sec['length']) ? $sec['length'] : null,
+                'width'=>isset($sec['width']) ? $sec['width'] : null,
+                'height'=>isset($sec['height']) ?$sec['height'] : null
             ];
+            //return $newSection;         
 
             $section = Section::with('options')->find($sec['id']);
             //return $section;
             if(!$section){
                 $section = $job->sections()->create($newSection);
             }else{
-                $section->name = $sec['name'];
-                $section->survey = $sec['survey'];
-                $section->save();
-
-                //$job->sections()->associate($section);
-                //$job->save();
+                $section->update($newSection);
             }
+
+            $section->photos()->delete();
+            if(isset($sec['photos']) && $sec['photos'].length() > 0){
+                foreach ($sec['photos'] as $photKey => $photo) {
+                    if($photo['photo']!=''){
+                        $section->photos()->create(['photo'=>$photo['photo'], 'meta'=>json_encode(['type'=>$photKey])]);
+                    }
+                }
+            }
+                
+
             //options
             foreach ($sec['options'] as $optKey => $opt) {
-
                 //system
                 $system = System::with('tasks')->findOrFail($opt['system']);
 
@@ -210,18 +325,12 @@ class JobController extends Controller
                     'name'  => $opt['name'],
                     'system_id'  => $opt['system'],
                     'description' => $opt['description'],
-                    'size' => isset($opt['size'])?$opt['size'] : null,
-                    'perimeter' => isset($opt['perimeter'])?$opt['perimeter'] : null,
-                    'difficulty' => isset($opt['difficulty'])?$opt['difficulty'] : null,
-                    'pitch' => isset($opt['pitch']) ? $opt['pitch'] : null,
-                    'length' => isset($opt['length'])?$opt['length'] : null,
-                    'height' => isset($opt['height'])?$opt['height'] : null,
-                    'width' => isset($opt['width'])?$opt['width'] : null,
-                    'labour_estimate' => $opt['labour_cost_price'],
-                    'supervisor_estimate' => $opt['supervisor_cost_price'],
-                    'days_estimate' => $opt['days'],
-                    'total_estimate' => $opt['total_cost_price'],
-                    'total_selling' => $opt['selling_price'],
+                    'total_labour' => $opt['total_labour'],
+                    'total_supervisor' => $opt['total_supervisor'],
+                    'days' => $opt['days'],
+                    'total_materials' => $opt['total_materials'],
+                    'total_cost_price' => $opt['total_cost_price'],
+                    'selling_price' => $opt['selling_price'],
                     'markup' => $opt['markup']
                 ];
 
@@ -230,46 +339,159 @@ class JobController extends Controller
                     $option = $section->options()->create($newOption);
                 }else{
                     $option->update($newOption);
-                    //$section->options()->associate($option);
-                    //$section->save();
                 }
 
-                //create / update relationship to system -> option
-                //$system->options()->save($option);
-
-                $syncMaterials = [];
-                $syncTasks = [];
-                foreach ($system->tasks as $taskKey => $task) {
-                    if(isset($opt['tasks'][$task['alias']])){
-                        $linkTo = $task->link_to;
-
-                        if(isset($opt['tasks'][$task['alias']]['materials'])){
-                            $synctask = false;
-                            foreach ($opt['tasks'][$task['alias']]['materials'] as $materialType => $material) {
-                                if($material['qty']!='0' && $material['qty']!=0){
-                                    $synctask=true;
-                                    $syncMaterials[$material['material_id']]=[
-                                        'qty' => $material['qty'],
-                                        'price' => $material['price'],
-                                        'cost_price' => $material['cost_price']
-                                    ];
-                                }
-                            }
-                            if($synctask){
-                                $syncTasks[$task['id']] = ['total' => $opt[$linkTo]];
-                            }
+                //notes
+                $option->notes()->delete();
+                if(isset($opt['notes']) && count($opt['notes'])>0){
+                    foreach ($opt['notes'] as $noteKey => $note) {
+                        if($note['note']!=''){
+                            $option->notes()->create(['note'=>$note['note']]);
                         }
                     }
                 }
-                $option->tasks()->sync($syncTasks);
-                //sync option materials
-                $option->materials()->sync($syncMaterials);
+
+                if(!empty($opt['tasks'])){
+                    $syncTasks = [];
+                    foreach ($opt['tasks'] as $taskKey => $task) {
+                        //dd($task);
+                        $variable = null;
+                        if(isset($task['variables']) && count($task['variables'])>0){
+                            foreach ($task['variables'] as $typeKey => $type) {
+                                foreach ($type as $varKey => $var) {
+                                    if($var!=''){
+                                        $variable = $var;
+                                    }
+                                }
+                            }
+                        }
+                        
+                        if($task['id']==0 || $task['id']=="0"){ //custom Task
+                            $newTask = [
+                                'name'=> $task['name'],
+                                'description'=> $task['description'],
+                                'alias'=> 'custom',
+                                'unit_of_measure'=> $task['unit_of_measure'],
+                                'link_to'=> $task['link_to'],
+                                'rate'=> $task['rate']
+                            ];
+                            $taskModel = Tasks::create($newTask);
+                            $task['id'] = $taskModel->id;
+                            if(!empty($opt['materials'][$taskKey])){
+                                $syncCusMaterials = [];
+                                foreach ($opt['materials'][$taskKey] as $cusKey => $cusMaterial) {
+                                    $newMaterial = [
+                                        'name'=> $cusMaterial['name'],
+                                        'pack_size'=> $cusMaterial['pack_size'],
+                                        'cost_price'=> $cusMaterial['cost_price'],
+                                        'unit_of_measure'=> $cusMaterial['unit_of_measure'],
+                                        'product_type'=> $cusKey,
+                                        'coverage'=> $cusMaterial['coverage']
+                                    ];
+                                    $matModel = Materials::create($newMaterial);
+                                    $opt['materials'][$taskKey][$cusKey]['id'] = $matModel->id;
+                                    $syncCusMaterials[] = $matModel->id;
+                                }
+                                if(!empty($syncCusMaterials)){
+                                    $taskModel->materials()->sync($syncCusMaterials);
+                                }
+                            }
+                        }
+                        $syncTasks[$task['id']] = [
+                            'order' => $task['order'],
+                            'days' => $task['days'],
+                            'difficulty' => isset($task['difficulty']) ? $task['difficulty'] : null,
+                            'total_labour_price' => isset($task['total_labour_price']) ? $task['total_labour_price'] : null,
+                            'total_supervisor_price' => isset($task['total_supervisor_price']) ? $task['total_supervisor_price'] : null,
+                            'total_materials_price' => isset($task['total_materials_price']) ? $task['total_materials_price'] : null,
+                            'total' => $task['quantity'],
+                            'variable_id' => $variable
+                        ];
+                    }
+                    $option->tasks()->sync($syncTasks);
+                }
+
+                if(!empty($opt['materials'])){
+                    $syncMaterials = [];
+                    foreach ($opt['materials'] as $taskType => $materials) {
+                        foreach ($materials as $materialType => $material) {
+                            if($material['qty']!='0' && $material['qty']!=0){
+                                $syncMaterials[$material['id']]=[
+                                    'qty' => $material['qty'],
+                                    'price' => $material['price'],
+                                    'cost_price' => $material['cost_price'],
+                                    'task' => $taskType,
+                                ];
+                            }
+                        }
+                    }
+                    $option->materials()->sync($syncMaterials);
+                }                
             }
         }
         //return to jobs
-        //return 'YAY!';
-        $job->update(['status'=>'pending']);
-        return redirect('/jobs');
+        //return 'YAY!'
+        
+        $job->photos()->delete();
+        if(!empty($request->input('photos'))){
+            foreach ($request->input('photos') as $photKey => $photo) {
+                if($photo['photo']!=''){
+                    $job->photos()->create(['photo'=>$photo['photo'],'meta'=>json_encode(['type'=>$photKey])]);
+                }
+            }
+        }
+        if($request->input('mainPhoto.photo')!=''){
+            $job->photos()->create(['photo'=>$request->input('mainPhoto.photo'),'meta'=>json_encode(['type'=>'main'])]);
+        }
+
+        if(!empty($request->input('psandgs'))){
+            foreach ($request->input('psandgs') as $pandgKey => $pandg) {
+                $details = [
+                    'name'=>$pandg['name'],
+                    'description'=>isset($pandg['description']) ? $pandg['description']:null,
+                    'pandg_category_id'=>1,
+                    'jobs_id'=>$job->id,
+                    'rate'=>$pandg['rate'],
+                    'qty'=>$pandg['qty'],
+                    'period'=>$pandg['period']
+                ];
+
+                if($pandg['id']!=''){
+                    $exist = PandG::where('id',$pandg['id'])->first();
+                    $exist->update($details);
+                }else{
+                    $new = PandG::create($details);
+                    //$job->pandg()->create($details);
+                }
+            }
+        }
+        if(!empty($request->input('terms'))){
+            $job->terms()->sync($request->input('terms'));
+        }
+            
+        $job->status = 'pending';
+        $job->title1 = $request->input('title1');
+        $job->title2 = $request->input('title2');
+        $job->title = $request->input('title');
+        $job->save();
+
+        if($request->ajax()){
+            $result = 'error';
+
+            $data = [
+                'result'=>$result,
+                'job'=>$job
+            ];
+            return $data;
+        }else{
+            //add Revision
+            $revision = new Revision(['data'=>serialize($request->all())]);
+            //return $revision;
+            $job->revisions()->save($revision);
+
+            return 'YAY';
+            return redirect('/jobs');
+        }
     }
 
 
@@ -287,15 +509,20 @@ class JobController extends Controller
      */
     public function editCurrentJob($job)
     {
-        $job = Jobs::findOrFail($job);
-        $employees = Employees::get(['id', 'name AS text']);
+        $job = Jobs::with('sections')->findOrFail($job);
+        $employees = Employees::get(['id', 'name AS text'])->keyBy('id');
         //return $employees;
-        //
-        $sections = Section::with('options.materials','options.tasks.materials')->where('jobs_id',$job->id)->whereHas('options', function ($query) {
-            $query->where('accepted', 1);
-        })->get();
+        foreach ($job->sections as $secKey => $section) {
+            if($section->accepted){
+                $section->load(['options' => function ($query) {
+                    $query->where('accepted', '=', 1);
+                }]);
+            }
+        }
 
-        $sections->each(function($section,$secKey){
+        //$sections = Section::with('options.materials','options.tasks.materials')->where('jobs_id',$job->id)->get();
+
+        $job->sections->each(function($section,$secKey){
             $section->options->each(function($option,$optKey){
                 $option->tasks->each(function($task,$taskKey){
                     $task->groupedMaterials = $task->materials->GroupBy('product_type');
@@ -303,13 +530,20 @@ class JobController extends Controller
             });
         });
 
-        //return $sections;
+        //return $job;
 
         JavaScript::put([
             'job'=>$job,
-            'sections' => $sections,
             'employees' => $employees
         ]);
         return view('jobs.editCurrent', compact(['job']));
+    }
+
+    //Helpers
+    
+    private function generateOrderNumber(){
+        $maxId = DB::table('jobs')->max('id');
+        $orderNum = "SAN".sprintf('%04d', $maxId+1)."-".date("y");
+        return $orderNum;
     }
 }

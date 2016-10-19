@@ -16,12 +16,12 @@
 	{{ csrf_field() }}
     <div class="row">
     	<legend>Create a new Job</legend>
-    	<div class="col-md-2">
+    	<!-- <div class="col-md-2">
 			<div class="form-group">
 				<label for="order_number">SAN Ref Number</label>
 				<input type="text" class="form-control" name="order_number" placeholder="SANXXXX-XX" value="{{ old('order_number') }}">
 			</div>
-		</div>
+		</div> -->
 		<div class="col-md-6">				
 			<div class="form-group">
 				<label for="name">Job Name</label>
@@ -163,8 +163,8 @@
 						<label for="contact[]">Existing Contact</label>
 						<vue-autocomplete
 						    name="contact[]"
-						    param="name"
-						    url="/api/privatecontacts"
+						    :param="contactParam"
+						    url="/api/contacts"
 						    anchor="name"
 						    label="email"
 						    model="vModelPrivateLike"

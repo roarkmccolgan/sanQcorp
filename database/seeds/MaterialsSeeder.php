@@ -20,10 +20,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 9,
-            'price' => 660.00,
+            'cost_price' => 660.00,
             'day_rate' => 0.00,
             'unit_of_measure' => 'm2',
             'product_type'=>'torchon',
+            'coverage'=> 9.00,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //2
@@ -33,10 +34,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 9,
-            'price' => 550.00,
+            'cost_price' => 550.00,
             'day_rate' => 0.00,
             'unit_of_measure' => 'm2',
             'product_type'=>'torchon',
+            'coverage'=>9.00,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //3
@@ -46,10 +48,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 25,
-            'price' => 460.00,
+            'cost_price' => 460.00,
             'day_rate' => 0.00,
             'unit_of_measure' => 'Lt',
             'product_type'=>'primer',
+            'coverage'=>125.00,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //4
@@ -59,10 +62,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 9,
-            'price' => 186.00,
+            'cost_price' => 186.00,
             'day_rate' => 0.00,
             'unit_of_measure' => 'Kg',
             'product_type'=>'gas',
+            'coverage'=>50,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //5
@@ -72,10 +76,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 20,
-            'price' => 18.00,
+            'cost_price' => 18.00,
             'day_rate' => 0.00,
             'unit_of_measure' => 'lm',
             'product_type'=>'membrane',
+            'coverage'=>2.00,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //6
@@ -85,10 +90,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 20,
-            'price' => 31.00,
+            'cost_price' => 31.00,
             'day_rate' => 0.00,
             'unit_of_measure' => 'lm',
             'product_type'=>'membrane',
+            'coverage'=>4.00,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //7
@@ -98,10 +104,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 20,
-            'price' => 53.00,
+            'cost_price' => 53.00,
             'day_rate' => 0.00,
             'unit_of_measure' => 'lm',
             'product_type'=>'membrane',
+            'coverage'=>6.66,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //8
@@ -111,10 +118,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 20,
-            'price' => 80.00,
+            'cost_price' => 80.00,
             'day_rate' => 0.00,
             'unit_of_measure' => 'lm',
             'product_type'=>'membrane',
+            'coverage'=>10.00,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //9
@@ -124,10 +132,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 20,
-            'price' => 117.00,
+            'cost_price' => 117.00,
             'day_rate' => 0.00,
             'unit_of_measure' => 'lm',
             'product_type'=>'membrane',
+            'coverage'=>20.00,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //10
@@ -137,10 +146,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 20,
-            'price' => 370.00,
+            'cost_price' => 370.00,
             'day_rate' => 0.00,
-            'unit_of_measure' => 'lm',
+            'unit_of_measure' => 'lt',
             'product_type'=>'acrylic',
+            'coverage'=>9.5,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //11
@@ -150,10 +160,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 1,
-            'price' => 255.12,
+            'cost_price' => 255.12,
             'day_rate' => 0.00,
             'unit_of_measure' => 'each',
             'product_type' => 'sanika_board',
+            'coverage' => 2.88,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //12
@@ -163,10 +174,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 1,
-            'price' => 275.80,
+            'cost_price' => 275.80,
             'day_rate' => 0.00,
             'unit_of_measure' => 'each',
             'product_type' => 'sanika_board',
+            'coverage' => 2.88,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //13
@@ -176,10 +188,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 1,
-            'price' => 296.85,
+            'cost_price' => 296.85,
             'day_rate' => 0.00,
             'unit_of_measure' => 'each',
             'product_type' => 'sanika_board',
+            'coverage' => 2.88,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //14
@@ -189,10 +202,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 1,
-            'price' => 278.02,
+            'cost_price' => 278.02,
             'day_rate' => 0.00,
             'unit_of_measure' => 'each',
             'product_type' => 'sanika_board',
+            'coverage' => 2.88,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //15
@@ -202,10 +216,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 1,
-            'price' => 270.64,
+            'cost_price' => 270.64,
             'day_rate' => 0.00,
             'unit_of_measure' => 'each',
             'product_type' => 'sanika_board',
+            'coverage' => 2.88,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //16
@@ -215,10 +230,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 1,
-            'price' => 334.11,
+            'cost_price' => 334.11,
             'day_rate' => 0.00,
             'unit_of_measure' => 'each',
             'product_type' => 'sanika_board',
+            'coverage' => 2.88,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //17
@@ -228,10 +244,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 1,
-            'price' => 439.56,
+            'cost_price' => 439.56,
             'day_rate' => 0.00,
             'unit_of_measure' => 'each',
             'product_type' => 'sanika_board',
+            'coverage' => 2.88,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //18
@@ -241,10 +258,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 1,
-            'price' => 460.24,
+            'cost_price' => 460.24,
             'day_rate' => 0.00,
             'unit_of_measure' => 'each',
             'product_type' => 'sanika_board',
+            'coverage' => 2.88,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //19
@@ -254,10 +272,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 1,
-            'price' => 481.29,
+            'cost_price' => 481.29,
             'day_rate' => 0.00,
             'unit_of_measure' => 'each',
             'product_type' => 'sanika_board',
+            'coverage' => 2.88,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //20
@@ -267,10 +286,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 1,
-            'price' => 462.46,
+            'cost_price' => 462.46,
             'day_rate' => 0.00,
             'unit_of_measure' => 'each',
             'product_type' => 'sanika_board',
+            'coverage' => 2.88,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //21
@@ -280,10 +300,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 1,
-            'price' => 455.08,
+            'cost_price' => 455.08,
             'day_rate' => 0.00,
             'unit_of_measure' => 'each',
             'product_type' => 'sanika_board',
+            'coverage' => 2.88,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //22
@@ -293,10 +314,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 1,
-            'price' => 518.55,
+            'cost_price' => 518.55,
             'day_rate' => 0.00,
             'unit_of_measure' => 'each',
             'product_type' => 'sanika_board',
+            'coverage' => 2.88,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //23
@@ -306,10 +328,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 1,
-            'price' => 9.65,
+            'cost_price' => 9.65,
             'day_rate' => 0.00,
             'unit_of_measure' => 'each',
             'product_type' => 'fillets',
+            'coverage' => 0.6,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //24
@@ -319,10 +342,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 1,
-            'price' => 11.35,
+            'cost_price' => 11.35,
             'day_rate' => 0.00,
             'unit_of_measure' => 'each',
             'product_type' => 'fillets',
+            'coverage' => 0.6,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //25
@@ -332,36 +356,39 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 1,
-            'price' => 15.85,
+            'cost_price' => 15.85,
             'day_rate' => 0.00,
             'unit_of_measure' => 'each',
             'product_type' => 'fillets',
+            'coverage' => 0.6,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //26
-            'name' => 'Screws',
+            'name' => '50mm Tek Screws',
             'category_id' => 1,
             'Description' => 'blah',
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 200,
-            'price' => 50.00,
+            'cost_price' => 0.25,
             'day_rate' => 0.00,
             'unit_of_measure' => 'each',
             'product_type' => 'screws',
+            'coverage' => 0.3,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //27
             'name' => 'Sanika 60mm Washer',
-            'category_id' => 1,
+            'category_id' => 4,
             'Description' => 'blah',
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 200,
-            'price' => 38.00,
+            'cost_price' => 0.45,
             'day_rate' => 0.00,
             'unit_of_measure' => 'each',
             'product_type' => 'washers',
+            'coverage' => 0.3,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //28
@@ -371,10 +398,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 20,
             'pack_size' => 2.4,
-            'price' => 52.00,
+            'cost_price' => 52.00,
             'day_rate' => 0.00,
             'unit_of_measure' => 'lm',
             'product_type' => 'flashing',
+            'coverage' => 2.40,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //29
@@ -384,10 +412,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 20,
             'pack_size' => 2.4,
-            'price' => 85.00,
+            'cost_price' => 85.00,
             'day_rate' => 0.00,
             'unit_of_measure' => 'lm',
             'product_type' => 'flashing',
+            'coverage' => 2.40,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //30
@@ -397,10 +426,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 20,
-            'price' => 250.00,
+            'cost_price' => 250.00,
             'day_rate' => 0.00,
             'unit_of_measure' => 'kg',
             'product_type' => 'cement',
+            'coverage' => 4,
             'created_at' => Carbon::now()
         ]);
 
@@ -411,10 +441,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 50,
-            'price' => 100.00,
+            'cost_price' => 100.00,
             'day_rate' => 0.00,
             'unit_of_measure' => 'kg',
             'product_type' => 'cement',
+            'coverage' => 6,
             'created_at' => Carbon::now()
         ]);
 
@@ -425,10 +456,26 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 1,
-            'price' => 380.00,
+            'cost_price' => 380.00,
             'day_rate' => 0.00,
             'unit_of_measure' => 'm3',
             'product_type' => 'sand',
+            'coverage' => 4,
+            'created_at' => Carbon::now()
+        ]);
+
+        DB::table('materials')->insert([ //33
+            'name' => '25mm Polyurethane board',
+            'category_id' => 1,
+            'Description' => 'blah',
+            'image' => 'blank.jpg',
+            'stock' => 1000,
+            'pack_size' => 1,
+            'cost_price' => 93.82,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'each',
+            'product_type' => 'poly_board',
+            'coverage' => 2.88,
             'created_at' => Carbon::now()
         ]);
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');

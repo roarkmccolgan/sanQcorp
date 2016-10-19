@@ -36,7 +36,15 @@ class System extends Model
      */
     public function tasks()
     {
-        return $this->belongsToMany('App\Tasks', 'system_task', 'system_id', 'task_id')->withPivot('order');
+        return $this->belongsToMany('App\Tasks', 'system_task', 'system_id', 'task_id')->withPivot('order')->orderBy('pivot_order');
+    }
+
+    /**
+     * Get all of the Sections photos.
+     */
+    public function photos()
+    {
+        return $this->morphMany('App\Photos', 'photoable');
     }
 
     // /**
@@ -46,4 +54,13 @@ class System extends Model
     // {
     //     return $this->belongsToMany('App\Materials', 'material_system', 'system_id', 'material_id')->keyBy('product_type');
     // }
+    
+
+    /**
+     * @return System term
+     */
+    public function terms()
+    {
+        return $this->belongsToMany('App\Term');
+    }
 }

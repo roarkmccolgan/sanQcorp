@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
     	Model::unguard();
-        //$this->call(UsersTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
         $this->call(JobsSeeder::class);
         $this->call(CompanySeeder::class);
         $this->call(ContactsSeeder::class);
@@ -29,8 +29,15 @@ class DatabaseSeeder extends Seeder
         //$this->call(ScopeSeeder::class);
         $this->call(TasksSeeder::class);
         $this->call(SystemTaskSeeder::class);
+        $this->call(PhotosSeeder::class);
         //$this->call(ScopeSystemSeeder::class);
         $this->call(TaskMaterialsSeeder::class);
+        $this->call(TaskVariableSeeder::class);
+        
+        $this->call(PandGCategorySeeder::class);
+        
+        $this->call(termTableSeeder::class);
+        $this->call(SystemTermSeeder::class);
 
         Model::reguard();
     }

@@ -1,4 +1,4 @@
-@extends('_layout.default')
+@extends('_layout.default',['vueView'=>'job-list-view'])
 
 @section('pagetitle', 'Jobs')
 
@@ -11,51 +11,44 @@
 @section('header', '<h4 class="pull-left page-title">Jobs</h4>')
 
 @section('content')
+    <modal-job-status></modal-job-status>
     <a href="/jobs/new" class="btn btn-inverse pull-right"><i class="fui-plus"></i> New Job</a>
     <div class="clearfix"></div>
-    <table class="table table-striped table-bordered">
-        <thead>
+    @include('_layout.form_errors')
+    <table class="table">
+        <!-- <thead>
             <tr>
                 <td width="12%">Ref Number</td>
                 <td width="10%">Client</td>
                 <td>Name</td>
                 <td width="8%" class="text-center">Status</td>
-                <td width="10%" class="text-center">Action</td>
+                <td width="20%" class="text-center">Action</td>
             </tr>
-        </thead>
+        </thead> -->
         <tbody>
         @if(!$jobs->isEmpty())
             @foreach($jobs as $job)
                 <tr>
-                    <td>{{$job->order_number}}</td>
-                    <td>{{$job->contacts[0]->company->name}}</td>
+                    <td width="15%"><strong>{{$job->order_number}}</strong></td>
                     <td>
-                        <strong>{{$job->name}}</strong>
+                        <span @click="showSections('{{$job->id}}')"><strong>{{$job->name}} <span :class="{ 'fui-triangle-up-small': jobs['{{$job->id}}'].show, 'fui-triangle-down-small': !jobs['{{$job->id}}'].show }" v-if="jobs['{{$job->id}}'].sections>0"></span></strong></span>
                         @foreach($job->sections as $section)
-                        <div>
+                        <div v-if="jobs['{{$job->id}}'].show" style="margin-left: 10px; margin-top: 5px;">
                             {{$section->name}}
-                            @foreach($section->options as $option)
-                            <div>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$option->name}}
-                                <div class="btn-group">
-                                    <button data-toggle="dropdown" class="btn btn-sm btn-default dropdown-toggle" type="button">Pending <span class="caret"></span></button>
-
-                                    <ul role="menu" class="dropdown-menu">
-                                        <li><a href="#">Pending</a></li>
-                                        <li><a href="#">Accepted</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            @endforeach
-                        </div>
+                            <ol>
+                                @foreach($section->options as $option)
+                                    <li>{{$option->name}} - <span class="{{$option->accepted ? 'text-primary':'text-muted'}}">{{$option->accepted ? 'Accepted':'Pending'}}</span></li>
+                                @endforeach
+                            </ol>
                         @endforeach
                     </td>
-                    <td class="text-center"><span class="label {{$job->status=='build'?'label-default':'label-primary'}}">{{$job->status}}</span></td>
-                    <td class="text-center">
-                        <div class="btn-group">
-                            <a href="{{ url('/jobs/'.$job->id.'/build') }}" class="btn btn-xs btn-embossed btn-inverse" data-toggle="tooltip" data-placement="bottom" title="Add Job Tasks"><i class="fui-list"></i></a>
-                            <a class="btn btn-xs btn-embossed btn-default" data-toggle="tooltip" data-placement="bottom" title="Edit Job Details"><i class="fui-new"></i></a>
-                            <a class="btn btn-xs btn-embossed btn-danger" data-toggle="tooltip" data-placement="bottom" title="Delete Job"><i class="fui-cross"></i></a>
+                    <td width="15%">{{$job->contacts->first()->company->name}}</td>
+                    <td width="10%" class="text-center"><button class="btn btn-xs {{$job->status=='build'?'btn-default':($job->status=='pending'?'btn-info':'btn-primary')}}" {!!$job->status=='build'?'': '@click="$root.$broadcast(\'modal-job-status:open\', '.$job->id.','.$job->name.')")'!!}>{{$job->status}}</button></td>
+                    <td width="13%" class="text-center">
+                        <div class="btn-group btn-group-xs">
+                            <a href="{{ url('/jobs/'.$job->id.'/build') }}" class="btn btn-xs btn-embossed btn-inverse" data-toggle="tooltip" data-placement="bottom" title="Add Job Tasks"><span class="fui-list" style="margin-top: 0;"></span></a>
+                            <a class="btn btn-xs btn-embossed btn-default" data-toggle="tooltip" data-placement="bottom" title="Edit Job Details"><span class="fui-new" style="margin-top: 0;"></span></a>
+                            <a class="btn btn-xs btn-embossed btn-danger" data-toggle="tooltip" data-placement="bottom" title="Delete Job"><span class="fui-cross" style="margin-top: 0;"></span></a>
                         </div>
                     </td>
                 </tr>
@@ -64,6 +57,8 @@
         </tbody>
     </table>
 @stop
+
+@include('_layout.footer')
 
 @section('pagescript')
 

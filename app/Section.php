@@ -10,7 +10,15 @@ class Section extends Model
 
     protected $fillable = [
         'name',
-        'survey'
+        'accepted',
+        'survey',
+        'size',
+        'perimeter',
+        'difficulty',
+        'pitch',
+        'length',
+        'height',
+        'width'
     ];
 
     /**
@@ -18,7 +26,7 @@ class Section extends Model
      */
     public function job()
     {
-        return $this->belongsTo('App\Jobs');
+        return $this->belongsTo('App\Jobs', 'jobs_id');
     }
 
     /**
@@ -27,5 +35,13 @@ class Section extends Model
     public function options()
     {
         return $this->hasMany('App\Option');
+    }
+
+    /**
+     * Get all of the Sections photos.
+     */
+    public function photos()
+    {
+        return $this->morphMany('App\Photos', 'photoable');
     }
 }

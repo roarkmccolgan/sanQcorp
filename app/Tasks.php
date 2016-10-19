@@ -10,6 +10,9 @@ class Tasks extends Model
 
     protected $fillable = [
         'name',
+        'description',
+        'rate',
+        'alias',
         'unit_of_measure'
     ];
 
@@ -27,7 +30,7 @@ class Tasks extends Model
      */
     public function materials()
     {
-        return $this->belongsToMany('App\Materials', 'material_task', 'task_id', 'material_id');
+        return $this->belongsToMany('App\Materials', 'material_task', 'task_id', 'material_id')->withPivot('area');
     }
 
     /**
@@ -36,6 +39,14 @@ class Tasks extends Model
     public function options()
     {
         return $this->belongsToMany('App\Option', 'option_task', 'task_id', 'option_id');
+    }
+
+    /**
+     * @return Tasks Variables
+     */
+    public function variables()
+    {
+        return $this->hasMany('App\TaskVariable');
     }
 
 }

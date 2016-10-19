@@ -9,6 +9,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Materials extends Model
 {
 	use SoftDeletes;
+    protected $fillable = [
+        'name',
+        'pack_size',
+        'cost_price',
+        'unit_of_measure',
+        'product_type',
+        'coverage'
+    ];
 
     public function barcode()
     {
@@ -33,6 +41,14 @@ class Materials extends Model
     public function tasks()
     {
         return $this->belongsToMany('App\Tasks', 'material_task', 'material_id', 'task_id');
+    }
+
+    /**
+     * @return Materials options
+     */
+    public function options()
+    {
+        return $this->belongsToMany('App\Option', 'material_option', 'material_id', 'option_id');
     }
 
     /**

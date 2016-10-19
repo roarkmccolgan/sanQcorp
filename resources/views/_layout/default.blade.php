@@ -97,9 +97,6 @@
 		@endif
 
 		<script src="{{asset('js/vendor/jquery.min.js')}}"></script>
-		
-    	<script src="//cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react-with-addons.js"></script>
-		<script src="{{asset('js/vendor/literallycanvas.js')}}"></script>
 		<script src="{{asset('js/flat-ui-pro.js')}}"></script>
 		<script src="{{asset('js/main.js')}}"></script>
 		

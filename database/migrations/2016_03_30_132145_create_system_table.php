@@ -19,7 +19,6 @@ class CreateSystemTable extends Migration
             $table->string('alias');
             $table->string('unit');
             $table->decimal('base_rate',5,2);
-            $table->string('component')->nullable();
             $table->timestamps();
         });
     }

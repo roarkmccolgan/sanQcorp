@@ -15,7 +15,7 @@ class ContactsJobsSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('contact_job')->insert([
             'contact_id' => 1,
-            'job_id' => 1
+            'job_id' => 7029
         ]);
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }

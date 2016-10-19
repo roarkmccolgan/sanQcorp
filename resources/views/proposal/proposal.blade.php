@@ -56,6 +56,13 @@
                 line-height: 13pt;
                 color: black;
             }
+            .sitepic{
+                margin: 5mm;
+                -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.30);
+                -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.30);
+                box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.30);
+                border-radius: 2px;
+            }
         </style>
     </head>
 <body style="border:0; margin: 0;">
@@ -76,28 +83,26 @@
                     EMAIL. admin@sanika.co.za
                 </div>
             </div>
-            <div id="title" style="width: 190mm; margin: 0mm 20mm; margin-bottom: 31mm">
+            <div id="title" style="width: 190mm; margin: 0mm 20mm; margin-bottom: 20mm">
                 <h1>Quotation Proposal</h1>
                 <h2>
-                    Waterproofing of
-                    <span v-for="section in sections">@{{section.name}},</span>
-                    at the below site address.
+                    @{{proposaltitle}}
                 </h2>
             </div>
-            <div id="info" style="width: 210mm; height: 85mm; margin: 0mm 20mm;">
-                <table cellspacing="0" cellpadding="2" style="margin-bottom: 30mm; width: 190mm">
+            <div id="info" style="width: 210mm; height: 105mm; margin: 0mm 20mm;">
+                <table cellspacing="0" cellpadding="2" style="margin-bottom: 10mm; width: 190mm">
                     <tr>
                         <td style="text-align: right; width: 30%">Sanika Reference: <strong>@{{laravel.job.order_number}}</strong></td>
                         <td style="text-align: right">Date: <strong>@{{ laravel.job.created_at | moment "MMMM Do YYYY" }}</strong></td>
                     </tr>
                 </table>
-                <table cellspacing="0" cellpadding="10" style="margin-bottom: 30mm; width: 190mm; vertical-align: top">
+                <table cellspacing="0" cellpadding="10" style="margin-bottom: 20mm; width: 190mm; vertical-align: top">
                     <tr>
                         <td style="vertical-align: top; width: 30%; text-align: right;">Prepared for:</td>
                         <td style="padding-left: 10pt; padding-bottom: 10pt">
                             <template v-for="contact in laravel.job.contacts">
                                 <strong>@{{contact.first_name}} @{{contact.last_name}}</strong><br/>
-                                Email: <a href="mailto:@{{contact.email}}">@{{contact.email}}</a>
+                                Email: <a href="mailto:@{{contact.email}}">@{{contact.email}}</a><br/>
                             </template>
                         </td>
                     </tr>
@@ -110,10 +115,11 @@
                             @{{laravel.job.country}}
                         </td>
                     </tr>
-                    <tr>
+                    <tr v-if="user_id">
                         <td style="vertical-align: top;width: 30%; text-align: right">Prepared by:</td>
                         <td style="padding-left: 10pt; padding-bottom: 10pt">
-                            Roark McColgan<br/>
+                            @{{users[user_id].name}}<br/>
+                            <a href="mailto:@{{users[user_id].email}}" target="_blank">@{{users[user_id].email}}</a><br/>
                             Sanika Waterproofing
                         </td>
                     </tr>
@@ -176,50 +182,109 @@
                     </td>
                 </tr>
             </table>
+            
         </div>
-        <div class="proposal-section" v-if="sections">
-            <template v-if="images.main">
-                <img v-bind:src="images.main" alt="" style="margin: 10mm auto;">
+        <div class="proposal-section">
+            <template v-if="mainImage.photo!=''">
+                <img v-bind:src="'http://sanqcorp.app/job/'+laravel.job.order_number+'/img/'+mainImage.photo" alt="" align="center" class="sitepic" style="width: 184mm; margin: 10mm auto;">
             </template>
-            <template v-for="section in sections">
-                <h4>@{{section.name}}</h4>
-                <strong>Survey</strong>
-                <p>
-                    @{{section.survey}}
-                </p>
-                <template v-if="section.options">
-                    <div v-for="(optionKey, option) in section.options" style="margin-bottom: 30mm; margin-left: 5mm">
-                        <template v-if="option.system">
-                            <h6 style="margin-bottom: 0;"><span>Option @{{optionKey+1}}</span> - @{{option.name}}</h6>
-                            <p>
-                                @{{option.system.description}}
-                            </p>
-                            <div style="margin-left: 5mm">
-                                <strong>Scope of Work</strong>
-                                <ul v-if="option.selectedTasks">
-                                    <li v-for="(taskKey, task) in option.selectedTasks">@{{option.system.tasks[taskKey].description}}</li>
-                                </ul>
-                                <div v-if="option.notes">
-                                    <strong>Please note</strong>
-                                    <h5 v-for="note in option.notes">@{{note.note}}</h5>
-                                </div>
-                            </div>
-                        </template>
-                    </div>
+            <template v-if="images.length > 0">
+                <strong>Site Images:</strong><br/>
+                <template v-for="(imageKey, image) in images">
+                    <img v-if="image.photo!=''" v-bind:src="'http://sanqcorp.app/job/'+laravel.job.order_number+'/img/'+image.photo" alt="" class="sitepic">
                 </template>
             </template>
         </div>
         <div class="proposal-section" v-if="sections">
+            <template v-for="section in sections">
+                <h4>@{{section.name}}</h4>
+                <strong>Survey</strong>
+                <p>@{{{section.survey}}}</p>
+                
+                    <template v-for="(imageKey, image) in section.images">
+                        <img v-if="image.photo!=''" v-bind:src="'http://sanqcorp.app/job/'+laravel.job.order_number+'/img/'+image.photo" alt="" class="sitepic">
+                    </template>
+        <template v-if="section.images.length > 0">
+        </div>
+        <div class="proposal-section">
+        </template>
+            <template v-if="section.options">
+                        <div v-for="(optionKey, option) in section.options" style="margin-bottom: 30mm; margin-left: 5mm">
+                            <template v-if="option.system">
+                                <h6 style="margin-bottom: 0;"><span v-if="section.options.length > 1">Option @{{optionKey+1}} - </span>@{{option.name}}</h6>
+                                <p>
+                                    @{{{option.description}}}
+                                </p>
+                                <img v-if="option.system.photos.length > 0" v-bind:src="'http://sanqcorp.app/img/'+option.system.photos[0].photo" alt="" style="width: 170mm;margin: 10mm 0mm;">
+                                <div style="margin-left: 5mm">
+                                    <strong>Scope of Work</strong>
+                                    <ul v-if="option.tasks">
+                                        <li>Establish site and safe working procedures in accordance with  OSH and client requirements</li>
+                                        <li v-for="task in option.tasks | orderBy 'order'">@{{task.description}}</li>
+                                        <li>Clean and de-establish site</li>
+                                    </ul>
+                                    <div v-if="option.notes.length > 0">
+                                        <strong>Please note</strong>
+                                        <h5 v-for="note in option.notes">@{{note.note}}</h5>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+            </template>
+        </div>
+        <div class="proposal-section" v-if="sections">
             <h5>Price Structure</h5>
-            <small>(Prices exclude V.A.T.)</small>
-            <h6>The following price structure includes:</h6>
+            <small>(Prices exclude V.A.T.)</small><br/>
+            <template v-for="section in sections">
+                <template v-if="section.options">
+                    <table cellpadding="5mm" style="width: 190mm">
+                        <template v-for="(optionKey, option) in section.options">
+                            <tr>
+                                <td style="width: 70%"><h6><span v-if="section.options.length > 1">Option @{{optionKey+1}} - </span>@{{option.name}}</h6></td>
+                                <td style="width: 30%">
+                                    <h6>@{{option.total_cost_price+((option.total_cost_price/100)*option.markup) | currency 'R'}}</h6>
+                                </td>
+                            </tr>
+                            <template v-if="pandgTotal">
+                            <tr v-if="pandgTotal">
+                                <td>
+                                    P's and G's
+                                </td>
+                                <td>@{{pandgTotal | currency 'R'}}</td>
+                            </tr>
+                            <tr>
+                                <td><h5 class="text-right" style="margin-right: 5mm">Total</h5></td>
+                                <td><h5>@{{option.total_cost_price+((option.total_cost_price/100)*option.markup)+pandgTotal | currency 'R'}}</h5></td>
+                            </tr>
+                            </template>
+                        </template>
+                    </div>
+                </div>
+                        </tr>
+                    </table>
+                </template>
+            </template>
+            <template v-if="jobpsandgs.length > 0">
+                <strong>P's &amp; G's:</strong><br/>
+                The above quotation includes the following P's &amp; G's
+                <ul>
+                    <li v-for="pandg in jobpsandgs">@{{pandg.name}}</li>
+                </ul>
+                <table cellpadding="5mm" style="width: 190mm">
+                    <tr>
+                        <td style="width: 70%"><h6>Total for all P's &amp; G's</h6></td>
+                        <td style="width: 30%"><h6>@{{pandgTotal | currency 'R'}}</h6></td>
+                    </tr>
+                </table>
+            </template>
+            <h6>The above price structures includes:</h6>
             <ul>
                 <li>All Materials required to complete the full scope of work described above.</li>
                 <li>All labour (skilled).</li>
                 <li>Onsite Trained Supervisors.</li>
                 <li>All tools, machinery and equipment.</li>
                 <li>Staff PPE and all relevant safety equipment.</li>
-                <li>All P,s and G,s </li>
                 <li>Site Establishment</li>
                 <li>Scaffolding</li>
             </ul>
@@ -227,27 +292,12 @@
             <ul>
                 <li>Skip Hire (Rubble)</li>
             </ul>
-            <template v-for="section in sections">
-                <template v-if="section.options">
-                    <strong>Price</strong>
-                    <table cellpadding="5mm" style="width: 190mm">
-                        <tr v-for="(optionKey, option) in section.options">
-                            <td style="width: 70%"><h6><span>Option @{{optionKey+1}}</span> - @{{option.name}}</h6></td>
-                            <td style="width: 30%"><h6>@{{option.total_cost_price+((option.total_cost_price/100)*option.markup) | currency 'R'}}</h6></td>
-                        </tr>
-                    </table>
-                </template>
-            </template>
-            <h6>Please Note:</h6>
+            <h6>Guarantee</h6>
+            <p>The sections above are all guaranteed for a period of TEN years (to the mineral maintenance free torch on membrane) with minor maintenance to flashing details at client’s expense (every 30-36 months).</p>
+
+            <h6>Terms and Conditions:</h6>
             <ul>
-                <li>All above prices Exclude VAT and are valid for 30 days</li>
-                <li>Any errors and/or omissions are excluded. </li>
-                <li>Any guarantees offered will only come into effect once the contract is complete and the contract amount has been paid in full. </li>
-                <li>Whilst the utmost care and stringent safety procedures are followed, Sanika cannot be held liable for any damages or breakages of the surrounding areas (including tiles) and or injuries to persons whilst working on the roof.</li>
-                <li>Pricing outlined above excludes tiling and tiles. Tiles to be purchased by client and installed by others.</to>
-                <li>A 60% deposit is required on order with balance payable on completion of the job. </li>
-                <li>Pricing above is outlined for all sections to be done concurrently.</li>
-                <li>Client is responsible for the integrity of the underlying substrate for adhesion of waterproofing materials.</li>
+                <li v-for="term in terms" v-if="checkedTerms.indexOf(term.id)!=-1">@{{term.term}}</li>
             </ul>
             <h6>Personnel</h6>
             <p>All Sanika staff to be utilised on site are highly experienced</p>

@@ -35,29 +35,60 @@ class TaskMaterialsSeeder extends Seeder
         ]);
 
         //Membrane
+        //100
         DB::table('material_task')->insert([
             'material_id' => 5,
-            'task_id' => 2
+            'task_id' => 2,
+            'area' => '*0.1'
         ]);
+        //200
         DB::table('material_task')->insert([
             'material_id' => 6,
-            'task_id' => 2
+            'task_id' => 2,
+            'area' => '*0.2'
         ]);
+        //300
         DB::table('material_task')->insert([
             'material_id' => 7,
-            'task_id' => 2
+            'task_id' => 2,
+            'area' => '*0.333'
         ]);
+        //500
         DB::table('material_task')->insert([
             'material_id' => 8,
-            'task_id' => 2
+            'task_id' => 2,
+            'area' => '*0.5'
         ]);
+        //1000
         DB::table('material_task')->insert([
             'material_id' => 9,
-            'task_id' => 2
+            'task_id' => 2,
+            'area' => '*1'
         ]);
+        //Acrylic
         DB::table('material_task')->insert([
             'material_id' => 10,
             'task_id' => 2
+        ]);
+
+        //Fillets
+        DB::table('material_task')->insert([
+            'material_id' => 23,
+            'task_id' => 9
+        ]);
+        DB::table('material_task')->insert([
+            'material_id' => 24,
+            'task_id' => 9
+        ]);
+        DB::table('material_task')->insert([
+            'material_id' => 25,
+            'task_id' => 9
+        ]);
+
+        //Poly
+        DB::table('material_task')->insert([
+            'material_id' => 33,
+            'task_id' => 11
         ]);
 
         //Boarded
@@ -109,18 +140,7 @@ class TaskMaterialsSeeder extends Seeder
             'material_id' => 22,
             'task_id' => 4
         ]);
-        DB::table('material_task')->insert([
-            'material_id' => 23,
-            'task_id' => 4
-        ]);
-        DB::table('material_task')->insert([
-            'material_id' => 24,
-            'task_id' => 4
-        ]);
-        DB::table('material_task')->insert([
-            'material_id' => 25,
-            'task_id' => 4
-        ]);
+        
         DB::table('material_task')->insert([
             'material_id' => 26,
             'task_id' => 4
@@ -131,11 +151,11 @@ class TaskMaterialsSeeder extends Seeder
         ]);
         DB::table('material_task')->insert([
             'material_id' => 28,
-            'task_id' => 4
+            'task_id' => 10
         ]);
         DB::table('material_task')->insert([
             'material_id' => 29,
-            'task_id' => 4
+            'task_id' => 10
         ]);
 
         //Screed Repair

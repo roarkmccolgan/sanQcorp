@@ -24,7 +24,7 @@ class AddJobRequest extends Request
     public function rules()
     {
         return [
-            'order_number'=>'required|unique:jobs|min:10|max:11',
+            //'order_number'=>'required|unique:jobs|min:10|max:11',
             'name'=>'required|min:5|max:255',
             'distance'=>'required',
             'address'=>'required',
@@ -39,7 +39,7 @@ class AddJobRequest extends Request
             'new_contact.*.first_name'=>'required_without:contact|bail',
             'new_contact.*.last_name'=>'required_without:contact',
             'new_contact.*.email'=>'required_without:contact',
-            'new_contact.*.contact1'=>'required_without:contact|min:9|max:9',
+            'new_contact.*.contact1'=>'required_without:contact',
         ];
     }
 }

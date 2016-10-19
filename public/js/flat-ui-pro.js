@@ -2052,6 +2052,7 @@ $.extend(Datepicker.prototype, {
 	 * @param  settings  object - the new settings to use for this date picker instance (anonymous)
 	 */
 	_attachDatepicker: function(target, settings) {
+		console.log(target);
 		var nodeName, inline, inst;
 		nodeName = target.nodeName.toLowerCase();
 		inline = (nodeName === "div" || nodeName === "span");
@@ -3911,7 +3912,6 @@ function extendRemove(target, props) {
 					Object - settings for attaching new datepicker functionality
    @return  jQuery object */
 $.fn.datepicker = function(options){
-
 	/* Verify an empty collection wasn't passed - Fixes #6976 */
 	if ( !this.length ) {
 		return this;

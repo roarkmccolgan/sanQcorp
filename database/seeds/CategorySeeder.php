@@ -12,14 +12,17 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        DB::table('category')->insert([
+        DB::table('category')->insert([ //1
             'name' => 'Waterproofing'
         ]);
-        DB::table('category')->insert([
+        DB::table('category')->insert([ //2
             'name' => 'Cementitious'
         ]);
-        DB::table('category')->insert([
+        DB::table('category')->insert([ //3
             'name' => 'Sand'
+        ]);
+        DB::table('category')->insert([ //4
+            'name' => 'Fasteners'
         ]);
     }
 }

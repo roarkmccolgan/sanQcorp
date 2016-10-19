@@ -21,7 +21,7 @@
     {{ csrf_field() }}
     <input type="hidden" name="job_id" value="{{$job->id}}">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-xs-12">
             <div v-for="(key, section) in sections">
                 <job-task :section="section" :systems="systems" :key="key" :employees="employees"></job-task>
             </div>

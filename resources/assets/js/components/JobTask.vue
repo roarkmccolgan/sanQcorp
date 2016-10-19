@@ -5,7 +5,7 @@
             <div class="col-xs-12">
                 <h6>Tasks - {{section.name}}</h6>
                 <div class="row">
-                    <div v-bind:class="{ 'col-sm-6': edit_task, 'col-sm-12': !edit_task }">
+                    <div v-bind:class="{ 'col-xs-6': edit_task, 'col-xs-12': !edit_task }">
                         <div class="list-group">
                             <template v-for="(optKey, option) in section.options">
                                 <a @click.prevent="setTask(task)" class="list-group-item" v-bind:class="{'active': edit_task.name==task.name}" v-for="(tasKey, task) in option.tasks">

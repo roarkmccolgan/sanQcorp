@@ -69,11 +69,12 @@
 <template>
 	<input autocomplete="off" type="text"
 					:id="id"
+					:value="value"
 					:class="class"
 					:name="name"
 					:placeholder="placeholder"
 					v-model="type"
-					@input="input(type)"
+					@input="input(type) | debounce delay"
 					@dblclick="showAll"
 					@blur="hideAll"
 					@keydown="keydown"
@@ -117,7 +118,9 @@
 			id: String,
 			class: String,
 			name: String,
+			value: String,
 			placeholder: String,
+			delay: String,
 
 			model: String, // v-model like
 

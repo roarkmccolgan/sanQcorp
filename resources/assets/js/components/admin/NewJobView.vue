@@ -21,6 +21,11 @@
 				distance_problem: false
 			};
 		},
+		computed: {
+			contactParam: function(){
+				return 'company_id=2&name';
+			}
+		},
 		components:{
 			VueAutocomplete: require('../vue-autocomplete.vue'),
 			CompanyContacts: require('./CompanyContacts.vue')

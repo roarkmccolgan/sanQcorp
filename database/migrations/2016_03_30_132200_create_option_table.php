@@ -21,21 +21,13 @@ class CreateOptionTable extends Migration
             $table->integer('system_id')->unsigned();
             $table->boolean('complete')->default(0);
             $table->timestamps();
-
-            $table->decimal('size',5,2)->nullable();
-            $table->decimal('perimeter',5,2)->nullable();
-            $table->decimal('screed',5,2)->nullable();
-            $table->integer('difficulty')->nullable();
-            $table->string('pitch')->nullable();
-            $table->decimal('length',5,2)->nullable();
-            $table->decimal('height',5,2)->nullable();
-            $table->decimal('width',5,2)->nullable();
             
-            $table->decimal('labour_estimate',15,2);
-            $table->decimal('supervisor_estimate',15,2);
-            $table->decimal('days_estimate',15,2);
-            $table->decimal('total_estimate',15,2);
-            $table->decimal('total_selling',15,2);
+            $table->decimal('total_labour',15,2);
+            $table->decimal('total_supervisor',15,2);
+            $table->integer('days');
+            $table->decimal('total_materials',15,2);
+            $table->decimal('total_cost_price',15,2);
+            $table->decimal('selling_price',15,2);
             $table->integer('markup')->default(100);
 
 

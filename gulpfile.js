@@ -17,5 +17,7 @@ elixir(function(mix) {
     mix.browserify('main.js')
     .sass('app.scss')
     .copy('node_modules/literallycanvas/lib/img', 'public/img/vendor/literallycanvas')
+    .copy('node_modules/sweetalert/dist/', 'public/css/vendor/sweetalert')
+    .copy('node_modules/ckeditor/', 'public/js/vendor/ckeditor')
     /*.scripts(['literallycanvas.js'], 'public/js/vendor/literallycanvas.js')*/;
 });

@@ -10,10 +10,13 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-use App\User;
 use App\Company;
 use App\Contacts;
+use App\Jobs;
+use App\Materials;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 
 Route::resource('bucket', 'BucketController', ['only' => [
     'index', 'store', 'edit'
@@ -46,7 +49,7 @@ Route::group(['middleware' => ['web']], function () {
 
     //jobs
     Route::bind('job', function ($value) {
-        return App\Jobs::with('contacts.company','sections.options.tasks.materials','sections.options.materials','sections.options.system')->findOrFail($value);
+        return App\Jobs::with('revisions','user','terms','photos','pandg','contacts.company','sections.options.tasks.materials','sections.options.materials','sections.options.system.photos','sections.options','sections.options.notes','sections.photos')->findOrFail($value);
     });
     Route::group(['prefix' => 'jobs'], function(){
         Route::get('/', ['uses' => 'JobController@showJobs']);
@@ -55,10 +58,33 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/{id}/edit', ['uses' => 'JobController@editJob']);
         Route::post('/{id}', ['uses' => 'JobController@updateJob']);
         Route::get('/{job}/build', ['uses' => 'JobController@showBuildJob']);
-    	Route::post('/{job}/build', ['uses' => 'JobController@saveBuildJob']);
+        Route::post('/{job}/build', ['uses' => 'JobController@saveBuildJob']);
 
         Route::get('/current', ['uses' => 'JobController@showCurrentJobs']);
         Route::get('/current/{jobid}', ['uses' => 'JobController@editCurrentJob']);
+
+        Route::get('/revision/{revisionid}', function(Request $request, $id)
+        {
+            
+            $revision = App\Revision::findOrfail($id);
+
+            $result = $revision ? 'success':'error';
+
+            $data = [
+                'result'=>$result
+            ];
+            $revisionData = unserialize($revision->data);
+            Input::merge($revisionData);
+            $new_request = Request::create( '/jobs/'.$revision->job_id.'/build', 'POST');
+            $response = Route::dispatch( $new_request );
+
+            return $revisionData;
+        });
+    });
+
+    Route::group(['prefix'=>'orders'], function(){
+        Route::get('/', ['uses' => 'OrderController@showOrders']);
+        Route::post('/', ['uses' => 'OrderController@saveOrder']);
     });
 
     Route::group(['prefix'=>'pdf'], function() {
@@ -69,8 +95,9 @@ Route::group(['middleware' => ['web']], function () {
         return File::get(public_path() . '/sanikakryton/index.html');
     });
 
-
+    //////////////////////////////////////////////////////
     //API ROUTES
+    //////////////////////////////////////////////////////
     Route::group(['prefix'=>'api'],function(){
 
         //Get Companys
@@ -81,24 +108,79 @@ Route::group(['middleware' => ['web']], function () {
             return $company;
         });
 
-        //Get Contacts
-        Route::get('privatecontacts', function(Request $request)
+        //Get Job
+        Route::get('job', function(Request $request)
         {
-            $name = $request->input('name');
-            $contacts = Contacts::where('first_name', 'LIKE', '%'.$name.'%')
+            $id = $request->input('id');
+            $job = App\Jobs::with('order','sections.options','contacts.company')->find($id);
+
+            $result = $job ? 'success':'error';
+
+            $data = [
+                'result'=>$result,
+                'job'=>$job
+            ];
+            return $data;
+        });
+        //Get Revision
+        Route::get('/revision/{revisionid}', function(Request $request, $id)
+        {
+            
+            $revision = App\Revision::findOrfail($id);
+
+            $result = $revision ? 'success':'error';
+
+            $data = [
+                'result'=>$result
+            ];
+            $revisionData = unserialize($revision->data);
+            $request = Request::create( '/jobs/'.$revision->job_id.'/build', 'POST', $revisionData );
+            $response = Route::dispatch( $request );
+
+            return $data;
+        });
+
+        //Get Materials
+        Route::get('materials', function(Request $request)
+        {
+            //return Materials::all();
+            $name = null !== $request->input('name') ? $request->input('name'):'';
+            $materials = Materials::where('name', 'LIKE', '%'.$name.'%')
                                 ->orWhere(function($query) use( &$name)
                                 {
-                                    $query->where('last_name', 'LIKE', '%'.$name.'%');
+                                    $query->where('product_type', 'LIKE', '%'.$name.'%');
                                 })
-                                ->with('company')
                                 ->get();
-            $contacts_new = [];
-            foreach ($contacts as $contact) {
-                if($contact->company->name=='Private'){
+            return $materials;
+        });
+
+        //Get Contacts
+        Route::get('contacts', function(Request $request)
+        {
+            $id = $request->input('id');
+            if($id){
+                $contact = Contacts::find($id);
+                return $contact;
+            }else{
+                $name = $request->input('name');
+                $company_id = $request->input('company_id') ? $request->input('company_id'):'*';
+
+                $contacts = Contacts::where([
+                                        ['first_name', 'LIKE', '%'.$name.'%'],
+                                        ['company_id','LIKE',$company_id]
+                                    ])
+                                    ->orWhere([
+                                        ['last_name', 'LIKE', '%'.$name.'%'],
+                                        ['company_id','LIKE',$company_id]
+                                    ])
+                                    ->get();
+                $contacts_new = [];
+                foreach ($contacts as $contact) {
                     $contacts_new[] =[
                         'id'=>$contact->id,
                         'name'=>$contact->first_name." ".$contact->last_name,
-                        'description'=>$contact->company->name,
+                        'company'=>$contact->company->name,
+                        'company_id'=>$contact->company->id,
                         'first_name'=>$contact->first_name,
                         'last_name'=>$contact->last_name,
                         'job_title'=>$contact->job_title,
@@ -112,8 +194,8 @@ Route::group(['middleware' => ['web']], function () {
                         'email'=>$contact->email,
                     ];
                 }
+                return $contacts_new;
             }
-            return $contacts_new;
         });
 
         Route::post('uploadproposalimage', function(Request $request){
@@ -122,10 +204,42 @@ Route::group(['middleware' => ['web']], function () {
             if($request->hasFile('file')){
                 $file = $request->file('file');
                 $ref = $request->input('ref');
+                $sizex = $request->input('sizex');
+                $sizey = $request->input('sizey');
                 $filename = strtolower(str_replace(" ", "", $file->getClientOriginalName()));
-                Image::make($file)->fit(640, 480)->save(public_path().'/img/proposal/'.$ref.'/'.$filename);
+                $filePath = public_path().'/job/'.$ref.'/img/';
+                if(!file_exists($filePath)){
+                    if (!mkdir($filePath, 0775, true)) {
+                        dd('Failed to create folders...');
+                    }
+                }
+                Image::make($file)->fit($sizex, $sizey)->save($filePath.'/'.$filename);
 
-                //$file->move(public_path().'/img/proposal/'.$ref.'/', );
+                //$file->move(public_path().'/job/'.$ref.'/img/'.'/', );
+                $result = 'success';
+            }
+            $data = [
+                'result'=>$result,
+                'filename'=>$filename
+            ];
+            return $data;
+        });
+
+        Route::post('saveimage', function(Request $request){
+            $result = 'fail';
+            $filename = NULL;
+            $ref = $request->input('ref');
+            $file = $request->input('img');
+            $type = $request->input('type');
+            if($type=='main'){
+                $filePath = public_path().'/job/'.$ref.'/img/';
+                if(!file_exists($filePath)){
+                    if (!mkdir($filePath, 0775, true)) {
+                        dd('Failed to create folders...');
+                    }
+                }
+                Image::make($file)->fit(640, 480)->save($filePath.'/main_diagram.png');
+                $filename = 'main_diagram.png';
                 $result = 'success';
             }
             $data = [
