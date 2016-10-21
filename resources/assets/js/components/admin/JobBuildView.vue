@@ -34,6 +34,7 @@
 				terms: laravel.job.terms ? laravel.job.terms:[],
 				checkedTerms: [],
 				showTerms: false,
+				showproposal: false,
 			};
 		},
 		components:{

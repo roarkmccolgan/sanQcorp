@@ -34,6 +34,17 @@ class Jobs extends Model
         'country'
     ];
 
+    /**
+     * Set the users id.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function setUserIdAttribute($value)
+    {
+        $this->attributes['user_id'] = $value ?: null;
+    }
+
     public function user()
     {
         return $this->belongsTo('App\User');

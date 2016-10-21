@@ -21,6 +21,11 @@ h4.page-title{
 	padding: 14px;
 	margin: 20px 0;
 }
+.hide {
+   position: absolute !important;
+   top: -9999px !important;
+   left: -9999px !important;
+}
 
 /*Bootstrap Override:;*/
 

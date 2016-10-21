@@ -18,6 +18,11 @@
                 {{ csrf_field() }}
                 <input type="hidden" name="name" value="@{{filename}}">
                 <input type="hidden" name="html" value="">
+                <a href="#" class="btn btn-default" @click.prevent="showproposal=!showproposal">
+                    <span class="fui-document"></span>
+                    <span v-show="!showproposal">Show</span>
+                    <span v-show="showproposal">Hide</span>
+                </a>
                 <button class="btn btn-primary" type="submit" @click="loadproposal"><span class="fui-clip"></span> Download</button>
             </form>
         </div>
@@ -29,7 +34,7 @@
     {{ csrf_field() }}
     <input type="hidden" name="job_id" value="{{$job->id}}">
     <div class="row">
-        <div class="col-md-6">
+        <div v-bind:class="{ 'col-md-6': showproposal, 'col-md-12': !showproposal }">
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
@@ -39,7 +44,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-sm-6">
                     <div class="form-group">
                         <label>Proposal Title 1</label>
                         <select v-model="proposaltitle1" class="form-control" name="title1">
@@ -47,7 +52,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-sm-6">
                     <div class="form-group">
                         <label>Proposal Title 2</label>
                         <select v-model="proposaltitle2" class="form-control" name="title2">
@@ -251,7 +256,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div v-bind:class="{ 'col-md-6': showproposal, 'hidden': !showproposal }">
             <div class="" style="width: 100%; overflow: scroll; -webkit-box-shadow: 0px 0px 17px 0px rgba(0,0,0,0.47);-moz-box-shadow: 0px 0px 17px 0px rgba(0,0,0,0.47);box-shadow: 0px 0px 17px 0px rgba(0,0,0,0.47);zoom: 0.65;-moz-transform: scale(0.65);">
                 @include('proposal.proposal')
             </div>

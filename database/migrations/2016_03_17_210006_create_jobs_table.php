@@ -18,7 +18,7 @@ class CreateJobsTable extends Migration
         Schema::create('jobs', function (Blueprint $table) {
             $table->increments('id');
             
-            $table->integer('user_id')->unsigned();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->string('order_number')->unique();
             $table->string('name');
             $table->decimal('value', 15, 2)->nullable();

@@ -117,6 +117,7 @@ class TasksSeeder extends Seeder
             'description' => 'Install Galvanised Flashings where required',
             'alias' => 'galvanisedflashing',
             'unit_of_measure' => 'lm',
+            'link_to' => 'perimeter',
             'rate' => 100,
             'created_at' => Carbon::now()
         ]);

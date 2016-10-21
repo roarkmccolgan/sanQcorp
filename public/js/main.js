@@ -18866,7 +18866,7 @@ exports.default = {
 			jobpsandgs: laravel.job.pandg == undefined ? [] : laravel.job.pandg,
 			user_id: laravel.job.user ? laravel.job.user.id : 0,
 			users: laravel.users
-		}, (0, _defineProperty3.default)(_ref, 'revisions', laravel.job.revisions ? laravel.job.revisions : false), (0, _defineProperty3.default)(_ref, 'terms', laravel.job.terms ? laravel.job.terms : []), (0, _defineProperty3.default)(_ref, 'checkedTerms', []), (0, _defineProperty3.default)(_ref, 'showTerms', false), _ref;
+		}, (0, _defineProperty3.default)(_ref, 'revisions', laravel.job.revisions ? laravel.job.revisions : false), (0, _defineProperty3.default)(_ref, 'terms', laravel.job.terms ? laravel.job.terms : []), (0, _defineProperty3.default)(_ref, 'checkedTerms', []), (0, _defineProperty3.default)(_ref, 'showTerms', false), (0, _defineProperty3.default)(_ref, 'showproposal', false), _ref;
 	},
 	components: {
 		JobSection: require('./JobSection_new.vue')

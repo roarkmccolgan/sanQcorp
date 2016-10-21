@@ -18,6 +18,11 @@ h4.page-title {
   padding: 14px;
   margin: 20px 0; }
 
+.hide {
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important; }
+
 /*Bootstrap Override:;*/
 .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
   background-color: #1abc9c;

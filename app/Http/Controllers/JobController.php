@@ -115,7 +115,7 @@ class JobController extends Controller
 
         $job = Jobs::create([
             'order_number'=>$this->generateOrderNumber(),
-            'user_id'=>$request->input('user_id') ? $request->input('user_id') : 2,
+            'user_id'=>null,
             'name'=>$request->input('name'),
             'distance'=>$distance[0],
             'status'=>'build',
@@ -279,7 +279,7 @@ class JobController extends Controller
      */
     public function saveBuildJob(Jobs $job,Request $request)
     {
-        return ($request->all());
+        //return ($request->all());
         foreach ($request->input('section') as $secKey => $sec) {
             //sections//
             //
@@ -306,7 +306,7 @@ class JobController extends Controller
             }
 
             $section->photos()->delete();
-            if(isset($sec['photos']) && $sec['photos'].length() > 0){
+            if(isset($sec['photos'])){
                 foreach ($sec['photos'] as $photKey => $photo) {
                     if($photo['photo']!=''){
                         $section->photos()->create(['photo'=>$photo['photo'], 'meta'=>json_encode(['type'=>$photKey])]);
