@@ -79,6 +79,7 @@ class JobController extends Controller
         $new_contacts=[];
 
         if(!$company_id){
+            return $request->all();
             $company = Company::create([
                 'name'=>$request->input('company_name'),
                 'address1'=>$request->input('company_address1'),

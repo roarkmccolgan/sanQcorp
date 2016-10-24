@@ -108,12 +108,11 @@
 			// Autocomplete on selected
 			'autocomplete-company_name:selected': function(data){
 				console.log('selected',data);
+				this.selected_company = data.id;
 				if(data.name!=='Private'){
-					this.selected_company = data.id;
 					this.contacts = data.contacts;
 					this.new_contacts = [];
 				}else{
-					this.selected_company = 'private';
 					console.log('Private Company');
 				}
 			},

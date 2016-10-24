@@ -68,7 +68,7 @@
     		<div class="form-group" v-bind:class="{ 'has-error': distance_problem}">
                 <label for="distance">Distance to site</label>
                 <div class="input-group">
-                    <input type="text" class="form-control flat" disabled placeholder="" v-model="distance" value="{{ old('distance') }}">
+                    <input type="text" class="form-control flat" placeholder="" v-model="distance" value="{{ old('distance') }}">
                     <input type="hidden" name="distance" v-model="distance" value="{{ old('distance') }}">
                 </div>
             </div>

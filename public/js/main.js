@@ -6975,13 +6975,27 @@ module.exports = {
 
 		Vue.filter('moment', function() {
 			var args = Array.prototype.slice.call(arguments),
-				value = args.shift(),
-				date = moment(value);
+				input = args.shift(),
+				date;
 
-			if (!date.isValid()) return '';
+			if (Array.isArray(input) && typeof input[0] === 'string') {
+				// If input is array, assume we're being passed a format pattern to parse against.
+				// Format pattern will accept an array of potential formats to parse against.
+				// Date string should be at [0], format pattern(s) should be at [1]
+				date = moment(string = input[0], formats = input[1], true);
+			} else {
+				// Otherwise, throw the input at moment and see what happens...
+				date = moment(input);
+			}
+
+			if (!date.isValid()) {
+				// Log a warning if moment couldn't reconcile the input. Better than throwing an error?
+				console.warn('Could not build a valid `moment` object from input.');
+				return input;
+			}
 
 			function parse() {
-				var args = Array.prototype.slice.call(arguments).map(function(str) { return str.replace(/^("|')|("|')$/g, ''); }),
+				var args = Array.prototype.slice.call(arguments),
 					method = args.shift();
 
 				switch (method) {
@@ -7031,7 +7045,7 @@ module.exports = {
 						}
 
 						var removeSuffix = false;
-						if (args[0] == 'true') {
+						if (args[0] === true) {
 							args.shift();
 							var removeSuffix = true;
 						}
@@ -19423,12 +19437,11 @@ exports.default = {
 		// Autocomplete on selected
 		'autocomplete-company_name:selected': function autocompleteCompany_nameSelected(data) {
 			console.log('selected', data);
+			this.selected_company = data.id;
 			if (data.name !== 'Private') {
-				this.selected_company = data.id;
 				this.contacts = data.contacts;
 				this.new_contacts = [];
 			} else {
-				this.selected_company = 'private';
 				console.log('Private Company');
 			}
 		},
