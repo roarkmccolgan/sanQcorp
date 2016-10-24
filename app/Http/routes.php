@@ -53,6 +53,7 @@ Route::group(['middleware' => ['web']], function () {
     });
     Route::group(['prefix' => 'jobs'], function(){
         Route::get('/', ['uses' => 'JobController@showJobs']);
+        Route::get('/insightly', ['uses' => 'JobController@testInsightly']);
         Route::get('/new', ['uses' => 'JobController@createJob']);
         Route::post('/', ['uses' => 'JobController@saveJob']);
         Route::get('/{id}/edit', ['uses' => 'JobController@editJob']);

@@ -101,7 +101,7 @@ class OrderController extends Controller
         $requested_start_date = Carbon::parse($request->input('job.start_date'));
 
     	if($job->update(['accepted'=>1,'status'=>'accepted','requested_start_date'=>$requested_start_date])){
-            Event::fire(new JobWasAccepted($job->id));
+            Event::fire(new JobWasAccepted($job));
         }
 
 

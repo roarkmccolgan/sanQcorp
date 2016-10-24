@@ -7,11 +7,11 @@ use App\Jobs;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;
 
-class JobWasAccepted extends Event
+class JobWasCreated extends Event
 {
     use SerializesModels;
 
-    protected $job;
+    public $job;
 
     /**
      * Create a new event instance.

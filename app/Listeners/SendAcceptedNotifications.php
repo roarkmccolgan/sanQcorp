@@ -31,12 +31,10 @@ class SendAcceptedNotifications implements ShouldQueue
      */
     public function handle(JobWasAccepted $event)
     {
-        $job = Jobs::with(
-            ['sections.options' => function ($query) {
-                    $query->where('accepted', '=', 1);
-                }
-            ]
-        )->find($event->jobId);
+        $job = $event->job;
+        $job->load(['sections.options' => function ($query) {
+            $query->where('accepted', '=', 1);
+        }]);
 
         Mail::queue('email.jobaccepted', ['job'=>$job], function($message) use($job){
             $message->to('roarkmccolgan@gmail.com','Roark McColgan')->subject($job->order_number.' - Accepted');

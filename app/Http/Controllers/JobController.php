@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Company;
 use App\Contacts;
 use App\Employees;
+use App\Events\JobWasCreated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Http\Requests\AddJobRequest;
@@ -19,6 +20,7 @@ use App\Tasks;
 use App\Term;
 use App\User;
 use DB;
+use Event;
 use Illuminate\Http\Request;
 use JavaScript;
 
@@ -32,6 +34,33 @@ class JobController extends Controller
     public function __construct()
     {
         //$this->middleware('auth');
+    }
+    public function testInsightly()
+    {
+        //send guzzle request
+        $client = new \GuzzleHttp\Client(['base_uri' => 'https://api.insight.ly/v2.1/']);
+        $username = 'bdd2248f-433e-43cd-b148-6231a3d5418f'; //api key
+        $password = ''; //blank / not needed
+        $url = 'Opportunities';
+        //$url = 'http://www.google.com';
+        try {
+            $request = $client->request('POST', $url, [
+                'auth' => [$username, $password],
+                'json' => [
+                    'OPPORTUNITY_STATE' => 'Open',
+                    'OPPORTUNITY_NAME' => 'Roark Test'
+                ]
+            ]);
+            $code = $request->getStatusCode();
+            $reason = $request->getReasonPhrase();
+            return $code;
+            
+        } catch (GuzzleHttp\Exception\RequestException $e) {
+            echo Psr7\str($e->getRequest());
+            if ($e->hasResponse()) {
+                echo Psr7\str($e->getResponse());
+            }
+        }
     }
 
     public function showJobs()
@@ -60,8 +89,11 @@ class JobController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createJob()
+    public function createJob(Request $request)
     {
+        JavaScript::put([
+            'old' => $request->old()
+        ]);
         return view('jobs.create');
     }
 
@@ -469,7 +501,7 @@ class JobController extends Controller
         if(!empty($request->input('terms'))){
             $job->terms()->sync($request->input('terms'));
         }
-            
+        $sendevent = $job->status=='build' ? true:false;
         $job->status = 'pending';
         $job->title1 = $request->input('title1');
         $job->title2 = $request->input('title2');
@@ -490,6 +522,9 @@ class JobController extends Controller
             //return $revision;
             $job->revisions()->save($revision);
 
+            if($sendevent){
+                Event::fire(new JobWasCreated($job));
+            }
             //return 'YAY';
             return redirect('/jobs');
         }

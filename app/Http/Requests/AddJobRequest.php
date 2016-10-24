@@ -28,7 +28,7 @@ class AddJobRequest extends Request
             'name'=>'required|min:5|max:255',
             'distance'=>'required',
             'address'=>'required',
-            'suburb'=>'required_without:is_estate',
+            // 'suburb'=>'required_without:is_estate',
             'city'=>'required_without:is_estate',
             'country'=>'required',
             'company_id'=>'required_without:company_address1',

@@ -61,16 +61,14 @@
     	<div class="col-md-2" v-show="!is_estate">
     		<div class="form-group">
 				<label for="city">Site City *</label>
-				<input type="text" class="form-control" name="city" placeholder="" v-model="city" @blur="getDistance" value="{{ old('city') }}">
+				<input type="text" class="form-control" name="city" placeholder="" v-model="city" @blur="getDistance($event,true)" value="{{ old('city') }}">
 			</div>
     	</div>
     	<div class="col-md-2" v-bind:class="{ 'col-md-offset-4': is_estate}">
     		<div class="form-group" v-bind:class="{ 'has-error': distance_problem}">
                 <label for="distance">Distance to site</label>
-                <div class="input-group">
-                    <input type="text" class="form-control flat" placeholder="" v-model="distance" value="{{ old('distance') }}">
+                <input type="text" class="form-control" placeholder="" v-model="distance" value="{{ old('distance') }}">
                     <input type="hidden" name="distance" v-model="distance" value="{{ old('distance') }}">
-                </div>
             </div>
     	</div>
     	<div class="col-md-2">
@@ -156,13 +154,13 @@
     <div class="row" v-show="contacts">
 		<div class="col-md-12">
 			<button class="btn btn-embossed btn-primary pull-right" style="margin: 0 0 10px 30px;" @click.prevent="addContact"><i class="fui-plus"></i></button>
-			<label v-if="selected_company!=='private'">Contacts</label>
-			<div class="row" v-if="selected_company=='private'">
+			<label v-if="vModelLike!=='Private'">Contacts</label>
+			<div class="row" v-if="vModelLike=='Private'">
 				<div class="col-md-3">
 					<div class="form-group">
 						<label for="contact[]">Existing Contact</label>
 						<vue-autocomplete
-						    name="contact[]"
+						    name="existing_contact[]"
 						    :param="contactParam"
 						    url="/api/contacts"
 						    anchor="name"
@@ -175,7 +173,7 @@
 			</div>
 			<div class="clearfix"></div>
 			<div class="row">
-			<company-contacts v-for="contact in contacts" :contact="contact"></company-contacts>
+			<company-contacts v-for="(contactKey, contact) in contacts" :contact="contact" :contact-key="$index"></company-contacts>
 			<div class="clearfix"></div>
 			<template v-for="new_contact in new_contacts">
 				<div class="tile form" style="position: relative; padding-top: 30px">
@@ -184,31 +182,31 @@
 			            <div class="col-md-3">
 			                <div class="form-group">
 			                    <label for="new_contact[@{{$index}}][first_name]">First Name</label>
-			                    <input type="text" class="form-control" name="new_contact[@{{$index}}][first_name]" placeholder="">
+			                    <input type="text" class="form-control" name="new_contact[@{{$index}}][first_name]" placeholder="" v-model="new_contact.first_name">
 			                </div>
 			            </div>
 			            <div class="col-md-3">
 			                <div class="form-group">
 			                    <label for="new_contact[@{{$index}}][last_name]">Last Name</label>
-			                    <input type="text" class="form-control" name="new_contact[@{{$index}}][last_name]" placeholder="">
+			                    <input type="text" class="form-control" name="new_contact[@{{$index}}][last_name]" placeholder="" v-model="new_contact.last_name">
 			                </div>
 			            </div>
 			            <div class="col-md-2">
 			                <div class="form-group">
 			                    <label for="new_contact[@{{$index}}][job_title]">Job Title</label>
-			                    <input type="text" class="form-control" name="new_contact[@{{$index}}][job_title]" placeholder="">
+			                    <input type="text" class="form-control" name="new_contact[@{{$index}}][job_title]" placeholder="" v-model="new_contact.job_title">
 			                </div>
 			            </div>
 			            <div class="col-md-2">
 			                <div class="form-group">
 			                    <label for="new_contact[@{{$index}}][department]">Department</label>
-			                    <input type="text" class="form-control" name="new_contact[@{{$index}}][department]" placeholder="">
+			                    <input type="text" class="form-control" name="new_contact[@{{$index}}][department]" placeholder="" v-model="new_contact.department">
 			                </div>
 			            </div>
 			            <div class="col-md-2">
 			                <div class="form-group">
 			                    <label for="new_contact[@{{$index}}][region]">Region</label>
-			                    <input type="text" class="form-control" name="new_contact[@{{$index}}][region]" placeholder="Johannesburg">
+			                    <input type="text" class="form-control" name="new_contact[@{{$index}}][region]" placeholder="Johannesburg" v-model="new_contact.region">
 			                    <!-- <p class="help-block">Johannesburg, Capetown etc</p> -->
 			                </div>
 			                <input type="hidden" name="new_contact[@{{$index}}][country]" value="South Africa">
@@ -219,7 +217,7 @@
 			            <div class="col-md-3">
 			                <div class="form-group">
 			                    <label for="new_contact[@{{$index}}][email]">Email Address</label>
-			                    <input type="email" class="form-control" name="new_contact[@{{$index}}][email]" placeholder="">
+			                    <input type="email" class="form-control" name="new_contact[@{{$index}}][email]" placeholder="" v-model="new_contact.email">
 			                </div>
 			            </div>
 			            <div class="col-md-3">
@@ -227,7 +225,7 @@
 			                    <label for="new_contact[@{{$index}}][contact1]">Tel / Cell 1</label>
 			                    <div class="input-group">
                                     <div class="input-group-addon">+27 (0)</div>
-                                    <input type="text" class="form-control" name="new_contact[@{{$index}}][contact1]" placeholder="">
+                                    <input type="text" class="form-control" name="new_contact[@{{$index}}][contact1]" placeholder="" v-model="new_contact.contact1">
                                 </div>
 			                </div>
 			            </div>
@@ -236,7 +234,7 @@
 			                    <label for="new_contact[@{{$index}}][contact2]">Tel / Cell 2</label>
 			                    <div class="input-group">
                                     <div class="input-group-addon">+27 (0)</div>
-                                    <input type="text" class="form-control" name="new_contact[@{{$index}}][contact2]" placeholder="">
+                                    <input type="text" class="form-control" name="new_contact[@{{$index}}][contact2]" placeholder="" v-model="new_contact.contact2">
                                 </div>
 			                </div>
 			            </div>
@@ -245,7 +243,7 @@
 			                    <label for="new_contact[@{{$index}}][contact3]">Tel / Cell 3</label>
 			                    <div class="input-group">
                                     <div class="input-group-addon">+27 (0)</div>
-                                    <input type="text" class="form-control" name="new_contact[@{{$index}}][contact3]" placeholder="">
+                                    <input type="text" class="form-control" name="new_contact[@{{$index}}][contact3]" placeholder="" v-model="new_contact.contact3">
                                 </div>
 			                </div>
 			            </div>
@@ -258,6 +256,8 @@
     <button type="submit" class="btn btn-primary">Add Job</button>
     </form>
 @stop
+
+@include('_layout.footer')
 
 @section('pagescript')
 <script async defer

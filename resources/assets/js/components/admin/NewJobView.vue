@@ -2,14 +2,12 @@
 	export default{
 		data: function() {
 			return {
-				vModelLike: "",
+				vModelLike: laravel.old.company_name ? laravel.old.company_name:'',
 				vModelPrivateLike: "",
 				is_estate: '',
-				selected_company: '',
-				new_contacts: [
-					{ message: 'Foo' }
-			    ],
-				contacts: [],
+				selected_company: laravel.old.company_id ? laravel.old.company_id: '',
+				new_contacts: laravel.old.new_contact && laravel.old.new_contact.length > 0 ? laravel.old.new_contact: [{ message: 'Me' }],
+				contacts: laravel.old.contact && laravel.old.contact.length ? laravel.old.contact:[],
 				address: '',
 				suburb: '',
 				city: '',
@@ -18,7 +16,8 @@
 				estate_suburb: '',
 				estate_city: '',
 				distance: '',
-				distance_problem: false
+				distance_problem: false,
+				old: laravel.old
 			};
 		},
 		computed: {
@@ -41,14 +40,16 @@
 				console.log(contact);
 				this.new_contacts.$remove(contact);
 			},
-			getDistance: function(){
+			getDistance: function(event,alertOnError){
+				alertOnError = typeof alertOnError !== 'undefined' ? alertOnError : false;
 				var vueinst = this;
 				var dest1 = !this.is_estate ? this.address : this.estate;
 				var dest2 = !this.is_estate ? this.suburb : this.estate_address;
 				var dest3 = !this.is_estate ? this.city : this.estate_suburb;
 				var dest4 = !this.is_estate ? '' : this.estate_city;
 
-				if(dest1!='' && this.dest2!='' && this.dest3!='') {
+				if(dest1!='' && this.dest3!='') {
+					console.log('here', dest1, dest3,alertOnError);
 					var destination = dest1+'+'+dest2+'+'+dest3;
 					if(dest4!='') destination+='+'+dest4;
 
@@ -75,6 +76,9 @@
 				        	}else{
 				        		vueinst.distance_problem = true;
 				        		vueinst.distance ='';
+				        		if(alertOnError){
+					            	swal('Distance Error','Address not found, please add distance from Sanika Offices manually');
+					            }
 				        	}
 				        }
 				    });
@@ -107,18 +111,18 @@
 		events:{
 			// Autocomplete on selected
 			'autocomplete-company_name:selected': function(data){
-				console.log('selected',data);
+				console.log('Company Selected',data);
 				this.selected_company = data.id;
 				if(data.name!=='Private'){
+					console.log('not private');
 					this.contacts = data.contacts;
 					this.new_contacts = [];
 				}else{
 					console.log('Private Company');
 				}
 			},
-			'autocomplete-contact[]:selected': function(data){
-				console.log('selected',data);
-				this.new_contacts = [];
+			'autocomplete-existing_contact[]:selected': function(data){
+				console.log('contact selectd',data);
 				this.contacts.push(data);
 				this.vModelPrivateLike= "";
 

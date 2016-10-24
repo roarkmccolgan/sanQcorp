@@ -18802,13 +18802,21 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.default = {
-    props: ['contact'],
+    props: ['contact', 'contactKey'],
     ready: function ready() {
         jQuery(':checkbox').radiocheck();
+        if (laravel.old.contact && laravel.old.contact.length) {
+            var that = this;
+            jQuery(laravel.old.contact).each(function (index, item) {
+                if (item.id == that.contact.id) {
+                    jQuery('#contact_' + that.contact.id).radiocheck('check');
+                }
+            });
+        }
     }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"col-md-3\">\n    <div class=\"tile\">\n        <label class=\"checkbox\">\n            <input type=\"checkbox\" name=\"contact[]\" value=\"{{ contact.id }}\"> {{ contact.first_name+' '+contact.last_name }}\n        </label>\n    </div>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"col-md-3\">\n    <div class=\"tile\">\n        <label class=\"checkbox\">\n            <input type=\"checkbox\" id=\"contact_{{contact.id}}\" name=\"contact[{{contactKey}}][id]\" value=\"{{ contact.id }}\"> {{ contact.first_name+' '+contact.last_name }}\n        </label>\n        <input type=\"hidden\" name=\"contact[{{contactKey}}][first_name]\" value=\"{{contact.first_name}}\">\n        <input type=\"hidden\" name=\"contact[{{contactKey}}][last_name]\" value=\"{{contact.last_name}}\">\n    </div>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -19315,7 +19323,7 @@ if (module.hot) {(function () {  module.hot.accept()
   }
 })()}
 },{"../vue-autocomplete.vue":101,"./jobOption.vue":97,"vue":85,"vue-hot-reload-api":59,"vueify-insert-css":86}],96:[function(require,module,exports){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
@@ -19323,12 +19331,12 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = {
 	data: function data() {
 		return {
-			vModelLike: "",
+			vModelLike: laravel.old.company_name ? laravel.old.company_name : '',
 			vModelPrivateLike: "",
 			is_estate: '',
-			selected_company: '',
-			new_contacts: [{ message: 'Foo' }],
-			contacts: [],
+			selected_company: laravel.old.company_id ? laravel.old.company_id : '',
+			new_contacts: laravel.old.new_contact && laravel.old.new_contact.length > 0 ? laravel.old.new_contact : [{ message: 'Me' }],
+			contacts: laravel.old.contact && laravel.old.contact.length ? laravel.old.contact : [],
 			address: '',
 			suburb: '',
 			city: '',
@@ -19337,7 +19345,8 @@ exports.default = {
 			estate_suburb: '',
 			estate_city: '',
 			distance: '',
-			distance_problem: false
+			distance_problem: false,
+			old: laravel.old
 		};
 	},
 	computed: {
@@ -19361,14 +19370,16 @@ exports.default = {
 			console.log(contact);
 			this.new_contacts.$remove(contact);
 		},
-		getDistance: function getDistance() {
+		getDistance: function getDistance(event, alertOnError) {
+			alertOnError = typeof alertOnError !== 'undefined' ? alertOnError : false;
 			var vueinst = this;
 			var dest1 = !this.is_estate ? this.address : this.estate;
 			var dest2 = !this.is_estate ? this.suburb : this.estate_address;
 			var dest3 = !this.is_estate ? this.city : this.estate_suburb;
 			var dest4 = !this.is_estate ? '' : this.estate_city;
 
-			if (dest1 != '' && this.dest2 != '' && this.dest3 != '') {
+			if (dest1 != '' && this.dest3 != '') {
+				console.log('here', dest1, dest3, alertOnError);
 				var destination = dest1 + '+' + dest2 + '+' + dest3;
 				if (dest4 != '') destination += '+' + dest4;
 
@@ -19394,6 +19405,9 @@ exports.default = {
 						} else {
 							vueinst.distance_problem = true;
 							vueinst.distance = '';
+							if (alertOnError) {
+								swal('Distance Error', 'Address not found, please add distance from Sanika Offices manually');
+							}
 						}
 					}
 				});
@@ -19422,18 +19436,18 @@ exports.default = {
 	events: {
 		// Autocomplete on selected
 		'autocomplete-company_name:selected': function autocompleteCompany_nameSelected(data) {
-			console.log('selected', data);
+			console.log('Company Selected', data);
 			this.selected_company = data.id;
 			if (data.name !== 'Private') {
+				console.log('not private');
 				this.contacts = data.contacts;
 				this.new_contacts = [];
 			} else {
 				console.log('Private Company');
 			}
 		},
-		'autocomplete-contact[]:selected': function autocompleteContactSelected(data) {
-			console.log('selected', data);
-			this.new_contacts = [];
+		'autocomplete-existing_contact[]:selected': function autocompleteExisting_contactSelected(data) {
+			console.log('contact selectd', data);
 			this.contacts.push(data);
 			this.vModelPrivateLike = "";
 

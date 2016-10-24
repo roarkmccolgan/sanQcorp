@@ -16,6 +16,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\JobWasAccepted' => [
             'App\Listeners\SendAcceptedNotifications',
         ],
+        'App\Events\JobWasCreated' => [
+            'App\Listeners\AddOpportunityToInsightly',
+        ],
     ];
 
     /**
