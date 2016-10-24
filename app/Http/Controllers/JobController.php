@@ -490,7 +490,7 @@ class JobController extends Controller
             //return $revision;
             $job->revisions()->save($revision);
 
-            return 'YAY';
+            //return 'YAY';
             return redirect('/jobs');
         }
     }
