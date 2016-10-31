@@ -2,15 +2,14 @@
 
 namespace App\Listeners;
 
-use App\Events\JobWasCreated;
+use App\Events\JobWasUpdated;
 use App\Jobs;
 use Log;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class AddOpportunityToInsightly implements ShouldQueue
+class UpdateOpportunityOnInsightly
 {
-    use InteractsWithQueue;
     /**
      * Create the event listener.
      *
@@ -24,26 +23,25 @@ class AddOpportunityToInsightly implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  JobWasCreated  $event
+     * @param  JobWasUpdated  $event
      * @return void
      */
-    public function handle(JobWasCreated $event)
+    public function handle(JobWasUpdated $event)
     {
         $job = $event->job;
+        $opportunity_id = $job->insightly_opportunity_id;
         $user_insightly_id = $event->user_insightly_id;
 
-        Log::info('This is received from th event class: '.$user_insightly_id);
-    
         //send guzzle request
         $client = new \GuzzleHttp\Client(['base_uri' => 'https://api.insight.ly/v2.1/']);
         $username = 'bdd2248f-433e-43cd-b148-6231a3d5418f'; //api key
         $password = ''; //blank / not needed
         $url = 'Opportunities';
         try {
-            $request = $client->request('POST', $url, [
+            $request = $client->request('PUT', $url, [
                 'auth' => [$username, $password],
                 'json' => [
-                    'OPPORTUNITY_STATE' => 'Open',
+                    'OPPORTUNITY_ID' => $opportunity_id,
                     'OPPORTUNITY_NAME' => $job->name.' - '.$job->order_number,
                     'BID_AMOUNT' => intval($job->value),
                     'BID_CURRENCY' => 'ZAR',
@@ -57,8 +55,6 @@ class AddOpportunityToInsightly implements ShouldQueue
             $body = $request->getBody();
             $jsonResponse = json_decode((string) $body, true);
 
-            $job->update(['insightly_opportunity_id'=>$jsonResponse['OPPORTUNITY_ID']]);
-
             return $jsonResponse['OPPORTUNITY_ID'];
 
         } catch (GuzzleHttp\Exception\RequestException $e) {
@@ -67,6 +63,5 @@ class AddOpportunityToInsightly implements ShouldQueue
                 echo Psr7\str($e->getResponse());
             }
         }
-
     }
 }

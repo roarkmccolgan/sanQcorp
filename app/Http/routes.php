@@ -129,17 +129,39 @@ Route::group(['middleware' => ['web']], function () {
             
             $revision = App\Revision::findOrfail($id);
 
-            $result = $revision ? 'success':'error';
-
-            $data = [
-                'result'=>$result
-            ];
             $revisionData = unserialize($revision->data);
-            $request = Request::create( '/jobs/'.$revision->job_id.'/build', 'POST', $revisionData );
-            $response = Route::dispatch( $request );
+            $revisionData['_token'] = $request->header('X-CSRF-TOKEN');
+            $santoken = bin2hex(random_bytes(33));
+            session(['santoken'=>$santoken]);
+            $revisionData['_santoken'] = $santoken;
 
-            return $data;
+            //return $revisionData;
+
+            $client = new \GuzzleHttp\Client(['base_uri' => 'http://sanqcorp.app/api/job/update/']);
+            try {
+                $request = $client->request('POST', $revisionData['job_id'], [
+                    'json' => $revisionData
+                ]);
+                $code = $request->getStatusCode();
+                $reason = $request->getReasonPhrase();
+                $body = $request->getBody();
+
+                $data=[
+                    'result'=>'success'
+                ];
+
+                return json_decode((string) $body, true);
+
+            } catch (\GuzzleHttp\Exception\RequestException $e) {
+                echo "Shite";
+                echo \GuzzleHttp\Psr7\str($e->getRequest());
+                if ($e->hasResponse()) {
+                    echo \GuzzleHttp\Psr7\str($e->getResponse());
+                }
+            }
         });
+        //job Job from Revision
+        Route::post('/job/update/{job}', ['uses' => 'JobController@saveBuildJob']);
 
         //Get Materials
         Route::get('materials', function(Request $request)

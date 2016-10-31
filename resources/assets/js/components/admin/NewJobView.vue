@@ -11,13 +11,17 @@
 				address: '',
 				suburb: '',
 				city: '',
+				value: '',
+				description: '',
 				estate: '',
 				estate_address: '',
 				estate_suburb: '',
 				estate_city: '',
 				distance: '',
 				distance_problem: false,
-				old: laravel.old
+				old: laravel.old,
+				users: laravel.users,
+				custom: false,
 			};
 		},
 		computed: {
@@ -31,6 +35,9 @@
 		},
 		created(){
 			console.log('HomeView Component Loaded');
+			$(function() {
+				jQuery('select').select2();
+			});
 		},
 		methods:{
 			addContact: function(){
@@ -83,29 +90,6 @@
 				        }
 				    });
 				}
-				/*if(this.address!='' && this.suburb!='' && this.city!='') {
-					var destination = this.address+'+'+this.suburb+'+'+this.city;
-					if(this.post_code!='') address+='+'+this.post_code;
-					console.log(destination);
-					destination = destination.replace(/ /g,"+");
-
-					console.log(destination);
-					console.log('https://maps.googleapis.com/maps/api/distancematrix/json?origins=24+Davidson+Street+Rynfield+Benoni&destinations='+destination+'&key=AIzaSyCgLR143qOquM7hvx202r_NLklslqdSNMI');
-					this.$http.jsonp('https://maps.googleapis.com/maps/api/distancematrix/json?origins=24+Davidson+Street+Rynfield+Benoni&destinations='+destination+'&key=AIzaSyCgLR143qOquM7hvx202r_NLklslqdSNMI',{
-						jsonp: 'callback'
-					}).then(function (response) {
-
-						// set data on vm
-						//this.$set('someData', response.data)
-						console.log(response.data);
-
-					}, function (response) {
-
-					// error callback
-					});
-				}else{
-					console.log('Need more address');
-				}*/
 			}
 		},
 		events:{
@@ -125,6 +109,7 @@
 				console.log('contact selectd',data);
 				this.contacts.push(data);
 				this.vModelPrivateLike= "";
+				this.new_contacts = [];
 
 				/*if(data.name!=='Private'){
 					this.selected_company = data.id;

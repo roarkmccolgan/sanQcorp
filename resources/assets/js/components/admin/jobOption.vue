@@ -193,7 +193,7 @@
 						<tbody>
 							<template v-for="(taskKey, task) in option.tasks">
 								<tr v-for="(matKey, material) in task.materials">
-									<td> {{material.material_type}}</td>
+									<td> {{material.product_type}}</td>
 									<td>
 										{{material.name}}
 										<!-- <input name="section[{{key}}][options][{{optionKey}}][materials][{{task.alias}}][id]" type="hidden" v-model="material.id"> -->
@@ -213,20 +213,21 @@
 								<th colspan="4">Extra Materials</th>
 							</tr>
 							<tr v-for="(matKey, material) in option.materials">
-								<template v-if="material.task=='extra' || material.pivot.task=='extra'">
+								<template v-if="material.pivot.task=='extra'">
 									<td colspan="2">
 										{{material.name}}
-										<input name="section[{{key}}][options][{{optionKey}}][materials][extra][{{material.material_type}}][id]" type="hidden" v-model="material.id">
+										<input name="section[{{key}}][options][{{optionKey}}][materials][extra][{{material.product_type+matKey}}][id]" type="hidden" v-model="material.id">
 									</td>
 									<td>
-										<input name="section[{{key}}][options][{{optionKey}}][materials][extra][{{material.material_type}}][qty]" type="text" class="form-control input-sm" v-model="option.materials[matKey].qty" value="{{material.pivot ? material.pivot.qty:material.qty}}">
+										<input name="section[{{key}}][options][{{optionKey}}][materials][extra][{{material.product_type+matKey}}][qty]" type="text" class="form-control input-sm" v-model="option.materials[matKey].pivot.qty" value="{{material.pivot.qty}}" @keyup="taskChange | debounce 500">
 									</td>
 									<td>
-										{{material.cost_price*material.qty | currency 'R'}}
+										{{material.pivot.cost_price*material.pivot.qty | currency 'R'}}
 										<button class="btn btn-danger pull-right btn-xs" @click.prevent="removeMaterial(matKey,optionKey)"><i class="fui-cross" style="margin-top:0"></i></button>
-										<input name="section[{{key}}][options][{{optionKey}}][materials][extra][{{material.material_type}}][cost_price]" type="hidden" v-model="material.cost_price">
-										<input name="section[{{key}}][options][{{optionKey}}][materials][extra][{{material.material_type}}][price]" type="hidden" value="{{material.cost_price*material.qty}}">
-										<input name="section[{{key}}][options][{{optionKey}}][materials][extra][{{material.material_type}}][task]" type="hidden" value="extra">
+										<input name="section[{{key}}][options][{{optionKey}}][materials][extra][{{material.product_type+matKey}}][cost_price]" type="hidden" v-model="material.pivot.cost_price">
+										<input name="section[{{key}}][options][{{optionKey}}][materials][extra][{{material.product_type+matKey}}][price]" type="hidden" value="{{material.pivot.cost_price*material.pivot.qty}}">
+										<input name="section[{{key}}][options][{{optionKey}}][materials][extra][{{material.product_type+matKey}}][product_type]" type="hidden" value="{{material.product_type+matKey}}">
+										<input name="section[{{key}}][options][{{optionKey}}][materials][extra][{{material.product_type+matKey}}][task]" type="hidden" value="extra">
 									</td>
 								</template>
 							</tr>
@@ -341,7 +342,11 @@
 			total_extra_materials: function(){
 				var total = 0;
 				for (var i = 0; i < this.option.materials.length; i++) {
-					total+= this.option.materials[i].cost_price * this.option.materials[i].qty
+					if(this.option.materials[i].pivot.task=='extra'){
+						var cost_price = this.option.materials[i].pivot.cost_price;
+						var qty = this.option.materials[i].pivot.qty;
+						total+= cost_price * qty
+					}
 				}
 				return total;
 			}
@@ -377,11 +382,15 @@
 	            	for (var i = this.option.system.terms.length - 1; i >= 0; i--) {
 	            		this.addTerm(this.option.system.terms[i].id, this.option.system.terms[i].term, true);
 	            	}
-	            	this.cke('option_description_'+this.optionKey);
+	            	var el = 'option_description_'+this.optionKey;
+	            	if(CKEDITOR.instances[el]){
+	            		CKEDITOR.instances[el].setData(this.option.description);
+	            	}else{
+	            		this.cke(el);
+	            	}
 	            }
             },
             taskChange: function(){
-
                 var total_days = 0;
                 var total_labour = 0;
                 var total_supervisor = 0;
@@ -398,6 +407,7 @@
                         total_price+=Number(this.tasks[key].total_cost_price);
                     };
                 }
+
                 this.option.days = Math.ceil(total_days);
                 this.option.total_labour = total_labour;
                 this.option.total_supervisor = total_supervisor;
@@ -491,10 +501,12 @@
                 this.option.materials.push({
                     id: material.id,
                     name: material.name,
-                    material_type: material.product_type,
-                    qty: 1,
-                    cost_price: material.cost_price,
-                    task: 'extra'
+                    product_type: material.product_type,
+                    pivot: {
+                    	qty: 1,
+	                    cost_price: material.cost_price,
+	                    task: 'extra'
+                    }
                 });
                 $('#newMaterial').val('');
                 this.taskChange();
@@ -515,7 +527,7 @@
 					0: {
 						id: 0,
 			           	name: 'Biddem',
-			           	material_type: 'biddem',
+			           	product_type: 'biddem',
 			           	unit_of_measure: 'm2',
 			           	pack_size: '20',
 			           	coverage: '20',
@@ -592,7 +604,6 @@
             if(this.section.id!=0){
                 for (var task in this.option.tasks) {
                     if (this.option.tasks.hasOwnProperty(task)) {
-                    	console.log('checking '+this.option.tasks[task].id.toString());
                         this.checkedTasks.push(this.option.tasks[task].id.toString());
                     }
                 }

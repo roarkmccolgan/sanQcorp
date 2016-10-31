@@ -14,7 +14,7 @@ class JobsSeeder extends Seeder
     {
         DB::table('jobs')->insert([
             'order_number' => 'SAN7029-16',
-            'user_id' => 2,
+            /*'user_id' => 2,*/
             'name' => 'Pinmill Farms Lawyers Office',
             'distance' => 38,
             'status' => 'build',

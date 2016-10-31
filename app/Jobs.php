@@ -31,7 +31,8 @@ class Jobs extends Model
         'address',
         'suburb',
         'city',
-        'country'
+        'country',
+        'insightly_opportunity_id'
     ];
 
     /**
@@ -131,5 +132,12 @@ class Jobs extends Model
         return $this->belongsToMany('App\Term','job_term','job_id','term_id');
     }
 
+    /**
+     * Get all of the Jobs Files.
+     */
+    public function files()
+    {
+        return $this->morphMany('App\Files', 'fileable');
+    }
 
 }

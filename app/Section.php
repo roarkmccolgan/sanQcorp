@@ -15,6 +15,7 @@ class Section extends Model
         'size',
         'perimeter',
         'difficulty',
+        'area',
         'pitch',
         'length',
         'height',

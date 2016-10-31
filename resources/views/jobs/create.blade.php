@@ -44,6 +44,12 @@
 				<input type="hidden" class="form-control" name="company_name" v-model="vModelLike">
 			</div>		
 		</div>
+		<div class="col-md-3">
+			<div class="form-group">
+				<label for="custom">Custom Job?</label><br/>
+				<input v-switch="custom" type="checkbox" name="custom" data-toggle="switch" data-on-text="Yes" data-off-text="No" />
+			</div>
+		</div>
     </div>
     <div class="row">
     	<div class="col-md-4">
@@ -107,6 +113,54 @@
 				<label for="estate_city">Estate City</label>
 				<input type="text" class="form-control" name="estate_city" placeholder="" v-model="estate_city" @blur="getDistance" value="{{ old('estate_city') }}">
 			</div>
+    	</div>
+    </div>
+    <div class="row" v-show="custom">
+    	<div class="col-md-3">
+			<div class="form-group">
+				<label for="value">Job Value</label>
+				<div class="input-group">
+				<span class="input-group-addon">R</span>
+					<input class="form-control" name="value" type="text" v-model="value" value="{{ old('value') }}">
+				</div>
+			</div>
+    	</div>
+    	<div class="col-md-3">
+    		<div class="form-group">
+				<label for="description">Category</label>
+				<select multiple="multiple" name="categories[]" class="form-control multiselect multiselect-default">
+					<option value="1">Acrylic</option>
+					<option value="2">Torch-on</option>
+					<option value="3">Boarded</option>
+					<option value="4">Tile Roof</option>
+					<option value="5">Metal Roof</option>
+					<option value="6">Crack</option>
+					<option value="7">Kryton Supply</option>
+				</select>
+			</div>
+    	</div>
+    	<div class="col-md-3">
+    		<div class="form-group">
+				<label for="description">User</label>
+				<select name="user_id" class="form-control select select-default select-block mbl">
+					<option value="1">Select</option>
+					<option v-for="user in users" value="@{{user.id}}">@{{user.name}}</option>
+				</select>
+			</div>
+    	</div>
+    	<div class="col-md-3">
+    		<div class="form-group">
+    			<label for="quote">Upload Quote</label>
+    			<div class="fileinput fileinput-new" data-provides="fileinput">
+    				<span class="btn btn-inverse btn-embossed btn-file">
+    					<span class="fileinput-new"><span class="fui-upload"></span>&nbsp;&nbsp;Attach File</span>
+    					<span class="fileinput-exists"><span class="fui-gear"></span>&nbsp;&nbsp;Change</span>
+    					<input type="file" name="quote">
+    				</span>
+    				<span class="fileinput-filename"></span>
+    				<a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+    			</div>
+    		</div>
     	</div>
     </div>
     <div class="row" v-show=!selected_company>
@@ -270,6 +324,7 @@
         if($('[data-toggle="switch"]').length){
         	$('[data-toggle="switch"]').bootstrapSwitch();
         }
+        //$('select').select2();
     });
 </script>
 @stop

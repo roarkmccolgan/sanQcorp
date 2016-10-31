@@ -7,7 +7,7 @@ use App\Jobs;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;
 
-class JobWasCreated extends Event
+class JobWasUpdated extends Event
 {
     use SerializesModels;
 

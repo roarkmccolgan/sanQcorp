@@ -31,32 +31,33 @@
                     <caption>Materials</caption>
                     <tbody>
                         <tr v-for="(matKey, material) in task.materials">
-                            <td>{{material.material_type}}</td>
+                            <td>{{material.product_type}}</td>
                             <td>
-                                <template v-if="materialOptions[material.material_type]">
-                                    <select name="section[{{key}}][options][{{optionKey}}][materials][{{task.alias}}][{{material.material_type}}][id]" v-model="chosenMaterials[material.material_type]" class="form-control input-sm" @change="setMaterial(material.material_type)">
-                                        <option v-for="(material_id, chosen_material) in materialOptions[material.material_type]" v-bind:value="chosen_material.id">{{chosen_material.name}}</option>
+                                <template v-if="materialOptions[material.product_type]">
+                                    <select name="section[{{key}}][options][{{optionKey}}][materials][{{task.alias}}][{{material.product_type}}][id]" v-model="chosenMaterials[material.product_type]" class="form-control input-sm" @change="setMaterial(material.product_type)">
+                                        <option v-for="(material_id, chosen_material) in materialOptions[material.product_type]" v-bind:value="chosen_material.id">{{chosen_material.name}}</option>
                                     </select>
                                 </template>
                                 <template v-else>
-                                    <input name="section[{{key}}][options][{{optionKey}}][materials][{{task.alias}}][{{material.material_type}}][id]" type="hidden" v-model="material.id">
+                                    <input name="section[{{key}}][options][{{optionKey}}][materials][{{task.alias}}][{{material.product_type}}][id]" type="hidden" v-model="material.id">
                                         {{material.name}}
                                 </template>
                             </td>
                             <td>
                                 {{material.qty}}
-                                <input name="section[{{key}}][options][{{optionKey}}][materials][{{task.alias}}][{{material.material_type}}][qty]" type="hidden" v-model="material.qty">
+                                <input name="section[{{key}}][options][{{optionKey}}][materials][{{task.alias}}][{{material.product_type}}][qty]" type="hidden" v-model="material.qty">
                             </td>
                             <td>
                                 {{material.price | currency 'R'}}
-                                <input name="section[{{key}}][options][{{optionKey}}][materials][{{task.alias}}][{{material.material_type}}][price]" type="hidden" v-model="material.price">
-                                <input name="section[{{key}}][options][{{optionKey}}][materials][{{task.alias}}][{{material.material_type}}][cost_price]" type="hidden" v-model="material.cost_price">
-                                <input name="section[{{key}}][options][{{optionKey}}][materials][{{task.alias}}][{{material.material_type}}][task]" type="hidden" v-model="task.alias">
+                                <input name="section[{{key}}][options][{{optionKey}}][materials][{{task.alias}}][{{material.product_type}}][price]" type="hidden" v-model="material.price">
+                                <input name="section[{{key}}][options][{{optionKey}}][materials][{{task.alias}}][{{material.product_type}}][cost_price]" type="hidden" v-model="material.cost_price">
+                                <input name="section[{{key}}][options][{{optionKey}}][materials][{{task.alias}}][{{material.product_type}}][task]" type="hidden" v-model="task.alias">
                                 <!-- Needed for newley added materials for custom tasks -->
-                                <input name="section[{{key}}][options][{{optionKey}}][materials][{{task.alias}}][{{material.material_type}}][name]" type="hidden" v-model="material.name">
-                                <input name="section[{{key}}][options][{{optionKey}}][materials][{{task.alias}}][{{material.material_type}}][pack_size]" type="hidden" v-model="material.pack_size">
-                                <input name="section[{{key}}][options][{{optionKey}}][materials][{{task.alias}}][{{material.material_type}}][unit_of_measure]" type="hidden" v-model="material.unit_of_measure">
-                                <input name="section[{{key}}][options][{{optionKey}}][materials][{{task.alias}}][{{material.material_type}}][coverage]" type="hidden" v-model="material.coverage">
+                                <input name="section[{{key}}][options][{{optionKey}}][materials][{{task.alias}}][{{material.product_type}}][name]" type="hidden" v-model="material.name">
+                                <input name="section[{{key}}][options][{{optionKey}}][materials][{{task.alias}}][{{material.product_type}}][pack_size]" type="hidden" v-model="material.pack_size">
+                                <input name="section[{{key}}][options][{{optionKey}}][materials][{{task.alias}}][{{material.product_type}}][unit_of_measure]" type="hidden" v-model="material.unit_of_measure">
+                                <input name="section[{{key}}][options][{{optionKey}}][materials][{{task.alias}}][{{material.product_type}}][product_type]" type="hidden" v-model="material.product_type">
+                                <input name="section[{{key}}][options][{{optionKey}}][materials][{{task.alias}}][{{material.product_type}}][coverage]" type="hidden" v-model="material.coverage">
                             </td>
                         </tr>
                     </tbody>
@@ -150,11 +151,11 @@
                 }
                 return size;
             },
-            addMaterial: function(material, material_type){
+            addMaterial: function(material, product_type){
                 this.task.materials.push({
                     id: material.id,
                     name: material.name,
-                    material_type: material.material_type,
+                    product_type: material.product_type,
                     coverage: material.coverage,
                     pack_size: material.pack_size,
                     cost_price: material.cost_price,
@@ -163,20 +164,19 @@
                     stock: material.stock,
                     unit_of_measure: material.unit_of_measure,
                     task: this.task.alias,
-                    material_type: material_type,
                     areaconversion: material.pivot && material.pivot['area'] ? material.pivot['area'] : false
                 });
             },
-            setMaterial: function(material_type){
+            setMaterial: function(product_type){
                 var index = -1
                 for (var i = 0; i < this.task.materials.length; i++) {
-                    if(this.task.materials[i].material_type==material_type){
+                    if(this.task.materials[i].product_type==product_type){
                         index = i;
                     }
                 }
                 if(index!=-1){
                     this.task.materials.splice(index,1);
-                    this.addMaterial(this.systemTask.materials[material_type][this.chosenMaterials[material_type]],material_type);
+                    this.addMaterial(this.systemTask.materials[product_type][this.chosenMaterials[product_type]],product_type);
                     this.updateValues();
                 }
             },
@@ -267,9 +267,7 @@
                     }
                 }
             }else{
-                console.log('here');
                 for(var matType in this.systemTask.materials){
-                    console.log(matType);
                     if(this.systemTask.materials.hasOwnProperty(matType)){
                         if(this.getObjSize(this.systemTask.materials[matType])>1){
                             var setOne = false;

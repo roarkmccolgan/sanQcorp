@@ -22,6 +22,7 @@ class CreateMaterialOptionPivotTable extends Migration
             $table->integer('qty')->nullable();
             $table->decimal('price',8,2)->nullable();
             $table->decimal('cost_price',8,2)->nullable();
+            $table->string('product_type')->nullable();
             $table->string('task')->nullable();
 
         });

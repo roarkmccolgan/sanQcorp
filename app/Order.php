@@ -24,7 +24,7 @@ class Order extends Model
     }
 
     /**
-     * Get all of the Sections photos.
+     * Get all of the Orders Files.
      */
     public function files()
     {

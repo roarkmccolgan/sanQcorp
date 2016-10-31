@@ -15,6 +15,7 @@ class AddColumnsToUsersTable extends Migration
         Schema::table('users', function ($table) {
             $table->string('cell');
             $table->string('username');
+            $table->integer('insightly_id')->nullable();
         });
     }
 

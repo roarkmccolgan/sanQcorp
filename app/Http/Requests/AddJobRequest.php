@@ -40,6 +40,9 @@ class AddJobRequest extends Request
             'new_contact.*.last_name'=>'required_without:contact',
             'new_contact.*.email'=>'required_without:contact',
             'new_contact.*.contact1'=>'required_without:contact',
+            'value'=>'required_with:custom',
+            'categories'=>'required_with:custom',
+            'quote'=>'required_with:custom',
         ];
     }
 }

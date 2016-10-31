@@ -72,7 +72,7 @@ class OrderController extends Controller
         };
 
         $meta = array();
-        $meta['type'] = $file->getClientOriginalExtension();
+        $meta['fileType'] = $file->getClientOriginalExtension();
     	$meta['size'] = $file->getClientSize();
 
     	$orderDoc = new Files([

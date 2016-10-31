@@ -18,6 +18,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'paul@sanika.co.za',
             'password' => bcrypt('1q2w3e4R'),
             'cell' => '+27825654026',
+            'insightly_id' => 918110,
             'created_at' => Carbon::now()
         ]);
         DB::table('users')->insert([
@@ -26,6 +27,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'roark@sanika.co.za',
             'password' => bcrypt('1q2w3e4R'),
             'cell' => '+27712871097',
+            'insightly_id' => 980209,
             'created_at' => Carbon::now()
         ]);
         DB::table('users')->insert([
@@ -34,6 +36,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'admin@sanika.co.za',
             'password' => bcrypt('1q2w3e4R'),
             'cell' => '+27837934504',
+            'insightly_id' => 918109,
             'created_at' => Carbon::now()
         ]);
         DB::table('users')->insert([
@@ -42,14 +45,16 @@ class UsersTableSeeder extends Seeder
             'email' => 'colte@sanika.co.za',
             'password' => bcrypt('1q2w3e4R'),
             'cell' => '+27829285788',
+            'insightly_id' => 918110,
             'created_at' => Carbon::now()
         ]);
         DB::table('users')->insert([
-            'name' => 'Sandor Smit',
+            'name' => 'Sandor Dowling',
             'username' => 'sandor',
             'email' => 'sandor@sanika.co.za',
             'password' => bcrypt('1q2w3e4R'),
             'cell' => '+27829225586',
+            'insightly_id' => 913412,
             'created_at' => Carbon::now()
         ]);
         DB::table('users')->insert([
@@ -58,6 +63,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'lynda@sanika.co.za',
             'password' => bcrypt('1q2w3e4R'),
             'cell' => '+27825530151',
+            'insightly_id' => 918110,
             'created_at' => Carbon::now()
         ]);
     }

@@ -6,6 +6,8 @@ use App\Company;
 use App\Contacts;
 use App\Employees;
 use App\Events\JobWasCreated;
+use App\Events\JobWasUpdated;
+use App\Files;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Http\Requests\AddJobRequest;
@@ -42,18 +44,19 @@ class JobController extends Controller
         $username = 'bdd2248f-433e-43cd-b148-6231a3d5418f'; //api key
         $password = ''; //blank / not needed
         $url = 'Opportunities';
-        //$url = 'http://www.google.com';
         try {
             $request = $client->request('POST', $url, [
                 'auth' => [$username, $password],
                 'json' => [
                     'OPPORTUNITY_STATE' => 'Open',
-                    'OPPORTUNITY_NAME' => 'Roark Test'
+                    'OPPORTUNITY_NAME' => 'Roark Test Dummy 2'
                 ]
             ]);
             $code = $request->getStatusCode();
             $reason = $request->getReasonPhrase();
-            return $code;
+            $body = $request->getBody();
+            $jsonResponse = json_decode((string) $body, true);
+            return $jsonResponse['OPPORTUNITY_ID'];
             
         } catch (GuzzleHttp\Exception\RequestException $e) {
             echo Psr7\str($e->getRequest());
@@ -61,6 +64,23 @@ class JobController extends Controller
                 echo Psr7\str($e->getResponse());
             }
         }
+        $url = 'Opportunities/12289885';
+        /*//$url = 'OpportunityStateReasons';
+        try {
+            $request = $client->request('GET', $url, [
+                'auth' => [$username, $password]
+            ]);
+            $code = $request->getStatusCode();
+            $reason = $request->getReasonPhrase();
+            $body = $request->getBody();
+            return json_decode((string) $body, true);
+            
+        } catch (GuzzleHttp\Exception\RequestException $e) {
+            echo Psr7\str($e->getRequest());
+            if ($e->hasResponse()) {
+                echo Psr7\str($e->getResponse());
+            }
+        }*/
     }
 
     public function showJobs()
@@ -92,7 +112,8 @@ class JobController extends Controller
     public function createJob(Request $request)
     {
         JavaScript::put([
-            'old' => $request->old()
+            'old' => $request->old(),
+            'users' => $users = User::all()->keyBy('id'),
         ]);
         return view('jobs.create');
     }
@@ -125,25 +146,36 @@ class JobController extends Controller
 
         if(!empty($request->input('new_contact'))){
             foreach ($request->input('new_contact') as $new_contact) {
-                $contact = Contacts::create([
-                    'company_id'=>$company_id,
-                    'first_name'=>$new_contact['first_name'],
-                    'last_name'=>$new_contact['last_name'],
-                    'job_title'=>$new_contact['job_title'],
-                    'department'=>$new_contact['department'],
-                    'region'=>$new_contact['region'],
-                    'country'=>$new_contact['country'],
-                    'contact1'=>$new_contact['contact1'],
-                    'contact2'=>$new_contact['contact2'],
-                    'contact3'=>$new_contact['contact3'],
-                    'email'=>$new_contact['email']
-                ]);
-                $new_contacts[]=$contact->id;
+                if($new_contact['first_name']!=="" && $new_contact['last_name']!==""){
+                    $contact = Contacts::create([
+                        'company_id'=>$company_id,
+                        'first_name'=>$new_contact['first_name'],
+                        'last_name'=>$new_contact['last_name'],
+                        'job_title'=>$new_contact['job_title'],
+                        'department'=>$new_contact['department'],
+                        'region'=>$new_contact['region'],
+                        'country'=>$new_contact['country'],
+                        'contact1'=>$new_contact['contact1'],
+                        'contact2'=>$new_contact['contact2'],
+                        'contact3'=>$new_contact['contact3'],
+                        'email'=>$new_contact['email']
+                    ]);
+                    $new_contacts[]=$contact->id;
+                }
             }
         }
         $distance = explode(" ", $request->input('distance'));
+        $contacts = [];
+
+        if($request->input('contact')){
+            foreach ($request->input('contact') as $key => $contact) {
+                if(isset($contact['id'])){
+                    $contacts[] = $contact['id'];
+                }
+            }
+        }
         
-        $job_contacts = $request->input('contact') ? array_merge($request->input('contact'),$new_contacts) : $new_contacts;
+        $job_contacts = array_merge($contacts ,$new_contacts);
         //return $job_contacts;
 
         $job = Jobs::create([
@@ -160,8 +192,44 @@ class JobController extends Controller
             'city'=>$request->input('city'),
             'country'=>$request->input('country')
         ]);
+
         $job->contacts()->sync($job_contacts);
 
+        //check for custom job
+        if($request->input('custom')){
+            $job->value=$request->input('value');
+            $job->user_id=$request->input('user_id');
+            $job->status='pending';
+            $job->custom=true;
+            $job->save();
+            //upload file
+            if ($request->file('quote')->isValid()) {
+                $quote = $request->file('quote');
+                $filePath = public_path().'/job/'.$job->order_number.'/';
+                if(!file_exists($filePath)){
+                    if (!mkdir($filePath, 0775, true)) {
+                        abort('Failed to create folders, contact Roark');
+                    }
+                }
+                $newname = $job->name.'-'.$job->order_number.'.'.$quote->getClientOriginalExtension();
+                $quote->move($filePath, $newname);
+
+                $meta = array();
+                $meta['fileType'] = $quote->getClientOriginalExtension();
+                $meta['path'] = $filePath;
+                $meta['type'] = 'quote';
+
+                $quoteDoc = new Files([
+                    'name' => $newname,
+                    'meta' => json_encode($meta)
+                ]);
+
+                $job->files()->save($quoteDoc);
+            }
+            $user = User::find($job->user_id);
+            Event::fire(new JobWasCreated($job,$user->insightly_id));
+        }
+        return "Success";
         return redirect('/jobs/'.$job->id.'/build');
     }
 
@@ -239,7 +307,7 @@ class JobController extends Controller
                     $task['days'] = $task['pivot']['days'];
                     $task['total_labour'] = $task['pivot']['total_labour_price'];
                     $task['total_supervisor'] = $task['pivot']['total_supervisor_price'];
-                    $task['total_material'] = $task['pivot']['total_materials_price'];
+                    $task['total_materials'] = $task['pivot']['total_materials_price'];
                     $task['total_cost_price'] = $task['pivot']['total_cost_price'];
                     $task['system_id'] = $option['system_id'];
                     
@@ -251,7 +319,7 @@ class JobController extends Controller
                             $newMaterials[] = [
                                 'id' => $material['id'],
                                 'name' => $material['name'],
-                                'material_type' => $material['product_type'],
+                                'product_type' => $material['product_type'],
                                 'coverage' => $material['coverage'],
                                 'pack_size' => $material['pack_size'],
                                 'cost_price' => $material['cost_price'],
@@ -313,6 +381,14 @@ class JobController extends Controller
     public function saveBuildJob(Jobs $job,Request $request)
     {
         //return ($request->all());
+        if($request->input('_santoken')){
+            //$job->sections->delete();
+            foreach ($job->sections as $section) {
+                $section->delete();
+            }
+        }
+        $jobValue = 0;
+
         foreach ($request->input('section') as $secKey => $sec) {
             //sections//
             //
@@ -338,6 +414,7 @@ class JobController extends Controller
                 $section->update($newSection);
             }
 
+
             $section->photos()->delete();
             if(isset($sec['photos'])){
                 foreach ($sec['photos'] as $photKey => $photo) {
@@ -349,6 +426,7 @@ class JobController extends Controller
                 
 
             //options
+            $maxSellingPrice = 0;
             foreach ($sec['options'] as $optKey => $opt) {
                 //system
                 $system = System::with('tasks')->findOrFail($opt['system']);
@@ -366,6 +444,7 @@ class JobController extends Controller
                     'selling_price' => $opt['selling_price'],
                     'markup' => $opt['markup']
                 ];
+                $maxSellingPrice = $opt['selling_price']>$maxSellingPrice ? $opt['selling_price']:$maxSellingPrice;
 
                 $option = isset($opt['id']) ? Option::find($opt['id']) : false;
                 if(!$option){
@@ -453,6 +532,7 @@ class JobController extends Controller
                                     'qty' => $material['qty'],
                                     'price' => $material['price'],
                                     'cost_price' => $material['cost_price'],
+                                    'product_type' => $material['product_type'],
                                     'task' => $taskType,
                                 ];
                             }
@@ -461,6 +541,7 @@ class JobController extends Controller
                     $option->materials()->sync($syncMaterials);
                 }                
             }
+            $jobValue += $maxSellingPrice;
         }
         //return to jobs
         //return 'YAY!'
@@ -501,33 +582,30 @@ class JobController extends Controller
         if(!empty($request->input('terms'))){
             $job->terms()->sync($request->input('terms'));
         }
-        $sendevent = $job->status=='build' ? true:false;
+        $newEvent = $job->status=='build' ? true:false;
         $job->status = 'pending';
+        $job->user_id = $request->input('user_id');
+        $job->value = $jobValue;
         $job->title1 = $request->input('title1');
         $job->title2 = $request->input('title2');
         $job->title = $request->input('title');
         $job->save();
 
-        if($request->ajax()){
-            $result = 'error';
-
-            $data = [
-                'result'=>$result,
-                'job'=>$job
-            ];
-            return $data;
-        }else{
+        if(!$request->input('_santoken')){
             //add Revision
+            
             $revision = new Revision(['data'=>serialize($request->all())]);
-            //return $revision;
             $job->revisions()->save($revision);
-
-            if($sendevent){
-                Event::fire(new JobWasCreated($job));
-            }
-            //return 'YAY';
-            return redirect('/jobs');
         }
+
+        $user = User::find($request->input('user_id'));
+        if($newEvent){
+            Event::fire(new JobWasCreated($job,$user->insightly_id));
+        }else{
+            Event::fire(new JobWasUpdated($job,$user->insightly_id));
+        }
+        return 'YAY '/*.$user->insightly_id*/;
+        return redirect('/jobs');
     }
 
 
