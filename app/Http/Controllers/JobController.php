@@ -9,6 +9,7 @@ use App\Events\JobWasCreated;
 use App\Events\JobWasUpdated;
 use App\Files;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\GeneratePdfTrait;
 use App\Http\Requests;
 use App\Http\Requests\AddJobRequest;
 use App\Jobs;
@@ -28,6 +29,7 @@ use JavaScript;
 
 class JobController extends Controller
 {
+    use GeneratePdfTrait;
 	/**
      * Create a new controller instance.
      *
@@ -85,7 +87,6 @@ class JobController extends Controller
 
     public function showJobs()
     {
-    
         $jobs = Jobs::with('contacts.company','sections.options')->get();
 
         $vueJob = [];
@@ -101,7 +102,7 @@ class JobController extends Controller
             'jobs' => $vueJob
         ]);
 
-        return view('jobs.index', compact('jobs'));
+        return view('jobs.index', compact(['jobs','file']));
     }
 
     /**
@@ -211,7 +212,7 @@ class JobController extends Controller
                         abort('Failed to create folders, contact Roark');
                     }
                 }
-                $newname = $job->name.'-'.$job->order_number.'.'.$quote->getClientOriginalExtension();
+                $newname = $job->order_number.'-'.$job->name.'.'.$quote->getClientOriginalExtension();
                 $quote->move($filePath, $newname);
 
                 $meta = array();
@@ -380,7 +381,7 @@ class JobController extends Controller
      */
     public function saveBuildJob(Jobs $job,Request $request)
     {
-        //return ($request->all());
+        
         if($request->input('_santoken')){
             //$job->sections->delete();
             foreach ($job->sections as $section) {
@@ -597,6 +598,8 @@ class JobController extends Controller
             $revision = new Revision(['data'=>serialize($request->all())]);
             $job->revisions()->save($revision);
         }
+        //Trait GeneratePDF
+        $this->WKtoHTML($request->input('html'),$job->order_number.'-'.$job->name.'.pdf',$job->order_number,'save');
 
         $user = User::find($request->input('user_id'));
         if($newEvent){

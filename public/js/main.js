@@ -19118,6 +19118,10 @@ exports.default = {
 					if ((0, _typeof3.default)(obj[property]) == "object") this.iterate(obj[property]);else console.log(property + "   " + obj[property]);
 				}
 			}
+		},
+		onSubmit: function onSubmit() {
+			$('#proposal_html').val($("#propstyle")[0].outerHTML + $("#proposal")[0].outerHTML);
+			console.log($("#propstyle")[0].outerHTML + $("#proposal")[0].outerHTML);
 		}
 	},
 	events: {},

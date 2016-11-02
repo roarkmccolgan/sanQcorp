@@ -288,6 +288,11 @@
 			                console.log(property + "   " + obj[property]);
 			        }
 			    }
+			},
+			onSubmit: function(){
+				$('#proposal_html').val($( "#propstyle" )[0].outerHTML+$( "#proposal" )[0].outerHTML);
+				console.log($( "#propstyle" )[0].outerHTML+$( "#proposal" )[0].outerHTML);
+
 			}
 		},
 		events:{

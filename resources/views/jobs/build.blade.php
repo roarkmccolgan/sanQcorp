@@ -30,9 +30,10 @@
 @stop
 
 @section('content')
-	<form action="{{url('/jobs/'.$job->id.'/build/')}}" method="POST" enctype="" id="saveBuildForm">
+	<form action="{{url('/jobs/'.$job->id.'/build/')}}" method="POST" enctype="" id="saveBuildForm" v-on:submit="onSubmit">
     {{ csrf_field() }}
     <input type="hidden" name="job_id" value="{{$job->id}}">
+    <input type="hidden" id="proposal_html" name="html" value="">
     <div class="row">
         <div v-bind:class="{ 'col-md-6': showproposal, 'col-md-12': !showproposal }">
             <div class="row">
