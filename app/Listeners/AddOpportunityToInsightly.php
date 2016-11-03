@@ -32,7 +32,7 @@ class AddOpportunityToInsightly implements ShouldQueue
         $job = $event->job;
         $user_insightly_id = $event->user_insightly_id;
 
-        Log::info('This is received from th event class: '.$user_insightly_id);
+        Log::info('This is received from the event class: '.$user_insightly_id);
     
         //send guzzle request
         $client = new \GuzzleHttp\Client(['base_uri' => 'https://api.insight.ly/v2.1/']);

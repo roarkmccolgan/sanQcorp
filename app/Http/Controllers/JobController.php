@@ -133,7 +133,7 @@ class JobController extends Controller
         $new_contacts=[];
 
         if(!$company_id){
-            return $request->all();
+            //return $request->all();
             $company = Company::create([
                 'name'=>$request->input('company_name'),
                 'address1'=>$request->input('company_address1'),
@@ -230,7 +230,7 @@ class JobController extends Controller
             $user = User::find($job->user_id);
             Event::fire(new JobWasCreated($job,$user->insightly_id));
         }
-        return "Success";
+        //return "Success";
         return redirect('/jobs/'.$job->id.'/build');
     }
 
@@ -317,6 +317,16 @@ class JobController extends Controller
                     foreach ($option['materials'] as $matKey => $material) {
                         if($material['pivot']['task']==$task['alias']){
                             $flag = $material['pivot']['cost_price']!=$material['cost_price'] ? true:false;
+                            $areaconversion = false;
+                            foreach ($systems[$option['system_id']]['tasks'] as $sysTaskKey=>$sysTask){
+                                foreach ($sysTask['materials'] as $sysMatType => $sysMats) {
+                                    foreach ($sysMats as $sysMatId => $sysMat) {
+                                        if($sysMatId==$material['id']){
+                                            $areaconversion = $sysMat['pivot']['area'] ? $sysMat['pivot']['area']:$areaconversion;
+                                        }
+                                    }
+                                }
+                            }
                             $newMaterials[] = [
                                 'id' => $material['id'],
                                 'name' => $material['name'],
@@ -329,6 +339,7 @@ class JobController extends Controller
                                 'stock' => $material['stock'],
                                 'unit_of_measure' => $material['unit_of_measure'],
                                 'task' => $task['alias'],
+                                'areaconversion' => $areaconversion,
                                 'flag'=> $flag
                             ];
                         }
@@ -383,7 +394,7 @@ class JobController extends Controller
     {
         
         if($request->input('_santoken')){
-            //$job->sections->delete();
+            $job->sections->delete();
             foreach ($job->sections as $section) {
                 $section->delete();
             }
@@ -607,7 +618,7 @@ class JobController extends Controller
         }else{
             Event::fire(new JobWasUpdated($job,$user->insightly_id));
         }
-        return 'YAY '/*.$user->insightly_id*/;
+        //return 'YAY '/*.$user->insightly_id*/;
         return redirect('/jobs');
     }
 

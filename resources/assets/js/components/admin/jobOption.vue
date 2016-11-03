@@ -30,7 +30,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<textarea id="option_description_{{optionKey}}" name="section[{{key}}][options][{{optionKey}}][description]" class="form-control" rows="2" placeholder="Explanation / description" v-model="option.description">{{option.system.description}}</textarea>
+						<textarea id="option_description_{{optionKey}}" name="section[{{key}}][options][{{optionKey}}][description]" class="form-control" rows="2" placeholder="Explanation / description" v-model="option.description"></textarea>
 					</div>
 				</div>
 			</template>
@@ -590,9 +590,13 @@
 				    customConfig: '',
 				    uiColor: '#eff0f2',
 				    toolbar: [
+						{ name: 'clipboard', items: ['Undo', 'Redo' ] },
 						{ name: 'basicstyles', items: [ 'Bold', 'Italic', 'Strike', '-', 'RemoveFormat' ] },
-						{ name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-'] },
+						{ name: 'editing', items: [ 'Scayt' ] },
+						{ name: 'insert', items: [ 'Table', 'SpecialChar' ] },
+						{ name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
 						{ name: 'document', items: [ 'Source' ] },
+						{ name: 'tools', items: [ 'Maximize' ] },
 					]
 				});
 				CKEDITOR.instances[el].on('change', function() {

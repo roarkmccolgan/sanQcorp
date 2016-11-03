@@ -18,7 +18,7 @@ class CreatePandGTable extends Migration
             $table->integer('pandg_category_id')->unsigned();
             $table->integer('jobs_id')->unsigned();
             $table->longText('description')->nullable();
-            $table->decimal('rate',6,2);
+            $table->decimal('rate',15,2);
             $table->integer('qty')->unsigned();
             $table->enum('period', ['fixed', 'daily', 'weekly', 'monthly']);
             $table->timestamps();

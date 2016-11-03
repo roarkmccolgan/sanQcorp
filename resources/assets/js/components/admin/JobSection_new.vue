@@ -195,9 +195,13 @@
                     customConfig: '',
                     uiColor: '#eff0f2',
                     toolbar: [
+                        { name: 'clipboard', items: ['Undo', 'Redo' ] },
                         { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Strike', '-', 'RemoveFormat' ] },
-                        { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-'] },
+                        { name: 'editing', items: [ 'Scayt' ] },
+                        { name: 'insert', items: [ 'Table', 'SpecialChar' ] },
+                        { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
                         { name: 'document', items: [ 'Source' ] },
+                        { name: 'tools', items: [ 'Maximize' ] },
                     ]
                 });
                 CKEDITOR.instances[el].on('change', function() {
@@ -214,9 +218,7 @@
                     this.addPhoto(this.section.photos[i].id,this.section.photos[i].photo,'sections',this.key);
                 }
             }*/
-            if(this.section.show){
-                this.cke('section_survey_'+this.key);
-            }
+            this.cke('section_survey_'+this.key);
         }
     };
 </script>
