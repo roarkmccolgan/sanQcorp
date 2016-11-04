@@ -1,7 +1,7 @@
 <?php
 return array(
-    'username' => 'roark',
-    'password' => 's4n1k@WP',
+    'username' => env('BULK_SMS_USERNAME'),
+    'password' => env('BULK_SMS_PASSWORD'),
 
     //'baseurl' => 'http://bulksms.vsms.net:5567',
     'baseurl' => 'https://bulksms.2way.co.za',
