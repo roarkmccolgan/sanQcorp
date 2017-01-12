@@ -246,11 +246,10 @@ class JobController extends Controller
         $terms = Term::where('default',1)->get();
         $basic_systems = $systems;
         $pandgs = PandG::all();
+        //$job->load('sections.options.materials.tasks');
         $job = $job->toArray();
         $users = User::all()->keyBy('id');
-        
-        //return $job;
-        
+        //return $job['sections'];
 
         foreach ($systems as $key => $item) {
             $modifiedtasks = [];
@@ -318,6 +317,11 @@ class JobController extends Controller
                         if($material['pivot']['task']==$task['alias']){
                             $flag = $material['pivot']['cost_price']!=$material['cost_price'] ? true:false;
                             $areaconversion = false;
+                            /*foreach ($material['tasks'] as $index => $matTask) {
+                                if($matTask['id']==$task['id']){
+                                    $areaconversion = $matTask['pivot']['area'] ? $matTask['pivot']['area']:$areaconversion;
+                                }
+                            }*/
                             foreach ($systems[$option['system_id']]['tasks'] as $sysTaskKey=>$sysTask){
                                 foreach ($sysTask['materials'] as $sysMatType => $sysMats) {
                                     foreach ($sysMats as $sysMatId => $sysMat) {

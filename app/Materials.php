@@ -17,6 +17,10 @@ class Materials extends Model
         'product_type',
         'coverage'
     ];
+    //ACCESSOR
+    public function getTasksAttribute() {
+        return $this->getRelationValue('tasks')->keyBy('id');
+    }
 
     public function barcode()
     {
@@ -40,7 +44,7 @@ class Materials extends Model
      */
     public function tasks()
     {
-        return $this->belongsToMany('App\Tasks', 'material_task', 'material_id', 'task_id');
+        return $this->belongsToMany('App\Tasks', 'material_task', 'material_id', 'task_id')->withPivot('area');
     }
 
     /**
