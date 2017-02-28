@@ -478,6 +478,77 @@ class MaterialsSeeder extends Seeder
             'coverage' => 2.88,
             'created_at' => Carbon::now()
         ]);
+
+        DB::table('materials')->insert([ //34
+            'name' => 'Frogskin Grey', 
+            'category_id' => 5,
+            'description' => 'Blah Blah',
+            'image' => 'blank.jpg',
+            'stock' => 1000,
+            'pack_size' => 20,
+            'cost_price' => 320.00,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'lt',
+            'product_type'=>'paint',
+            'coverage'=>7,
+            'created_at' => Carbon::now()
+        ]);
+        DB::table('materials')->insert([ //35
+            'name' => 'Frogskin Terracotta', 
+            'category_id' => 5,
+            'description' => 'Blah Blah',
+            'image' => 'blank.jpg',
+            'stock' => 1000,
+            'pack_size' => 20,
+            'cost_price' => 320.00,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'lt',
+            'product_type'=>'paint',
+            'coverage'=>7,
+            'created_at' => Carbon::now()
+        ]);
+        DB::table('materials')->insert([ //36
+            'name' => 'Frogskin Green', 
+            'category_id' => 5,
+            'description' => 'Blah Blah',
+            'image' => 'blank.jpg',
+            'stock' => 1000,
+            'pack_size' => 20,
+            'cost_price' => 320.00,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'lt',
+            'product_type'=>'paint',
+            'coverage'=>7,
+            'created_at' => Carbon::now()
+        ]);
+        DB::table('materials')->insert([ //37
+            'name' => 'Frogskin Brown', 
+            'category_id' => 5,
+            'description' => 'Blah Blah',
+            'image' => 'blank.jpg',
+            'stock' => 1000,
+            'pack_size' => 20,
+            'cost_price' => 320.00,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'lt',
+            'product_type'=>'paint',
+            'coverage'=>7,
+            'created_at' => Carbon::now()
+        ]);
+        DB::table('materials')->insert([ //38
+            'name' => 'Frogskin Black', 
+            'category_id' => 5,
+            'description' => 'Blah Blah',
+            'image' => 'blank.jpg',
+            'stock' => 1000,
+            'pack_size' => 20,
+            'cost_price' => 320.00,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'lt',
+            'product_type'=>'paint',
+            'coverage'=>7,
+            'created_at' => Carbon::now()
+        ]);
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

@@ -34,7 +34,7 @@ class TaskMaterialsSeeder extends Seeder
             'task_id' => 6
         ]);
 
-        //Membrane
+        //Membrane Boarded
         //100
         DB::table('material_task')->insert([
             'material_id' => 5,
@@ -172,7 +172,65 @@ class TaskMaterialsSeeder extends Seeder
             'task_id' => 7
         ]);
 
-        //Boarded
+        //Membrane IBR Coating
+        //100
+        DB::table('material_task')->insert([
+            'material_id' => 5,
+            'task_id' => 13,
+            'area' => '*0.1'
+        ]);
+        //200
+        DB::table('material_task')->insert([
+            'material_id' => 6,
+            'task_id' => 13,
+            'area' => '*0.2'
+        ]);
+        //300
+        DB::table('material_task')->insert([
+            'material_id' => 7,
+            'task_id' => 13,
+            'area' => '*0.333'
+        ]);
+        //500
+        DB::table('material_task')->insert([
+            'material_id' => 8,
+            'task_id' => 13,
+            'area' => '*0.5'
+        ]);
+        //1000
+        DB::table('material_task')->insert([
+            'material_id' => 9,
+            'task_id' => 13,
+            'area' => '*1'
+        ]);
+        //Acrylic
+        DB::table('material_task')->insert([
+            'material_id' => 10,
+            'task_id' => 13,
+        ]);
+
+        //Frogskin
+        DB::table('material_task')->insert([
+            'material_id' => 34,
+            'task_id' => 15,
+        ]);
+        DB::table('material_task')->insert([
+            'material_id' => 35,
+            'task_id' => 15,
+        ]);
+        DB::table('material_task')->insert([
+            'material_id' => 36,
+            'task_id' => 15,
+        ]);
+        DB::table('material_task')->insert([
+            'material_id' => 37,
+            'task_id' => 15,
+        ]);
+        DB::table('material_task')->insert([
+            'material_id' => 38,
+            'task_id' => 15,
+        ]);
+
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }

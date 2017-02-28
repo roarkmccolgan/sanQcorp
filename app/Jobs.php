@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Jobs extends Model
 {
+    use SoftDeletes;
     /**
      * The attributes that should be mutated to dates.
      *
      * @var array
      */
-    protected $dates = ['start_date', 'requested_start_date'];
+    protected $dates = ['start_date', 'requested_start_date', 'deleted_at'];
 
-    use SoftDeletes;
 
     protected $fillable = [
         'order_number',

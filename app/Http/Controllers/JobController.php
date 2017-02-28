@@ -242,7 +242,7 @@ class JobController extends Controller
     public function showBuildJob(Jobs $job)
     {
 
-        $systems = System::with('terms','photos','tasks.materials','tasks.variables')->get()->keyBy('id')->toArray();
+        $systems = System::with('terms','photos','tasks.materials','tasks.variables','tasks.properties')->get()->keyBy('id')->toArray();
         $terms = Term::where('default',1)->get();
         $basic_systems = $systems;
         $pandgs = PandG::all();

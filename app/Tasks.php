@@ -34,6 +34,14 @@ class Tasks extends Model
     }
 
     /**
+     * @return Tasks Properties
+     */
+    public function properties()
+    {
+        return $this->belongsToMany('App\Property', 'property_task', 'task_id','property_id')->withPivot('conversion');
+    }
+
+    /**
      * @return Tasks Options
      */
     public function options()

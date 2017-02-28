@@ -19206,51 +19206,39 @@ exports.default = {
 		ModalJobStatus: require('../ModalJobStatus.vue')
 	},
 	created: function created() {
-		console.log('Job List View Component Loaded');
+		console.log('Job List View Component Loaded fuckhead');
 	},
 
 	methods: {
 		showSections: function showSections(key) {
 			this.jobs[key].show = !this.jobs[key].show;
 		},
-		deleteJob: function deleteJob(name, id, e) {
-			console.log(name, id);
+		deleteJob: function deleteJob(key) {
+			this;
 			var that = this;
 			swal({
-				title: "Delete " + name + "?",
+				title: "Delete " + that.jobs.name + "?",
 				text: "You will not be able to undo this operation",
 				type: "warning",
 				showCancelButton: true,
 				confirmButtonColor: "#DD6B55",
 				confirmButtonText: "Yes, delete it!",
-				showLoaderOnConfirm: true,
 				closeOnConfirm: false
 			}, function () {
-				that.$http.post($(e.target).closest('a').attr('href'), { id: id }).then(function (result) {
+				that.$http.get($(e.target).attr('href')).then(function (result) {
 					if (result.data.result == 'success') {
-						swal({
-							title: "Deleted!",
-							text: name + " has been deleted.",
-							type: "success",
-							timer: 2000,
-							showConfirmButton: false
-
-						}, function () {
-							swal.close();
-							setTimeout(function () {
-								$("#job-" + id).css({ 'background-color': '#D46752', color: 'white' }).fadeTo("slow", 0.7, function () {
-									$(this).remove();
-								});
-							}, 500);
-						});
-					} else {
-						swal({
-							title: "Error!",
-							type: 'error',
-							text: "Unable to delete " + name,
-							timer: 2000,
-							showConfirmButton: false
-						});
+						swal.close();
+						/*var revision = result.data.revision;
+      revision._token = document.querySelector('#token').getAttribute('value');
+      var formRevision = new FormData();
+      this.iterate(revision);
+      that.$http.post($('#saveBuildForm').attr('action'),formRevision).then(function(result){
+      	if(result.data.result=='success'){
+      		console.log(result);
+      	}
+      }, function(data){
+      	console.log(data, status, request);
+      });*/
 					}
 				}, function (data) {
 					console.log(data, status, request);
@@ -19292,7 +19280,6 @@ exports.default = {
             properties: {
                 area: { value: this.section.area ? this.section.area : 0, uom: 'm2', show: true },
                 perimeter: { value: this.section.perimeter ? this.section.perimeter : 0, uom: 'lm', show: true },
-                crosslaps: { value: this.section.crosslaps ? this.section.crosslaps : 0, uom: 'lm', show: true },
                 /*width: {value: this.section.width ? this.section.width:0, uom: 'lm',show:true},
                 length: {value: this.section.length ? this.section.length:0, uom: 'lm',show:true},*/
                 volume: { value: this.section.volume ? this.section.volume : 0, uom: 'm3', show: true }

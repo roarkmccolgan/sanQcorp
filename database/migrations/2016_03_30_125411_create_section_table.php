@@ -19,6 +19,7 @@ class CreateSectionTable extends Migration
             $table->string('name');
             $table->longText('survey')->nullable();
             $table->boolean('complete')->default(0);
+            $table->binary('properties')->nullable();
 
             $table->integer('area')->nullable();
             $table->integer('perimeter')->nullable();

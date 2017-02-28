@@ -13,14 +13,14 @@
 		<div class="col-md-8">
 			<h4 class="page-title">{{$job->order_number.' - '.$job->name}}</h4>
 		</div>
-        <div class="col-md-4">
+        <div class="col-md-4 text-right">
             <form name="myform" action="/pdf" method="post" target="_blank">
                 {{ csrf_field() }}
                 <input type="hidden" name="name" value="@{{filename}}">
                 <input type="hidden" name="html" value="">
                 <a href="#" class="btn btn-default" @click.prevent="showproposal=!showproposal">
                     <span class="fui-document"></span>
-                    <span v-show="!showproposal">Show</span>
+                    <span v-show="!showproposal">Preview</span>
                     <span v-show="showproposal">Hide</span>
                 </a>
                 <button class="btn btn-primary" type="submit" @click="loadproposal"><span class="fui-clip"></span> Download</button>
@@ -81,7 +81,7 @@
                             </span>
                             <span class="fileinput-filename">@{{mainImage.photo}}</span>
                             <a href="#" class="close fileinput-exists" data-dismiss="fileinput">&times;</a>
-                            <button class="btn btn-inverse pull-right" @click.prevent="addPhoto()" style=""><i class="fui-image"></i></button>
+                            <button class="btn btn-inverse pull-right" @click.prevent="addPhoto()" style=""><i class="fui-image"></i>&nbsp;&nbsp;Extra Images</button>
                         </div>
                     </div>
                     

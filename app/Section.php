@@ -6,43 +6,53 @@ use Illuminate\Database\Eloquent\Model;
 
 class Section extends Model
 {
-    protected $table = 'section';
+	protected $table = 'section';
 
-    protected $fillable = [
-        'name',
-        'accepted',
-        'survey',
-        'size',
-        'perimeter',
-        'difficulty',
-        'area',
-        'pitch',
-        'length',
-        'height',
-        'width'
-    ];
+	/**
+	 * The attributes that should be casted to native types.
+	 *
+	 * @var array
+	 */
+	protected $casts = [
+		'properties' => 'array',
+	];
 
-    /**
-     * @return Section Job
-     */
-    public function job()
-    {
-        return $this->belongsTo('App\Jobs', 'jobs_id');
-    }
+	protected $fillable = [
+		'name',
+		'accepted',
+		'survey',
+		'properties',
+	];
 
-    /**
-     * @return Section task
-     */
-    public function options()
-    {
-        return $this->hasMany('App\Option');
-    }
+	/**
+	 * @return Section Job
+	 */
+	public function job()
+	{
+		return $this->belongsTo('App\Jobs', 'jobs_id');
+	}
 
-    /**
-     * Get all of the Sections photos.
-     */
-    public function photos()
-    {
-        return $this->morphMany('App\Photos', 'photoable');
-    }
+	/**
+	 * @return Section task
+	 */
+	public function options()
+	{
+		return $this->hasMany('App\Option');
+	}
+
+	/**
+	 * @return Section properties
+	 */
+	public function properties()
+	{
+		return $this->hasMany('App\Property');
+	}
+
+	/**
+	 * Get all of the Sections photos.
+	 */
+	public function photos()
+	{
+		return $this->morphMany('App\Photos', 'photoable');
+	}
 }

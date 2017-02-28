@@ -140,6 +140,7 @@
                 properties:{
                     area: {value: this.section.area ? this.section.area:0, uom: 'm2', show:true},
                     perimeter: {value: this.section.perimeter ? this.section.perimeter:0, uom: 'lm', show:true},
+                    crosslaps: {value: this.section.crosslaps ? this.section.crosslaps:0, uom: 'lm', show:true},
                     /*width: {value: this.section.width ? this.section.width:0, uom: 'lm',show:true},
                     length: {value: this.section.length ? this.section.length:0, uom: 'lm',show:true},*/
                     volume: {value: this.section.volume ? this.section.volume:0, uom: 'm3',show:true},

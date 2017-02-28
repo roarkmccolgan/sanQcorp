@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call(EmployeesSeeder::class);
 
         $this->call(CategorySeeder::class);
+        $this->call(PropertySeeder::class);
         $this->call(MaterialsSeeder::class);
         $this->call(SystemSeeder::class);
         //$this->call(ScopeSeeder::class);
@@ -33,6 +34,7 @@ class DatabaseSeeder extends Seeder
         //$this->call(ScopeSystemSeeder::class);
         $this->call(TaskMaterialsSeeder::class);
         $this->call(TaskVariableSeeder::class);
+        $this->call(TaskPropertySeeder::class);
         
         $this->call(PandGCategorySeeder::class);
         

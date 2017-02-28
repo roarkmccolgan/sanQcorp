@@ -249,35 +249,35 @@
             },
             confirmRevise: function(e){
             	e.preventDefault();
-            	var that=this;
-            	swal({
-	    			title: "Are you sure?",
-	    			text: "You will not be able to undo this operation",
-	    			type: "warning",
-	    			showCancelButton: true,
-	    			confirmButtonColor: "#DD6B55",
-	    			confirmButtonText: "Yes, restore it!",
-	    			closeOnConfirm: false 
-	    		}, function(){
-	    			that.$http.get($(e.target).attr('href')).then(function(result){
+		var that=this;
+		swal({
+			title: "Are you sure?",
+			text: "You will not be able to undo this operation",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Yes, restore it!",
+			closeOnConfirm: false 
+		}, function(){
+			that.$http.get($(e.target).attr('href')).then(function(result){
+				if(result.data.result=='success'){
+					swal.close();
+					/*var revision = result.data.revision;
+					revision._token = document.querySelector('#token').getAttribute('value');
+					var formRevision = new FormData();
+					this.iterate(revision);
+					that.$http.post($('#saveBuildForm').attr('action'),formRevision).then(function(result){
 						if(result.data.result=='success'){
-							swal.close();
-							/*var revision = result.data.revision;
-							revision._token = document.querySelector('#token').getAttribute('value');
-							var formRevision = new FormData();
-							this.iterate(revision);
-							that.$http.post($('#saveBuildForm').attr('action'),formRevision).then(function(result){
-								if(result.data.result=='success'){
-									console.log(result);
-								}
-							}, function(data){
-								console.log(data, status, request);
-							});*/
+							console.log(result);
 						}
 					}, function(data){
 						console.log(data, status, request);
-					});
-	    		});
+					});*/
+				}
+			}, function(data){
+				console.log(data, status, request);
+			});
+		});
             },
             iterate :function(obj) {
 			    for (var property in obj) {
