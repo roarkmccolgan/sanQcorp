@@ -33,7 +33,7 @@ class Jobs extends Model
         'city',
         'country',
         'insightly_opportunity_id',
-        'template',
+        'type',
     ];
 
     /**
