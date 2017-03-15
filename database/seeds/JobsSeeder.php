@@ -22,7 +22,7 @@ class JobsSeeder extends Seeder
             'suburb' => 'Sandton',
             'city' => 'Johannesburg',
             'country' => 'South Africa',
-            'type' => 'supply',
+            'type' => 'service',
             'created_at' => Carbon::now()
         ]);
         DB::table('jobs')->insert([

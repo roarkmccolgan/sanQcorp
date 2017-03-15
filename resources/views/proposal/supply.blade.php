@@ -69,7 +69,7 @@
     <div id="proposal">
         <div id="cover" style="position: relative;">
             <div id="header" style="width: 210mm; height: 40mm; margin: 14.219mm 20mm 10mm 10mm;">
-                <img id="logo" src="http://sanqcorp.app/img/invoice/logo.jpg" alt="" style="width: 77mm; height: 27.9mm; display: inline-block; vertical-align: top">
+                <img id="logo" src="http://{{ $_SERVER['HTTP_HOST'] }}/img/invoice/logo.jpg" alt="" style="width: 77mm; height: 27.9mm; display: inline-block; vertical-align: top">
                 <div style="width: 73mm; display: inline-block; padding-top: 6mm; text-align: right; font: 10pt/14pt 'Times New Roman, Times, serif';">
                     SANIKA cc<br/>
                     P.O. BOX 303<br/>
@@ -125,7 +125,7 @@
                     </tr>
                 </table>
             </div>
-            <img src="http://sanqcorp.app/img/invoice/2540years.jpg" alt="" style="width: 210mm; height: 50mm; margin-top: 10mm;">
+            <img src="http://{{ $_SERVER['HTTP_HOST'] }}/img/invoice/2540years.jpg" alt="" style="width: 210mm; height: 50mm; margin-top: 10mm;">
         </div>
         <div class="proposal-section">
             <p>Dear @{{laravel.job.contacts[0].first_name}}</p>
@@ -177,12 +177,12 @@
         </div>
         <div class="proposal-section">
             <template v-if="mainImage.photo!=''">
-                <img v-bind:src="'http://sanqcorp.app/job/'+laravel.job.order_number+'/img/'+mainImage.photo" alt="" align="center" class="sitepic" style="width: 184mm; margin: 10mm auto;">
+                <img v-bind:src="'http://{{ $_SERVER['HTTP_HOST'] }}/job/'+laravel.job.order_number+'/img/'+mainImage.photo" alt="" align="center" class="sitepic" style="width: 184mm; margin: 10mm auto;">
             </template>
             <template v-if="images.length > 0">
                 <strong>Site Images:</strong><br/>
                 <template v-for="(imageKey, image) in images">
-                    <img v-if="image.photo!=''" v-bind:src="'http://sanqcorp.app/job/'+laravel.job.order_number+'/img/'+image.photo" alt="" class="sitepic">
+                    <img v-if="image.photo!=''" v-bind:src="'http://{{ $_SERVER['HTTP_HOST'] }}/job/'+laravel.job.order_number+'/img/'+image.photo" alt="" class="sitepic">
                 </template>
             </template>
         </div>
@@ -193,7 +193,7 @@
                 <p>@{{{section.survey}}}</p>
                 
                     <template v-for="(imageKey, image) in section.images">
-                        <img v-if="image.photo!=''" v-bind:src="'http://sanqcorp.app/job/'+laravel.job.order_number+'/img/'+image.photo" alt="" class="sitepic">
+                        <img v-if="image.photo!=''" v-bind:src="'http://{{ $_SERVER['HTTP_HOST'] }}/job/'+laravel.job.order_number+'/img/'+image.photo" alt="" class="sitepic">
                     </template>
         <template v-if="section.images.length > 0">
         </div>
@@ -206,7 +206,7 @@
                                 <p>
                                     @{{{option.description}}}
                                 </p>
-                                <img v-if="option.system.photos.length > 0" v-bind:src="'http://sanqcorp.app/img/'+option.system.photos[0].photo" alt="" style="width: 170mm;margin: 10mm 0mm;">
+                                <img v-if="option.system.photos.length > 0" v-bind:src="'http://{{ $_SERVER['HTTP_HOST'] }}/img/'+option.system.photos[0].photo" alt="" style="width: 170mm;margin: 10mm 0mm;">
                                 <div style="margin-left: 5mm">
                                     <strong>Scope of Work</strong>
                                     <ul v-if="option.tasks">
