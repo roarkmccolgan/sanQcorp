@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PhotosSeeder::class);
         //$this->call(ScopeSystemSeeder::class);
         $this->call(TaskMaterialsSeeder::class);
-        $this->call(TaskVariableSeeder::class);
+        $this->call(TaskVariableSeeder::class); 
         $this->call(TaskPropertySeeder::class);
         
         $this->call(PandGCategorySeeder::class);

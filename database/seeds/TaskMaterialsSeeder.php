@@ -143,11 +143,13 @@ class TaskMaterialsSeeder extends Seeder
         
         DB::table('material_task')->insert([
             'material_id' => 26,
-            'task_id' => 4
+            'task_id' => 4,
+            'area' => '*3.47222222222222'
         ]);
         DB::table('material_task')->insert([
             'material_id' => 27,
-            'task_id' => 4
+            'task_id' => 4,
+            'area' => '*3.47222222222222'
         ]);
         DB::table('material_task')->insert([
             'material_id' => 28,
@@ -173,62 +175,84 @@ class TaskMaterialsSeeder extends Seeder
         ]);
 
         //Membrane IBR Coating
-        //100
+        //boltheads
+        //screws
         DB::table('material_task')->insert([
-            'material_id' => 5,
+            'material_id' => 26, //tek screws 50mm
             'task_id' => 13,
-            'area' => '*0.1'
         ]);
-        //200
+
+        //membrane patches
         DB::table('material_task')->insert([
-            'material_id' => 6,
-            'task_id' => 13,
-            'area' => '*0.2'
-        ]);
-        //300
-        DB::table('material_task')->insert([
-            'material_id' => 7,
-            'task_id' => 13,
-            'area' => '*0.333'
-        ]);
-        //500
-        DB::table('material_task')->insert([
-            'material_id' => 8,
-            'task_id' => 13,
-            'area' => '*0.5'
-        ]);
-        //1000
-        DB::table('material_task')->insert([
-            'material_id' => 9,
-            'task_id' => 13,
-            'area' => '*1'
+            'material_id' => 39,
+            'task_id' => 14,
+            'area' => '*0.03'
         ]);
         //Acrylic
         DB::table('material_task')->insert([
             'material_id' => 10,
-            'task_id' => 13,
+            'task_id' => 14,
+        ]);
+
+        //Overlaps
+        //100
+        DB::table('material_task')->insert([
+            'material_id' => 5,
+            'task_id' => 15,
+            'area' => '*1.6*0.1'
+        ]);
+        //Acrylic
+        DB::table('material_task')->insert([
+            'material_id' => 10,
+            'task_id' => 15,
+        ]);
+
+        //Crosslaps
+        //100
+        DB::table('material_task')->insert([
+            'material_id' => 5,
+            'task_id' => 16,
+            'area' => '*0.1'
+        ]);
+        //Acrylic
+        DB::table('material_task')->insert([
+            'material_id' => 10,
+            'task_id' => 16,
+        ]);
+
+        //Perimeter
+        //100
+        DB::table('material_task')->insert([
+            'material_id' => 5,
+            'task_id' => 17,
+            'area' => '*0.1'
+        ]);
+        //Acrylic
+        DB::table('material_task')->insert([
+            'material_id' => 10,
+            'task_id' => 17,
         ]);
 
         //Frogskin
         DB::table('material_task')->insert([
             'material_id' => 34,
-            'task_id' => 15,
+            'task_id' => 18
         ]);
         DB::table('material_task')->insert([
             'material_id' => 35,
-            'task_id' => 15,
+            'task_id' => 18
         ]);
         DB::table('material_task')->insert([
             'material_id' => 36,
-            'task_id' => 15,
+            'task_id' => 18
         ]);
         DB::table('material_task')->insert([
             'material_id' => 37,
-            'task_id' => 15,
+            'task_id' => 18
         ]);
         DB::table('material_task')->insert([
             'material_id' => 38,
-            'task_id' => 15,
+            'task_id' => 18
         ]);
 
 

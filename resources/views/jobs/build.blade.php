@@ -259,7 +259,7 @@
         </div>
         <div v-bind:class="{ 'col-md-6': showproposal, 'hidden': !showproposal }">
             <div class="" style="width: 100%; overflow: scroll; -webkit-box-shadow: 0px 0px 17px 0px rgba(0,0,0,0.47);-moz-box-shadow: 0px 0px 17px 0px rgba(0,0,0,0.47);box-shadow: 0px 0px 17px 0px rgba(0,0,0,0.47);zoom: 0.65;-moz-transform: scale(0.65);">
-                @include('proposal.proposal')
+                @include('proposal.'.$job->template)
             </div>
         </div>
     </div>

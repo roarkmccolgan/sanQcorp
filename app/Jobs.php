@@ -32,7 +32,8 @@ class Jobs extends Model
         'suburb',
         'city',
         'country',
-        'insightly_opportunity_id'
+        'insightly_opportunity_id',
+        'template',
     ];
 
     /**

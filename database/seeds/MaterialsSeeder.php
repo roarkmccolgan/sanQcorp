@@ -365,7 +365,7 @@ class MaterialsSeeder extends Seeder
         ]);
         DB::table('materials')->insert([ //26
             'name' => '50mm Tek Screws',
-            'category_id' => 1,
+            'category_id' => 4,
             'Description' => 'blah',
             'image' => 'blank.jpg',
             'stock' => 1000,
@@ -374,7 +374,7 @@ class MaterialsSeeder extends Seeder
             'day_rate' => 0.00,
             'unit_of_measure' => 'each',
             'product_type' => 'screws',
-            'coverage' => 0.3,
+            'coverage' => 1,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //27
@@ -388,7 +388,7 @@ class MaterialsSeeder extends Seeder
             'day_rate' => 0.00,
             'unit_of_measure' => 'each',
             'product_type' => 'washers',
-            'coverage' => 0.3,
+            'coverage' => 1,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //28
@@ -490,7 +490,7 @@ class MaterialsSeeder extends Seeder
             'day_rate' => 0.00,
             'unit_of_measure' => 'lt',
             'product_type'=>'paint',
-            'coverage'=>7,
+            'coverage'=>70,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //35
@@ -504,7 +504,7 @@ class MaterialsSeeder extends Seeder
             'day_rate' => 0.00,
             'unit_of_measure' => 'lt',
             'product_type'=>'paint',
-            'coverage'=>7,
+            'coverage'=>70,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //36
@@ -518,7 +518,7 @@ class MaterialsSeeder extends Seeder
             'day_rate' => 0.00,
             'unit_of_measure' => 'lt',
             'product_type'=>'paint',
-            'coverage'=>7,
+            'coverage'=>70,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //37
@@ -532,7 +532,7 @@ class MaterialsSeeder extends Seeder
             'day_rate' => 0.00,
             'unit_of_measure' => 'lt',
             'product_type'=>'paint',
-            'coverage'=>7,
+            'coverage'=>70,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //38
@@ -546,7 +546,35 @@ class MaterialsSeeder extends Seeder
             'day_rate' => 0.00,
             'unit_of_measure' => 'lt',
             'product_type'=>'paint',
-            'coverage'=>7,
+            'coverage'=>70,
+            'created_at' => Carbon::now()
+        ]);
+        DB::table('materials')->insert([ //39
+            'name' => 'Membrane Patch', 
+            'category_id' => 5,
+            'description' => 'Blah Blah',
+            'image' => 'blank.jpg',
+            'stock' => 1000,
+            'pack_size' => 200,
+            'cost_price' => 0.15,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'each',
+            'product_type'=>'membrane',
+            'coverage'=>0.01,
+            'created_at' => Carbon::now()
+        ]);
+        DB::table('materials')->insert([ //40
+            'name' => 'Butyl Washer',
+            'category_id' => 4,
+            'Description' => 'blah',
+            'image' => 'blank.jpg',
+            'stock' => 1000,
+            'pack_size' => 200,
+            'cost_price' => 0.25,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'each',
+            'product_type' => 'washer',
+            'coverage' => 0.4,
             'created_at' => Carbon::now()
         ]);
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');

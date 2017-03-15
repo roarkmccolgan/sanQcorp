@@ -209,14 +209,16 @@
                         if(this.task.materials[i].areaconversion){
                             var strprop = this.property.toString();
                             var conversion = this.task.materials[i].areaconversion.toString();
-                            property = eval(strprop + conversion);
+                            var bracket = conversion.indexOf("(") !== -1 ? '(':'';
+                            console.log(bracket);
+                            property = eval(bracket + strprop + conversion);
                             newProp = property;
                         }
                         
                         this.task.materials[i].qty = Math.ceil((property/this.task.materials[i].coverage));
                         this.task.materials[i].price = this.task.materials[i].qty * this.task.materials[i].cost_price;
                     }
-                    //re-do any other materials accoriding to new property
+                    //re-do any other materials according to new property
                     if(newProp!==false){
                         for (var i = 0; i < this.task.materials.length; i++) {
                             if(this.task.materials[i].areaconversion==false){

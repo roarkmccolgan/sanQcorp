@@ -105,7 +105,7 @@ class SystemTaskSeeder extends Seeder
 		DB::table('system_task')->insert([
 			'system_id' => 3,
 			'task_id' => 7, //screed
-			'order' => 2
+			'order' => 1
 		]);
 		DB::table('system_task')->insert([
 			'system_id' => 3,
@@ -162,17 +162,32 @@ class SystemTaskSeeder extends Seeder
 		DB::table('system_task')->insert([
 			'system_id' => 4,
 			'task_id' => 13, //re-fasten
-			'order' => 1
+			'order' => 2
 		]);
 		DB::table('system_task')->insert([
 			'system_id' => 4,
-			'task_id' => 14, //waterproof
-			'order' => 1
+			'task_id' => 14, //waterproof bolt heads
+			'order' => 3
 		]);
 		DB::table('system_task')->insert([
 			'system_id' => 4,
-			'task_id' => 15, //coating
-			'order' => 1
+			'task_id' => 15, //overlaps
+			'order' => 4
+		]);
+		DB::table('system_task')->insert([
+			'system_id' => 4,
+			'task_id' => 16, //crosslaps
+			'order' => 5
+		]);
+		DB::table('system_task')->insert([
+			'system_id' => 4,
+			'task_id' => 17, //perimeter flashing
+			'order' => 6
+		]);
+		DB::table('system_task')->insert([
+			'system_id' => 4,
+			'task_id' => 18, //coating
+			'order' => 7
 		]);
 
 		DB::statement('SET FOREIGN_KEY_CHECKS=1;');

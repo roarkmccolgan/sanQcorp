@@ -12,7 +12,7 @@ class System extends Model
         'name',
         'unit',
         'base_rate',
-        'component'
+        'type'
     ];
 
     /**

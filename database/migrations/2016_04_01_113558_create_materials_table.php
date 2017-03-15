@@ -24,7 +24,7 @@ class CreateMaterialsTable extends Migration
             $table->decimal('day_rate',8,2)->nullable();
             $table->string('unit_of_measure');
             $table->string('product_type');
-            $table->decimal('coverage',6,2);
+            $table->decimal('coverage',10,6);
             $table->timestamps();
             $table->softDeletes();
 

@@ -135,32 +135,60 @@ class TasksSeeder extends Seeder
 			'description' => 'Clean entire roof area by means of high pressure rotating needle jet cleaning machines.',
 			'alias' => 'cleanibrroof',
 			'unit_of_measure' => 'm2',
-			'rate' => 12,
+			'rate' => 400,
 			'created_at' => Carbon::now()
 		]);
 		DB::table('tasks')->insert([ //13
-			'name' => 'Re-fasten',
-			'description' => 'Refasten all loose and missing screws and bolts',
+			'name' => 'Re-fasten Screws and Bolt Heads',
+			'description' => 'Refasten or replace where necessary, all loose and missing screws and bolts',
 			'alias' => 'refastenboltsandscrews',
 			'unit_of_measure' => 'm2',
-			'rate' => 10,
+			'rate' => 200,
 			'created_at' => Carbon::now()
 		]);
 		DB::table('tasks')->insert([ //14
-			'name' => 'Waterproof Crosslaps Overlaps and Flashing Details',
-			'description' => 'Waterproof all flashing details, bolt and screw heads, overlaps, cross laps and protrusion points to manufacturers specification using non-woven polyester waterproofing membrane impregnated with 100 % pure acrylic waterproofing compound.',
-			'alias' => 'ibrwaterproof',
+			'name' => 'Waterproof Bolt Heads',
+			'description' => 'Waterproof each bolt and screw head using a non-woven polyester waterproofing membrane patch impregnated with 100 % pure acrylic waterproofing compound.',
+			'alias' => 'waterproofboltheads',
 			'unit_of_measure' => 'm2',
-			'rate' => 60,
+			'rate' => 200,
+			'created_at' => Carbon::now()
+		]);
+		DB::table('tasks')->insert([ //15
+			'name' => 'Overlaps',
+			'description' => 'Waterproof overlaps to manufacturers specification using non-woven polyester waterproofing membrane impregnated with 100 % pure acrylic waterproofing compound.',
+			'alias' => 'overlaps',
+			'unit_of_measure' => 'm2',
+			'link_to' => 'area',
+			'rate' => 125,
+			'created_at' => Carbon::now()
+		]);
+		DB::table('tasks')->insert([ //16
+			'name' => 'Crosslaps',
+			'description' => 'Waterproof cross laps to manufacturers specification using non-woven polyester waterproofing membrane impregnated with 100 % pure acrylic waterproofing compound.',
+			'alias' => 'crosslaps',
+			'unit_of_measure' => 'lm',
+			'link_to' => 'perimeter',
+			'rate' => 200,
 			'created_at' => Carbon::now()
 		]);
 
-		DB::table('tasks')->insert([ //15
+		DB::table('tasks')->insert([ //17
+			'name' => 'Perimeter Flashing',
+			'description' => 'Waterproof perimeter of roof area to manufacturers specification using non-woven polyester waterproofing membrane impregnated with 100 % pure acrylic waterproofing compound.',
+			'alias' => 'perimeter',
+			'unit_of_measure' => 'lm',
+			'link_to' => 'perimeter',
+			'rate' => 200,
+			'created_at' => Carbon::now()
+		]);
+
+		DB::table('tasks')->insert([ //18
 			'name' => 'Coating',
 			'description' => 'Spray paint entire roof area by using high-pressure airless spraying equipment with UV Stabilised Industrial grade waterproof coating.(5 colours available)',
 			'alias' => 'ibrcoat',
 			'unit_of_measure' => 'm2',
-			'rate' => 60,
+			'rate' => 400,
 			'created_at' => Carbon::now()
 		]);
 		DB::statement('SET FOREIGN_KEY_CHECKS=1;');

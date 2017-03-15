@@ -18879,10 +18879,10 @@ exports.default = {
 			imageNum: 6,
 			mainImage: laravel.job.mainPhoto ? laravel.job.mainPhoto : { id: '', photo: '' },
 			images: laravel.job.photos ? laravel.job.photos : [],
-			proposaltitle1: laravel.job.title1 ? laravel.job.title1 : 'Waterproofing of',
-			proposaltitle2: laravel.job.title2 ? laravel.job.title2 : 'at the below site address',
-			proposaltitle1options: ['Waterproofing of', 'Crack Repair of', 'Various repairs of'],
-			proposaltitle2options: ['at the below site address', 'Using Kryton\'s crack repair system'],
+			proposaltitle1: laravel.job.title1 ? laravel.job.title1 : laravel.job.type == 'supply' ? 'For the Supply only of' : 'Waterproofing of',
+			proposaltitle2: laravel.job.title2 ? laravel.job.title2 : laravel.job.type == 'supply' ? 'for the below site address' : 'at the below site address',
+			proposaltitle1options: ['Waterproofing of', 'Crack Repair of', 'Various repairs of', 'For the Supply only of'],
+			proposaltitle2options: ['at the below site address', 'for the below site address', 'Using Kryton\'s crack repair system'],
 			customproposal: laravel.job.title ? laravel.job.title : '',
 			showpandg: laravel.job.pandg.length > 0 ? true : false,
 			jobpsandgs: laravel.job.pandg == undefined ? [] : laravel.job.pandg,
@@ -18894,6 +18894,9 @@ exports.default = {
 		JobSection: require('./JobSection_new.vue')
 	},
 	computed: {
+		areaTerm: function areaTerm() {
+			laravel.job.type == 'supply' ? 'For the Supply only of' : 'Site Areas';
+		},
 		can_save: function can_save() {
 			return true;
 		},
@@ -19036,7 +19039,8 @@ exports.default = {
 								height: imageSize.height
 							};
 							var newImage = new Image(640, 480);
-							newImage.src = 'http://sanqcorp.app/job/' + this.laravel.job.order_number + '/img/' + result.data.filename;
+							var hostname = window.location.hostname;
+							newImage.src = 'http://' + hostname + this.laravel.job.order_number + '/img/' + result.data.filename;
 							$(theInput).closest(".row").find('.lc').append('<div class="literally" style="min-height: 480px"></div><button class="btn btn-primary savediagram pull-right clearfix" style="margin: 10px;">Save Image</button>');
 							this.lc = LC.init(document.getElementsByClassName('literally')[0], {
 								imageURLPrefix: '/img/vendor/literallycanvas',
@@ -20486,14 +20490,16 @@ exports.default = {
                     if (this.task.materials[i].areaconversion) {
                         var strprop = this.property.toString();
                         var conversion = this.task.materials[i].areaconversion.toString();
-                        property = eval(strprop + conversion);
+                        var bracket = conversion.indexOf("(") !== -1 ? '(' : '';
+                        console.log(bracket);
+                        property = eval(bracket + strprop + conversion);
                         newProp = property;
                     }
 
                     this.task.materials[i].qty = Math.ceil(property / this.task.materials[i].coverage);
                     this.task.materials[i].price = this.task.materials[i].qty * this.task.materials[i].cost_price;
                 }
-                //re-do any other materials accoriding to new property
+                //re-do any other materials according to new property
                 if (newProp !== false) {
                     for (var i = 0; i < this.task.materials.length; i++) {
                         if (this.task.materials[i].areaconversion == false) {

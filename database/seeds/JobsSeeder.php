@@ -24,5 +24,18 @@ class JobsSeeder extends Seeder
             'country' => 'South Africa',
             'created_at' => Carbon::now()
         ]);
+        DB::table('jobs')->insert([
+            'order_number' => 'SAN7030-17',
+            /*'user_id' => 2,*/
+            'name' => 'Bungalow Pool',
+            'distance' => 1206,
+            'status' => 'build',
+            'address' => '37 Dundee Street',
+            'suburb' => 'Kraaifontein',
+            'city' => 'Cape Town',
+            'country' => 'South Africa',
+            'type' => 'supply',
+            'created_at' => Carbon::now()
+        ]);
     }
 }

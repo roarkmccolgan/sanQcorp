@@ -191,7 +191,8 @@ class JobController extends Controller
             'address'=>$request->input('address'),
             'suburb'=>$request->input('suburb'),
             'city'=>$request->input('city'),
-            'country'=>$request->input('country')
+            'country'=>$request->input('country'),
+            'template'=>$request->input('supply') ? 'supply' : 'service',
         ]);
 
         $job->contacts()->sync($job_contacts);

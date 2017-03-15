@@ -44,6 +44,7 @@ class CreateJobsTable extends Migration
             $table->string('title2')->nullable();
             $table->boolean('custom')->default(0);
             $table->integer('insightly_opportunity_id')->nullable();
+            $table->string('type')->default('service');
             $table->timestamps();
             $table->softDeletes();
 
