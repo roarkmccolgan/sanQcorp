@@ -83,7 +83,9 @@ new Vue({
             }
         });
         var elem = document.getElementById("pageLoader");
-        elem.parentNode.removeChild(elem);
+        if(elem){
+            elem.parentNode.removeChild(elem);
+        }
     }
 });
 /*var Vue = require('vue');

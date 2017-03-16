@@ -10,7 +10,7 @@ trait GeneratePdfTrait {
     {
     	
     	if($type=='save'){
-			$name = 'job/'.$order_number.'/'.$name;
+			$name = base_path().'/uploads/job/'.$order_number.'/'.$name;
 			if (file_exists($name)) { unlink ($name); }
     	}    	
 

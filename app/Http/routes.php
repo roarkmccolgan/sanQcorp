@@ -246,7 +246,7 @@ Route::group(['middleware' => ['web']], function () {
 				$sizex = $request->input('sizex');
 				$sizey = $request->input('sizey');
 				$filename = strtolower(str_replace(" ", "", $file->getClientOriginalName()));
-				$filePath = public_path().'/job/'.$ref.'/img/';
+				$filePath = base_path().'/uploads/job/'.$ref.'/img/';
 				if(!file_exists($filePath)){
 					if (!mkdir($filePath, 0775, true)) {
 						dd('Failed to create folders...');
@@ -254,7 +254,7 @@ Route::group(['middleware' => ['web']], function () {
 				}
 				Image::make($file)->fit($sizex, $sizey)->save($filePath.'/'.$filename);
 
-				//$file->move(public_path().'/job/'.$ref.'/img/'.'/', );
+				//$file->move(base_path().'/uploads/job/'.$ref.'/img/'.'/', );
 				$result = 'success';
 			}
 			$data = [
@@ -271,7 +271,7 @@ Route::group(['middleware' => ['web']], function () {
 			$file = $request->input('img');
 			$type = $request->input('type');
 			if($type=='main'){
-				$filePath = public_path().'/job/'.$ref.'/img/';
+				$filePath = base_path().'/uploads/job/'.$ref.'/img/';
 				if(!file_exists($filePath)){
 					if (!mkdir($filePath, 0775, true)) {
 						dd('Failed to create folders...');

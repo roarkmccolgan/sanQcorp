@@ -45,8 +45,8 @@
                     <td width="15%">{{$job->contacts->first()->company->name}}</td>
                     <td width="10%" class="text-center"><button class="btn btn-xs {{$job->status=='build'?'btn-default':($job->status=='pending'?'btn-info':'btn-primary')}}" {!!$job->status=='build' ? '' : '@click="$root.$broadcast(\'modal-job-status:open\', '.$job->id.','.$job->name.')")'!!} {{$job->status=='build'?'disabled':''}}>{{$job->status}}</button></td>
                     <td width="10%" class="text-center">
-                        @if(file_exists(public_path().'/job/'.$job->order_number.'/'.$job->order_number.'-'.$job->name.'.pdf'))
-                            <a href="{{'/job/'.$job->order_number.'/'.$job->order_number.'-'.$job->name.'.pdf'}}" class="fui-clip" target="_blank" title="PDF" style="margin-top: -20px"></a>
+                        @if(file_exists(public_path().'/uploads/job/'.$job->order_number.'/'.$job->order_number.'-'.$job->name.'.pdf'))
+                            <a href="{{'/uploads/job/'.$job->order_number.'/'.$job->order_number.'-'.$job->name.'.pdf'}}" class="fui-clip" target="_blank" title="PDF" style="margin-top: -20px"></a>
                         @endif
                     </td>
                     <td width="20%" class="text-right" style="padding-right:0">
