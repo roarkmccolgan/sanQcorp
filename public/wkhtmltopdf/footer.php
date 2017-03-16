@@ -17,7 +17,7 @@
         </script>
     </head>
 <body style="border:0; margin: 0;" onload="subst()">
-    <div style="width: 210mm; height: 25mm; position: relative; background: url(http://{{ $_SERVER['HTTP_HOST'] }}/img/invoice/footer.jpg);background-size: 210mm 25mm;">
+    <div style="width: 210mm; height: 25mm; position: relative; background: url(http://<?= $_SERVER['HTTP_HOST'] ?>/img/invoice/footer.jpg);background-size: 210mm 25mm;">
         <div style="background-color: black; width: 13.396mm; height: 5.644mm; position: absolute; top: 7.17mm; left: 176.716mm; color: white; font-family: 'Times New Roman'; font-weight: bold; font-size: 10pt; line-height: 5.644mm; text-align: center">
             <span class="page"></span> / <span class="topage"></span>
         </div>
