@@ -615,6 +615,8 @@ class JobController extends Controller
             $job->revisions()->save($revision);
         }
         //Trait GeneratePDF
+        return $request->input('html');
+        dd();
         $this->WKtoHTML($request->input('html'),$job->order_number.'-'.$job->name.'.pdf',$job->order_number,'save');
 
         $user = User::find($request->input('user_id'));
