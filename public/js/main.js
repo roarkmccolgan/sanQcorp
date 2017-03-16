@@ -19040,7 +19040,7 @@ exports.default = {
 							};
 							var newImage = new Image(640, 480);
 							var hostname = window.location.hostname;
-							newImage.src = 'http://' + hostname + '/' + this.laravel.job.order_number + '/img/' + result.data.filename;
+							newImage.src = 'http://' + hostname + '/job/' + this.laravel.job.order_number + '/img/' + result.data.filename;
 							newImage.setAttribute('crossOrigin', 'anonymous');
 							$(theInput).closest(".row").find('.lc').append('<div class="literally" style="min-height: 480px"></div><button class="btn btn-primary savediagram pull-right clearfix" style="margin: 10px;">Save Image</button>');
 							this.lc = LC.init(document.getElementsByClassName('literally')[0], {
