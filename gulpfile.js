@@ -15,6 +15,9 @@ require('laravel-elixir-vueify');
 
 elixir(function(mix) {
     mix.browserify('main.js')
+    .styles([
+        'modules/page-loader.css'
+    ], 'public/css/modules.css')
     .sass('app.scss')
     .copy('node_modules/literallycanvas/lib/img', 'public/img/vendor/literallycanvas')
     .copy('node_modules/sweetalert/dist/', 'public/css/vendor/sweetalert')

@@ -1,5 +1,6 @@
 @import url(vendor/literallycanvas/literallycanvas.css);
 @import url(vendor/sweetalert/sweetalert.css);
+@import url(modules.css);
 h4.page-title {
   margin-top: 0; }
 

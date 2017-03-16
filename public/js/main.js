@@ -20958,6 +20958,8 @@ new Vue({
                 e.preventDefault();
             }
         });
+        var elem = document.getElementById("pageLoader");
+        elem.parentNode.removeChild(elem);
     }
 });
 /*var Vue = require('vue');

@@ -7,6 +7,12 @@
 <meta name="description" content="">
 @stop
 
+@section('afterbody')
+<div class="cssload-container" id="pageLoader">
+    <div class="cssload-whirlpool"></div>
+</div>
+@stop
+
 
 @section('header')
 	<div class="row">
@@ -265,7 +271,6 @@
     </div>
     </form>
 @stop
-
 @include('_layout.footer')
 
 @section('pagescript')
