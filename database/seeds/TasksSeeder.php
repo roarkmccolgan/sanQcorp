@@ -86,23 +86,6 @@ class TasksSeeder extends Seeder
 			'created_at' => Carbon::now()
 		]);
 
-		// DB::table('tasks')->insert([ //9
-		//     'name' => 'Establish Site',
-		//     'description' => 'Establish site and safe working environment',
-		//     'alias' => 'establishsite',
-		//     'unit_of_measure' => 'days',
-		//     'rate' => 0.5,
-		//     'created_at' => Carbon::now()
-		// ]);
-		// DB::table('tasks')->insert([ //10
-		//     'name' => 'De-establish Site',
-		//     'description' => 'Clean and de-establish site',
-		//     'alias' => 'deestablishsite',
-		//     'unit_of_measure' => 'days',
-		//     'rate' => 0.5,
-		//     'created_at' => Carbon::now()
-		// ]);
-
 		DB::table('tasks')->insert([ //9
 			'name' => 'Install Fillets',
 			'description' => 'Install high density, fire retardant polyurethane fillets laser cut to sheet profile for insulation and sound reduction purposes',
@@ -188,9 +171,143 @@ class TasksSeeder extends Seeder
 			'description' => 'Spray paint entire roof area by using high-pressure airless spraying equipment with UV Stabilised Industrial grade waterproof coating.(5 colours available)',
 			'alias' => 'ibrcoat',
 			'unit_of_measure' => 'm2',
+			'rate' => 45,
+			'created_at' => Carbon::now()
+		]);
+
+		//tile roof
+		DB::table('tasks')->insert([ //19
+			'name' => 'Ridging',
+			'description' => 'Waterproof ridging to manufacturers specification using non-woven polyester waterproofing membrane impregnated with 100 % pure acrylic waterproofing compound.',
+			'alias' => 'tileridge',
+			'unit_of_measure' => 'lm',
+			'link_to' => 'ridge',
+			'rate' => 180,
+			'created_at' => Carbon::now()
+		]);
+
+		DB::table('tasks')->insert([ //20
+			'name' => 'Sidewall',
+			'description' => 'Waterproof sidewalls to manufacturers specification using non-woven polyester waterproofing membrane impregnated with 100 % pure acrylic waterproofing compound.',
+			'alias' => 'sidewall',
+			'unit_of_measure' => 'lm',
+			'link_to' => 'sidewall',
+			'rate' => 142,
+			'created_at' => Carbon::now()
+		]);
+
+		DB::table('tasks')->insert([ //21
+			'name' => 'Valleys',
+			'description' => 'Remove tiles along valley edges and fit 1m wide flashing detail from ridge to roof edge. Re-fit tiles',
+			'alias' => 'valley',
+			'unit_of_measure' => 'lm',
+			'link_to' => 'valleys',
+			'rate' => 50,
+			'created_at' => Carbon::now()
+		]);
+
+		DB::table('tasks')->insert([ //22
+			'name' => 'Coating',
+			'description' => 'Spray paint entire roof area by using high-pressure airless spraying equipment with UV Stabilised Industrial grade waterproof coating.(5 colours available)',
+			'alias' => 'tilecoat',
+			'unit_of_measure' => 'm2',
+			'rate' => 45,
+			'created_at' => Carbon::now()
+		]);
+
+		//Kryton
+		//Kryton Concrete Repair
+		DB::table('tasks')->insert([ //23
+			'name' => 'Chipping',
+			'description' => 'Using a sharp 25 mm, square chisel, HILTI high speed chisellers chip a chase along the entire length of the water ingress points to',
+			'alias' => 'chipping',
+			'unit_of_measure' => 'lm',
+			'rate' => 70,
+			'created_at' => Carbon::now()
+		]);
+		
+		DB::table('tasks')->insert([ //24
+			'name' => 'Sandblasting',
+			'description' => 'Clean and prepare surface using dustless sand blasting to ensure the pores of the concrete are exposed to allow the growth of “Krystols” into the concrete. (please note that this process is highly important for the success of crystalline repairs, if the pores are not adequately exposed there will be failures)',
+			'alias' => 'sandblasting',
+			'unit_of_measure' => 'm2',
 			'rate' => 400,
 			'created_at' => Carbon::now()
 		]);
+
+		DB::table('tasks')->insert([ //25
+			'name' => 'Pressure Clean',
+			'description' => 'Clean and prepare substrate using high pressure water washers with rotating needle jets. (please note that this process is highly important for the success of crystalline repairs, if the pores are not adequately exposed there will be failures)',
+			'alias' => 'clean',
+			'unit_of_measure' => 'm2',
+			'rate' => 600,
+			'created_at' => Carbon::now()
+		]);
+
+		DB::table('tasks')->insert([ //26
+			'name' => 'Honeycombing',
+			'description' => 'Prepare and open spalled and honeycombed areas to accommodate Kryton concrete repair system.',
+			'alias' => 'honeycombing',
+			'unit_of_measure' => 'm2',
+			'rate' => 50,
+			'created_at' => Carbon::now()
+		]);
+
+		DB::table('tasks')->insert([ //27
+			'name' => 'Plug',
+			'description' => 'Stop water flow with Kryton Plug',
+			'alias' => 'plug',
+			'unit_of_measure' => 'm2',
+			'rate' => 6,
+			'created_at' => Carbon::now()
+		]);
+
+		DB::table('tasks')->insert([ //28
+			'name' => 'Krystol Repair Grout',
+			'description' => 'Clean the chase with clean water, removing all dust and loose concrete and fill the chased area with Kryton Krystol Repair Grout<sup>&reg;</sup> (specially mixed dry-mix)',
+			'alias' => 'grout',
+			'unit_of_measure' => 'm2',
+			'rate' => 50,
+			'created_at' => Carbon::now()
+		]);
+
+		DB::table('tasks')->insert([ //29
+			'name' => 'Pre-wet',
+			'description' => 'Pre-wet surface to be treated to Saturate-Surface- Dry (SSD) condition.',
+			'alias' => 'prewet',
+			'unit_of_measure' => 'm2',
+			'rate' => 400,
+			'created_at' => Carbon::now()
+		]);
+
+		DB::table('tasks')->insert([ //30
+			'name' => 'T1 Slurry',
+			'description' => 'Apply Kryton’s Krystol T1 ® waterproofing compound to surface in a slurry form in accordance with manufacturer’s specification.',
+			'alias' => 't1slurry',
+			'unit_of_measure' => 'm2',
+			'rate' => 200,
+			'created_at' => Carbon::now()
+		]);
+
+		DB::table('tasks')->insert([ //31
+			'name' => 'Moist Cure',
+			'description' => 'Moist cure all treated areas as per Krytons specification in order to insure perfect curing and allow for the Krystols to grow and develop its full properties.',
+			'alias' => 'moistcure',
+			'unit_of_measure' => 'm2',
+			'rate' => 300,
+			'created_at' => Carbon::now()
+		]);
+
+		DB::table('tasks')->insert([ //32
+			'name' => 'T2 Slurry',
+			'description' => 'Apply Kryton’s Krystol T2<sup>&reg;</sup\> waterproofing compound to surface in a slurry form in accordance with manufacturer’s specification.',
+			'alias' => 't2slurry',
+			'unit_of_measure' => 'm2',
+			'rate' => 200,
+			'created_at' => Carbon::now()
+		]);
+
+		
 		DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 	}
 }

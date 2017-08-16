@@ -35,7 +35,7 @@ class ProposalController extends Controller
     		->setOption('margin-right', 0)
     		->setOption('margin-bottom',25)
     		->setOption('margin-left', 0)
-    		->setOption('footer-html', 'http://sanqcorp.app/wkhtmltopdf/footer.html')
+    		->setOption('footer-html', env('APP_DOMAIN').'/wkhtmltopdf/footer')
     		->$type($name);
     }
 }

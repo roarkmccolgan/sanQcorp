@@ -577,6 +577,126 @@ class MaterialsSeeder extends Seeder
             'coverage' => 0.4,
             'created_at' => Carbon::now()
         ]);
+        DB::table('materials')->insert([ //41
+            'name' => 'Petrol generator',
+            'category_id' => 6,
+            'Description' => 'blah',
+            'image' => 'blank.jpg',
+            'stock' => 100000,
+            'pack_size' => 1,
+            'cost_price' => 12.82,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'lt',
+            'product_type' => 'fuel',
+            'coverage' => 200,
+            'created_at' => Carbon::now()
+        ]);
+
+        DB::table('materials')->insert([ //42
+            'name' => 'Diesel generator',
+            'category_id' => 6,
+            'Description' => 'blah',
+            'image' => 'blank.jpg',
+            'stock' => 100000,
+            'pack_size' => 1,
+            'cost_price' => 11.27,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'lt',
+            'product_type' => 'fuel',
+            'coverage' => 300,
+            'created_at' => Carbon::now()
+        ]);
+
+        DB::table('materials')->insert([ //43
+            'name' => 'Electricity',
+            'category_id' => 6,
+            'Description' => 'blah',
+            'image' => 'blank.jpg',
+            'stock' => 100000,
+            'pack_size' => 1,
+            'cost_price' => 0,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'lt',
+            'product_type' => 'fuel',
+            'coverage' => 0,
+            'created_at' => Carbon::now()
+        ]);
+
+        DB::table('materials')->insert([ //44
+            'name' => 'Grit',
+            'category_id' => 3,
+            'Description' => 'blah',
+            'image' => 'blank.jpg',
+            'stock' => 100000,
+            'pack_size' => 500,
+            'cost_price' => 0,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'kg',
+            'product_type' => 'Grit',
+            'coverage' => 400,
+            'created_at' => Carbon::now()
+        ]);
+
+        DB::table('materials')->insert([ //45
+            'name' => 'Kryton Plug',
+            'category_id' => 7,
+            'Description' => 'blah',
+            'image' => 'blank.jpg',
+            'stock' => 1000,
+            'pack_size' => 25,
+            'cost_price' => 800,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'kg',
+            'product_type' => 'Plug',
+            'coverage' => 25,
+            'created_at' => Carbon::now()
+        ]);
+
+        DB::table('materials')->insert([ //46
+            'name' => 'Kryton Repair Grout',
+            'category_id' => 7,
+            'Description' => 'blah',
+            'image' => 'blank.jpg',
+            'stock' => 1000,
+            'pack_size' => 25,
+            'cost_price' => 800,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'kg',
+            'product_type' => 'Grout',
+            'coverage' => 25,
+            'created_at' => Carbon::now()
+        ]);
+
+        DB::table('materials')->insert([ //47
+            'name' => 'Kryton T1',
+            'category_id' => 7,
+            'Description' => 'blah',
+            'image' => 'blank.jpg',
+            'stock' => 1000,
+            'pack_size' => 25,
+            'cost_price' => 800,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'kg',
+            'product_type' => 'T1',
+            'coverage' => 25,
+            'created_at' => Carbon::now()
+        ]);
+
+        DB::table('materials')->insert([ //48
+            'name' => 'Kryton T2',
+            'category_id' => 7,
+            'Description' => 'blah',
+            'image' => 'blank.jpg',
+            'stock' => 1000,
+            'pack_size' => 25,
+            'cost_price' => 800,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'kg',
+            'product_type' => 'T2',
+            'coverage' => 25,
+            'created_at' => Carbon::now()
+        ]);
+
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

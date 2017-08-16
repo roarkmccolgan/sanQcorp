@@ -99,6 +99,10 @@ Route::group(['middleware' => ['web']], function () {
 		return File::get(public_path() . '/sanikakryton/index.html');
 	});
 
+	Route::get('/wkhtmltopdf/footer', function () {
+	    return view('proposal.footer', ['env' => env('APP_DOMAIN')]);
+	});
+
 //////////////////////////////////////////////////////
 //API ROUTES
 //////////////////////////////////////////////////////

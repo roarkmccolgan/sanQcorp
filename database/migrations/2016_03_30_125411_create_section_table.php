@@ -29,6 +29,9 @@ class CreateSectionTable extends Migration
             $table->decimal('length',10,2)->nullable();
             $table->decimal('height',10,2)->nullable();
             $table->decimal('width',10,2)->nullable();
+            $table->decimal('ridge',10,2)->nullable();
+            $table->decimal('sidewall',10,2)->nullable();
+            $table->decimal('valleys',10,2)->nullable();
 
             $table->timestamps();
 

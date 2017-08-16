@@ -19300,7 +19300,10 @@ exports.default = {
                 crosslaps: { value: this.section.crosslaps ? this.section.crosslaps : 0, uom: 'lm', show: true },
                 /*width: {value: this.section.width ? this.section.width:0, uom: 'lm',show:true},
                 length: {value: this.section.length ? this.section.length:0, uom: 'lm',show:true},*/
-                volume: { value: this.section.volume ? this.section.volume : 0, uom: 'm3', show: true }
+                volume: { value: this.section.volume ? this.section.volume : 0, uom: 'm3', show: true },
+                ridge: { value: this.section.ridge ? this.section.ridge : 0, uom: 'lm', show: true },
+                sidewall: { value: this.section.sidewall ? this.section.sidewall : 0, uom: 'lm', show: true },
+                valleys: { value: this.section.valleys ? this.section.valleys : 0, uom: 'lm', show: true }
             }
         };
     },

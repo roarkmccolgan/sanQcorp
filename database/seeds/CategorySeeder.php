@@ -27,5 +27,12 @@ class CategorySeeder extends Seeder
         DB::table('category')->insert([ //5
             'name' => 'Coating'
         ]);
+        DB::table('category')->insert([ //6
+            'name' => 'Fuel'
+        ]);
+
+        DB::table('category')->insert([ //7
+            'name' => 'Kryton'
+        ]);
     }
 }

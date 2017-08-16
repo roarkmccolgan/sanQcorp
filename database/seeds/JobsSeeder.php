@@ -25,9 +25,9 @@ class JobsSeeder extends Seeder
             'type' => 'service',
             'created_at' => Carbon::now()
         ]);
-        DB::table('jobs')->insert([
+        /*DB::table('jobs')->insert([
             'order_number' => 'SAN7030-17',
-            /*'user_id' => 2,*/
+            'user_id' => 2,
             'name' => 'Bungalow Pool',
             'distance' => 1206,
             'status' => 'build',
@@ -37,6 +37,6 @@ class JobsSeeder extends Seeder
             'country' => 'South Africa',
             'type' => 'supply',
             'created_at' => Carbon::now()
-        ]);
+        ]);*/
     }
 }
