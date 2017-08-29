@@ -125,7 +125,7 @@
                         <div class="row">
                             <div class="col-md-12" style="margin: 10px 0; padding-bottom: 10px;">
                                 <strong>Sections</strong>
-                                <button class="btn btn-primary pull-right clearfix" @click.prevent="addSection" style=""><i class="fui-plus"></i> Area</button>  
+                                <button class="btn btn-primary pull-right clearfix" @click.prevent="addSection" style=""><i class="fui-plus"></i> Section</button>  
                             </div>
                         </div>
                         <div v-for="(key, section) in sections">

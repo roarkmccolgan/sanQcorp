@@ -147,7 +147,7 @@
 				<table class="table table-condensed table-bordered">
 					<thead>
 						<tr>
-							<th class="text-center" width="20px"><label class="checkbox no-label toggle-all" for="checkbox-table-1"><input type="checkbox" value="" id="checkbox-table-1" data-toggle="checkbox" style="margin-left: 0;"></label></th>
+							<th class="text-center" width="20px"></th>
 							<th style="padding: 5px 5px;">&nbsp;</th>
 							<th>Description</th>
 						</tr>
@@ -526,6 +526,7 @@
                     }
                     this.option.system.tasks = Object.assign({}, newTasks);
                     if(Object.keys(this.customMaterials).length>0){
+                    	console.log(this.customMaterials);
                     	this.option.system.tasks[alias].materials = this.customMaterials;
                     	this.customMaterials = {};
                     }
