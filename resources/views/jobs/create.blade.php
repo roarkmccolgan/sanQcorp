@@ -25,7 +25,7 @@
 				<input type="text" class="form-control" name="name" value="{{ old('name') }}">
 			</div>
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-4">
 			<div class="form-group">
 				<label for="company_name">Company</label>
 				<vue-autocomplete
@@ -41,20 +41,10 @@
 				<input type="hidden" class="form-control" name="company_name" v-model="vModelLike">
 			</div>		
 		</div>
-		<div class="col-md-3">
-			<div class="row">
-				<div class="col-md-6">
-					<div class="form-group">
-						<label for="custom">Custom Job?</label><br/>
-						<input v-switch="custom" type="checkbox" name="custom" data-toggle="switch" data-on-text="Yes" data-off-text="No" />
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="form-group">
-						<label for="custom">Supply Job?</label><br/>
-						<input v-switch="custom" type="checkbox" name="supply" data-toggle="switch" data-on-text="Yes" data-off-text="No" />
-					</div>
-				</div>
+		<div class="col-md-2">
+			<div class="form-group">
+				<label for="custom">Custom Job?</label><br/>
+				<input v-switch="custom" type="checkbox" name="custom" data-toggle="switch" data-on-text="Yes" data-off-text="No" />
 			</div>		
 		</div>
 	</div>
@@ -179,19 +169,19 @@
 						<div class="col-md-4">
 							<div class="form-group">
 								<label for="company_address1">Number and Street</label>
-								<input type="text" class="form-control" name="company_address1" placeholder="" value="{{ old('company_address1') }}">
+								<input type="text" class="form-control" name="company_address1" placeholder="" :value="company_address1" >
 							</div>
 						</div>
 						<div class="col-md-2">
 							<div class="form-group">
 								<label for="company_address2">Suburb</label>
-								<input type="text" class="form-control" name="company_address2" placeholder="" value="{{ old('company_address2') }}">
+								<input type="text" class="form-control" name="company_address2" placeholder="" :value="company_address2">
 							</div>
 						</div>
 						<div class="col-md-2">
 							<div class="form-group">
 								<label for="company_address2">City</label>
-								<input type="text" class="form-control" name="company_address3" placeholder="" value="{{ old('company_address3') }}">
+								<input type="text" class="form-control" name="company_address3" placeholder="" :value="company_address3">
 							</div>
 						</div>
 						<div class="col-md-2">

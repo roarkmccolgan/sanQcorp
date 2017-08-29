@@ -27,6 +27,15 @@
 		computed: {
 			contactParam: function(){
 				return 'company_id=2&name';
+			},
+			company_address1: function(){
+				return this.old.company_address1 ? this.old.company_address1 : this.address;
+			},
+			company_address2: function(){
+				return this.old.company_address2 ? this.old.company_address2 : this.suburb;
+			},
+			company_address3: function(){
+				return this.old.company_address3 ? this.old.company_address3 : this.city;
 			}
 		},
 		components:{

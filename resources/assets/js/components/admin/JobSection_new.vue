@@ -31,7 +31,7 @@
                 <div class="row">
                     <div class="col-xs-9">
                         <div class="form-group">
-                            <input name="section[{{key}}][name]" type="text" class="form-control input-lg" placeholder="Area Name " v-model="section.name" />
+                            <input name="section[{{key}}][name]" type="text" class="form-control input-lg" placeholder="Section Name " v-model="section.name" />
                             <template v-for="(propKey, property) in properties">
                                 <input type="hidden" name="section[{{key}}][{{propKey}}]" value="{{property.value}}">
                             </template>
@@ -81,20 +81,8 @@
                     </template>
                     <!-- </div> -->
                 </div>
-                <div class="row" style="margin-bottom:14px">
-                    <div class="col-xs-12">
-                        <strong>Parameters</strong>
-                    </div>
-                    <template v-for="(propKey, property) in properties">
-                        <div class="col-xs-4" v-if="property.show">
-                            <label for="section[{{key}}][{{propKey}}]">{{propKey}}</label>
-                            <div class="input-group input-group-sm">
-                                <input name="section[{{key}}][{{propKey}}]" type="number" class="form-control" placeholder="{{propKey}}" v-model="property.value" number @keyup="setProperty | debounce 500" />
-                                <span class="input-group-addon">{{property.uom}}</span>
-                            </div>
-                        </div>
-                    </template>
-                </div>
+                <div class="clearfix" style="height: 40px;"></div>
+                
                 <strong>Options</strong><button class="btn btn-primary btn-sm pull-right clearfix" @click.prevent="addOption" style="margin-left: 10px;"><span class="fui-plus"></span> Option</button>
                 <div class="clearfix" style="margin-top: 10px;"></div>
                 <div class="tile" style="text-align:left" v-show="section.options" v-for="(optionKey, option) in section.options">
@@ -112,8 +100,8 @@
                         :properties="properties"
                         :pandg-total="pandgTotal"
                         :bind-file="bindFile"
-                        :systems="systems"    
-                        :properties="properties">    
+                        :systems="systems"
+                        @property-changed="propChanged">    
                     </job-option>
                 </div>
                 <hr>
@@ -137,18 +125,6 @@
                 ],
                 checkedTasks:[],
                 new_material: '',
-                properties:{
-                    area: {value: this.section.area ? this.section.area:0, uom: 'm2', show:true},
-                    perimeter: {value: this.section.perimeter ? this.section.perimeter:0, uom: 'lm', show:true},
-                    crosslaps: {value: this.section.crosslaps ? this.section.crosslaps:0, uom: 'lm', show:true},
-                    /*width: {value: this.section.width ? this.section.width:0, uom: 'lm',show:true},
-                    length: {value: this.section.length ? this.section.length:0, uom: 'lm',show:true},*/
-                    volume: {value: this.section.volume ? this.section.volume:0, uom: 'm3',show:true},
-                    ridge: {value: this.section.ridge ? this.section.ridge:0, uom: 'lm',show:true},
-                    sidewall: {value: this.section.sidewall ? this.section.sidewall:0, uom: 'lm',show:true},
-                    valleys: {value: this.section.valleys ? this.section.valleys:0, uom: 'lm',show:true},
-                    /*height: {value: this.section.height ? this.section.height:0, uom: 'm',show:true}*/
-                },
             };
         },
         computed: {
@@ -158,7 +134,7 @@
             JobOption: require('./jobOption.vue'),
         },
         methods:{
-            setProperty: function(){
+            propChanged: function(){
                 this.$broadcast('materialChanged');
             },
             addOption: function(){
@@ -191,26 +167,20 @@
             },
             setSurvey: function(surv){
                 this.section.survey = $(surv.target).val();
-                CKEDITOR.instances['section_survey_'+this.key].setData($(surv.target).val());
+                //CKEDITOR.instances['section_survey_'+this.key].setData($(surv.target).val());
+                $('#section_survey_'+this.key).summernote('code', $(surv.target).val());
             },
             cke:function(el){
                 var that = this;
-                CKEDITOR.replace(el, {
-                    customConfig: '',
-                    uiColor: '#eff0f2',
-                    toolbar: [
-                        { name: 'clipboard', items: ['Undo', 'Redo' ] },
-                        { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Strike', '-', 'RemoveFormat' ] },
-                        { name: 'editing', items: [ 'Scayt' ] },
-                        { name: 'insert', items: [ 'Table', 'SpecialChar' ] },
-                        { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
-                        { name: 'document', items: [ 'Source' ] },
-                        { name: 'tools', items: [ 'Maximize' ] },
-                    ]
-                });
-                CKEDITOR.instances[el].on('change', function() {
+                CKEDITOR.replace(el);
+                /*CKEDITOR.instances[el].on('change', function() {
                     that.section.survey = this.document.getBody().getHtml();
-                });
+                });*/
+            },
+            smn:function(el){
+            //console.log(summernote);
+                var that = this;
+                $('#'+el).summernote();
             }
             
         },
@@ -222,7 +192,8 @@
                     this.addPhoto(this.section.photos[i].id,this.section.photos[i].photo,'sections',this.key);
                 }
             }*/
-            this.cke('section_survey_'+this.key);
+            //this.cke('section_survey_'+this.key);
+            this.smn('section_survey_'+this.key);
         }
     };
 </script>

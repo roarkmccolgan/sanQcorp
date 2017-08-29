@@ -1,7 +1,8 @@
 var Vue = require('vue');
-var Swal = require('sweetalert');
-window.CKEDITOR_BASEPATH = '/js/vendor/ckeditor/';
-var ckeditor = require('ckeditor');
+var Swal = require('sweetalert2');
+//window.CKEDITOR_BASEPATH = '/js/vendor/ckeditor/';
+//var ckeditor = require('ckeditor');
+//var summernote = require('summernote');
 
 Vue.use(require('vue-resource'));
 Vue.use(require('vue-moment'));

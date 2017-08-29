@@ -288,7 +288,9 @@
 
             <h6>Terms and Conditions:</h6>
             <ul>
-                <li v-for="term in terms" v-if="checkedTerms.indexOf(term.id)!=-1">@{{term.term}}</li>
+                <template v-for="term in terms | filterBy existsInChecked term.id">
+                    <li>@{{term.term}}</li>
+                </template>
             </ul>
             <h6>Personnel</h6>
             <p>All Sanika staff to be utilised on site are highly experienced</p>

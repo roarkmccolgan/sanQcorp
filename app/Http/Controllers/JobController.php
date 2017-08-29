@@ -412,14 +412,6 @@ class JobController extends Controller
             $newSection = [
                 'name'=>$sec['name'],
                 'survey'=>$sec['survey'],
-                'area'=>isset($sec['area']) ? $sec['area'] : null,
-                'perimeter'=>isset($sec['perimeter']) ? $sec['perimeter'] : null,
-                'difficulty'=>isset($sec['difficulty']) ? $sec['difficulty'] : null,
-                'pitch'=>isset($sec['pitch']) ? $sec['pitch'] : null,
-                'volume'=>isset($sec['volume']) ? $sec['volume'] : null,
-                'length'=>isset($sec['length']) ? $sec['length'] : null,
-                'width'=>isset($sec['width']) ? $sec['width'] : null,
-                'height'=>isset($sec['height']) ?$sec['height'] : null
             ];
             //return $newSection;         
 
@@ -459,7 +451,16 @@ class JobController extends Controller
                     'total_materials' => $opt['total_materials'],
                     'total_cost_price' => $opt['total_cost_price'],
                     'selling_price' => $opt['selling_price'],
-                    'markup' => $opt['markup']
+                    'markup' => $opt['markup'],
+                    //parameters
+                    'area'=>isset($opt['area']) ? $opt['area'] : null,
+                    'perimeter'=>isset($opt['perimeter']) ? $opt['perimeter'] : null,
+                    'difficulty'=>isset($opt['difficulty']) ? $opt['difficulty'] : null,
+                    'pitch'=>isset($opt['pitch']) ? $opt['pitch'] : null,
+                    'volume'=>isset($opt['volume']) ? $opt['volume'] : null,
+                    'length'=>isset($opt['length']) ? $opt['length'] : null,
+                    'width'=>isset($opt['width']) ? $opt['width'] : null,
+                    'height'=>isset($opt['height']) ?$opt['height'] : null
                 ];
                 $maxSellingPrice = $opt['selling_price']>$maxSellingPrice ? $opt['selling_price']:$maxSellingPrice;
 

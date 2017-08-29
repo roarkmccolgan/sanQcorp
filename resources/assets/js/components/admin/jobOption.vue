@@ -16,6 +16,9 @@
 		<div class="row" v-show="option.show">
 			<template v-if="option.system">
 				<input type="hidden" name="section[{{key}}][options][{{optionKey}}][system]" value="{{option.system.id}}">
+				<template v-for="(propKey, property) in properties">
+                    <input type="hidden" name="section[{{key}}][options][{{optionKey}}][{{propKey}}]" value="{{property.value}}">
+                </template>
 				<div class="col-md-12">
 					<div class="row">
 						<div class="col-xs-9">
@@ -44,6 +47,20 @@
 				</div>
 			</div>
 			<div class="col-md-12" v-if="option.system">
+				<div class="row" style="margin-bottom:14px">
+                    <div class="col-xs-12">
+                        <strong>Parameters</strong>
+                    </div>
+                    <template v-for="(propKey, property) in properties">
+                        <div class="col-xs-4" v-if="property.show">
+                            <label for="section[{{key}}][{{propKey}}]">{{propKey}}</label>
+                            <div class="input-group input-group-sm">
+                                <input name="section[{{key}}][{{propKey}}]" type="number" class="form-control" placeholder="{{propKey}}" v-model="property.value" number @keyup="setProperty | debounce 500" />
+                                <span class="input-group-addon">{{property.uom}}</span>
+                            </div>
+                        </div>
+                    </template>
+                </div>
 				<div style="margin-bottm: 5px;">
 					<button class="btn btn-primary pull-right btn-sm" @click.prevent="newTask=!newTask">
 						<span v-if="!newTask">Custom Task</span><span v-else>Close Custom Task</span>
@@ -55,17 +72,21 @@
 					<form id="newtaskForm">
 						<div class="row">
 							<div class="col-xs-4 form-group">
-								<input type="text" class="form-control" placeholder="Name" id="custom-task-name" value="Strip Biddem" />
+								<input type="text" class="form-control" placeholder="Name" id="custom-task-name" value="" />
 							</div>
 							<div class="col-xs-8 form-group">
-								<textarea class="form-control" rows="1" placeholder="Description" id="custom-task-description">Strip and remove existing biddem from the substrate and discard</textarea>
+								<textarea class="form-control" rows="1" placeholder="Description" id="custom-task-description"></textarea>
 							</div>
 							<div class="col-xs-12 form-group">
 								<select class="form-control" data-toggle="select" id="custom-task-existing">
 									<option value="">Select from Existing</option>
 									<template v-for="system in systems">
 										<optgroup label="{{system.name}}">
-											<option v-for="(taskKey, task) in system.tasks" v-if="!option.system.tasks.hasOwnProperty(taskKey)" value="{{task}}">{{task.name}}</option>
+											<template v-for="(taskKey, task) in system.tasks">
+												<template v-if="!option.system.tasks.hasOwnProperty(taskKey)">
+													<option value="{{task}}">{{task.name}}</option>
+												</template>
+											</template>
 										</optgroup>
 									</template>
 								</select>
@@ -79,7 +100,7 @@
 								</select>
 							</div>
 							<div class="col-xs-3 form-group">
-								<input type="text" class="form-control" placeholder="Capability" id="custom-task-rate" value="500" />
+								<input type="text" class="form-control" placeholder="Capability" id="custom-task-rate" value="" />
 							</div>
 							<div class="col-xs-2 form-group">
 								<select class="form-control" data-toggle="select" id="custom-task-order">
@@ -93,8 +114,7 @@
 						</div>
 						<!-- Custom Task Materials -->
 						<div class="row">
-							<div class="col-xs-12" v-for="(matType, mat) in customMaterials">
-							<template v-for="(matId, material) in mat">
+							<div class="col-xs-12" v-for="(matType, material) in customMaterials">
 								<div class="clearfix" style="border-radius: 5px; background-color: #bdc3c7; padding-top: 20px; margin-bottom: 15px; margin-top: 5px;">
 									<span class="fui-cross-circle text-danger" style="position: absolute; right: -12px; top: 2px; z-index: 1" @click="removeCustomMaterial(matType)"></span>
 									<div class="col-xs-3 form-group">
@@ -113,7 +133,6 @@
 										<input type="text" class="form-control" placeholder="Cost Price" id="custom-task-mat-price-{{matType}}" v-model="material.cost_price" />
 									</div>
 								</div>
-							</template>
 							</div>
 						</div>
 						<!-- End Custom Material -->
@@ -321,7 +340,7 @@
 </template>
 <script>
 	export default{
-		props: ['section','key','option','optionKey','images','laravel','removeOption','bindFile','systems','properties','basicSystems','addTerm','pandgTotal'],
+		props: ['section','key','option','optionKey','images','laravel','removeOption','bindFile','systems','basicSystems','addTerm','pandgTotal'],
 		data: function() {
 			return {
 				newTask: false,
@@ -336,6 +355,19 @@
                     	{ insert: this.option.description },
                     ],
                 },
+                properties:{
+                    area: {value: 0, uom: 'm2', show:false},
+                    perimeter: {value: 0, uom: 'lm', show:false},
+                    crosslaps: {value: 0, uom: 'lm', show:false},
+                    /*width: {value: 0, uom: 'lm',show:false},
+                    length: {value: 0, uom: 'lm',show:false},*/
+                    volume: {value: 0, uom: 'm3',show:false},
+                    ridge: {value: 0, uom: 'lm',show:false},
+                    sidewall: {value: 0, uom: 'lm',show:false},
+                    valleys: {value: 0, uom: 'lm',show:false},
+                    crack: {value: 0, uom: 'lm',show:false},
+                    /*height: {value: 0, uom: 'm',show:false}*/
+                }
 			};
 		},
 		computed:{
@@ -367,6 +399,9 @@
             }
         },
 		methods: {
+			setProperty: function(){
+				this.$dispatch('property-changed');
+			},
 			getObjSize: function(obj) {
                 var size = 0, key;
                 for (key in obj) {
@@ -382,12 +417,17 @@
 	            	for (var i = this.option.system.terms.length - 1; i >= 0; i--) {
 	            		this.addTerm(this.option.system.terms[i].id, this.option.system.terms[i].term, true);
 	            	}
-	            	var el = 'option_description_'+this.optionKey;
-	            	if(CKEDITOR.instances[el]){
-	            		CKEDITOR.instances[el].setData(this.option.description);
-	            	}else{
-	            		this.cke(el);
+	            	for (var key in this.properties) {
+	            		this.properties[key].show = false;
 	            	}
+	            	for (var key in this.option.system.tasks) {
+				        if (this.option.system.tasks.hasOwnProperty(key)) {
+				        	this.properties[this.option.system.tasks[key].link_to].show = true;
+				        }
+				    }
+
+	            	var el = 'option_description_'+this.optionKey;
+	            	$('#'+el).summernote('code', this.option.description);
 	            }
             },
             taskChange: function(){
@@ -493,7 +533,7 @@
                     this.newTask = false;
 
                 }else{
-
+                	console.log('jdjdjdj');
                 }
 
             },
@@ -524,15 +564,13 @@
 	           	}
 	           	var mat = {}
 				mat['cus'+tot] = {
-					0: {
-						id: 0,
-			           	name: 'Biddem',
-			           	product_type: 'biddem',
-			           	unit_of_measure: 'm2',
-			           	pack_size: '20',
-			           	coverage: '20',
-			           	cost_price: '240'
-			        }
+					id: 0,
+		           	name: 'Biddem',
+		           	product_type: 'biddem',
+		           	unit_of_measure: 'm2',
+		           	pack_size: '20',
+		           	coverage: '20',
+		           	cost_price: '240'
 	           	}
 	           	this.customMaterials = Object.assign({}, this.customMaterials, mat);
 	           	
@@ -584,7 +622,7 @@
             	//var markupStr = $('#description-'+this.optionKey).summernote('code');
             	//this.option.description = markupStr;
             },
-            cke:function(el){
+            /*cke:function(el){
             	var that = this;
             	CKEDITOR.replace(el, {
 				    customConfig: '',
@@ -602,6 +640,10 @@
 				CKEDITOR.instances[el].on('change', function() {
                     that.option.description = this.document.getBody().getHtml();
                 });
+            }*/
+            smn:function(el){
+                var that = this;
+                $('#'+el).summernote();
             }
 		},
 		ready(){
@@ -613,7 +655,8 @@
                 }
             }
             if(this.option.system){
-            	this.cke('option_description_'+this.optionKey);
+            	//this.cke('option_description_'+this.optionKey);
+            	this.smn('option_description_'+this.optionKey);
             }
 		}
 	}

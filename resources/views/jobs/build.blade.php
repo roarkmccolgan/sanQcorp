@@ -124,7 +124,7 @@
                     <div class="area">
                         <div class="row">
                             <div class="col-md-12" style="margin: 10px 0; padding-bottom: 10px;">
-                                <strong>Site Areas</strong>
+                                <strong>Sections</strong>
                                 <button class="btn btn-primary pull-right clearfix" @click.prevent="addSection" style=""><i class="fui-plus"></i> Area</button>  
                             </div>
                         </div>
@@ -276,17 +276,10 @@
 @section('pagescript')
 <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react-with-addons.js"></script>
 <script src="{{asset('js/vendor/literallycanvas.js')}}"></script>
-<!-- <script src="{{asset('js/vendor/ckeditor/ckeditor.js')}}"></script> -->
+<script src="{{asset('js/vendor/summernote/summernote.min.js')}}"></script>
 <script type="text/javascript">
-
-    //$("select").select2({dropdownCssClass: 'dropdown-inverse'});
     $(document).ready(function() {
-        /*$('#hello').summernote({
-            height: 300,                 // set editor height
-            minHeight: null,             // set minimum height of editor
-            maxHeight: null,             // set maximum height of editor
-            focus: true                  // set focus to editable area after initializing summernote
-        });*/
+        
     });
 </script>
 @stop

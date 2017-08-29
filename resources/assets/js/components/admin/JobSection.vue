@@ -36,9 +36,6 @@
                         <!-- <h6 style="margin: 0">{{section.name}}</h6> -->
                         <div class="form-group">
                             <input name="section[{{key}}][name]" type="text" class="form-control input-lg" placeholder="Section Name" v-model="section.name" />
-                            <template v-for="(propKey, property) in properties">
-                                <input type="hidden" name="section[{{key}}][{{propKey}}]" value="{{property.value}}">
-                            </template>
                         </div>
                         <div class="form-group">
                             <select class="form-control" @change="setSurvey($event)">

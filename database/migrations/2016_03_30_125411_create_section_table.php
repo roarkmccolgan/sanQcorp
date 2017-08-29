@@ -21,18 +21,6 @@ class CreateSectionTable extends Migration
             $table->boolean('complete')->default(0);
             $table->binary('properties')->nullable();
 
-            $table->integer('area')->nullable();
-            $table->integer('perimeter')->nullable();
-            $table->integer('difficulty')->nullable();
-            $table->string('pitch')->nullable();
-            $table->string('volume')->nullable();
-            $table->decimal('length',10,2)->nullable();
-            $table->decimal('height',10,2)->nullable();
-            $table->decimal('width',10,2)->nullable();
-            $table->decimal('ridge',10,2)->nullable();
-            $table->decimal('sidewall',10,2)->nullable();
-            $table->decimal('valleys',10,2)->nullable();
-
             $table->timestamps();
 
             $table->foreign('jobs_id')->references('id')->on('jobs');

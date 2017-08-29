@@ -151,7 +151,7 @@ class TasksSeeder extends Seeder
 			'description' => 'Waterproof cross laps to manufacturers specification using non-woven polyester waterproofing membrane impregnated with 100 % pure acrylic waterproofing compound.',
 			'alias' => 'crosslaps',
 			'unit_of_measure' => 'lm',
-			'link_to' => 'perimeter',
+			'link_to' => 'crosslaps',
 			'rate' => 200,
 			'created_at' => Carbon::now()
 		]);
@@ -222,6 +222,7 @@ class TasksSeeder extends Seeder
 			'description' => 'Using a sharp 25 mm, square chisel, HILTI high speed chisellers chip a chase along the entire length of the water ingress points to',
 			'alias' => 'chipping',
 			'unit_of_measure' => 'lm',
+			'link_to' => 'crack',
 			'rate' => 70,
 			'created_at' => Carbon::now()
 		]);
@@ -249,6 +250,7 @@ class TasksSeeder extends Seeder
 			'description' => 'Prepare and open spalled and honeycombed areas to accommodate Kryton concrete repair system.',
 			'alias' => 'honeycombing',
 			'unit_of_measure' => 'm2',
+			'link_to' => 'honeycomb',
 			'rate' => 50,
 			'created_at' => Carbon::now()
 		]);
@@ -258,6 +260,7 @@ class TasksSeeder extends Seeder
 			'description' => 'Stop water flow with Kryton Plug',
 			'alias' => 'plug',
 			'unit_of_measure' => 'm2',
+			'link_to' => 'plug',
 			'rate' => 6,
 			'created_at' => Carbon::now()
 		]);
@@ -267,6 +270,7 @@ class TasksSeeder extends Seeder
 			'description' => 'Clean the chase with clean water, removing all dust and loose concrete and fill the chased area with Kryton Krystol Repair Grout<sup>&reg;</sup> (specially mixed dry-mix)',
 			'alias' => 'grout',
 			'unit_of_measure' => 'm2',
+			'link_to' => 'crack',
 			'rate' => 50,
 			'created_at' => Carbon::now()
 		]);

@@ -300,27 +300,27 @@ class TaskMaterialsSeeder extends Seeder
         DB::table('material_task')->insert([
             'material_id' => 34,
             'task_id' => 22,
-            'area' => '+((area/100)*10)'
+            'area' => '+((property/100)*10))'
         ]);
         DB::table('material_task')->insert([
             'material_id' => 35,
             'task_id' => 22,
-            'area' => '+((area/100)*10)'
+            'area' => '+((property/100)*10))'
         ]);
         DB::table('material_task')->insert([
             'material_id' => 36,
             'task_id' => 22,
-            'area' => '+((area/100)*10)'
+            'area' => '+((property/100)*10))'
         ]);
         DB::table('material_task')->insert([
             'material_id' => 37,
             'task_id' => 22,
-            'area' => '+((area/100)*10)'
+            'area' => '+((property/100)*10))'
         ]);
         DB::table('material_task')->insert([
             'material_id' => 38,
             'task_id' => 22,
-            'area' => '+((area/100)*10)'
+            'area' => '+((property/100)*10))'
         ]);
 
         //Kryton Crack Repair

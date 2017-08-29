@@ -14,15 +14,17 @@
                     <span class="input-group-addon">{{unit_of_measure}}</span>
                 </div>
             </div>
-            <div class="col-sm-4" v-if="variables" v-for="(varType, variable) in variables">
-                <label for="section[{{sectionKey}}][options][{{optionKey}}][tasks][{{taskKey}}][variables][{{varType}}][id]">
-                    {{varType}}
-                </label>
-                <select name="section[{{sectionKey}}][options][{{optionKey}}][tasks][{{taskKey}}][variables][{{varType}}][id]" v-model="selectedVariable" class="form-control input-sm" @change="setVariable()">
-                    <option value="">Default ({{task.rate}})</option>
-                    <option v-for="(varKey, varOpt) in variable" v-bind:value="varOpt.id">{{varOpt.label}} ({{varOpt.rate}})</option>
-                </select>
-            </div>
+            <template v-if="variables">
+                <div class="col-sm-4" v-for="(varType, variable) in variables">
+                    <label for="section[{{sectionKey}}][options][{{optionKey}}][tasks][{{taskKey}}][variables][{{varType}}][id]">
+                        {{varType}}
+                    </label>
+                    <select name="section[{{sectionKey}}][options][{{optionKey}}][tasks][{{taskKey}}][variables][{{varType}}][id]" v-model="selectedVariable" class="form-control input-sm" @change="setVariable()">
+                        <option value="">Default ({{task.rate}})</option>
+                        <option v-for="(varKey, varOpt) in variable" v-bind:value="varOpt.id">{{varOpt.label}} ({{varOpt.rate}})</option>
+                    </select>
+                </div>
+            </template>
         </div>
         <div class="row" v-if="task.materials.length>0">
             <div class="col-sm-12">
@@ -209,12 +211,18 @@
                         if(this.task.materials[i].areaconversion){
                             var strprop = this.property.toString();
                             var conversion = this.task.materials[i].areaconversion.toString();
+                            //get all params in conversion
+                            //var params = conversion.match(/\b[a-zA-Z]+\b/g);
+                            //var parObj = {};
+                            /*for (var j = 0; j < params.length; j++) {
+                                parObj[params[j]] = this.properties[params[j]].value;
+                            }
+                            console.log(parObj);*/
+
                             var bracket = conversion.indexOf("(") !== -1 ? '(':'';
-                            console.log(bracket);
                             property = eval(bracket + strprop + conversion);
                             newProp = property;
-                        }
-                        
+                        }  
                         this.task.materials[i].qty = Math.ceil((property/this.task.materials[i].coverage));
                         this.task.materials[i].price = this.task.materials[i].qty * this.task.materials[i].cost_price;
                     }
