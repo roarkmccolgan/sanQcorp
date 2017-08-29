@@ -171,7 +171,7 @@ class TasksSeeder extends Seeder
 			'description' => 'Spray paint entire roof area by using high-pressure airless spraying equipment with UV Stabilised Industrial grade waterproof coating.(5 colours available)',
 			'alias' => 'ibrcoat',
 			'unit_of_measure' => 'm2',
-			'rate' => 45,
+			'rate' => 400,
 			'created_at' => Carbon::now()
 		]);
 
@@ -211,7 +211,7 @@ class TasksSeeder extends Seeder
 			'description' => 'Spray paint entire roof area by using high-pressure airless spraying equipment with UV Stabilised Industrial grade waterproof coating.(5 colours available)',
 			'alias' => 'tilecoat',
 			'unit_of_measure' => 'm2',
-			'rate' => 45,
+			'rate' => 285,
 			'created_at' => Carbon::now()
 		]);
 
