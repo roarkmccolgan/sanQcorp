@@ -61,8 +61,8 @@
                         </div>
                     </template>
                 </div>
-				<div style="margin-bottm: 5px;">
-					<button class="btn btn-primary pull-right btn-sm" @click.prevent="newTask=!newTask">
+				<div style="margin-bottom: 25px;">
+					<button class="btn btn-inverse pull-right" @click.prevent="newTask=!newTask">
 						<span v-if="!newTask">Custom Task</span><span v-else>Close Custom Task</span>
 					</button>
 					<strong>Tasks:</strong>
@@ -70,36 +70,17 @@
 				<div class="clearfix"></div>
 				<div class="" v-show="newTask">
 					<form id="newtaskForm">
-						<div class="row">
-							<div class="col-xs-4 form-group">
+						<div class="row" v-if="!newTaskExisting">
+							<div class="col-xs-6 form-group">
 								<input type="text" class="form-control" placeholder="Name" id="custom-task-name" value="" />
 							</div>
-							<div class="col-xs-8 form-group">
-								<textarea class="form-control" rows="1" placeholder="Description" id="custom-task-description"></textarea>
-							</div>
-							<div class="col-xs-12 form-group">
-								<select class="form-control" data-toggle="select" id="custom-task-existing">
-									<option value="">Select from Existing</option>
-									<template v-for="system in systems">
-										<optgroup label="{{system.name}}">
-											<template v-for="(taskKey, task) in system.tasks">
-												<template v-if="!option.system.tasks.hasOwnProperty(taskKey)">
-													<option value="{{task}}">{{task.name}}</option>
-												</template>
-											</template>
-										</optgroup>
-									</template>
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-xs-4 form-group">
+							<div class="col-xs-2 form-group">
 								<select class="form-control" data-toggle="select" id="custom-task-property">
 									<!-- <option>Property</option> -->
 									<option v-for="(propertyKey, property) in properties" value="{{propertyKey}}">{{propertyKey}}</option>
 								</select>
 							</div>
-							<div class="col-xs-3 form-group">
+							<div class="col-xs-2 form-group">
 								<input type="text" class="form-control" placeholder="Capability" id="custom-task-rate" value="" />
 							</div>
 							<div class="col-xs-2 form-group">
@@ -108,12 +89,19 @@
 									<option v-for="task in option.system.tasks" value="{{task.pivot ? task.pivot.order : task.order}}">{{task.pivot ? task.pivot.order : task.order}}</option>
 								</select>
 							</div>
-							<div class="col-xs-13 clearfix">
-		                        <button class="btn btn-inverse" @click.prevent="addCustomMaterial()" style=""><i class="fui-plus-circle"></i> Add Material</button>
+						</div>
+						<div class="row" v-if="!newTaskExisting">
+							<div class="col-xs-12 form-group">
+								<textarea class="form-control" rows="1" placeholder="Description" id="custom-task-description"></textarea>
+							</div>
+						</div>
+						<div class="row" v-if="!newTaskExisting">
+							<div class="col-xs-6 clearfix">
+		                        <a class="label text-primary" href="#" @click.prevent="addCustomMaterial()" style=""><i class="fui-plus-circle"></i> Add Material</a>
 		                    </div>
 						</div>
 						<!-- Custom Task Materials -->
-						<div class="row">
+						<div class="row" v-if="!newTaskExisting">
 							<div class="col-xs-12" v-for="(matType, material) in customMaterials">
 								<div class="clearfix" style="border-radius: 5px; background-color: #bdc3c7; padding-top: 20px; margin-bottom: 15px; margin-top: 5px;">
 									<span class="fui-cross-circle text-danger" style="position: absolute; right: -12px; top: 2px; z-index: 1" @click="removeCustomMaterial(matType)"></span>
@@ -136,8 +124,30 @@
 							</div>
 						</div>
 						<!-- End Custom Material -->
+						<div class="row" v-if="newTaskExisting">
+							<div class="col-xs-8 form-group">
+								<select class="form-control" data-toggle="select" id="custom-task-existing">
+									<option value="">Select from Existing</option>
+									<template v-for="system in systems">
+										<optgroup label="{{system.name}}">
+											<template v-for="(taskKey, task) in system.tasks">
+												<template v-if="!option.system.tasks.hasOwnProperty(taskKey)">
+													<option value="{{system.id}}|{{taskKey}}">{{task.name}}</option>
+												</template>
+											</template>
+										</optgroup>
+									</template>
+								</select>
+							</div>
+							<div class="col-xs-2 form-group">
+								<select class="form-control" data-toggle="select" id="custom-task-existing-order">
+									<option>Position</option>
+									<option v-for="task in option.system.tasks" value="{{task.pivot ? task.pivot.order : task.order}}">{{task.pivot ? task.pivot.order : task.order}}</option>
+								</select>
+							</div>
+						</div>
 						<div class="row">
-							<div class="col-xs-3 form-group">
+							<div class="col-xs-2 col-xs-offset-10 form-group text-right">
 								<button class="btn btn-primary" @click.prevent="customTask(optionKey)">Add Task</button>
 							</div>
 						</div>
@@ -210,8 +220,8 @@
 							</tr>
 						</thead>
 						<tbody>
-							<template v-for="(taskKey, task) in option.tasks">
-								<tr v-for="(matKey, material) in task.materials">
+							
+								<tr v-for="(matKey, material) in all_materials">
 									<td> {{material.product_type}}</td>
 									<td>
 										{{material.name}}
@@ -227,7 +237,7 @@
 										<input name="section[{{key}}][options][{{optionKey}}][materials][{{task.alias}}][cost_price]" type="hidden" v-model="material.cost_price"> -->
 									</td>
 								</tr>
-							</template>
+							
 							<tr v-if="option.materials">
 								<th colspan="4">Extra Materials</th>
 							</tr>
@@ -322,10 +332,13 @@
 						<label>Markup %</label>
 						<input name="section[{{key}}][options][{{optionKey}}][markup]" type="number" class="form-control" placeholder="Markup %" v-model="option.markup" number />
 					</div>
-					<div class="col-sm-8">
+					<div class="col-sm-4">
 						<label>Selling Price:</label> <h3 style="margin:0">{{option.total_cost_price+((option.total_cost_price/100)*option.markup) | currency 'R'}}</h3>
 						<input name="section[{{key}}][options][{{optionKey}}][selling_price]" type="hidden" v-model="option.selling_price">
 						<small><!-- {{(option.total_cost_price+((option.total_cost_price/100)*option.markup))/properties.size.value | currency 'R'}} /m2 --></small>
+					</div>
+					<div class="col-sm-4">
+						<label class="text-muted">Rate / m2:</label> <h3 class="text-muted" style="margin:0">{{(option.total_cost_price+((option.total_cost_price/100)*option.markup)) / properties.area.value | currency 'R'}}</h3>
 					</div>
 				</div>
 				<div class="row" v-if="pandgTotal">
@@ -344,6 +357,7 @@
 		data: function() {
 			return {
 				newTask: false,
+				newTaskExisting: false,
 				new_material: '',
 				customMaterials: {},
 				markup: this.option.markup,
@@ -381,6 +395,24 @@
 					}
 				}
 				return total;
+			},
+			all_materials: function(){
+				var mats = [];
+				for (var i = 0; i < this.option.tasks.length; i++) {
+					for (var j = 0; j < this.option.tasks[i]['materials'].length; j++) {
+						var add = true;
+						for (var k = 0; k < mats.length; k++) {
+							if(mats[k]['product_type'] == this.option.tasks[i]['materials'][j]['product_type']){
+								mats[k]['qty'] += this.option.tasks[i]['materials'][j]['qty'];
+								add = false;
+							}
+						}
+						if(add){
+							mats.push(this.option.tasks[i]['materials'][j]);
+						}
+					}
+				}
+				return mats;
 			}
 		},
 		components:{
@@ -498,6 +530,7 @@
                 var link_to = $('#custom-task-property').val();
                 var rate = $('#custom-task-rate').val();
                 var order = Number($('#custom-task-order').val());
+                var existingOrder = Number($('#custom-task-existing-order').val());
                 if(existing==''){
                     var task = {
                     	id: 0,
@@ -526,15 +559,43 @@
                     }
                     this.option.system.tasks = Object.assign({}, newTasks);
                     if(Object.keys(this.customMaterials).length>0){
-                    	console.log(this.customMaterials);
-                    	this.option.system.tasks[alias].materials = this.customMaterials;
+                    	var cusMaterials = {};
+                    	for (var matKey in this.customMaterials){
+                    		if(cusMaterials.hasOwnProperty(this.customMaterials[matKey]['product_type'])){
+                    			var tot = 0;
+                    			for(var lastKey in cusMaterials[this.customMaterials[matKey]['product_type']]){
+					           		tot++;
+					           	}
+                    			cusMaterials[this.customMaterials[matKey]['product_type']][tot] = this.customMaterials[matKey];
+                    		}else{
+                    			cusMaterials[this.customMaterials[matKey]['product_type']] = {
+                    				0: this.customMaterials[matKey]
+                    			}
+                    		}
+                    	}
+                    	this.option.system.tasks[alias].materials = cusMaterials;
                     	this.customMaterials = {};
                     }
-                    //this.option.system.tasks = Object.assign({}, this.option.system.tasks, task);
                     this.newTask = false;
 
                 }else{
-                	console.log('jdjdjdj');
+                	var sysTask = existing.split('|');
+                	console.log(sysTask);
+                	var newTasks = {};
+                    var shiftOrder = false;
+                	for (var taskKey in this.option.system.tasks){
+                        if(this.option.system.tasks.hasOwnProperty(taskKey)){
+                            if((this.option.system.tasks[taskKey].pivot && this.option.system.tasks[taskKey].pivot.order===existingOrder) || this.option.system.tasks[taskKey].order===existingOrder){
+                                newTasks[sysTask[1]] = this.systems[sysTask[0]]['tasks'][sysTask[1]];
+                                shiftOrder = true;
+                            }
+                            if(shiftOrder){
+                            	this.option.system.tasks[taskKey].pivot ? this.option.system.tasks[taskKey].pivot.order++ : this.option.system.tasks[taskKey].order++;
+                            }
+                            newTasks[taskKey] = this.option.system.tasks[taskKey];
+                        }
+                    }
+                    this.option.system.tasks = Object.assign({}, newTasks);
                 }
 
             },
@@ -577,8 +638,15 @@
 	           	
             },
             removeCustomMaterial: function(matKey){
-            	console.log(this.customMaterials[matKey]);
-                this.$delete(this.customMaterials, matKey);
+            	var updatedCustomMaterials = {};
+            	for(var cusKey in this.customMaterials){
+	           		if (!cusKey== matKey) {
+	           			updatedCustomMaterials[cusKey] = this.customMaterials[cusKey];
+	           		}else{
+	           			delete this.customMaterials[matKey];
+	           		}
+	           	}
+                this.customMaterials = Object.assign({}, this.customMaterials, updatedCustomMaterials);
             },
             addNote: function(optionKey){
                 this.option.notes.push({

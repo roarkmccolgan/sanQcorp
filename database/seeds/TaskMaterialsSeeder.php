@@ -28,6 +28,16 @@ class TaskMaterialsSeeder extends Seeder
             'task_id' => 1
         ]);
 
+        //Torching Plain
+        DB::table('material_task')->insert([
+            'material_id' => 49,
+            'task_id' => 8
+        ]);
+        DB::table('material_task')->insert([
+            'material_id' => 4,
+            'task_id' => 8
+        ]);
+
         //Torch Primer
         DB::table('material_task')->insert([
             'material_id' => 3,
@@ -323,89 +333,117 @@ class TaskMaterialsSeeder extends Seeder
             'area' => '+((property/100)*10))'
         ]);
 
+        //Corrugated Coating
+        //Frogskin
+        DB::table('material_task')->insert([
+            'material_id' => 34,
+            'task_id' => 23,
+            'area' => '+((property/100)*10))'
+        ]);
+        DB::table('material_task')->insert([
+            'material_id' => 35,
+            'task_id' => 23,
+            'area' => '+((property/100)*10))'
+        ]);
+        DB::table('material_task')->insert([
+            'material_id' => 36,
+            'task_id' => 23,
+            'area' => '+((property/100)*10))'
+        ]);
+        DB::table('material_task')->insert([
+            'material_id' => 37,
+            'task_id' => 23,
+            'area' => '+((property/100)*10))'
+        ]);
+        DB::table('material_task')->insert([
+            'material_id' => 38,
+            'task_id' => 23,
+            'area' => '+((property/100)*10))'
+        ]);
+
         //Kryton Crack Repair
         //Chipping
         DB::table('material_task')->insert([
             'material_id' => 41,//Petrol generator
-            'task_id' => 23, // Chipping
+            'task_id' => 24, // Chipping
         ]);
         DB::table('material_task')->insert([
             'material_id' => 42,//Diesel generator
-            'task_id' => 23, // Chipping
+            'task_id' => 24, // Chipping
         ]);
         DB::table('material_task')->insert([
             'material_id' => 43,//Electricity
-            'task_id' => 23, // Chipping
+            'task_id' => 24, // Chipping
         ]);
 
         //Sandblasting
         DB::table('material_task')->insert([
             'material_id' => 44,//Grit
-            'task_id' => 24, // Chipping
+            'task_id' => 25, // sandblasting
         ]);
         DB::table('material_task')->insert([
             'material_id' => 41,//Petrol generator
-            'task_id' => 24, // Chipping
+            'task_id' => 25, // sandblasting
         ]);
         DB::table('material_task')->insert([
             'material_id' => 42,//Diesel generator
-            'task_id' => 24, // Chipping
+            'task_id' => 25, // sandblasting
         ]);
         DB::table('material_task')->insert([
             'material_id' => 43,//Electricity
-            'task_id' => 24, // Chipping
+            'task_id' => 25, // sandblasting
         ]);
 
         //Pressure Cleaning
         DB::table('material_task')->insert([
             'material_id' => 41,//Petrol generator
-            'task_id' => 25, // Chipping
+            'task_id' => 26, // Pressure Cleaning
         ]);
         DB::table('material_task')->insert([
             'material_id' => 42,//Diesel generator
-            'task_id' => 25, // Chipping
+            'task_id' => 26, // Pressure Cleaning
         ]);
         DB::table('material_task')->insert([
             'material_id' => 43,//Electricity
-            'task_id' => 25, // Chipping
+            'task_id' => 26, // Pressure Cleaning
         ]);
 
         //Honeycombing
         DB::table('material_task')->insert([
             'material_id' => 41,//Petrol generator
-            'task_id' => 26, // Chipping
+            'task_id' => 27, // Honeycombing
         ]);
         DB::table('material_task')->insert([
             'material_id' => 42,//Diesel generator
-            'task_id' => 26, // Chipping
+            'task_id' => 27, // Honeycombing
         ]);
         DB::table('material_task')->insert([
             'material_id' => 43,//Electricity
-            'task_id' => 26, // Chipping
+            'task_id' => 27, // Honeycombing
         ]);
 
         //Plug
         DB::table('material_task')->insert([
             'material_id' => 45,//Plug
-            'task_id' => 27, //Plug
+            'task_id' => 28, //Plug
         ]);
 
-        //Plug
+        //Grout
         DB::table('material_task')->insert([
             'material_id' => 46,//Grout
-            'task_id' => 28, //Grout
+            'task_id' => 29, //Grout
         ]);
 
         //T1Slurry
         DB::table('material_task')->insert([
             'material_id' => 47,//T1Slurry
-            'task_id' => 30, //T1Slurry
+            'task_id' => 31, //T1Slurry
         ]);
 
         //T2Slurry
         DB::table('material_task')->insert([
             'material_id' => 48,//T2Slurry
-            'task_id' => 32, //T2Slurry
+            'task_id' => 33, //T2Slurry
         ]);
         
 

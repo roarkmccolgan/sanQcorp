@@ -107,6 +107,41 @@ class SystemTaskSeeder extends Seeder
 			'order' => 5
 		]);
 
+		//Waterproofing and Coating of a Corrugated Roof
+		DB::table('system_task')->insert([
+			'system_id' => 4,
+			'task_id' => 12, //clean
+			'order' => 1
+		]);
+		DB::table('system_task')->insert([
+			'system_id' => 4,
+			'task_id' => 19, //ridging
+			'order' => 2
+		]);
+		DB::table('system_task')->insert([
+			'system_id' => 4,
+			'task_id' => 15, //overlaps
+			'order' => 3
+		]);
+
+		DB::table('system_task')->insert([
+			'system_id' => 4,
+			'task_id' => 16, //crosslaps
+			'order' => 4
+		]);
+		
+		DB::table('system_task')->insert([
+			'system_id' => 4,
+			'task_id' => 20, //sidewall
+			'order' => 5
+		]);
+
+		DB::table('system_task')->insert([
+			'system_id' => 4,
+			'task_id' => 23, //Coating
+			'order' => 6
+		]);
+
 		//Sanika's Maintenance Free Mineral Torch-on Waterproofing System
 		DB::table('system_task')->insert([
 			'system_id' => 5,
@@ -353,60 +388,60 @@ class SystemTaskSeeder extends Seeder
 		//Kryton Concrete repair and Rejuvination
 		DB::table('system_task')->insert([ // 
 			'system_id' => 15,
-			'task_id' => 23, //Chipping
+			'task_id' => 24, //Chipping
 			'order' => 1
 		]);
 		DB::table('system_task')->insert([ // 
 			'system_id' => 15,
-			'task_id' => 24, //Sandblasting
+			'task_id' => 25, //Sandblasting
 			'order' => 2
 		]);
 
 		DB::table('system_task')->insert([ // 
 			'system_id' => 15,
-			'task_id' => 25, //Pressure Clean
+			'task_id' => 26, //Pressure Clean
 			'order' => 3
 		]);
 
 		DB::table('system_task')->insert([ // 
 			'system_id' => 15,
-			'task_id' => 26, //Honeycomb
+			'task_id' => 27, //Honeycomb
 			'order' => 4
 		]);
 
 		DB::table('system_task')->insert([ // 
 			'system_id' => 15,
-			'task_id' => 27, //Plug
+			'task_id' => 28, //Plug
 			'order' => 5
 		]);
 
 		DB::table('system_task')->insert([ // 
 			'system_id' => 15,
-			'task_id' => 28, //Grout
+			'task_id' => 29, //Grout
 			'order' => 6
 		]);
 
 		DB::table('system_task')->insert([ // 
 			'system_id' => 15,
-			'task_id' => 29, //Prewet
+			'task_id' => 30, //Prewet
 			'order' => 7
 		]);
 
 		DB::table('system_task')->insert([ // 
 			'system_id' => 15,
-			'task_id' => 30, //t1slurry
+			'task_id' => 31, //t1slurry
 			'order' => 8
 		]);
 
 		DB::table('system_task')->insert([ // 
 			'system_id' => 15,
-			'task_id' => 31, //Moist Cure
+			'task_id' => 32, //Moist Cure
 			'order' => 9
 		]);
 
 		DB::table('system_task')->insert([ // 
 			'system_id' => 15,
-			'task_id' => 32, //T2
+			'task_id' => 33, //T2
 			'order' => 10
 		]);
 

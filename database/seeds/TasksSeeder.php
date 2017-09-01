@@ -215,9 +215,20 @@ class TasksSeeder extends Seeder
 			'created_at' => Carbon::now()
 		]);
 
+		//corrugated roof
+
+		DB::table('tasks')->insert([ //23
+			'name' => 'Coating',
+			'description' => 'Spray paint entire roof area by using high-pressure airless spraying equipment with UV Stabilised Industrial grade waterproof coating.(5 colours available)',
+			'alias' => 'corrucoat',
+			'unit_of_measure' => 'm2',
+			'rate' => 285,
+			'created_at' => Carbon::now()
+		]);
+
 		//Kryton
 		//Kryton Concrete Repair
-		DB::table('tasks')->insert([ //23
+		DB::table('tasks')->insert([ //24
 			'name' => 'Chipping',
 			'description' => 'Using a sharp 25 mm, square chisel, HILTI high speed chisellers chip a chase along the entire length of the water ingress points to',
 			'alias' => 'chipping',
@@ -227,7 +238,7 @@ class TasksSeeder extends Seeder
 			'created_at' => Carbon::now()
 		]);
 		
-		DB::table('tasks')->insert([ //24
+		DB::table('tasks')->insert([ //25
 			'name' => 'Sandblasting',
 			'description' => 'Clean and prepare surface using dustless sand blasting to ensure the pores of the concrete are exposed to allow the growth of “Krystols” into the concrete. (please note that this process is highly important for the success of crystalline repairs, if the pores are not adequately exposed there will be failures)',
 			'alias' => 'sandblasting',
@@ -236,7 +247,7 @@ class TasksSeeder extends Seeder
 			'created_at' => Carbon::now()
 		]);
 
-		DB::table('tasks')->insert([ //25
+		DB::table('tasks')->insert([ //26
 			'name' => 'Pressure Clean',
 			'description' => 'Clean and prepare substrate using high pressure water washers with rotating needle jets. (please note that this process is highly important for the success of crystalline repairs, if the pores are not adequately exposed there will be failures)',
 			'alias' => 'clean',
@@ -245,7 +256,7 @@ class TasksSeeder extends Seeder
 			'created_at' => Carbon::now()
 		]);
 
-		DB::table('tasks')->insert([ //26
+		DB::table('tasks')->insert([ //27
 			'name' => 'Honeycombing',
 			'description' => 'Prepare and open spalled and honeycombed areas to accommodate Kryton concrete repair system.',
 			'alias' => 'honeycombing',
@@ -255,7 +266,7 @@ class TasksSeeder extends Seeder
 			'created_at' => Carbon::now()
 		]);
 
-		DB::table('tasks')->insert([ //27
+		DB::table('tasks')->insert([ //28
 			'name' => 'Plug',
 			'description' => 'Stop water flow with Kryton Plug',
 			'alias' => 'plug',
@@ -265,7 +276,7 @@ class TasksSeeder extends Seeder
 			'created_at' => Carbon::now()
 		]);
 
-		DB::table('tasks')->insert([ //28
+		DB::table('tasks')->insert([ //29
 			'name' => 'Krystol Repair Grout',
 			'description' => 'Clean the chase with clean water, removing all dust and loose concrete and fill the chased area with Kryton Krystol Repair Grout<sup>&reg;</sup> (specially mixed dry-mix)',
 			'alias' => 'grout',
@@ -275,7 +286,7 @@ class TasksSeeder extends Seeder
 			'created_at' => Carbon::now()
 		]);
 
-		DB::table('tasks')->insert([ //29
+		DB::table('tasks')->insert([ //30
 			'name' => 'Pre-wet',
 			'description' => 'Pre-wet surface to be treated to Saturate-Surface- Dry (SSD) condition.',
 			'alias' => 'prewet',
@@ -284,7 +295,7 @@ class TasksSeeder extends Seeder
 			'created_at' => Carbon::now()
 		]);
 
-		DB::table('tasks')->insert([ //30
+		DB::table('tasks')->insert([ //31
 			'name' => 'T1 Slurry',
 			'description' => 'Apply Kryton’s Krystol T1 ® waterproofing compound to surface in a slurry form in accordance with manufacturer’s specification.',
 			'alias' => 't1slurry',
@@ -293,7 +304,7 @@ class TasksSeeder extends Seeder
 			'created_at' => Carbon::now()
 		]);
 
-		DB::table('tasks')->insert([ //31
+		DB::table('tasks')->insert([ //32
 			'name' => 'Moist Cure',
 			'description' => 'Moist cure all treated areas as per Krytons specification in order to insure perfect curing and allow for the Krystols to grow and develop its full properties.',
 			'alias' => 'moistcure',
@@ -302,7 +313,7 @@ class TasksSeeder extends Seeder
 			'created_at' => Carbon::now()
 		]);
 
-		DB::table('tasks')->insert([ //32
+		DB::table('tasks')->insert([ //33
 			'name' => 'T2 Slurry',
 			'description' => 'Apply Kryton’s Krystol T2<sup>&reg;</sup\> waterproofing compound to surface in a slurry form in accordance with manufacturer’s specification.',
 			'alias' => 't2slurry',

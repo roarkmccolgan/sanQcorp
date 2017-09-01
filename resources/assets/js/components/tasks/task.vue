@@ -230,7 +230,7 @@
                     if(newProp!==false){
                         for (var i = 0; i < this.task.materials.length; i++) {
                             if(this.task.materials[i].areaconversion==false){
-                                console.log(this.task.materials[i].name);
+                                //console.log(this.task.materials[i].name);
                                 this.task.materials[i].qty = Math.ceil((newProp/this.task.materials[i].coverage));
                                 this.task.materials[i].price = this.task.materials[i].qty * this.task.materials[i].cost_price;
                             }
@@ -249,7 +249,6 @@
         },
         created(){
             if(this.systemTask && this.option.id==''){
-                console.log('there');
                 for(var matType in this.systemTask.materials){
                     if(this.systemTask.materials.hasOwnProperty(matType)){
                         if(this.getObjSize(this.systemTask.materials[matType])>1){

@@ -697,6 +697,21 @@ class MaterialsSeeder extends Seeder
             'created_at' => Carbon::now()
         ]);
 
+        DB::table('materials')->insert([ //49
+            'name' => 'Plain Torch-on',
+            'category_id' => 1,
+            'description' => 'Blah Blah',
+            'image' => 'blank.jpg',
+            'stock' => 1000,
+            'pack_size' => 9,
+            'cost_price' => 460.00,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'm2',
+            'product_type'=>'torchon',
+            'coverage'=> 9.00,
+            'created_at' => Carbon::now()
+        ]);
+
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }
