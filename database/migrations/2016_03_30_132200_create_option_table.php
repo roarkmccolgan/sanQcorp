@@ -42,6 +42,7 @@ class CreateOptionTable extends Migration
             $table->decimal('ridge',10,2)->nullable();
             $table->decimal('sidewall',10,2)->nullable();
             $table->decimal('valleys',10,2)->nullable();
+            $table->decimal('crosslaps',10,2)->nullable();
             $table->decimal('crack',10,2)->nullable();
             $table->decimal('plug',10,2)->nullable();
             $table->decimal('honeycomb',10,2)->nullable();

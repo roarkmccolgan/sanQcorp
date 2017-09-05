@@ -133,6 +133,14 @@ class Jobs extends Model
         return $this->belongsToMany('App\Term','job_term','job_id','term_id');
     }
 
+     /**
+     * @return Job Includes
+     */
+    public function Includes()
+    {
+        return $this->belongsToMany('App\Includes','include_job');
+    }
+
     /**
      * Get all of the Jobs Files.
      */

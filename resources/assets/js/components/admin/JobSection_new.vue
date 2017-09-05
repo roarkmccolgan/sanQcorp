@@ -166,6 +166,7 @@
                 return size;
             },
             setSurvey: function(surv){
+                var that = this;
                 this.section.survey = $(surv.target).val();
                 //CKEDITOR.instances['section_survey_'+this.key].setData($(surv.target).val());
                 $('#section_survey_'+this.key).summernote('code', $(surv.target).val());
@@ -180,7 +181,13 @@
             smn:function(el){
             //console.log(summernote);
                 var that = this;
-                $('#'+el).summernote();
+                $('#'+el).summernote({
+                    callbacks: {
+                        onChange: function(contents) {
+                            that.section.survey = contents;
+                        }
+                    }
+                });
             }
             
         },

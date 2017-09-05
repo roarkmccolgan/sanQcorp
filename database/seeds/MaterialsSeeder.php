@@ -90,7 +90,7 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 20,
-            'cost_price' => 31.00,
+            'cost_price' => 20.35,
             'day_rate' => 0.00,
             'unit_of_measure' => 'lm',
             'product_type'=>'membrane',
@@ -104,7 +104,7 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 20,
-            'cost_price' => 53.00,
+            'cost_price' => 50.00,
             'day_rate' => 0.00,
             'unit_of_measure' => 'lm',
             'product_type'=>'membrane',
@@ -118,7 +118,7 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 20,
-            'cost_price' => 80.00,
+            'cost_price' => 83.00,
             'day_rate' => 0.00,
             'unit_of_measure' => 'lm',
             'product_type'=>'membrane',
@@ -132,7 +132,7 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 20,
-            'cost_price' => 117.00,
+            'cost_price' => 156,
             'day_rate' => 0.00,
             'unit_of_measure' => 'lm',
             'product_type'=>'membrane',
@@ -146,7 +146,7 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 20,
-            'cost_price' => 370.00,
+            'cost_price' => 716.47,
             'day_rate' => 0.00,
             'unit_of_measure' => 'lt',
             'product_type'=>'acrylic',
@@ -332,7 +332,7 @@ class MaterialsSeeder extends Seeder
             'day_rate' => 0.00,
             'unit_of_measure' => 'each',
             'product_type' => 'fillets',
-            'coverage' => 0.6,
+            'coverage' => 0.41,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //24
@@ -346,7 +346,7 @@ class MaterialsSeeder extends Seeder
             'day_rate' => 0.00,
             'unit_of_measure' => 'each',
             'product_type' => 'fillets',
-            'coverage' => 0.6,
+            'coverage' => 0.538,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //25
@@ -360,7 +360,7 @@ class MaterialsSeeder extends Seeder
             'day_rate' => 0.00,
             'unit_of_measure' => 'each',
             'product_type' => 'fillets',
-            'coverage' => 0.6,
+            'coverage' => 0.4587,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //26
@@ -374,7 +374,7 @@ class MaterialsSeeder extends Seeder
             'day_rate' => 0.00,
             'unit_of_measure' => 'each',
             'product_type' => 'screws',
-            'coverage' => 1,
+            'coverage' => 0.28,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //27
@@ -384,11 +384,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 200,
-            'cost_price' => 0.45,
+            'cost_price' => 0.55,
             'day_rate' => 0.00,
             'unit_of_measure' => 'each',
             'product_type' => 'washers',
-            'coverage' => 1,
+            'coverage' => 0.28,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //28
@@ -486,11 +486,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 20,
-            'cost_price' => 320.00,
+            'cost_price' => 550.00,
             'day_rate' => 0.00,
             'unit_of_measure' => 'lt',
             'product_type'=>'paint',
-            'coverage'=>70,
+            'coverage'=>60,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //35
@@ -500,11 +500,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 20,
-            'cost_price' => 320.00,
+            'cost_price' => 550.00,
             'day_rate' => 0.00,
             'unit_of_measure' => 'lt',
             'product_type'=>'paint',
-            'coverage'=>70,
+            'coverage'=>60,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //36
@@ -514,11 +514,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 20,
-            'cost_price' => 320.00,
+            'cost_price' => 550.00,
             'day_rate' => 0.00,
             'unit_of_measure' => 'lt',
             'product_type'=>'paint',
-            'coverage'=>70,
+            'coverage'=>60,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //37
@@ -528,25 +528,25 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 20,
-            'cost_price' => 320.00,
+            'cost_price' => 550.00,
             'day_rate' => 0.00,
             'unit_of_measure' => 'lt',
             'product_type'=>'paint',
-            'coverage'=>70,
+            'coverage'=>60,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //38
-            'name' => 'Frogskin Black', 
+            'name' => 'Frogskin White', 
             'category_id' => 5,
             'description' => 'Blah Blah',
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 20,
-            'cost_price' => 320.00,
+            'cost_price' => 648.00,
             'day_rate' => 0.00,
             'unit_of_measure' => 'lt',
             'product_type'=>'paint',
-            'coverage'=>70,
+            'coverage'=>60,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //39
@@ -560,7 +560,7 @@ class MaterialsSeeder extends Seeder
             'day_rate' => 0.00,
             'unit_of_measure' => 'each',
             'product_type'=>'membrane',
-            'coverage'=>0.01,
+            'coverage'=>0.005625,
             'created_at' => Carbon::now()
         ]);
         DB::table('materials')->insert([ //40
@@ -577,12 +577,14 @@ class MaterialsSeeder extends Seeder
             'coverage' => 0.4,
             'created_at' => Carbon::now()
         ]);
+
+        //kryton Stuff
         DB::table('materials')->insert([ //41
             'name' => 'Petrol generator',
             'category_id' => 6,
             'Description' => 'blah',
             'image' => 'blank.jpg',
-            'stock' => 100000,
+            'stock' => null,
             'pack_size' => 1,
             'cost_price' => 12.82,
             'day_rate' => 0.00,
@@ -597,7 +599,7 @@ class MaterialsSeeder extends Seeder
             'category_id' => 6,
             'Description' => 'blah',
             'image' => 'blank.jpg',
-            'stock' => 100000,
+            'stock' => null,
             'pack_size' => 1,
             'cost_price' => 11.27,
             'day_rate' => 0.00,
@@ -612,7 +614,7 @@ class MaterialsSeeder extends Seeder
             'category_id' => 6,
             'Description' => 'blah',
             'image' => 'blank.jpg',
-            'stock' => 100000,
+            'stock' => null,
             'pack_size' => 1,
             'cost_price' => 0,
             'day_rate' => 0.00,
@@ -627,13 +629,13 @@ class MaterialsSeeder extends Seeder
             'category_id' => 3,
             'Description' => 'blah',
             'image' => 'blank.jpg',
-            'stock' => 100000,
+            'stock' => null,
             'pack_size' => 500,
-            'cost_price' => 0,
+            'cost_price' => 500,
             'day_rate' => 0.00,
             'unit_of_measure' => 'kg',
             'product_type' => 'Grit',
-            'coverage' => 400,
+            'coverage' => 20,
             'created_at' => Carbon::now()
         ]);
 
@@ -698,17 +700,139 @@ class MaterialsSeeder extends Seeder
         ]);
 
         DB::table('materials')->insert([ //49
-            'name' => 'Plain Torch-on',
+            'name' => 'Plain Torch-on 3mm',
             'category_id' => 1,
             'description' => 'Blah Blah',
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 9,
-            'cost_price' => 460.00,
+            'cost_price' => 530.00,
             'day_rate' => 0.00,
             'unit_of_measure' => 'm2',
             'product_type'=>'torchon',
             'coverage'=> 9.00,
+            'created_at' => Carbon::now()
+        ]);
+
+        DB::table('materials')->insert([ //50
+            'name' => 'Plain Torch-on 4mm',
+            'category_id' => 1,
+            'description' => 'Blah Blah',
+            'image' => 'blank.jpg',
+            'stock' => 1000,
+            'pack_size' => 9,
+            'cost_price' => 580.00,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'm2',
+            'product_type'=>'torchon',
+            'coverage'=> 9.00,
+            'created_at' => Carbon::now()
+        ]);
+
+        DB::table('materials')->insert([ //51
+            'name' => 'Fibre Reinforced Torch-on',
+            'category_id' => 1,
+            'description' => 'Blah Blah',
+            'image' => 'blank.jpg',
+            'stock' => 1000,
+            'pack_size' => 9,
+            'cost_price' => 660.00,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'm2',
+            'product_type'=>'torchon',
+            'coverage'=> 9.00,
+            'created_at' => Carbon::now()
+        ]);
+
+        // Plaster KMA
+        DB::table('materials')->insert([ //52
+            'name' => 'Krystol Mortar Ad-Mixture',
+            'category_id' => 7,
+            'description' => 'Blah Blah',
+            'image' => 'blank.jpg',
+            'stock' => 1000,
+            'pack_size' => 15,
+            'cost_price' => 800.00,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'kg',
+            'product_type'=>'kryton',
+            'coverage'=> 300,
+            'created_at' => Carbon::now()
+        ]);
+        DB::table('materials')->insert([ //53
+            'name' => 'Plaster Sand',
+            'category_id' => 3,
+            'Description' => 'blah',
+            'image' => 'blank.jpg',
+            'stock' => 1000,
+            'pack_size' => 1,
+            'cost_price' => 380.00,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'm3',
+            'product_type' => 'sand',
+            'coverage' => 100,
+            'created_at' => Carbon::now()
+        ]);
+
+        //Alkali Primer
+        DB::table('materials')->insert([ //54
+            'name' => 'Alkali Primer',
+            'category_id' => 5,
+            'Description' => 'blah',
+            'image' => 'blank.jpg',
+            'stock' => 1000,
+            'pack_size' => 25,
+            'cost_price' => 608.00,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'lt',
+            'product_type' => 'paint',
+            'coverage' => 40,
+            'created_at' => Carbon::now()
+        ]);
+
+        // MCC MultiSeal
+        DB::table('materials')->insert([ //55
+            'name' => 'MCC MultiSeal 210',
+            'category_id' => 5,
+            'Description' => 'blah',
+            'image' => 'blank.jpg',
+            'stock' => 1000,
+            'pack_size' => 25,
+            'cost_price' => 173.00,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'kg',
+            'product_type' => 'slurry',
+            'coverage' => 20,
+            'created_at' => Carbon::now()
+        ]);
+
+        DB::table('materials')->insert([ //56
+            'name' => 'MCC MultiSeal 211',
+            'category_id' => 5,
+            'Description' => 'blah',
+            'image' => 'blank.jpg',
+            'stock' => 1000,
+            'pack_size' => 25,
+            'cost_price' => 219.00,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'kg',
+            'product_type' => 'slurry',
+            'coverage' => 20,
+            'created_at' => Carbon::now()
+        ]);
+
+        DB::table('materials')->insert([ //57
+            'name' => 'MCC MultiBond',
+            'category_id' => 5,
+            'Description' => 'blah',
+            'image' => 'blank.jpg',
+            'stock' => 1000,
+            'pack_size' => 3,
+            'cost_price' => 96.00,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'lt',
+            'product_type' => 'bonding',
+            'coverage' => 10,
             'created_at' => Carbon::now()
         ]);
 

@@ -153,13 +153,13 @@ class TaskMaterialsSeeder extends Seeder
         
         DB::table('material_task')->insert([
             'material_id' => 26,
-            'task_id' => 4,
-            'area' => '*3.47222222222222'
+            'task_id' => 4/*,
+            'area' => '*3.47222222222222'*/
         ]);
         DB::table('material_task')->insert([
             'material_id' => 27,
-            'task_id' => 4,
-            'area' => '*3.47222222222222'
+            'task_id' => 4/*,
+            'area' => '*3.47222222222222'*/
         ]);
         DB::table('material_task')->insert([
             'material_id' => 28,
@@ -190,13 +190,14 @@ class TaskMaterialsSeeder extends Seeder
         DB::table('material_task')->insert([
             'material_id' => 26, //tek screws 50mm
             'task_id' => 13,
+            'area' => '*0.1'
         ]);
 
         //membrane patches
         DB::table('material_task')->insert([
             'material_id' => 39,
             'task_id' => 14,
-            'area' => '*0.03'
+            'area' => '/32.32/2'
         ]);
         //Acrylic
         DB::table('material_task')->insert([
@@ -215,6 +216,19 @@ class TaskMaterialsSeeder extends Seeder
         DB::table('material_task')->insert([
             'material_id' => 10,
             'task_id' => 15,
+        ]);
+
+        //Klip-lockOverlaps
+        //100
+        DB::table('material_task')->insert([
+            'material_id' => 5,
+            'task_id' => 42,
+            'area' => '*3.2*0.1'
+        ]);
+        //Acrylic
+        DB::table('material_task')->insert([
+            'material_id' => 10,
+            'task_id' => 42,
         ]);
 
         //Crosslaps
@@ -279,17 +293,18 @@ class TaskMaterialsSeeder extends Seeder
             'task_id' => 19,
         ]);
 
-        //Sidewall
+        //Valleys
         //100
         DB::table('material_task')->insert([
             'material_id' => 5,
             'task_id' => 20,
-            'area' => '*0.3'
+            'area' => '*0.1'
         ]);
         //300
         DB::table('material_task')->insert([
             'material_id' => 7,
-            'task_id' => 20
+            'task_id' => 20,
+            'area' => '*0.3'
         ]);
         //Acrylic
         DB::table('material_task')->insert([
@@ -297,7 +312,7 @@ class TaskMaterialsSeeder extends Seeder
             'task_id' => 20,
         ]);
 
-        //Sidewall
+        //Valleys
         //Plain (Mineral)
         DB::table('material_task')->insert([
             'material_id' => 1,
@@ -444,6 +459,93 @@ class TaskMaterialsSeeder extends Seeder
         DB::table('material_task')->insert([
             'material_id' => 48,//T2Slurry
             'task_id' => 33, //T2Slurry
+        ]);
+
+        //Dual Layer Reinforced
+        DB::table('material_task')->insert([
+            'material_id' => 2,//Plain
+            'task_id' => 34, //Dual layer
+            'area' => '*2'
+        ]);
+        //Fibre Reinforced
+        DB::table('material_task')->insert([
+            'material_id' => 51,//Plain
+            'task_id' => 35, //Fibre Reinforced
+        ]);
+
+        // Plaster KMA
+        // Chipping
+        DB::table('material_task')->insert([
+            'material_id' => 41,//Petrol generator
+            'task_id' => 36, // Chipping
+        ]);
+        DB::table('material_task')->insert([
+            'material_id' => 42,//Diesel generator
+            'task_id' => 36, // Chipping
+        ]);
+        DB::table('material_task')->insert([
+            'material_id' => 43,//Electricity
+            'task_id' => 36, // Chipping
+        ]);
+
+        // Plaster with KMA
+        DB::table('material_task')->insert([
+            'material_id' => 31,//Cement
+            'task_id' => 37, // Plaster with KMA
+        ]);
+        DB::table('material_task')->insert([
+            'material_id' => 53,//PlasterSand
+            'task_id' => 37, // Plaster with KMA
+        ]);
+        DB::table('material_task')->insert([
+            'material_id' => 52,//KMA
+            'task_id' => 37, // Plaster with KMA
+        ]);
+
+        DB::table('material_task')->insert([
+            'material_id' => 54,// Alkali Primer
+            'task_id' => 38, // Alkali Prime
+        ]);
+        DB::table('material_task')->insert([
+            'material_id' => 55,// Hydroscopic COating MCC 210?
+            'task_id' => 39, // Hydroscopic Coat
+        ]);
+        DB::table('material_task')->insert([
+            'material_id' => 56,// Hydroscopic COating MCC 211?
+            'task_id' => 39, // Hydroscopic Coat
+        ]);
+        DB::table('material_task')->insert([
+            'material_id' => 57,// Hydroscopic COating MCC Multiond?
+            'task_id' => 39, // Hydroscopic Coat
+        ]);
+
+        DB::table('material_task')->insert([
+            'material_id' => 38,// Frogskin white
+            'task_id' => 40, // Hydroscopic Coat
+            'area' => '*2'
+        ]);
+
+        //coating
+        DB::table('material_task')->insert([
+            'material_id' => 38,// Frogskin white
+            'task_id' => 41, //  Coat
+            'area' => '*2'
+        ]);
+        DB::table('material_task')->insert([
+            'material_id' => 34,// Frogskin grey
+            'task_id' => 41, //  Coat
+        ]);
+        DB::table('material_task')->insert([
+            'material_id' => 35,// Frogskin terra
+            'task_id' => 41, //  Coat
+        ]);
+        DB::table('material_task')->insert([
+            'material_id' => 36,// Frogskin green
+            'task_id' => 41, //  Coat
+        ]);
+        DB::table('material_task')->insert([
+            'material_id' => 37,// Frogskin brown
+            'task_id' => 41, //  Coat
         ]);
         
 

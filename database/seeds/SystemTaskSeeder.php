@@ -56,14 +56,19 @@ class SystemTaskSeeder extends Seeder
 			'task_id' => 12, //clean
 			'order' => 1
 		]);
-		DB::table('system_task')->insert([
+		/*DB::table('system_task')->insert([
 			'system_id' => 2,
 			'task_id' => 13, //re-fasten
+			'order' => 2
+		]);*/
+		DB::table('system_task')->insert([
+			'system_id' => 2,
+			'task_id' => 16, //crosslaps
 			'order' => 2
 		]);
 		DB::table('system_task')->insert([
 			'system_id' => 2,
-			'task_id' => 15, //overlaps
+			'task_id' => 42, //overlaps
 			'order' => 3
 		]);
 		DB::table('system_task')->insert([
@@ -165,11 +170,121 @@ class SystemTaskSeeder extends Seeder
 		]);
 		DB::table('system_task')->insert([
 			'system_id' => 5,
+			'task_id' => 2, //acrylic
+			'order' => 5
+		]);
+
+		//Sanika's Heat-bonded, Plain Finish Torch-on Waterproofing System
+		DB::table('system_task')->insert([
+			'system_id' => 6,
+			'task_id' => 3, //stripping
+			'order' => 1
+		]);
+		DB::table('system_task')->insert([
+			'system_id' => 6,
+			'task_id' => 7, //screed
+			'order' => 2
+		]);
+		DB::table('system_task')->insert([
+			'system_id' => 6,
+			'task_id' => 6, //prime
+			'order' => 3
+		]);
+		DB::table('system_task')->insert([
+			'system_id' => 6,
+			'task_id' => 8, //plain
+			'order' => 4
+		]);
+		DB::table('system_task')->insert([
+			'system_id' => 6,
+			'task_id' => 2, //acrylic
+			'order' => 5
+		]);
+
+		//Sanika\'s Heat-bonded, Dual-Layer Torch-on Waterproofing System
+		DB::table('system_task')->insert([
+			'system_id' => 7,
+			'task_id' => 3, //stripping
+			'order' => 1
+		]);
+		DB::table('system_task')->insert([
+			'system_id' => 7,
+			'task_id' => 7, //screed
+			'order' => 2
+		]);
+		DB::table('system_task')->insert([
+			'system_id' => 7,
+			'task_id' => 6, //prime
+			'order' => 3
+		]);
+		DB::table('system_task')->insert([
+			'system_id' => 7,
+			'task_id' => 34, //dual layer plain
+			'order' => 4
+		]);
+		DB::table('system_task')->insert([
+			'system_id' => 7,
+			'task_id' => 2, //acrylic
+			'order' => 5
+		]);
+
+		//Sanika\'s Heat-bonded, Fibre-Reinforced Torch-on Waterproofing System
+		DB::table('system_task')->insert([
+			'system_id' => 8,
+			'task_id' => 3, //stripping
+			'order' => 1
+		]);
+		DB::table('system_task')->insert([
+			'system_id' => 8,
+			'task_id' => 7, //screed
+			'order' => 2
+		]);
+		DB::table('system_task')->insert([
+			'system_id' => 8,
+			'task_id' => 6, //prime
+			'order' => 3
+		]);
+		DB::table('system_task')->insert([
+			'system_id' => 8,
+			'task_id' => 35,  //Fibre Reinforced?
+			'order' => 4
+		]);
+		DB::table('system_task')->insert([
+			'system_id' => 8,
+			'task_id' => 2, //acrylic
+			'order' => 5
+		]);
+
+		//Sanika’s Insulative Boarded Waterproofing System on a Concrete Roof
+		
+		DB::table('system_task')->insert([
+			'system_id' => 9,
+			'task_id' => 4, //sanika boards
+			'order' => 1
+		]);
+		DB::table('system_task')->insert([
+			'system_id' => 9,
+			'task_id' => 5, //wooden boards
+			'order' => 2
+		]);
+		
+		DB::table('system_task')->insert([
+			'system_id' => 9,
+			'task_id' => 6, //prime
+			'order' => 3
+		]);
+		DB::table('system_task')->insert([
+			'system_id' => 9,
+			'task_id' => 1, //mineral
+			'order' => 4
+		]);
+		DB::table('system_task')->insert([
+			'system_id' => 9,
 			'task_id' => 8, //plain
 			'order' => 5
 		]);
 		DB::table('system_task')->insert([
-			'system_id' => 5,
+			'system_id' => 9,
 			'task_id' => 2, //acrylic
 			'order' => 6
 		]);
@@ -443,6 +558,38 @@ class SystemTaskSeeder extends Seeder
 			'system_id' => 15,
 			'task_id' => 33, //T2
 			'order' => 10
+		]);
+
+		//Kryton KMA
+		DB::table('system_task')->insert([ // 
+			'system_id' => 16,
+			'task_id' => 36, //chipping
+			'order' => 1
+		]);
+		DB::table('system_task')->insert([ // 
+			'system_id' => 16,
+			'task_id' => 37, //plaster KMA
+			'order' => 2
+		]);
+		DB::table('system_task')->insert([ // 
+			'system_id' => 16,
+			'task_id' => 38, //Alkali Primer
+			'order' => 3
+		]);
+		DB::table('system_task')->insert([ // 
+			'system_id' => 16,
+			'task_id' => 39, //Hydroscopic Coating
+			'order' => 4
+		]);
+		DB::table('system_task')->insert([ // 
+			'system_id' => 16,
+			'task_id' => 40, //Undercoat
+			'order' => 5
+		]);
+		DB::table('system_task')->insert([ // 
+			'system_id' => 16,
+			'task_id' => 41, //Coating
+			'order' => 6
 		]);
 
 		DB::statement('SET FOREIGN_KEY_CHECKS=1;');

@@ -45,7 +45,7 @@ class TasksSeeder extends Seeder
 			'description' => 'Mechanically install the Sanika pre-manufactured light weight boarded system, comprising of high density fire retardant polystyrene panels adhered, under pressure, to fibre cement fire proof boards.',
 			'alias' => 'sanikaboarding',
 			'unit_of_measure' => 'm2',
-			'rate' => 150,
+			'rate' => 100,
 			'created_at' => Carbon::now()
 		]);
 
@@ -54,7 +54,7 @@ class TasksSeeder extends Seeder
 			'description' => 'Mechanically install 16mm marine-grade wooden OSB boards.',
 			'alias' => 'woodenboarding',
 			'unit_of_measure' => 'm2',
-			'rate' => 150,
+			'rate' => 100,
 			'created_at' => Carbon::now()
 		]);
 
@@ -91,7 +91,7 @@ class TasksSeeder extends Seeder
 			'description' => 'Install high density, fire retardant polyurethane fillets laser cut to sheet profile for insulation and sound reduction purposes',
 			'alias' => 'fillets',
 			'unit_of_measure' => 'm2',
-			'rate' => 150,
+			'rate' => 1000,
 			'created_at' => Carbon::now()
 		]);
 		DB::table('tasks')->insert([ //10
@@ -118,7 +118,7 @@ class TasksSeeder extends Seeder
 			'description' => 'Clean entire roof area by means of high pressure rotating needle jet cleaning machines.',
 			'alias' => 'cleanibrroof',
 			'unit_of_measure' => 'm2',
-			'rate' => 400,
+			'rate' => 1300,
 			'created_at' => Carbon::now()
 		]);
 		DB::table('tasks')->insert([ //13
@@ -126,7 +126,7 @@ class TasksSeeder extends Seeder
 			'description' => 'Refasten or replace where necessary, all loose and missing screws and bolts',
 			'alias' => 'refastenboltsandscrews',
 			'unit_of_measure' => 'm2',
-			'rate' => 200,
+			'rate' => 5200,
 			'created_at' => Carbon::now()
 		]);
 		DB::table('tasks')->insert([ //14
@@ -134,7 +134,7 @@ class TasksSeeder extends Seeder
 			'description' => 'Waterproof each bolt and screw head using a non-woven polyester waterproofing membrane patch impregnated with 100 % pure acrylic waterproofing compound.',
 			'alias' => 'waterproofboltheads',
 			'unit_of_measure' => 'm2',
-			'rate' => 200,
+			'rate' => 1452,
 			'created_at' => Carbon::now()
 		]);
 		DB::table('tasks')->insert([ //15
@@ -143,7 +143,7 @@ class TasksSeeder extends Seeder
 			'alias' => 'overlaps',
 			'unit_of_measure' => 'm2',
 			'link_to' => 'area',
-			'rate' => 125,
+			'rate' => 250,
 			'created_at' => Carbon::now()
 		]);
 		DB::table('tasks')->insert([ //16
@@ -152,7 +152,7 @@ class TasksSeeder extends Seeder
 			'alias' => 'crosslaps',
 			'unit_of_measure' => 'lm',
 			'link_to' => 'crosslaps',
-			'rate' => 200,
+			'rate' => 240,
 			'created_at' => Carbon::now()
 		]);
 
@@ -162,7 +162,7 @@ class TasksSeeder extends Seeder
 			'alias' => 'perimeter',
 			'unit_of_measure' => 'lm',
 			'link_to' => 'perimeter',
-			'rate' => 200,
+			'rate' => 240,
 			'created_at' => Carbon::now()
 		]);
 
@@ -171,7 +171,7 @@ class TasksSeeder extends Seeder
 			'description' => 'Spray paint entire roof area by using high-pressure airless spraying equipment with UV Stabilised Industrial grade waterproof coating.(5 colours available)',
 			'alias' => 'ibrcoat',
 			'unit_of_measure' => 'm2',
-			'rate' => 400,
+			'rate' => 500,
 			'created_at' => Carbon::now()
 		]);
 
@@ -211,7 +211,7 @@ class TasksSeeder extends Seeder
 			'description' => 'Spray paint entire roof area by using high-pressure airless spraying equipment with UV Stabilised Industrial grade waterproof coating.(5 colours available)',
 			'alias' => 'tilecoat',
 			'unit_of_measure' => 'm2',
-			'rate' => 285,
+			'rate' => 500,
 			'created_at' => Carbon::now()
 		]);
 
@@ -222,7 +222,7 @@ class TasksSeeder extends Seeder
 			'description' => 'Spray paint entire roof area by using high-pressure airless spraying equipment with UV Stabilised Industrial grade waterproof coating.(5 colours available)',
 			'alias' => 'corrucoat',
 			'unit_of_measure' => 'm2',
-			'rate' => 285,
+			'rate' => 500,
 			'created_at' => Carbon::now()
 		]);
 
@@ -322,6 +322,86 @@ class TasksSeeder extends Seeder
 			'created_at' => Carbon::now()
 		]);
 
+		//Torch Plain Dual Layer
+		DB::table('tasks')->insert([ //34
+			'name' => 'Dual Layer',
+			'description' => 'Install dual layer, plain finish, heat bonded, industrial grade torch-on waterproofing membrane.',
+			'alias' => 'torchdualplain',
+			'unit_of_measure' => 'm2',
+			'rate' => 70,
+			'created_at' => Carbon::now()
+		]);
+
+		//Torch Fibre Reinforced
+		DB::table('tasks')->insert([ //35
+			'name' => 'Dual Layer',
+			'description' => 'Install fibre-reinforced, heat bonded, industrial grade torch-on waterproofing membrane.',
+			'alias' => 'torchfibrereinforced',
+			'unit_of_measure' => 'm2',
+			'rate' => 100,
+			'created_at' => Carbon::now()
+		]);
+
+		//Plaster KMA
+		DB::table('tasks')->insert([ //36
+			'name' => 'Chip Plaster',
+			'description' => 'Remove existing damaged plaster using electric chisels.',
+			'alias' => 'chipplaster',
+			'unit_of_measure' => 'm2',
+			'rate' => 50,
+			'created_at' => Carbon::now()
+		]);
+		DB::table('tasks')->insert([ //37
+			'name' => 'Plaster with KMA',
+			'description' => 'Re-plaster exposed bricks using a Krystol Mortar Waterproof Admixture render.',
+			'alias' => 'kmaplaster',
+			'unit_of_measure' => 'm2',
+			'rate' => 50,
+			'created_at' => Carbon::now()
+		]);
+		DB::table('tasks')->insert([ //38
+			'name' => 'Alkali Primer',
+			'description' => 'Coat all newly plastered areas with an alkali resistant plaster.',
+			'alias' => 'alkaliprime',
+			'unit_of_measure' => 'm2',
+			'rate' => 500,
+			'created_at' => Carbon::now()
+		]);
+		DB::table('tasks')->insert([ //39
+			'name' => 'Hydroscopic Coating',
+			'description' => 'Coat high moisture areas of walls with Sanika Hydroscopic cementitious waterproofing
+compound.',
+			'alias' => 'hydrocoat',
+			'unit_of_measure' => 'm2',
+			'rate' => 200,
+			'created_at' => Carbon::now()
+		]);
+		DB::table('tasks')->insert([ //40
+			'name' => 'Undercoat',
+			'description' => 'Coat newly stripped paint coatings with an industrial grade undercoat.',
+			'alias' => 'undercoat',
+			'unit_of_measure' => 'm2',
+			'rate' => 400,
+			'created_at' => Carbon::now()
+		]);
+		DB::table('tasks')->insert([ //41
+			'name' => 'Coating',
+			'description' => 'Coat all newly primed and undercoated areas using industrial grade paint',
+			'alias' => 'paintwall',
+			'unit_of_measure' => 'm2',
+			'rate' => 200,
+			'created_at' => Carbon::now()
+		]);
+
+		DB::table('tasks')->insert([ //42
+			'name' => 'Overlaps',
+			'description' => 'Waterproof overlaps to manufacturers specification using non-woven polyester waterproofing membrane impregnated with 100 % pure acrylic waterproofing compound.',
+			'alias' => 'klip-lokoverlaps',
+			'unit_of_measure' => 'm2',
+			'link_to' => 'area',
+			'rate' => 125,
+			'created_at' => Carbon::now()
+		]);
 		
 		DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 	}

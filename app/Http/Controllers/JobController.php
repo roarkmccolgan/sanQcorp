@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\GeneratePdfTrait;
 use App\Http\Requests;
 use App\Http\Requests\AddJobRequest;
+use App\JobInclude;
 use App\Jobs;
 use App\Materials;
 use App\Option;
@@ -243,8 +244,9 @@ class JobController extends Controller
     public function showBuildJob(Jobs $job)
     {
 
-        $systems = System::with('terms','photos','tasks.materials','tasks.variables','tasks.properties')->get()->keyBy('id')->toArray();
+        $systems = System::with('terms','photos','tasks.materials','tasks.variables','tasks.properties','labour')->get()->keyBy('id')->toArray();
         $terms = Term::where('default',1)->get();
+        $includes = JobInclude::all();
         $basic_systems = $systems;
         $pandgs = PandG::all();
         //$job->load('sections.options.materials.tasks');
@@ -382,6 +384,7 @@ class JobController extends Controller
             'job' => $job,
             'systems' => $systems,
             'terms' => $terms,
+            'includes' => $includes,
             'basic_systems' => $basic_systems,
             'pandg' => $pandgs,
             'users' => $users
@@ -460,7 +463,14 @@ class JobController extends Controller
                     'volume'=>isset($opt['volume']) ? $opt['volume'] : null,
                     'length'=>isset($opt['length']) ? $opt['length'] : null,
                     'width'=>isset($opt['width']) ? $opt['width'] : null,
-                    'height'=>isset($opt['height']) ?$opt['height'] : null
+                    'height'=>isset($opt['height']) ?$opt['height'] : null,
+                    'crosslaps'=> isset($opt['crosslaps']) ? $opt['crosslaps'] : null,
+                    'ridge'=> isset($opt['ridge']) ? $opt['ridge'] : null,
+                    'sidewall'=> isset($opt['sidewall']) ? $opt['sidewall'] : null,
+                    'valleys'=> isset($opt['valleys']) ? $opt['valleys'] : null,
+                    'honeycomb'=> isset($opt['honeycomb']) ? $opt['honeycomb'] : null,
+                    'crack'=> isset($opt['crack']) ? $opt['crack'] : null,
+                    'plug'=> isset($opt['plug']) ? $opt['plug'] : null,
                 ];
                 $maxSellingPrice = $opt['selling_price']>$maxSellingPrice ? $opt['selling_price']:$maxSellingPrice;
 

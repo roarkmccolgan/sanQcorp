@@ -116,6 +116,12 @@
                 return Number(days);
             },
             total_labour_price: function(){
+                var tot = 0;
+                for (var i = 0; i < this.option.system.labour.length; i++) {
+                    var val = this.option.system.labour[i].day_rate * this.option.system.labour[i].pivot.qty;
+                    tot+=val;
+                }
+                console.log('Labour Price ',tot);
                 return this.total_days ? this.total_days*1645:0; //1200 labour + 245 Driver
             },
             total_supervisor: function(){
@@ -211,19 +217,13 @@
                         if(this.task.materials[i].areaconversion){
                             var strprop = this.property.toString();
                             var conversion = this.task.materials[i].areaconversion.toString();
-                            //get all params in conversion
-                            //var params = conversion.match(/\b[a-zA-Z]+\b/g);
-                            //var parObj = {};
-                            /*for (var j = 0; j < params.length; j++) {
-                                parObj[params[j]] = this.properties[params[j]].value;
-                            }
-                            console.log(parObj);*/
 
                             var bracket = conversion.indexOf("(") !== -1 ? '(':'';
                             property = eval(bracket + strprop + conversion);
                             newProp = property;
                         }  
                         this.task.materials[i].qty = Math.ceil((property/this.task.materials[i].coverage));
+                        console.log(this.task.materials[i].qty);
                         this.task.materials[i].price = this.task.materials[i].qty * this.task.materials[i].cost_price;
                     }
                     //re-do any other materials according to new property

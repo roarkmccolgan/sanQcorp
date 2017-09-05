@@ -248,7 +248,57 @@
                     </table>
                 </div>
             </div>
+            <!-- Includes -->
             <div class="row">
+                <div class="col-sm-12" style="border-top: 1px solid #bdc3c7; margin-top: 20px; padding-top: 10px;">
+                    <div class="row">
+                        <div class="col-xs-10">
+                            <strong @click.prevent="showIncludes = !showIncludes">Includes Excludes</strong>
+                        </div>
+                        <div class="col-xs-2">
+                            <button class="btn btn-default pull-right btn-xs" v-show="!showIncludes" @click.prevent="showIncludes = !showIncludes" style="margin-left: 10px;"><i class="fui-triangle-down-small"></i></button>
+                            <button class="btn btn-default pull-right btn-xs" v-show="showIncludes" @click.prevent="showIncludes = !showIncludes" style="margin-left: 10px;"><i class="fui-triangle-up-small"></i></button>
+                        </div>
+                    </div>
+                    <div class="row" v-show="showIncludes">
+                        <div class="col-sm-6">
+                            <table class="table table-condensed table-bordered terms">
+                                <thead>
+                                    <th colspan="2" class="text-center">Includes</th>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(includeKey, include) in includes | filterBy 'includes' in 'type' | orderBy 'item'">
+                                        <td class="text-center" v-bind:class="{ 'selected': checkedIncludes.indexOf(include.id)!=-1 }">
+                                            <label class="checkbox no-label">
+                                                <input type="checkbox" id="@{{include.id}}" name="includes[]" data-toggle="checkbox" v-model="checkedIncludes" style="margin-left: 0;" :value="include"  >
+                                            </label>
+                                        </td>
+                                        <td v-bind:class="{ 'selected': checkedIncludes.indexOf(include.id)!=-1 }">@{{include.item}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-6">
+                            <table class="table table-condensed table-bordered terms">
+                                <thead>
+                                    <th colspan="2" class="text-center">Exlcudes</th>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(excludeKey, exclude) in includes | filterBy 'excludes' in 'type' | orderBy 'item'">
+                                        <td class="text-center" v-bind:class="{ 'selected': checkedIncludes.indexOf(exclude.id)!=-1 }">
+                                            <label class="checkbox no-label">
+                                                <input type="checkbox" id="@{{exclude.id}}" name="excludes[]" data-toggle="checkbox" v-model="checkedExcludes" style="margin-left: 0;" :value="exclude" value="@{{exclude.id}}" >
+                                            </label>
+                                        </td>
+                                        <td v-bind:class="{ 'selected': checkedIncludes.indexOf(exclude.id)!=-1 }">@{{exclude.item}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 50px;">
                 <div class="col-md-12">
                     <div class="form-group">
                         <button type="submit" v-bind:class="{'disabled': !can_save}" class="btn btn-info btn-lg">Save</button> <!-- @click.prevent="saveJob" -->

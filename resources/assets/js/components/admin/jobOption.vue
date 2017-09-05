@@ -291,7 +291,7 @@
 								<td>{{laravel.job.distance*2}}km</td>
 								<td>{{option.days}}days</td>
 								<td>{{(laravel.job.distance*2)*option.days}}km</td>
-								<td>{{((laravel.job.distance*2)*option.days)*5 | currency 'R'}}</td>
+								<td>{{((laravel.job.distance*2)*option.days)*6.5 | currency 'R'}}</td>
 							</tr>
 						</tbody>
 					</table>
@@ -379,7 +379,9 @@
                     ridge: {value: 0, uom: 'lm',show:false},
                     sidewall: {value: 0, uom: 'lm',show:false},
                     valleys: {value: 0, uom: 'lm',show:false},
+                    honeycomb: {value: 0, uom: 'm2',show:false},
                     crack: {value: 0, uom: 'lm',show:false},
+                    plug: {value: 0, uom: 'lm',show:false},
                     /*height: {value: 0, uom: 'm',show:false}*/
                 }
 			};
@@ -400,19 +402,24 @@
 				var mats = [];
 				for (var i = 0; i < this.option.tasks.length; i++) {
 					for (var j = 0; j < this.option.tasks[i]['materials'].length; j++) {
-						var add = true;
-						for (var k = 0; k < mats.length; k++) {
-							if(mats[k]['product_type'] == this.option.tasks[i]['materials'][j]['product_type']){
-								mats[k]['qty'] += this.option.tasks[i]['materials'][j]['qty'];
-								add = false;
-							}
-						}
-						if(add){
-							mats.push(this.option.tasks[i]['materials'][j]);
-						}
+						mats.push(this.option.tasks[i]['materials'][j]);
 					}
 				}
-				return mats;
+				mats  = JSON.parse(JSON.stringify(mats));
+				var output = [];
+
+				mats.forEach(function(value) {
+					var existing = output.filter(function(v, i) {
+						return v.id == value.id;
+					});
+					if (existing.length) {
+						var existingIndex = output.indexOf(existing[0]);
+						output[existingIndex].qty += value.qty;
+					} else {
+						output.push(value);
+					}
+				});
+				return output;
 			}
 		},
 		components:{
@@ -439,7 +446,6 @@
                 for (key in obj) {
                     if (obj.hasOwnProperty(key)) size++;
                 }
-                console.log(size);
                 return size;
             },
             setSystem: function(){
@@ -457,8 +463,15 @@
 				        	this.properties[this.option.system.tasks[key].link_to].show = true;
 				        }
 				    }
-
+			var that = this;
 	            	var el = 'option_description_'+this.optionKey;
+	            	$('#'+el).summernote({
+	            		callbacks: {
+	            			onChange: function(contents) {
+	            				that.option.description = contents;
+	            			}
+	            		}
+	            	});
 	            	$('#'+el).summernote('code', this.option.description);
 	            }
             },
@@ -580,7 +593,6 @@
 
                 }else{
                 	var sysTask = existing.split('|');
-                	console.log(sysTask);
                 	var newTasks = {};
                     var shiftOrder = false;
                 	for (var taskKey in this.option.system.tasks){
@@ -658,7 +670,6 @@
                 this.option.notes.splice(noteKey);
             },
             setMaterial: function(optionKey,taskKey, matType){
-                console.log('Setting Material',taskType,matType);
                 var system_mat = this.systems[this.option.system.id].tasks[taskType].materials[matType];
                 var activeMaterial = this.option.tasks[taskKey].materials[matType];
 
@@ -710,9 +721,16 @@
                     that.option.description = this.document.getBody().getHtml();
                 });
             }*/
-            smn:function(el){
+            smn:function(el,key){
                 var that = this;
-                $('#'+el).summernote();
+                $('#'+el).summernote({
+                	callbacks: {
+                		onChange: function(contents) {
+                			that.option.description = contents;
+                		}
+                	}
+                });
+                $('#'+el).summernote('code', that.option.description);
             }
 		},
 		ready(){
@@ -725,7 +743,7 @@
             }
             if(this.option.system){
             	//this.cke('option_description_'+this.optionKey);
-            	this.smn('option_description_'+this.optionKey);
+            	this.smn('option_description_'+this.optionKey,this.optionKey);
             }
 		}
 	}

@@ -231,23 +231,6 @@ class SystemSeeder extends Seeder
 		]);
 
 		DB::table('system')->insert([ //16
-			'name' => 'Kryton Waterproof Surface Treatment using Kryton Krystol T1<sup>&reg;</sup> System',
-			'description' => '
-				<p>
-					Krystol T1 Waterproofing System is a surface-applied crystalline slurry treatment that transforms new or existing concrete into a permanent waterproof barrier.
-				</p>
-				<p>
-					Krystol T1 Waterproofing System lowers the permeability of concrete and protects against the ingress of water and waterborne chemicals. It replaces the need for surface applied waterproofing membranes, and is often used in the remediation of failed membranes.
-				</p>
-			',
-			'alias' => 'Kryton Waterproof Surface Treatment',
-			'unit' => 'm2',
-			'group' => 'Kryton',
-			'base_rate' => 550.00,
-			'created_at' => Carbon::now()
-		]);
-
-		DB::table('system')->insert([ //17
 			'name' => 'Kryton Krystol Plaster Waterproofing System',
 			'description' => '
 				<p>
@@ -263,5 +246,22 @@ class SystemSeeder extends Seeder
 			'base_rate' => 550.00,
 			'created_at' => Carbon::now()
 		]);
+
+		/*DB::table('system')->insert([ //17
+			'name' => 'Kryton Waterproof Surface Treatment using Kryton Krystol T1<sup>&reg;</sup> System',
+			'description' => '
+				<p>
+					Krystol T1 Waterproofing System is a surface-applied crystalline slurry treatment that transforms new or existing concrete into a permanent waterproof barrier.
+				</p>
+				<p>
+					Krystol T1 Waterproofing System lowers the permeability of concrete and protects against the ingress of water and waterborne chemicals. It replaces the need for surface applied waterproofing membranes, and is often used in the remediation of failed membranes.
+				</p>
+			',
+			'alias' => 'Kryton Waterproof Surface Treatment',
+			'unit' => 'm2',
+			'group' => 'Kryton',
+			'base_rate' => 550.00,
+			'created_at' => Carbon::now()
+		]);*/
 	}
 }

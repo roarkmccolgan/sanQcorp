@@ -40,6 +40,9 @@ class DatabaseSeeder extends Seeder
         
         $this->call(termTableSeeder::class);
         $this->call(SystemTermSeeder::class);
+        $this->call(labourSeeder::class);
+        $this->call(LabourSystemSeeder::class);
+        $this->call(JobIncludesSeeder::class);
 
         Model::reguard();
     }

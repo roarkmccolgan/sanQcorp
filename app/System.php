@@ -63,4 +63,12 @@ class System extends Model
     {
         return $this->belongsToMany('App\Term');
     }
+
+    /**
+     * @return System labour
+     */
+    public function labour()
+    {
+        return $this->belongsToMany('App\Labour')->withPivot('qty');
+    }
 }

@@ -63,6 +63,12 @@
                 box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.30);
                 border-radius: 2px;
             }
+            .proposal-section .width50{
+                display: inline-block;
+                width: 80mm;
+                margin-right: 10mm;
+                vertical-align: top;
+            }
         </style>
     </head>
 <body style="border:0; margin: 0;">
@@ -135,7 +141,7 @@
                 Sanika waterproofing has been firmly entrenched in the specialist waterproofing, industrial coating and roofing industry since 1987.
             </p>
             <p>
-                Sanika Waterproofing, a level 3 BEE compliant provider, and are the exclusive approved distributors and applicators of Kryton Crystalline Waterproofing Products for Southern Africa. The Kryton systems are applied by internationally accredited staff and teams and the application methods adhere to the stringent worldwide Kryton standards. To date, Sanika are the successful applicators of the World’s longest crack repair using the Kryton product range.
+                Sanika Waterproofing, a level 3 BEE compliant provider, and are the exclusive approved distributors and applicators of Kryton Crystalline Waterproofing Products for Southern Africa. The Kryton systems are applied by internationally accredited staff and teams and the application methods adhere to the stringent worldwide Kryton standards. To date, Sanika are the successful applicators of the World's longest crack repair using the Kryton product range.
             </p>
             <p>
                 Our Profile has been extensive within the Commercial, Industrial and Mining spheres and we pride ourselves in preparing long term cost effective high quality concrete rejuvenation and waterproofing solutions, painting and waterproofing coating systems nationwide.
@@ -269,22 +275,21 @@
                     </tr>
                 </table>
             </template>
-            <h6>The above price structures includes:</h6>
-            <ul>
-                <li>All Materials required to complete the full scope of work described above.</li>
-                <li>All labour (skilled).</li>
-                <li>Onsite Trained Supervisors.</li>
-                <li>All tools, machinery and equipment.</li>
-                <li>Staff PPE and all relevant safety equipment.</li>
-                <li>Site Establishment</li>
-                <li>Scaffolding</li>
-            </ul>
-            <h6>The following price structure excludes:</h6>
-            <ul>
-                <li>Skip Hire (Rubble)</li>
-            </ul>
+            <div class="width50">
+                <h6>The above price structures includes:</h6>
+                <ul>
+                    <li v-for="(includeKey, include) in checkedIncludes | filterBy 'includes' in 'type' | orderBy 'item'">@{{include.item}}</li>
+                </ul>
+            </div>
+            <div class="width50">
+                <h6>The above price structure excludes:</h6>
+                <ul>
+                    <li v-for="(excludeKey, exclude) in checkedExcludes | filterBy 'excludes' in 'type' | orderBy 'item'">@{{exclude.item}}</li>
+                </ul>
+            </div>
+            <div style="clear: both"></div>
             <h6>Guarantee</h6>
-            <p>The sections above are all guaranteed for a period of TEN years (to the mineral maintenance free torch on membrane) with minor maintenance to flashing details at client’s expense (every 30-36 months).</p>
+            <p>The sections above are all guaranteed for a period of TEN years (to the mineral maintenance free torch on membrane) with minor maintenance to flashing details at client's expense (every 30-36 months).</p>
 
             <h6>Terms and Conditions:</h6>
             <ul>

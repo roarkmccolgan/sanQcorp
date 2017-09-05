@@ -15,7 +15,7 @@ class PhotosSeeder extends Seeder
         DB::table('photos')->insert([
             'photo' => 'boarded_concrete.jpg',
             'meta' => '{}',
-            'photoable_id' => 1,
+            'photoable_id' => 9,
             'photoable_type' => 'App\system',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
@@ -23,7 +23,7 @@ class PhotosSeeder extends Seeder
         DB::table('photos')->insert([
             'photo' => 'boarded_ibr.jpg',
             'meta' => '{}',
-            'photoable_id' => 2,
+            'photoable_id' => 10,
             'photoable_type' => 'App\system',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
@@ -31,7 +31,7 @@ class PhotosSeeder extends Seeder
         DB::table('photos')->insert([
             'photo' => 'boarded_poly.jpg',
             'meta' => '{}',
-            'photoable_id' => 3,
+            'photoable_id' => 13,
             'photoable_type' => 'App\system',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()

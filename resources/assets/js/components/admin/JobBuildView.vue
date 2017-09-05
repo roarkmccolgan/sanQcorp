@@ -36,6 +36,10 @@
 				terms: laravel.job.terms ? laravel.job.terms:[],
 				checkedTerms: [],
 				showTerms: false,
+				includes: laravel.includes,
+				checkedIncludes: [],
+				checkedExcludes: [],
+				showIncludes: false,
 				showproposal: false,
 			};
 		},
@@ -330,6 +334,33 @@
 			}
 			for (var i = this.laravel.terms.length - 1; i >= 0; i--) { //creating a new job so check all default terms
 				this.addTerm(this.laravel.terms[i].id,this.laravel.terms[i].term, true);
+			}
+			if(this.laravel.job.includes){
+				for (var i = this.laravel.job.includes.length - 1; i >= 0; i--) {
+					if(this.laravel.job.includes[i].type=='includes'){
+						for (var j = this.checkedIncludes - 1; j >= 0; j--) {
+							if(this.checkedIncludes[j].id!==this.laravel.job.includes[i].id){
+								this.checkedIncludes.push(this.laravel.job.includes[i]);
+							}
+						}
+					}
+					if(this.laravel.job.includes[i].type=='excludes'){
+						for (var j = this.checkedExcludes - 1; j >= 0; j--) {
+							if(this.checkedExcludes[j].id!==this.laravel.job.includes[i].id){
+								this.checkedExcludes.push(this.laravel.job.includes[i]);
+							}
+						}
+					}
+				}
+			} else {
+				for (var i = this.includes.length - 1; i >= 0; i--) { //creating a new job so check all default includes
+					if(this.includes[i].type == 'includes' && this.includes[i].default==1){
+						this.checkedIncludes.push(this.includes[i]);
+					}
+					if(this.includes[i].type == 'excludes' && this.includes[i].default==1){
+						this.checkedExcludes.push(this.includes[i]);
+					}
+				}
 			}
 			/*var newImage = new Image(640,480);
 			newImage.src = '/test.png';

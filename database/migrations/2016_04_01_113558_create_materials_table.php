@@ -18,7 +18,7 @@ class CreateMaterialsTable extends Migration
             $table->integer('category_id')->unsigned()->nullable();
             $table->longText('description')->nullable();
             $table->string('image')->nullable();
-            $table->decimal('stock',10,2)->default(0);
+            $table->decimal('stock',10,2)->default(0)->nullable();
             $table->integer('pack_size');
             $table->decimal('cost_price',8,2);
             $table->decimal('day_rate',8,2)->nullable();
