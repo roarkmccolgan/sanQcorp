@@ -262,7 +262,7 @@ class LabourSystemSeeder extends Seeder
     	DB::table('labour_system')->insert([
     		'labour_id' => 1, // labour
     		'system_id' => 15,
-    		'qty' => 4,
+    		'qty' => 3,
     	]);
     	DB::table('labour_system')->insert([
     		'labour_id' => 3, // Builder
@@ -282,7 +282,7 @@ class LabourSystemSeeder extends Seeder
     	DB::table('labour_system')->insert([
     		'labour_id' => 1, // labour
     		'system_id' => 16,
-    		'qty' => 4,
+    		'qty' => 3,
     	]);
     	DB::table('labour_system')->insert([
     		'labour_id' => 3, // Builder

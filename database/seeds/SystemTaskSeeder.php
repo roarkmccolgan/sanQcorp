@@ -197,8 +197,13 @@ class SystemTaskSeeder extends Seeder
 		]);
 		DB::table('system_task')->insert([
 			'system_id' => 6,
-			'task_id' => 2, //acrylic
+			'task_id' => 43, //silverkote
 			'order' => 5
+		]);
+		DB::table('system_task')->insert([
+			'system_id' => 6,
+			'task_id' => 2, //acrylic
+			'order' => 6
 		]);
 
 		//Sanika\'s Heat-bonded, Dual-Layer Torch-on Waterproofing System
@@ -219,7 +224,12 @@ class SystemTaskSeeder extends Seeder
 		]);
 		DB::table('system_task')->insert([
 			'system_id' => 7,
-			'task_id' => 34, //dual layer plain
+			'task_id' => 8, //torch plain
+			'order' => 4
+		]);
+		DB::table('system_task')->insert([
+			'system_id' => 7,
+			'task_id' => 1, //torch Mineral
 			'order' => 4
 		]);
 		DB::table('system_task')->insert([
@@ -503,84 +513,98 @@ class SystemTaskSeeder extends Seeder
 		//Kryton Concrete repair and Rejuvination
 		DB::table('system_task')->insert([ // 
 			'system_id' => 15,
-			'task_id' => 24, //Chipping
+			'task_id' => 24, //Open Crack
 			'order' => 1
 		]);
 		DB::table('system_task')->insert([ // 
 			'system_id' => 15,
-			'task_id' => 25, //Sandblasting
+			'task_id' => 25, //Open Tie Holes
 			'order' => 2
 		]);
 
 		DB::table('system_task')->insert([ // 
 			'system_id' => 15,
-			'task_id' => 26, //Pressure Clean
+			'task_id' => 26, //Opening Honeycombing
 			'order' => 3
 		]);
 
 		DB::table('system_task')->insert([ // 
 			'system_id' => 15,
-			'task_id' => 27, //Honeycomb
+			'task_id' => 27, //Sandblasting
 			'order' => 4
 		]);
 
 		DB::table('system_task')->insert([ // 
 			'system_id' => 15,
-			'task_id' => 28, //Plug
+			'task_id' => 28, //Pressure Clean
 			'order' => 5
 		]);
 
 		DB::table('system_task')->insert([ // 
 			'system_id' => 15,
-			'task_id' => 29, //Grout
+			'task_id' => 29, //Plug 
 			'order' => 6
 		]);
 
 		DB::table('system_task')->insert([ // 
 			'system_id' => 15,
-			'task_id' => 30, //Prewet
+			'task_id' => 30, //Close Crack
 			'order' => 7
 		]);
 
 		DB::table('system_task')->insert([ // 
 			'system_id' => 15,
-			'task_id' => 31, //t1slurry
+			'task_id' => 31, //Close Honeycombing
 			'order' => 8
 		]);
 
 		DB::table('system_task')->insert([ // 
 			'system_id' => 15,
-			'task_id' => 32, //Moist Cure
+			'task_id' => 32, //Close Tie-Holes
+			'order' => 8
+		]);
+
+		DB::table('system_task')->insert([ // 
+			'system_id' => 15,
+			'task_id' => 33, //Pre-wet
+			'order' => 8
+		]);
+
+		DB::table('system_task')->insert([ // 
+			'system_id' => 15,
+			'task_id' => 34, //t1slurry
+			'order' => 8
+		]);
+
+		DB::table('system_task')->insert([ // 
+			'system_id' => 15,
+			'task_id' => 35, //Moist Cure
 			'order' => 9
 		]);
 
 		DB::table('system_task')->insert([ // 
 			'system_id' => 15,
-			'task_id' => 33, //T2
+			'task_id' => 36, //T2
 			'order' => 10
 		]);
 
 		//Kryton KMA
 		DB::table('system_task')->insert([ // 
 			'system_id' => 16,
-			'task_id' => 36, //chipping
+			'task_id' => 37, //chipping
 			'order' => 1
 		]);
 		DB::table('system_task')->insert([ // 
 			'system_id' => 16,
-			'task_id' => 37, //plaster KMA
+			'task_id' => 38, //plaster KMA
 			'order' => 2
 		]);
 		DB::table('system_task')->insert([ // 
 			'system_id' => 16,
-			'task_id' => 38, //Alkali Primer
+			'task_id' => 39, //Alkali Primer
 			'order' => 3
 		]);
-		DB::table('system_task')->insert([ // 
-			'system_id' => 16,
-			'task_id' => 39, //Hydroscopic Coating
-			'order' => 4
-		]);
+		
 		DB::table('system_task')->insert([ // 
 			'system_id' => 16,
 			'task_id' => 40, //Undercoat

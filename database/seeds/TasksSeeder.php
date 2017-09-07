@@ -36,7 +36,7 @@ class TasksSeeder extends Seeder
 			'description' => 'Remove obsolete waterproofing membrane from roof area',
 			'alias' => 'stripping',
 			'unit_of_measure' => 'm2',
-			'rate' => 150,
+			'rate' => 200,
 			'created_at' => Carbon::now()
 		]);
 
@@ -108,7 +108,7 @@ class TasksSeeder extends Seeder
 			'description' => 'Mechanically and chemically fasten Sanika\'s lightweight, industrial grade, high-density, fire retardant polyurethane insulative panels to roof area.',
 			'alias' => 'polyurethaneboards',
 			'unit_of_measure' => 'm2',
-			'rate' => 400,
+			'rate' => 100,
 			'created_at' => Carbon::now()
 		]);
 
@@ -229,137 +229,147 @@ class TasksSeeder extends Seeder
 		//Kryton
 		//Kryton Concrete Repair
 		DB::table('tasks')->insert([ //24
-			'name' => 'Chipping',
+			'name' => 'Opening Crack',
 			'description' => 'Using a sharp 25 mm, square chisel, HILTI high speed chisellers chip a chase along the entire length of the water ingress points to',
-			'alias' => 'chipping',
+			'alias' => 'opencrack',
 			'unit_of_measure' => 'lm',
 			'link_to' => 'crack',
-			'rate' => 70,
-			'created_at' => Carbon::now()
-		]);
-		
-		DB::table('tasks')->insert([ //25
-			'name' => 'Sandblasting',
-			'description' => 'Clean and prepare surface using dustless sand blasting to ensure the pores of the concrete are exposed to allow the growth of “Krystols” into the concrete. (please note that this process is highly important for the success of crystalline repairs, if the pores are not adequately exposed there will be failures)',
-			'alias' => 'sandblasting',
-			'unit_of_measure' => 'm2',
-			'rate' => 400,
-			'created_at' => Carbon::now()
-		]);
-
-		DB::table('tasks')->insert([ //26
-			'name' => 'Pressure Clean',
-			'description' => 'Clean and prepare substrate using high pressure water washers with rotating needle jets. (please note that this process is highly important for the success of crystalline repairs, if the pores are not adequately exposed there will be failures)',
-			'alias' => 'clean',
-			'unit_of_measure' => 'm2',
-			'rate' => 600,
-			'created_at' => Carbon::now()
-		]);
-
-		DB::table('tasks')->insert([ //27
-			'name' => 'Honeycombing',
-			'description' => 'Prepare and open spalled and honeycombed areas to accommodate Kryton concrete repair system.',
-			'alias' => 'honeycombing',
-			'unit_of_measure' => 'm2',
-			'link_to' => 'honeycomb',
-			'rate' => 50,
-			'created_at' => Carbon::now()
-		]);
-
-		DB::table('tasks')->insert([ //28
-			'name' => 'Plug',
-			'description' => 'Stop water flow with Kryton Plug',
-			'alias' => 'plug',
-			'unit_of_measure' => 'm2',
-			'link_to' => 'plug',
-			'rate' => 6,
-			'created_at' => Carbon::now()
-		]);
-
-		DB::table('tasks')->insert([ //29
-			'name' => 'Krystol Repair Grout',
-			'description' => 'Clean the chase with clean water, removing all dust and loose concrete and fill the chased area with Kryton Krystol Repair Grout<sup>&reg;</sup> (specially mixed dry-mix)',
-			'alias' => 'grout',
-			'unit_of_measure' => 'm2',
-			'link_to' => 'crack',
-			'rate' => 50,
-			'created_at' => Carbon::now()
-		]);
-
-		DB::table('tasks')->insert([ //30
-			'name' => 'Pre-wet',
-			'description' => 'Pre-wet surface to be treated to Saturate-Surface- Dry (SSD) condition.',
-			'alias' => 'prewet',
-			'unit_of_measure' => 'm2',
-			'rate' => 400,
-			'created_at' => Carbon::now()
-		]);
-
-		DB::table('tasks')->insert([ //31
-			'name' => 'T1 Slurry',
-			'description' => 'Apply Kryton’s Krystol T1 ® waterproofing compound to surface in a slurry form in accordance with manufacturer’s specification.',
-			'alias' => 't1slurry',
-			'unit_of_measure' => 'm2',
-			'rate' => 200,
-			'created_at' => Carbon::now()
-		]);
-
-		DB::table('tasks')->insert([ //32
-			'name' => 'Moist Cure',
-			'description' => 'Moist cure all treated areas as per Krytons specification in order to insure perfect curing and allow for the Krystols to grow and develop its full properties.',
-			'alias' => 'moistcure',
-			'unit_of_measure' => 'm2',
-			'rate' => 300,
-			'created_at' => Carbon::now()
-		]);
-
-		DB::table('tasks')->insert([ //33
-			'name' => 'T2 Slurry',
-			'description' => 'Apply Kryton’s Krystol T2<sup>&reg;</sup\> waterproofing compound to surface in a slurry form in accordance with manufacturer’s specification.',
-			'alias' => 't2slurry',
-			'unit_of_measure' => 'm2',
-			'rate' => 200,
-			'created_at' => Carbon::now()
-		]);
-
-		//Torch Plain Dual Layer
-		DB::table('tasks')->insert([ //34
-			'name' => 'Dual Layer',
-			'description' => 'Install dual layer, plain finish, heat bonded, industrial grade torch-on waterproofing membrane.',
-			'alias' => 'torchdualplain',
-			'unit_of_measure' => 'm2',
-			'rate' => 70,
-			'created_at' => Carbon::now()
-		]);
-
-		//Torch Fibre Reinforced
-		DB::table('tasks')->insert([ //35
-			'name' => 'Dual Layer',
-			'description' => 'Install fibre-reinforced, heat bonded, industrial grade torch-on waterproofing membrane.',
-			'alias' => 'torchfibrereinforced',
-			'unit_of_measure' => 'm2',
 			'rate' => 100,
 			'created_at' => Carbon::now()
 		]);
 
-		//Plaster KMA
+		DB::table('tasks')->insert([ //25
+			'name' => 'Opening Tie Holes',
+			'description' => 'Using a sharp 25 mm, square chisel, HILTI high speed chisellers chip open all tie-holes showing signs of water ingress or degress',
+			'alias' => 'opentiehole',
+			'unit_of_measure' => 'each',
+			'link_to' => 'tieholes',
+			'rate' => 200,
+			'created_at' => Carbon::now()
+		]);
+
+		DB::table('tasks')->insert([ //26
+			'name' => 'Open Honeycombing',
+			'description' => 'Using a sharp 25 mm, square chisel, HILTI high speed chisellers expose areas of honecombing until solid concrete is left',
+			'alias' => 'openhoneycomb',
+			'unit_of_measure' => 'm2',
+			'link_to' => 'honeycomb',
+			'rate' => 35,
+			'created_at' => Carbon::now()
+		]);
+		
+		DB::table('tasks')->insert([ //27
+			'name' => 'Sandblasting',
+			'description' => 'Clean and prepare surface using dustless sand blasting to ensure the pores of the concrete are exposed to allow the growth of “Krystols” into the concrete. (please note that this process is highly important for the success of crystalline repairs, if the pores are not adequately exposed there will be failures)',
+			'alias' => 'sandblasting',
+			'unit_of_measure' => 'm2',
+			'rate' => 329,
+			'created_at' => Carbon::now()
+		]);
+
+		DB::table('tasks')->insert([ //28
+			'name' => 'Pressure Clean',
+			'description' => 'Clean and prepare substrate using high pressure water washers with rotating needle jets. (please note that this process is highly important for the success of crystalline repairs, if the pores are not adequately exposed there will be failures)',
+			'alias' => 'clean',
+			'unit_of_measure' => 'm2',
+			'rate' => 800,
+			'created_at' => Carbon::now()
+		]);
+
+		DB::table('tasks')->insert([ //29
+			'name' => 'Plug',
+			'description' => 'Stop water flow with Kryton Plug',
+			'alias' => 'plug',
+			'unit_of_measure' => 'lm',
+			'link_to' => 'plug',
+			'rate' => 20,
+			'created_at' => Carbon::now()
+		]);		
+
+		DB::table('tasks')->insert([ //30
+			'name' => 'Close Crack',
+			'description' => 'Clean the chase with clean water, removing all dust and loose concrete and fill the chased area with Kryton Krystol Repair Grout<sup>&reg;</sup> (specially mixed dry-mix)',
+			'alias' => 'grout',
+			'unit_of_measure' => 'lm',
+			'link_to' => 'crack',
+			'rate' => 150,
+			'created_at' => Carbon::now()
+		]);
+
+		DB::table('tasks')->insert([ //31
+			'name' => 'Close Honeycombing',
+			'description' => 'Clean the chase with clean water, removing all dust and loose concrete and fill the chased area with Kryton Krystol Repair Grout<sup>&reg;</sup> (specially mixed dry-mix)',
+			'alias' => 'closehoneycomb',
+			'unit_of_measure' => 'lm',
+			'link_to' => 'honeycomb',
+			'rate' => 5,
+			'created_at' => Carbon::now()
+		]);
+
+		DB::table('tasks')->insert([ //32
+			'name' => 'Close Tie-Holes',
+			'description' => 'Clean the chase with clean water, removing all dust and loose concrete and fill the chased area with Kryton Krystol Repair Grout<sup>&reg;</sup> (specially mixed dry-mix)',
+			'alias' => 'closetiehole',
+			'unit_of_measure' => 'each',
+			'link_to' => 'tieholes',
+			'rate' => 100,
+			'created_at' => Carbon::now()
+		]);
+
+		DB::table('tasks')->insert([ //33
+			'name' => 'Pre-wet',
+			'description' => 'Pre-wet surface to be treated to Saturate-Surface- Dry (SSD) condition.',
+			'alias' => 'prewet',
+			'unit_of_measure' => 'm2',
+			'rate' => 1400,
+			'created_at' => Carbon::now()
+		]);
+
+		DB::table('tasks')->insert([ //34
+			'name' => 'T1 Slurry',
+			'description' => 'Apply Kryton’s Krystol T1 <sup>&reg;</sup> waterproofing compound to surface in a slurry form in accordance with manufacturer’s specification.',
+			'alias' => 't1slurry',
+			'unit_of_measure' => 'm2',
+			'rate' => 480,
+			'created_at' => Carbon::now()
+		]);
+
+		DB::table('tasks')->insert([ //35
+			'name' => 'Moist Cure',
+			'description' => 'Moist cure all treated areas as per Krytons specification in order to insure perfect curing and allow for the Krystols to grow and develop its full properties.',
+			'alias' => 'moistcure',
+			'unit_of_measure' => 'm2',
+			'rate' => 1400,
+			'created_at' => Carbon::now()
+		]);
+
 		DB::table('tasks')->insert([ //36
+			'name' => 'T2 Slurry',
+			'description' => 'Apply Kryton’s Krystol T2<sup>&reg;</sup\> waterproofing compound to surface in a slurry form in accordance with manufacturer’s specification.',
+			'alias' => 't2slurry',
+			'unit_of_measure' => 'm2',
+			'rate' => 480,
+			'created_at' => Carbon::now()
+		]);
+
+		//Plaster KMA
+		DB::table('tasks')->insert([ //37
 			'name' => 'Chip Plaster',
 			'description' => 'Remove existing damaged plaster using electric chisels.',
 			'alias' => 'chipplaster',
 			'unit_of_measure' => 'm2',
-			'rate' => 50,
+			'rate' => 60,
 			'created_at' => Carbon::now()
 		]);
-		DB::table('tasks')->insert([ //37
+		DB::table('tasks')->insert([ //38
 			'name' => 'Plaster with KMA',
 			'description' => 'Re-plaster exposed bricks using a Krystol Mortar Waterproof Admixture render.',
 			'alias' => 'kmaplaster',
 			'unit_of_measure' => 'm2',
-			'rate' => 50,
+			'rate' => 60,
 			'created_at' => Carbon::now()
 		]);
-		DB::table('tasks')->insert([ //38
+		DB::table('tasks')->insert([ //39
 			'name' => 'Alkali Primer',
 			'description' => 'Coat all newly plastered areas with an alkali resistant plaster.',
 			'alias' => 'alkaliprime',
@@ -367,15 +377,7 @@ class TasksSeeder extends Seeder
 			'rate' => 500,
 			'created_at' => Carbon::now()
 		]);
-		DB::table('tasks')->insert([ //39
-			'name' => 'Hydroscopic Coating',
-			'description' => 'Coat high moisture areas of walls with Sanika Hydroscopic cementitious waterproofing
-compound.',
-			'alias' => 'hydrocoat',
-			'unit_of_measure' => 'm2',
-			'rate' => 200,
-			'created_at' => Carbon::now()
-		]);
+		
 		DB::table('tasks')->insert([ //40
 			'name' => 'Undercoat',
 			'description' => 'Coat newly stripped paint coatings with an industrial grade undercoat.',
@@ -389,7 +391,7 @@ compound.',
 			'description' => 'Coat all newly primed and undercoated areas using industrial grade paint',
 			'alias' => 'paintwall',
 			'unit_of_measure' => 'm2',
-			'rate' => 200,
+			'rate' => 300,
 			'created_at' => Carbon::now()
 		]);
 
@@ -400,6 +402,26 @@ compound.',
 			'unit_of_measure' => 'm2',
 			'link_to' => 'area',
 			'rate' => 125,
+			'created_at' => Carbon::now()
+		]);
+
+		DB::table('tasks')->insert([ //43
+			'name' => 'Silvakote',
+			'description' => 'Apply 2 coats of Bitumastic Aluminium coating to the torched area',
+			'alias' => 'silvakote',
+			'unit_of_measure' => 'm2',
+			'link_to' => 'area',
+			'rate' => 600,
+			'created_at' => Carbon::now()
+		]);
+
+		DB::table('tasks')->insert([ //44
+			'name' => 'Rubberised',
+			'description' => 'Apply 2 coats of Rubberised Bitumin to the prepeared area and allow specified curing time',
+			'alias' => 'rubberised',
+			'unit_of_measure' => 'm2',
+			'link_to' => 'area',
+			'rate' => 40,
 			'created_at' => Carbon::now()
 		]);
 		

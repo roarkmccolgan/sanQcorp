@@ -46,6 +46,7 @@ class CreateOptionTable extends Migration
             $table->decimal('crack',10,2)->nullable();
             $table->decimal('plug',10,2)->nullable();
             $table->decimal('honeycomb',10,2)->nullable();
+            $table->decimal('tieholes',10,2)->nullable();
 
             $table->foreign('section_id')->references('id')->on('section')->onDelete('cascade');
             $table->foreign('system_id')->references('id')->on('system')->onDelete('cascade');

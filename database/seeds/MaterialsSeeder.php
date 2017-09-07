@@ -595,7 +595,7 @@ class MaterialsSeeder extends Seeder
         ]);
 
         DB::table('materials')->insert([ //42
-            'name' => 'Diesel generator',
+            'name' => 'Diesel Air',
             'category_id' => 6,
             'Description' => 'blah',
             'image' => 'blank.jpg',
@@ -605,7 +605,7 @@ class MaterialsSeeder extends Seeder
             'day_rate' => 0.00,
             'unit_of_measure' => 'lt',
             'product_type' => 'fuel',
-            'coverage' => 300,
+            'coverage' => 10,
             'created_at' => Carbon::now()
         ]);
 
@@ -633,9 +633,9 @@ class MaterialsSeeder extends Seeder
             'pack_size' => 500,
             'cost_price' => 500,
             'day_rate' => 0.00,
-            'unit_of_measure' => 'kg',
+            'unit_of_measure' => 'm3',
             'product_type' => 'Grit',
-            'coverage' => 20,
+            'coverage' => 80,
             'created_at' => Carbon::now()
         ]);
 
@@ -646,7 +646,7 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 25,
-            'cost_price' => 800,
+            'cost_price' => 2750,
             'day_rate' => 0.00,
             'unit_of_measure' => 'kg',
             'product_type' => 'Plug',
@@ -661,11 +661,11 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 25,
-            'cost_price' => 800,
+            'cost_price' => 2750,
             'day_rate' => 0.00,
             'unit_of_measure' => 'kg',
             'product_type' => 'Grout',
-            'coverage' => 25,
+            'coverage' => 100,
             'created_at' => Carbon::now()
         ]);
 
@@ -676,7 +676,7 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 25,
-            'cost_price' => 800,
+            'cost_price' => 2750,
             'day_rate' => 0.00,
             'unit_of_measure' => 'kg',
             'product_type' => 'T1',
@@ -691,7 +691,7 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 25,
-            'cost_price' => 800,
+            'cost_price' => 2750,
             'day_rate' => 0.00,
             'unit_of_measure' => 'kg',
             'product_type' => 'T2',
@@ -752,7 +752,7 @@ class MaterialsSeeder extends Seeder
             'image' => 'blank.jpg',
             'stock' => 1000,
             'pack_size' => 15,
-            'cost_price' => 800.00,
+            'cost_price' => 1650.00,
             'day_rate' => 0.00,
             'unit_of_measure' => 'kg',
             'product_type'=>'kryton',
@@ -833,6 +833,68 @@ class MaterialsSeeder extends Seeder
             'unit_of_measure' => 'lt',
             'product_type' => 'bonding',
             'coverage' => 10,
+            'created_at' => Carbon::now()
+        ]);
+
+        DB::table('materials')->insert([ //58
+            'name' => 'Screed Repair Kit',
+            'category_id' => 5,
+            'Description' => 'blah',
+            'image' => 'blank.jpg',
+            'stock' => 1000,
+            'pack_size' => 1,
+            'cost_price' => 300,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'lt',
+            'product_type' => 'cement',
+            'coverage' => 8.5,
+            'created_at' => Carbon::now()
+        ]);
+
+        //silvakote
+        DB::table('materials')->insert([ //59
+            'name' => 'Bitumastic Aluminium (Silvakote) 25lt',
+            'category_id' => 5,
+            'Description' => 'blah',
+            'image' => 'blank.jpg',
+            'stock' => 1000,
+            'pack_size' => 1,
+            'cost_price' => 1455.08,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'lt',
+            'product_type' => 'silvakote',
+            'coverage' => 175,
+            'created_at' => Carbon::now()
+        ]);
+
+        DB::table('materials')->insert([ //60
+            'name' => 'Bitumastic Aluminium (Silvakote) 5lt',
+            'category_id' => 5,
+            'Description' => 'blah',
+            'image' => 'blank.jpg',
+            'stock' => 1000,
+            'pack_size' => 1,
+            'cost_price' => 398.20,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'lt',
+            'product_type' => 'silvakote',
+            'coverage' => 35,
+            'created_at' => Carbon::now()
+        ]);
+
+        //Rubberised Bitumin
+        DB::table('materials')->insert([ //61
+            'name' => 'Rubberised Bitumen (Superlakold)',
+            'category_id' => 5,
+            'Description' => 'blah',
+            'image' => 'blank.jpg',
+            'stock' => 1000,
+            'pack_size' => 1,
+            'cost_price' => 453.96,
+            'day_rate' => 0.00,
+            'unit_of_measure' => 'lt',
+            'product_type' => 'rubberised',
+            'coverage' => 9.5,
             'created_at' => Carbon::now()
         ]);
 

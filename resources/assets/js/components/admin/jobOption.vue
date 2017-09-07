@@ -382,6 +382,7 @@
                     honeycomb: {value: 0, uom: 'm2',show:false},
                     crack: {value: 0, uom: 'lm',show:false},
                     plug: {value: 0, uom: 'lm',show:false},
+                    tieholes: {value: 0, uom: 'ea',show:false},
                     /*height: {value: 0, uom: 'm',show:false}*/
                 }
 			};
@@ -460,6 +461,7 @@
 	            	}
 	            	for (var key in this.option.system.tasks) {
 				        if (this.option.system.tasks.hasOwnProperty(key)) {
+				        	console.log(this.option.system.tasks[key].link_to);
 				        	this.properties[this.option.system.tasks[key].link_to].show = true;
 				        }
 				    }
