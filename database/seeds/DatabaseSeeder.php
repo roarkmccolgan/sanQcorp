@@ -43,6 +43,7 @@ class DatabaseSeeder extends Seeder
         $this->call(labourSeeder::class);
         $this->call(LabourSystemSeeder::class);
         $this->call(JobIncludesSeeder::class);
+        $this->call(SurveySeeder::class);
 
         Model::reguard();
     }

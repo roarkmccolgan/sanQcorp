@@ -34,7 +34,7 @@ class UpdateOpportunityOnInsightly
 
         //send guzzle request
         $client = new \GuzzleHttp\Client(['base_uri' => 'https://api.insight.ly/v2.1/']);
-        $username = 'bdd2248f-433e-43cd-b148-6231a3d5418f'; //api key
+        $username = config('insightly.apikey');
         $password = ''; //blank / not needed
         $url = 'Opportunities';
         try {
@@ -42,12 +42,7 @@ class UpdateOpportunityOnInsightly
                 'auth' => [$username, $password],
                 'json' => [
                     'OPPORTUNITY_ID' => $opportunity_id,
-                    'OPPORTUNITY_NAME' => $job->name.' - '.$job->order_number,
-                    'BID_AMOUNT' => intval($job->value),
-                    'BID_CURRENCY' => 'ZAR',
-                    'BID_TYPE' => 'Fixed Bid',
-                    'RESPONSIBLE_USER_ID' => $user_insightly_id,
-                    'OWNER_USER_ID' => $user_insightly_id,
+                    'OPPORTUNITY_STATE': "Won",
                 ]
             ]);
             $code = $request->getStatusCode();

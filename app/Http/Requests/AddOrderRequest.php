@@ -25,7 +25,6 @@ class AddOrderRequest extends Request
     {
         return [
             //'order_number'=>'required|unique:jobs|min:10|max:11',
-            'upload'=>'required',
             'contact_id' => 'exists:contacts,id',
             'job.option.*.accepted'=>'required|in:on,1,true',
         ];

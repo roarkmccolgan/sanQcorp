@@ -22,7 +22,7 @@ elixir(function(mix) {
         '/public/css/app.css'
     ], 'public/css/main.css', './')
     .copy('node_modules/literallycanvas/lib/img', 'public/img/vendor/literallycanvas')
-    .copy('node_modules/sweetalert2/dist/', 'public/css/vendor/sweetalert2')
+    .copy('node_modules/sweetalert2/dist/sweetalert2.min.css', 'public/css/vendor/sweetalert2')
     //.copy('node_modules/ckeditor/', 'public/js/vendor/ckeditor')
     .copy('node_modules/summernote/dist/', 'public/js/vendor/summernote')
     /*.scripts(['literallycanvas.js'], 'public/js/vendor/literallycanvas.js')*/

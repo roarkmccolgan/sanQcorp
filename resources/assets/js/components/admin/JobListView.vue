@@ -18,7 +18,7 @@
 			deleteJob: function(name, id,e){
 				console.log(name, id); 
 				var that=this;
-				swal({
+				Swal({
 					title: "Delete "+name+"?",
 					text: "You will not be able to undo this operation",
 					type: "warning",

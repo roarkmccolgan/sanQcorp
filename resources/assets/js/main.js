@@ -1,5 +1,5 @@
 var Vue = require('vue');
-var Swal = require('sweetalert2');
+window.Swal = require('sweetalert2');
 //window.CKEDITOR_BASEPATH = '/js/vendor/ckeditor/';
 //var ckeditor = require('ckeditor');
 //var summernote = require('summernote');

@@ -48,15 +48,19 @@
                 <div class="form-group">
                     <select class="form-control" @change="setSurvey($event)">
                         <option value="">Select Pre-defined survey</option>
-                        <option v-for="survey in surveys" v-bind:value="survey">{{ survey }}</option>
+                        <option v-for="survey in surveys" v-bind:value="survey.survey">{{ survey.survey }}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <textarea id="section_survey_{{key}}" name="section[{{key}}][survey]" class="form-control" rows="3" placeholder="Site Survey" v-model="section.survey"></textarea>
+                    <label class="checkbox">
+                        <input type="checkbox" value="true" name="section[{{key}}][save_survey]" data-toggle="checkbox">
+                        Save Survey in Templates
+                    </label>
                 </div>
                 <div class="row">
                     <div class="col-md-12 clearfix">
-                        <button class="btn btn-inverse pull-right" @click.prevent="addPhoto('','','sections',key)" style=""><i class="fui-image"></i> Area Images</button>
+                        <button class="btn btn-inverse pull-right" @click.prevent="addPhoto('','','sections',key)" style=""><i class="fui-image"></i> Section Images</button>
                     </div>
                     <!-- <div class="clearfix" style="border-radius: 5px; border: 1px solid #CCC;padding: 20px 0"> -->
                     <template v-for="(imageKey, image) in section.images">
@@ -118,11 +122,7 @@
                 newTask: false,
                 //system_selected: '',
                 option_system:'',
-                surveys: [
-                    'After conducting an intensive survey of the aforementioned site, we discovered a number various water penetration points.',
-                    'We have based the below quoation on the issues you discussed with yourselves telephonically',
-                    'The Site is bad'
-                ],
+                surveys: laravel.surveys,
                 checkedTasks:[],
                 new_material: '',
             };

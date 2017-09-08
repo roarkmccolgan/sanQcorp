@@ -500,7 +500,7 @@
                 this.option.total_supervisor = total_supervisor;
                 this.option.total_materials = total_materials+this.total_extra_materials;
 
-                this.option.total_cost_price = total_price+(((laravel.job.distance*2)*total_days)*5);
+                this.option.total_cost_price = total_price+this.total_extra_materials+(((laravel.job.distance*2)*total_days)*5);
                 this.option.selling_price = this.option.total_cost_price+((this.option.total_cost_price/100)*this.option.markup);
                 
             },

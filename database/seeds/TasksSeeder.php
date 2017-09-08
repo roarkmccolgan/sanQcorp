@@ -300,7 +300,7 @@ class TasksSeeder extends Seeder
 			'name' => 'Close Honeycombing',
 			'description' => 'Clean the chase with clean water, removing all dust and loose concrete and fill the chased area with Kryton Krystol Repair Grout<sup>&reg;</sup> (specially mixed dry-mix)',
 			'alias' => 'closehoneycomb',
-			'unit_of_measure' => 'lm',
+			'unit_of_measure' => 'm2',
 			'link_to' => 'honeycomb',
 			'rate' => 5,
 			'created_at' => Carbon::now()

@@ -184,10 +184,9 @@
                 $('#contact_id').val(data.id);
             },
             'modal-job-status:open': function (jobId,title) {
+                console.log(jobId,title);
                 this.title = title;
-                this.$http.get('/api/job', {
-                    id: jobId
-                }).then(function(result){
+                this.$http.get('/api/job', {params: {id: jobId}}).then(function(result){
                     if(result.data.result=='success'){
                         this.job=result.data.job;
                         if(this.job.order){

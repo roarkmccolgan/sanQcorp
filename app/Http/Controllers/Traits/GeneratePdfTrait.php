@@ -20,7 +20,7 @@ trait GeneratePdfTrait {
     		->setOption('margin-right', 0)
     		->setOption('margin-bottom',25)
     		->setOption('margin-left', 0)
-    		->setOption('footer-html', 'http://'.$_SERVER['HTTP_HOST'].'/wkhtmltopdf/footer.php')
+    		->setOption('footer-html', env('APP_DOMAIN').'/wkhtmltopdf/footer')
     		->$type($name);
     }
 }

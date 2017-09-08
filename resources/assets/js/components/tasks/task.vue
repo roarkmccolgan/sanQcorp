@@ -104,6 +104,7 @@
                 difficulty: '',
                 materialOptions:{},
                 chosenMaterials: {},
+                superRate: 0
             };
         },
         computed: {
@@ -122,10 +123,10 @@
                     tot+=val;
                 }
                 console.log('Labour Price ',tot);
-                return this.total_days ? this.total_days*1645:0; //1200 labour + 245 Driver
+                return this.total_days ? this.total_days*tot:0;
             },
             total_supervisor: function(){
-                return this.total_days * 681;
+                return this.total_days * this.superRate;
             },
             total_materials: function(){
                 var price = 0;
@@ -164,7 +165,7 @@
                     id: material.id,
                     name: material.name,
                     product_type: material.product_type,
-                    coverage: material.coverage,
+                    coverage: material.pivot && material.pivot['coverage'] ? material.pivot['coverage'] : material.coverage,
                     pack_size: material.pack_size,
                     cost_price: material.cost_price,
                     qty: '',
@@ -305,6 +306,11 @@
             //console.log('ready');
             //this.setDefaults(this.optionKey);
             this.updateValues();
+            for (var i = 0; i < this.option.system.labour.length; i++) {
+                if(this.option.system.labour[i].type=="Supervisor"){
+                    this.superRate = this.option.system.labour[i].day_rate;
+                }
+            }
         }
     };
 </script>

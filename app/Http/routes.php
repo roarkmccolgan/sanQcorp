@@ -49,7 +49,7 @@ Route::group(['middleware' => ['web']], function () {
 
     //jobs
 	Route::bind('job', function ($value) {
-		return App\Jobs::with('revisions','user','terms','photos','pandg','contacts.company','sections.options.tasks.materials','sections.options.materials','sections.options.system.photos','sections.options','sections.options.notes','sections.photos')->findOrFail($value);
+		return App\Jobs::with('revisions','user','terms','photos','pandg','contacts.company','sections.options.tasks.materials','sections.options.materials','sections.options.system.photos','sections.options.system.labour','sections.options','sections.options.notes','sections.photos')->findOrFail($value);
 	});
 	Route::group(['prefix' => 'jobs'], function(){
 		Route::get('/', ['uses' => 'JobController@showJobs']);
@@ -119,6 +119,7 @@ Route::group(['middleware' => ['web']], function () {
 		//Get Job
 		Route::get('job', function(Request $request)
 		{
+			//dd($request->input());
 			$id = $request->input('id');
 			$job = App\Jobs::with('order','sections.options','contacts.company')->find($id);
 

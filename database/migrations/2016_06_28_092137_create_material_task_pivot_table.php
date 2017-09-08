@@ -19,6 +19,7 @@ class CreateMaterialTaskPivotTable extends Migration
             $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');
             $table->primary(['material_id', 'task_id']);
             $table->string('area')->nullable();
+            $table->integer('coverage')->nullable();
         });
     }
 

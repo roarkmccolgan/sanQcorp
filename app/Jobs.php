@@ -136,9 +136,9 @@ class Jobs extends Model
      /**
      * @return Job Includes
      */
-    public function Includes()
+    public function jobincludes()
     {
-        return $this->belongsToMany('App\Includes','include_job');
+        return $this->belongsToMany('App\JobInclude','job_include_job', 'job_id', 'include_id');
     }
 
     /**

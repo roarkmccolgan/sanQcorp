@@ -93,11 +93,21 @@
 				$("form[name='myform']").submit();
 			},
 			saveJob: function(){
-				for (var key in this.sections) {
-					if (this.sections.hasOwnProperty(key)) {
-						console.log((key + " -> " + this.sections[key]));
-					}
-				}
+				Swal({
+					title: 'Have you checked the following?',
+					type: 'info',
+					html:
+						'Any P\s &amp; G\'s<br/>' +
+						'Double check your measurements<br/>' +
+						'Any other items you need for the job<br/>',
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Yes, save it!'
+				}).then(function () {
+					$('body').prepend( '<div class="cssload-container" id="pageLoader"><div class="cssload-whirlpool"></div></div>' );
+					$("#saveBuildForm").submit();
+				});
 			},
 			addSection: function(){
 				this.sections.push({
@@ -337,28 +347,16 @@
 			}
 			if(this.laravel.job.includes){
 				for (var i = this.laravel.job.includes.length - 1; i >= 0; i--) {
-					if(this.laravel.job.includes[i].type=='includes'){
-						for (var j = this.checkedIncludes - 1; j >= 0; j--) {
-							if(this.checkedIncludes[j].id!==this.laravel.job.includes[i].id){
-								this.checkedIncludes.push(this.laravel.job.includes[i]);
-							}
-						}
-					}
-					if(this.laravel.job.includes[i].type=='excludes'){
-						for (var j = this.checkedExcludes - 1; j >= 0; j--) {
-							if(this.checkedExcludes[j].id!==this.laravel.job.includes[i].id){
-								this.checkedExcludes.push(this.laravel.job.includes[i]);
-							}
+					for (var j = this.checkedIncludes - 1; j >= 0; j--) {
+						if(this.checkedIncludes[j].id!==this.laravel.job.includes[i].id){
+							this.checkedIncludes.push(this.laravel.job.includes[i]);
 						}
 					}
 				}
 			} else {
 				for (var i = this.includes.length - 1; i >= 0; i--) { //creating a new job so check all default includes
-					if(this.includes[i].type == 'includes' && this.includes[i].default==1){
+					if(this.includes[i].default==1){
 						this.checkedIncludes.push(this.includes[i]);
-					}
-					if(this.includes[i].type == 'excludes' && this.includes[i].default==1){
-						this.checkedExcludes.push(this.includes[i]);
 					}
 				}
 			}

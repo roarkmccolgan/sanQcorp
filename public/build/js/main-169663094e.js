@@ -18552,10 +18552,9 @@ exports.default = {
             $('#contact_id').val(data.id);
         },
         'modal-job-status:open': function modalJobStatusOpen(jobId, title) {
+            console.log(jobId, title);
             this.title = title;
-            this.$http.get('/api/job', {
-                id: jobId
-            }).then(function (result) {
+            this.$http.get('/api/job', { params: { id: jobId } }).then(function (result) {
                 if (result.data.result == 'success') {
                     this.job = result.data.job;
                     if (this.job.order) {
@@ -18826,11 +18825,18 @@ exports.default = {
 			$("form[name='myform']").submit();
 		},
 		saveJob: function saveJob() {
-			for (var key in this.sections) {
-				if (this.sections.hasOwnProperty(key)) {
-					console.log(key + " -> " + this.sections[key]);
-				}
-			}
+			Swal({
+				title: 'Have you checked the following?',
+				type: 'info',
+				html: 'Any P\s &amp; G\'s<br/>' + 'Double check your measurements<br/>' + 'Any other items you need for the job<br/>',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, save it!'
+			}).then(function () {
+				$('body').prepend('<div class="cssload-container" id="pageLoader"><div class="cssload-whirlpool"></div></div>');
+				$("#saveBuildForm").submit();
+			});
 		},
 		addSection: function addSection() {
 			this.sections.push({
@@ -19060,29 +19066,17 @@ exports.default = {
 		}
 		if (this.laravel.job.includes) {
 			for (var i = this.laravel.job.includes.length - 1; i >= 0; i--) {
-				if (this.laravel.job.includes[i].type == 'includes') {
-					for (var j = this.checkedIncludes - 1; j >= 0; j--) {
-						if (this.checkedIncludes[j].id !== this.laravel.job.includes[i].id) {
-							this.checkedIncludes.push(this.laravel.job.includes[i]);
-						}
-					}
-				}
-				if (this.laravel.job.includes[i].type == 'excludes') {
-					for (var j = this.checkedExcludes - 1; j >= 0; j--) {
-						if (this.checkedExcludes[j].id !== this.laravel.job.includes[i].id) {
-							this.checkedExcludes.push(this.laravel.job.includes[i]);
-						}
+				for (var j = this.checkedIncludes - 1; j >= 0; j--) {
+					if (this.checkedIncludes[j].id !== this.laravel.job.includes[i].id) {
+						this.checkedIncludes.push(this.laravel.job.includes[i]);
 					}
 				}
 			}
 		} else {
 			for (var i = this.includes.length - 1; i >= 0; i--) {
 				//creating a new job so check all default includes
-				if (this.includes[i].type == 'includes' && this.includes[i].default == 1) {
+				if (this.includes[i].default == 1) {
 					this.checkedIncludes.push(this.includes[i]);
-				}
-				if (this.includes[i].type == 'excludes' && this.includes[i].default == 1) {
-					this.checkedExcludes.push(this.includes[i]);
 				}
 			}
 		}
@@ -19141,7 +19135,7 @@ exports.default = {
 		deleteJob: function deleteJob(name, id, e) {
 			console.log(name, id);
 			var that = this;
-			swal({
+			Swal({
 				title: "Delete " + name + "?",
 				text: "You will not be able to undo this operation",
 				type: "warning",
@@ -19211,7 +19205,7 @@ exports.default = {
             newTask: false,
             //system_selected: '',
             option_system: '',
-            surveys: ['After conducting an intensive survey of the aforementioned site, we discovered a number various water penetration points.', 'We have based the below quoation on the issues you discussed with yourselves telephonically', 'The Site is bad'],
+            surveys: laravel.surveys,
             checkedTasks: [],
             new_material: ''
         };
@@ -19293,7 +19287,7 @@ exports.default = {
     }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div>\n    <div class=\"row\" v-show=\"!section.show\">\n        <div class=\"col-xs-12\">\n            <!-- <div class=\"row\"> -->\n                <div class=\"tile\" style=\"padding: 5px 5px 5px 20px; text-align: left\">\n                    <div class=\"row\">\n                        <div class=\"col-xs-10\">\n                            <h6 @click.prevent=\"section.show = !section.show\">{{section.name}}</h6>\n                        </div>\n                        <div class=\"col-xs-2\">\n                            <button class=\"btn btn-default pull-right btn-xs\" @click.prevent=\"section.show = !section.show\" style=\"margin-left: 10px;\"><i class=\"fui-triangle-down-small\"></i></button>\n                        </div>\n                    </div>\n                </div>\n            <!-- </div> -->\n        </div>                \n    </div>\n    <input name=\"section[{{key}}][id]\" type=\"hidden\" v-model=\"section.id\">\n\n    <div class=\"row\" v-show=\"section.show\">\n        <div class=\"col-md-12\">\n            <div class=\"row\">\n                <div class=\"col-xs-9\">\n                    <div class=\"form-group\">\n                        <input name=\"section[{{key}}][name]\" type=\"text\" class=\"form-control input-lg\" placeholder=\"Section Name \" v-model=\"section.name\">\n                        <template v-for=\"(propKey, property) in properties\">\n                            <input type=\"hidden\" name=\"section[{{key}}][{{propKey}}]\" value=\"{{property.value}}\">\n                        </template>\n                    </div>\n                </div>\n                <div class=\"col-sx-3\">\n                    <button class=\"btn btn-default pull-right btn-xs\" @click.prevent=\"section.show = !section.show\" style=\"margin-left: 10px; margin-right: 15px;\"><i class=\"fui-triangle-up-small\"></i></button>\n                    <button class=\"btn btn-danger pull-right btn-xs\" @click.prevent=\"removeSection(key)\"><i class=\"fui-cross\"></i></button>\n                    <br>\n                </div>\n            </div>\n        </div>\n        <div class=\"col-md-12\">\n            <div class=\"form-group\">\n                <select class=\"form-control\" @change=\"setSurvey($event)\">\n                    <option value=\"\">Select Pre-defined survey</option>\n                    <option v-for=\"survey in surveys\" v-bind:value=\"survey\">{{ survey }}</option>\n                </select>\n            </div>\n            <div class=\"form-group\">\n                <textarea id=\"section_survey_{{key}}\" name=\"section[{{key}}][survey]\" class=\"form-control\" rows=\"3\" placeholder=\"Site Survey\" v-model=\"section.survey\"></textarea>\n            </div>\n            <div class=\"row\">\n                <div class=\"col-md-12 clearfix\">\n                    <button class=\"btn btn-inverse pull-right\" @click.prevent=\"addPhoto('','','sections',key)\" style=\"\"><i class=\"fui-image\"></i> Area Images</button>\n                </div>\n                <!-- <div class=\"clearfix\" style=\"border-radius: 5px; border: 1px solid #CCC;padding: 20px 0\"> -->\n                <template v-for=\"(imageKey, image) in section.images\">\n                    <div class=\"col-xs-4\">\n                        <div class=\"form-group text-center\">\n                            <div class=\"uploader clearfix\" style=\"position: relative; display: inline-block;\">\n                                <span class=\"fui-cross-circle text-danger\" style=\"position: absolute; right: -12px; top: 2px; z-index: 1\" @click=\"removePhoto(imageKey,'sections',key)\"></span>\n                                <div class=\"fileinput fileinput-new\" data-provides=\"fileinput\">\n                                    <span class=\"btn btn-inverse btn-sm btn-embossed btn-file\">\n                                        <span class=\"fileinput-new\"><span class=\"fui-upload\"></span>&nbsp;&nbsp;Add image</span>\n                                        <span class=\"fileinput-exists\"><span class=\"fui-gear\"></span>&nbsp;&nbsp;Change</span>\n                                        <input id=\"fileUploadFile\" type=\"file\" @change=\"bindFile($event,imageKey,key)\">\n                                        <input type=\"hidden\" v-model=\"section.images[imageKey].id\" name=\"section[{{key}}][photos][{{imageKey}}][id]\">\n                                        <input type=\"hidden\" v-model=\"section.images[imageKey].photo\" name=\"section[{{key}}][photos][{{imageKey}}][photo]\">\n                                    </span>\n                                    <br><span class=\"fileinput-filename\">{{image.photo}}</span>\n                                    <a href=\"#\" class=\"close fileinput-exists\" data-dismiss=\"fileinput\" style=\"float: none\">×</a>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </template>\n                <!-- </div> -->\n            </div>\n            <div class=\"clearfix\" style=\"height: 40px;\"></div>\n            \n            <strong>Options</strong><button class=\"btn btn-primary btn-sm pull-right clearfix\" @click.prevent=\"addOption\" style=\"margin-left: 10px;\"><span class=\"fui-plus\"></span> Option</button>\n            <div class=\"clearfix\" style=\"margin-top: 10px;\"></div>\n            <div class=\"tile\" style=\"text-align:left\" v-show=\"section.options\" v-for=\"(optionKey, option) in section.options\">\n                <job-option :section=\"section\" :key=\"key\" :systems=\"systems\" :basic-systems=\"basicSystems\" :option=\"option\" :option-key=\"optionKey\" :bind-file=\"bindFile\" :laravel=\"laravel\" :remove-option=\"removeOption\" :add-term=\"addTerm\" :properties=\"properties\" :pandg-total=\"pandgTotal\" @property-changed=\"propChanged\">    \n                </job-option>\n            </div>\n            <hr>\n        </div>\n    </div>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div>\n    <div class=\"row\" v-show=\"!section.show\">\n        <div class=\"col-xs-12\">\n            <!-- <div class=\"row\"> -->\n                <div class=\"tile\" style=\"padding: 5px 5px 5px 20px; text-align: left\">\n                    <div class=\"row\">\n                        <div class=\"col-xs-10\">\n                            <h6 @click.prevent=\"section.show = !section.show\">{{section.name}}</h6>\n                        </div>\n                        <div class=\"col-xs-2\">\n                            <button class=\"btn btn-default pull-right btn-xs\" @click.prevent=\"section.show = !section.show\" style=\"margin-left: 10px;\"><i class=\"fui-triangle-down-small\"></i></button>\n                        </div>\n                    </div>\n                </div>\n            <!-- </div> -->\n        </div>                \n    </div>\n    <input name=\"section[{{key}}][id]\" type=\"hidden\" v-model=\"section.id\">\n\n    <div class=\"row\" v-show=\"section.show\">\n        <div class=\"col-md-12\">\n            <div class=\"row\">\n                <div class=\"col-xs-9\">\n                    <div class=\"form-group\">\n                        <input name=\"section[{{key}}][name]\" type=\"text\" class=\"form-control input-lg\" placeholder=\"Section Name \" v-model=\"section.name\">\n                        <template v-for=\"(propKey, property) in properties\">\n                            <input type=\"hidden\" name=\"section[{{key}}][{{propKey}}]\" value=\"{{property.value}}\">\n                        </template>\n                    </div>\n                </div>\n                <div class=\"col-sx-3\">\n                    <button class=\"btn btn-default pull-right btn-xs\" @click.prevent=\"section.show = !section.show\" style=\"margin-left: 10px; margin-right: 15px;\"><i class=\"fui-triangle-up-small\"></i></button>\n                    <button class=\"btn btn-danger pull-right btn-xs\" @click.prevent=\"removeSection(key)\"><i class=\"fui-cross\"></i></button>\n                    <br>\n                </div>\n            </div>\n        </div>\n        <div class=\"col-md-12\">\n            <div class=\"form-group\">\n                <select class=\"form-control\" @change=\"setSurvey($event)\">\n                    <option value=\"\">Select Pre-defined survey</option>\n                    <option v-for=\"survey in surveys\" v-bind:value=\"survey.survey\">{{ survey.survey }}</option>\n                </select>\n            </div>\n            <div class=\"form-group\">\n                <textarea id=\"section_survey_{{key}}\" name=\"section[{{key}}][survey]\" class=\"form-control\" rows=\"3\" placeholder=\"Site Survey\" v-model=\"section.survey\"></textarea>\n                <label class=\"checkbox\">\n                    <input type=\"checkbox\" value=\"true\" name=\"section[{{key}}][save_survey]\" data-toggle=\"checkbox\">\n                    Save Survey in Templates\n                </label>\n            </div>\n            <div class=\"row\">\n                <div class=\"col-md-12 clearfix\">\n                    <button class=\"btn btn-inverse pull-right\" @click.prevent=\"addPhoto('','','sections',key)\" style=\"\"><i class=\"fui-image\"></i> Section Images</button>\n                </div>\n                <!-- <div class=\"clearfix\" style=\"border-radius: 5px; border: 1px solid #CCC;padding: 20px 0\"> -->\n                <template v-for=\"(imageKey, image) in section.images\">\n                    <div class=\"col-xs-4\">\n                        <div class=\"form-group text-center\">\n                            <div class=\"uploader clearfix\" style=\"position: relative; display: inline-block;\">\n                                <span class=\"fui-cross-circle text-danger\" style=\"position: absolute; right: -12px; top: 2px; z-index: 1\" @click=\"removePhoto(imageKey,'sections',key)\"></span>\n                                <div class=\"fileinput fileinput-new\" data-provides=\"fileinput\">\n                                    <span class=\"btn btn-inverse btn-sm btn-embossed btn-file\">\n                                        <span class=\"fileinput-new\"><span class=\"fui-upload\"></span>&nbsp;&nbsp;Add image</span>\n                                        <span class=\"fileinput-exists\"><span class=\"fui-gear\"></span>&nbsp;&nbsp;Change</span>\n                                        <input id=\"fileUploadFile\" type=\"file\" @change=\"bindFile($event,imageKey,key)\">\n                                        <input type=\"hidden\" v-model=\"section.images[imageKey].id\" name=\"section[{{key}}][photos][{{imageKey}}][id]\">\n                                        <input type=\"hidden\" v-model=\"section.images[imageKey].photo\" name=\"section[{{key}}][photos][{{imageKey}}][photo]\">\n                                    </span>\n                                    <br><span class=\"fileinput-filename\">{{image.photo}}</span>\n                                    <a href=\"#\" class=\"close fileinput-exists\" data-dismiss=\"fileinput\" style=\"float: none\">×</a>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </template>\n                <!-- </div> -->\n            </div>\n            <div class=\"clearfix\" style=\"height: 40px;\"></div>\n            \n            <strong>Options</strong><button class=\"btn btn-primary btn-sm pull-right clearfix\" @click.prevent=\"addOption\" style=\"margin-left: 10px;\"><span class=\"fui-plus\"></span> Option</button>\n            <div class=\"clearfix\" style=\"margin-top: 10px;\"></div>\n            <div class=\"tile\" style=\"text-align:left\" v-show=\"section.options\" v-for=\"(optionKey, option) in section.options\">\n                <job-option :section=\"section\" :key=\"key\" :systems=\"systems\" :basic-systems=\"basicSystems\" :option=\"option\" :option-key=\"optionKey\" :bind-file=\"bindFile\" :laravel=\"laravel\" :remove-option=\"removeOption\" :add-term=\"addTerm\" :properties=\"properties\" :pandg-total=\"pandgTotal\" @property-changed=\"propChanged\">    \n                </job-option>\n            </div>\n            <hr>\n        </div>\n    </div>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -19624,7 +19618,7 @@ exports.default = {
             this.option.total_supervisor = total_supervisor;
             this.option.total_materials = total_materials + this.total_extra_materials;
 
-            this.option.total_cost_price = total_price + laravel.job.distance * 2 * total_days * 5;
+            this.option.total_cost_price = total_price + this.total_extra_materials + laravel.job.distance * 2 * total_days * 5;
             this.option.selling_price = this.option.total_cost_price + this.option.total_cost_price / 100 * this.option.markup;
         },
         addTask: function addTask(e, task) {
@@ -20421,7 +20415,8 @@ exports.default = {
             rate: this.task.variable ? this.task.variable.rate : this.task.rate,
             difficulty: '',
             materialOptions: {},
-            chosenMaterials: {}
+            chosenMaterials: {},
+            superRate: 0
         };
     },
     computed: {
@@ -20440,10 +20435,10 @@ exports.default = {
                 tot += val;
             }
             console.log('Labour Price ', tot);
-            return this.total_days ? this.total_days * 1645 : 0; //1200 labour + 245 Driver
+            return this.total_days ? this.total_days * tot : 0;
         },
         total_supervisor: function total_supervisor() {
-            return this.total_days * 681;
+            return this.total_days * this.superRate;
         },
         total_materials: function total_materials() {
             var price = 0;
@@ -20483,7 +20478,7 @@ exports.default = {
                 id: material.id,
                 name: material.name,
                 product_type: material.product_type,
-                coverage: material.coverage,
+                coverage: material.pivot && material.pivot['coverage'] ? material.pivot['coverage'] : material.coverage,
                 pack_size: material.pack_size,
                 cost_price: material.cost_price,
                 qty: '',
@@ -20623,6 +20618,11 @@ exports.default = {
         //console.log('ready');
         //this.setDefaults(this.optionKey);
         this.updateValues();
+        for (var i = 0; i < this.option.system.labour.length; i++) {
+            if (this.option.system.labour[i].type == "Supervisor") {
+                this.superRate = this.option.system.labour[i].day_rate;
+            }
+        }
     }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
@@ -20926,7 +20926,7 @@ var _JobListView2 = _interopRequireDefault(_JobListView);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Vue = require('vue');
-var Swal = require('sweetalert2');
+window.Swal = require('sweetalert2');
 //window.CKEDITOR_BASEPATH = '/js/vendor/ckeditor/';
 //var ckeditor = require('ckeditor');
 //var summernote = require('summernote');

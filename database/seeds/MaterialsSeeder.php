@@ -665,7 +665,7 @@ class MaterialsSeeder extends Seeder
             'day_rate' => 0.00,
             'unit_of_measure' => 'kg',
             'product_type' => 'Grout',
-            'coverage' => 100,
+            'coverage' => 25,
             'created_at' => Carbon::now()
         ]);
 

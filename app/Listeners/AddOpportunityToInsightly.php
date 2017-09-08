@@ -36,14 +36,14 @@ class AddOpportunityToInsightly implements ShouldQueue
     
         //send guzzle request
         $client = new \GuzzleHttp\Client(['base_uri' => 'https://api.insight.ly/v2.1/']);
-        $username = 'bdd2248f-433e-43cd-b148-6231a3d5418f'; //api key
+        $username = config('insightly.apikey'); //api key
         $password = ''; //blank / not needed
         $url = 'Opportunities';
         try {
             $request = $client->request('POST', $url, [
                 'auth' => [$username, $password],
                 'json' => [
-                    'OPPORTUNITY_STATE' => 'Open',
+                    'OPPORTUNITY_STATE' => 'Won',
                     'OPPORTUNITY_NAME' => $job->name.' - '.$job->order_number,
                     'BID_AMOUNT' => intval($job->value),
                     'BID_CURRENCY' => 'ZAR',

@@ -413,44 +413,31 @@ class TaskMaterialsSeeder extends Seeder
             'task_id' => 30, //Close Crack
         ]);
 
+        //Close Honeycomb
+        DB::table('material_task')->insert([
+            'material_id' => 46,//Grout
+            'task_id' => 31, //Close Honey
+        ]);
+
+        //Close Tieholes
+        DB::table('material_task')->insert([
+            'material_id' => 46,//Grout
+            'task_id' => 32, //Close Tie Holes,
+            'coverage' => 100
+        ]);
+
         //T1Slurry
         DB::table('material_task')->insert([
             'material_id' => 47,//T1Slurry
-            'task_id' => 31, //T1Slurry
+            'task_id' => 34, //T1Slurry
         ]);
 
         //T2Slurry
         DB::table('material_task')->insert([
             'material_id' => 48,//T2Slurry
-            'task_id' => 33, //T2Slurry
+            'task_id' => 36, //T2Slurry
         ]);
-
-        //Dual Layer Reinforced
-        DB::table('material_task')->insert([
-            'material_id' => 2,//Plain
-            'task_id' => 34, //Dual layer
-            'area' => '*2'
-        ]);
-        //Fibre Reinforced
-        DB::table('material_task')->insert([
-            'material_id' => 51,//Plain
-            'task_id' => 35, //Fibre Reinforced
-        ]);
-
-        // Plaster KMA
-        // Chipping
-        DB::table('material_task')->insert([
-            'material_id' => 41,//Petrol generator
-            'task_id' => 36, // Chipping
-        ]);
-        DB::table('material_task')->insert([
-            'material_id' => 42,//Diesel generator
-            'task_id' => 36, // Chipping
-        ]);
-        DB::table('material_task')->insert([
-            'material_id' => 43,//Electricity
-            'task_id' => 36, // Chipping
-        ]);
+        
 
         // Plaster with KMA
         DB::table('material_task')->insert([

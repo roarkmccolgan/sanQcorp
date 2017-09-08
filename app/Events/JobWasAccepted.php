@@ -11,7 +11,7 @@ class JobWasAccepted extends Event
 {
     use SerializesModels;
 
-    protected $job;
+    public $job;
 
     /**
      * Create a new event instance.

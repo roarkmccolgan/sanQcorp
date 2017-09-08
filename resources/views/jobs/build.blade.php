@@ -270,7 +270,7 @@
                                     <tr v-for="(includeKey, include) in includes | filterBy 'includes' in 'type' | orderBy 'item'">
                                         <td class="text-center" v-bind:class="{ 'selected': checkedIncludes.indexOf(include.id)!=-1 }">
                                             <label class="checkbox no-label">
-                                                <input type="checkbox" id="@{{include.id}}" name="includes[]" data-toggle="checkbox" v-model="checkedIncludes" style="margin-left: 0;" :value="include"  >
+                                                <input type="checkbox" id="@{{include.id}}" data-toggle="checkbox" v-model="checkedIncludes" style="margin-left: 0;" :value="include"  >
                                             </label>
                                         </td>
                                         <td v-bind:class="{ 'selected': checkedIncludes.indexOf(include.id)!=-1 }">@{{include.item}}</td>
@@ -287,13 +287,17 @@
                                     <tr v-for="(excludeKey, exclude) in includes | filterBy 'excludes' in 'type' | orderBy 'item'">
                                         <td class="text-center" v-bind:class="{ 'selected': checkedIncludes.indexOf(exclude.id)!=-1 }">
                                             <label class="checkbox no-label">
-                                                <input type="checkbox" id="@{{exclude.id}}" name="excludes[]" data-toggle="checkbox" v-model="checkedExcludes" style="margin-left: 0;" :value="exclude" value="@{{exclude.id}}" >
+                                                <input type="checkbox" id="@{{exclude.id}}" data-toggle="checkbox" v-model="checkedIncludes" style="margin-left: 0;" :value="exclude" value="@{{exclude.id}}" >
                                             </label>
                                         </td>
                                         <td v-bind:class="{ 'selected': checkedIncludes.indexOf(exclude.id)!=-1 }">@{{exclude.item}}</td>
                                     </tr>
                                 </tbody>
                             </table>
+                            <!--Include inputs-->
+                            <template v-for="(includeKey, include) in checkedIncludes">
+                                <input type="hidden" name="includes[]" :value="include.id">
+                            </template>
                         </div>
                     </div>
                 </div>
@@ -301,7 +305,7 @@
             <div class="row" style="margin-top: 50px;">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <button type="submit" v-bind:class="{'disabled': !can_save}" class="btn btn-info btn-lg">Save</button> <!-- @click.prevent="saveJob" -->
+                        <button v-bind:class="{'disabled': !can_save}" class="btn btn-info btn-lg" @click.prevent="saveJob">Save</button> <!-- @click.prevent="saveJob" -->
                     </div>
                 </div>
                 <hr>

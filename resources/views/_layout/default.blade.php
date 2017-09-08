@@ -13,6 +13,8 @@
 		<link rel="stylesheet" href="{{asset('css/flat-ui-pro.min.css')}}" />
 		<link rel="stylesheet" href="{{asset('css/vendor/select2/select2.min.css')}}" />
 		<link rel="stylesheet" href="{{asset('js/vendor/summernote/summernote.css')}}" />
+		<link rel="stylesheet" href="{{asset('css/vendor/literallycanvas/literallycanvas.css')}}" />
+		<link rel="stylesheet" href="{{asset('css/vendor/sweetalert2/sweetalert2.min.css')}}" />
 		<link rel="stylesheet" href="{{elixir('css/main.css')}}" />
 		<link rel="shortcut icon" href="{{asset('img/favicon.ico')}}">
 		<!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->

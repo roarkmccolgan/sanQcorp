@@ -30,7 +30,7 @@ class Tasks extends Model
      */
     public function materials()
     {
-        return $this->belongsToMany('App\Materials', 'material_task', 'task_id', 'material_id')->withPivot('area');
+        return $this->belongsToMany('App\Materials', 'material_task', 'task_id', 'material_id')->withPivot('area','coverage');
     }
 
     /**

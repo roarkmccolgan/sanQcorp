@@ -5,6 +5,7 @@
                 font-family: 'Times New Roman, Times, serif';
                 font-size: 12pt;
                 color: black;
+                background-color: white;
             }
             #proposal h1{
                 text-align: center;
@@ -284,7 +285,7 @@
             <div class="width50">
                 <h6>The above price structure excludes:</h6>
                 <ul>
-                    <li v-for="(excludeKey, exclude) in checkedExcludes | filterBy 'excludes' in 'type' | orderBy 'item'">@{{exclude.item}}</li>
+                    <li v-for="(excludeKey, exclude) in checkedIncludes | filterBy 'excludes' in 'type' | orderBy 'item'">@{{exclude.item}}</li>
                 </ul>
             </div>
             <div style="clear: both"></div>

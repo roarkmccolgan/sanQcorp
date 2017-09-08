@@ -19,6 +19,7 @@ use App\Option;
 use App\PandG;
 use App\Revision;
 use App\Section;
+use App\Survey;
 use App\System;
 use App\Tasks;
 use App\Term;
@@ -243,10 +244,10 @@ class JobController extends Controller
      */
     public function showBuildJob(Jobs $job)
     {
-
         $systems = System::with('terms','photos','tasks.materials','tasks.variables','tasks.properties','labour')->get()->keyBy('id')->toArray();
         $terms = Term::where('default',1)->get();
         $includes = JobInclude::all();
+        $surveys = Survey::all();
         $basic_systems = $systems;
         $pandgs = PandG::all();
         //$job->load('sections.options.materials.tasks');
@@ -385,6 +386,7 @@ class JobController extends Controller
             'systems' => $systems,
             'terms' => $terms,
             'includes' => $includes,
+            'surveys' => $surveys,
             'basic_systems' => $basic_systems,
             'pandg' => $pandgs,
             'users' => $users
@@ -400,7 +402,7 @@ class JobController extends Controller
      */
     public function saveBuildJob(Jobs $job,Request $request)
     {
-        
+        //dd($request->input());
         if($request->input('_santoken')){
             $job->sections->delete();
             foreach ($job->sections as $section) {
@@ -416,6 +418,10 @@ class JobController extends Controller
                 'name'=>$sec['name'],
                 'survey'=>$sec['survey'],
             ];
+            if(isset($sec['save_survey'])){
+                Survey::create(['survey'=>$sec['survey']]);
+            }
+            
             //return $newSection;         
 
             $section = Section::with('options')->find($sec['id']);
@@ -469,6 +475,7 @@ class JobController extends Controller
                     'sidewall'=> isset($opt['sidewall']) ? $opt['sidewall'] : null,
                     'valleys'=> isset($opt['valleys']) ? $opt['valleys'] : null,
                     'honeycomb'=> isset($opt['honeycomb']) ? $opt['honeycomb'] : null,
+                    'tieholes'=> isset($opt['tieholes']) ? $opt['tieholes'] : null,
                     'crack'=> isset($opt['crack']) ? $opt['crack'] : null,
                     'plug'=> isset($opt['plug']) ? $opt['plug'] : null,
                 ];
@@ -609,6 +616,9 @@ class JobController extends Controller
         }
         if(!empty($request->input('terms'))){
             $job->terms()->sync($request->input('terms'));
+        }
+        if(!empty($request->input('includes'))){
+            $job->jobincludes()->sync($request->input('includes'));
         }
         $newEvent = $job->status=='build' ? true:false;
         $job->status = 'pending';

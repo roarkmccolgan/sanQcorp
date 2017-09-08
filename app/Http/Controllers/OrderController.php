@@ -66,28 +66,32 @@ class OrderController extends Controller
                 dd('Failed to create folders...');
             }
         }
-        $file = $request->file('upload');
-        if(!$file->move($filePath,$file->getClientOriginalname())){
-        	return redirect('/jobs');
-        };
+        if($request->file('upload')){
+            $file = $request->file('upload');
+            if(!$file->move($filePath,$file->getClientOriginalname())){
+                return redirect('/jobs');
+            };
 
-        $meta = array();
-        $meta['fileType'] = $file->getClientOriginalExtension();
-    	$meta['size'] = $file->getClientSize();
+            $meta = array();
+            $meta['fileType'] = $file->getClientOriginalExtension();
+            $meta['size'] = $file->getClientSize();
 
-    	$orderDoc = new Files([
-    		'name' => $file->getClientOriginalName(),
-    		'meta' => json_encode($meta)
-    	]);
+            $orderDoc = new Files([
+                'name' => $file->getClientOriginalName(),
+                'meta' => json_encode($meta)
+            ]);
+        }
+            
 
     	$order = new Order;
     	$order->job_id = $job->id;
     	$order->contact_id = $request->input('contact_id');
     	$order->user_id = 1;
     	$order->save();
-
-    	$order->files()->save($orderDoc);
-    	
+        if(isset($orderDoc)){
+            $order->files()->save($orderDoc);
+        }
+        
     	$order->job()->associate($job);
 
     	//$job->order()->associate($order);
