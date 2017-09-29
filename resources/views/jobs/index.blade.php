@@ -15,7 +15,7 @@
     <a href="/jobs/new" class="btn btn-inverse pull-right"><i class="fui-plus"></i> New Job</a>
     <div class="clearfix"></div>
     @include('_layout.form_errors')
-    <table class="table">
+    <table class="table joblist">
         <!-- <thead>
             <tr>
                 <td width="12%">Ref Number</td>
@@ -31,7 +31,7 @@
                 <tr id="job-{{$job->id}}">
                     <td width="15%"><strong>{{$job->order_number}}</strong></td>
                     <td>
-                        <span @click="showSections('{{$job->id}}')"><strong>{{$job->name}} <span :class="{ 'fui-triangle-up-small': jobs['{{$job->id}}'].show, 'fui-triangle-down-small': !jobs['{{$job->id}}'].show }" v-if="jobs['{{$job->id}}'].sections>0"></span></strong></span>
+                        <span @click="showSections('{{$job->id}}')"><strong>{{$job->name}} <span :class="{ 'fui-triangle-up-small fade50': jobs['{{$job->id}}'].show, 'fui-triangle-down-small fade50': !jobs['{{$job->id}}'].show }" v-if="jobs['{{$job->id}}'].sections>0"></span></strong></span>
                         @foreach($job->sections as $section)
                         <div v-if="jobs['{{$job->id}}'].show" style="margin-left: 10px; margin-top: 5px;">
                             {{$section->name}}

@@ -23,6 +23,14 @@ h4.page-title {
   top: -9999px !important;
   left: -9999px !important; }
 
+.fade50 {
+  opacity: 0.5; }
+
+/*FlatUi PRO Override*/
+.table.joblist [class*=fui-] {
+  margin: -22.5px 0 0;
+  font-size: 11px; }
+
 /*Bootstrap Override:;*/
 .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
   background-color: #1abc9c;
