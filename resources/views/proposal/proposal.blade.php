@@ -4,6 +4,7 @@
             #proposal{
                 font-family: 'Times New Roman, Times, serif';
                 font-size: 12pt;
+                line-height: 2;
                 color: black;
             }
             #proposal h1{
@@ -53,7 +54,6 @@
             }
             .proposal-section p {
                 font-size: 12pt;
-                line-height: 13pt;
                 color: black;
             }
             .sitepic{

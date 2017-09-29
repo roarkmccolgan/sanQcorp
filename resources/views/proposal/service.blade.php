@@ -4,6 +4,7 @@
             #proposal{
                 font-family: 'Times New Roman, Times, serif';
                 font-size: 12pt;
+                line-height: 1.3;
                 color: black;
                 background-color: white;
             }
@@ -15,11 +16,26 @@
                 margin:10pt;
             }
             #proposal h2{
-                text-align: center;
-                font-weight: normal;
+                text-decoration: underline;
                 font-size: 20pt;
                 line-height: 22pt;
-                margin:0;
+            }
+            #proposal h2.title{
+                text-align: center;
+                text-decoration: none;
+            }
+            #proposal h3{
+                font-size: 18pt;
+            }
+            .proposal-section h4{
+                font-size: 16pt;
+                text-decoration: underline;
+            }
+            .proposal-section h5{
+                font-size: 14pt;
+            }
+            .proposal-section h6{
+                font-size: 12pt;
             }
             .proposal-section {
                 page-break-before: always;
@@ -28,34 +44,23 @@
                 color: black;
                 font-family: 'Times New Roman, Times, serif';
                 font-size: 12pt;
-                line-height: 12pt;
+            }
+            .pb{
+                page-break-before: always;
             }
             #proposal .proposal-section h2.profile{
+                text-align: center;
+                text-decoration: none;
                 margin-top: 20mm;
-                font-size: 14pt;
                 font-weight: bold;
             }
-            .proposal-section h4{
-                font-size: 14pt;
-                font-weight: bold;
-                text-decoration: underline;
-            }
-            .proposal-section h5{
-                font-size: 14pt;
-                font-weight: bold;
-                margin-bottom: 3mm;
-                margin-top: 3mm;
-            }
-            .proposal-section h6{
-                font-size: 12pt;
-                font-weight: bold;
-                margin-bottom: 2mm;
-                margin-top: 2mm;
-            }
+            
             .proposal-section p {
                 font-size: 12pt;
-                line-height: 13pt;
                 color: black;
+            }
+            .proposal-section ul li {
+                margin-bottom: 0.8em;
             }
             .sitepic{
                 margin: 5mm;
@@ -92,7 +97,7 @@
             </div>
             <div id="title" style="width: 190mm; margin: 0mm 20mm; margin-bottom: 20mm">
                 <h1>Quotation Proposal</h1>
-                <h2>
+                <h2 class="title">
                     @{{proposaltitle}}
                 </h2>
             </div>
@@ -195,8 +200,8 @@
         </div>
         <div class="proposal-section" v-if="sections">
             <template v-for="section in sections">
-                <h4>@{{section.name}}</h4>
-                <strong>Survey</strong>
+                <h2>@{{section.name}}</h2>
+                <h3>Survey</h3>
                 <p>@{{{section.survey}}}</p>
                 
                     <template v-for="(imageKey, image) in section.images">
@@ -209,13 +214,14 @@
             <template v-if="section.options">
                         <div v-for="(optionKey, option) in section.options" style="margin-bottom: 30mm; margin-left: 5mm">
                             <template v-if="option.system">
-                                <h6 style="margin-bottom: 0;"><span v-if="section.options.length > 1">Option @{{optionKey+1}} - </span>@{{option.name}}</h6>
+                                <h4 style="margin-bottom: 0;"><span v-if="section.options.length > 1">Option @{{optionKey+1}} - </span>@{{option.name}}</h4>
                                 <p>
                                     @{{{option.description}}}
                                 </p>
                                 <img v-if="option.system.photos.length > 0" v-bind:src="'http://{{ $_SERVER['HTTP_HOST'] }}/img/'+option.system.photos[0].photo" alt="" style="width: 170mm;margin: 10mm 0mm;">
-                                <div style="margin-left: 5mm">
-                                    <strong>Scope of Work</strong>
+                                <div v-if="option.system.photos.length > 0" class="pb"></div>
+                                <div>
+                                    <h5>Scope of Work</h5>
                                     <ul v-if="option.tasks">
                                         <li>Establish site and safe working procedures in accordance with  OSH and client requirements</li>
                                         <li v-for="task in option.tasks | orderBy 'order'">@{{task.description}}</li>
@@ -232,16 +238,16 @@
             </template>
         </div>
         <div class="proposal-section" v-if="sections">
-            <h5>Price Structure</h5>
+            <h3>Price Structure</h3>
             <small>(Prices exclude V.A.T.)</small><br/>
             <template v-for="section in sections">
                 <template v-if="section.options">
-                    <table cellpadding="5mm" style="width: 190mm">
+                    <table cellpadding="5mm" style="width: 190mm; margin-bottom: 10mm; border-bottom: 1px solid #EFEFEF">
                         <template v-for="(optionKey, option) in section.options">
                             <tr>
                                 <td style="width: 70%"><h6><span v-if="section.options.length > 1">Option @{{optionKey+1}} - </span>@{{option.name}}</h6></td>
                                 <td style="width: 30%">
-                                    <h6>@{{option.total_cost_price+((option.total_cost_price/100)*option.markup) | currency 'R'}}</h6>
+                                    <h4 style="text-decoration: none;">@{{option.total_cost_price+((option.total_cost_price/100)*option.markup) | currency 'R'}}</h4>
                                 </td>
                             </tr>
                             <template v-if="pandgTotal">
@@ -277,34 +283,34 @@
                 </table>
             </template>
             <div class="width50">
-                <h6>The above price structures includes:</h6>
+                <h6>The above price structures INCLUDES:</h6>
                 <ul>
                     <li v-for="(includeKey, include) in checkedIncludes | filterBy 'includes' in 'type' | orderBy 'item'">@{{include.item}}</li>
                 </ul>
             </div>
             <div class="width50">
-                <h6>The above price structure excludes:</h6>
+                <h6>The above price structure EXCLUDES:</h6>
                 <ul>
                     <li v-for="(excludeKey, exclude) in checkedIncludes | filterBy 'excludes' in 'type' | orderBy 'item'">@{{exclude.item}}</li>
                 </ul>
             </div>
             <div style="clear: both"></div>
-            <h6>Guarantee</h6>
+            <h4>Guarantee</h4>
             <p>The sections above are all guaranteed for a period of TEN years (to the mineral maintenance free torch on membrane) with minor maintenance to flashing details at client's expense (every 30-36 months).</p>
 
-            <h6>Terms and Conditions:</h6>
+            <h4>Terms and Conditions:</h4>
             <ul>
                 <li v-for="term in existsInChecked">@{{term.term}}</li>
             </ul>
-            <h6>Personnel</h6>
+            <h4>Personnel</h4>
             <p>All Sanika staff to be utilised on site are highly experienced</p>
             <p>All Sanika staff are covered by Workman's Compensation insurance and all projects are covered by consequential damage and public liability insurance.</p>
 
-            <h6>BEE Status</h6>
+            <h4>BEE Status</h4>
             <p>Sanika has a certified verification of a Broad Based Level 3 Contributor</p>
         </div>
         <div class="proposal-section" v-if="sections">
-            <h6>References</h6>
+            <h4>References</h4>
             <p>We have successfully completed many projects nationwide within the following major Industrial groups. Please feel free to contact any of the following:</p>
             <table cellpadding="5mm" style="width: 190mm; font-size: 11pt">
                 <tr>
