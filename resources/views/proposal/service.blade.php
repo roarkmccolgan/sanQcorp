@@ -189,12 +189,12 @@
         </div>
         <div class="proposal-section">
             <template v-if="mainImage.photo!=''">
-                <img v-bind:src="'{{url('/')}}/jobs/'+laravel.job.order_number+'/img/'+mainImage.photo" alt="" align="center" class="sitepic" style="width: 184mm; margin: 10mm auto;">
+                <img v-bind:src="'{{url('/')}}/jobmedia/'+laravel.job.order_number+'/img/'+mainImage.photo" alt="" align="center" class="sitepic" style="width: 184mm; margin: 10mm auto;">
             </template>
             <template v-if="images.length > 0">
                 <strong>Site Images:</strong><br/>
                 <template v-for="(imageKey, image) in images">
-                    <img v-if="image.photo!=''" v-bind:src="'{{url('/')}}/jobs/'+laravel.job.order_number+'/img/'+image.photo" alt="" class="sitepic">
+                    <img v-if="image.photo!=''" v-bind:src="'{{url('/')}}/jobmedia/'+laravel.job.order_number+'/img/'+image.photo" alt="" class="sitepic">
                 </template>
             </template>
         </div>
@@ -205,7 +205,7 @@
                 <p>@{{{section.survey}}}</p>
                 
                     <template v-for="(imageKey, image) in section.images">
-                        <img v-if="image.photo!=''" v-bind:src="'{{url('/')}}/jobs/'+laravel.job.order_number+'/img/'+image.photo" alt="" class="sitepic">
+                        <img v-if="image.photo!=''" v-bind:src="'{{url('/')}}/jobmedia/'+laravel.job.order_number+'/img/'+image.photo" alt="" class="sitepic">
                     </template>
         <template v-if="section.images.length > 0">
         </div>

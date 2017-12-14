@@ -42,7 +42,7 @@ class UpdateOpportunityOnInsightly
                 'auth' => [$username, $password],
                 'json' => [
                     'OPPORTUNITY_ID' => $opportunity_id,
-                    'OPPORTUNITY_STATE': "Won",
+                    'OPPORTUNITY_STATE' => "Won",
                 ]
             ]);
             $code = $request->getStatusCode();
