@@ -209,7 +209,7 @@ class JobController extends Controller
             //upload file
             if ($request->file('quote')->isValid()) {
                 $quote = $request->file('quote');
-                $filePath = public_path().'/job/'.$job->order_number.'/';
+                $filePath = public_path().'/jobs/'.$job->order_number.'/';
                 if(!file_exists($filePath)){
                     if (!mkdir($filePath, 0775, true)) {
                         abort('Failed to create folders, contact Roark');

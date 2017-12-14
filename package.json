@@ -1,6 +1,8 @@
 {
   "private": true,
   "devDependencies": {
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
     "gulp": "^3.8.8",
     "laravel-elixir-vueify": "^1.0.6"
   },

@@ -59,7 +59,7 @@ class OrderController extends Controller
     	//
     	$job = Jobs::find($request->input('job.id'));
 
-    	$filePath = public_path().'/job/'.$job->order_number.'/';
+    	$filePath = public_path().'/jobs/'.$job->order_number.'/';
 
         if(!file_exists($filePath)){
             if (!mkdir($filePath, 0775, true)) {

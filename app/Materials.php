@@ -15,7 +15,7 @@ class Materials extends Model
         'cost_price',
         'unit_of_measure',
         'product_type',
-        'coverage'
+        'coverage',
     ];
     //ACCESSOR
     public function getTasksAttribute() {
