@@ -258,7 +258,7 @@
 					console.log(data, status, request);
 				});
 			},
-            addTerm: function(termId,term,check){
+            addTerm: function(termId, editable, term,check){
             	check = typeof check !== 'undefined' ? check : false;
             	var exists = false;
             	for (var i = 0; i < this.terms.length; i++) {
@@ -269,7 +269,8 @@
             	if(!exists){
             		this.terms.push({
 	        			id: termId,
-	        			term: term
+	        			term: term,
+	        			editable: editable
 	        		});
             	}
             	if(check){
@@ -332,18 +333,18 @@
 			
 			if(this.terms.length > 0){ //editing a job and it has terms
 				for (var i = this.terms.length - 1; i >= 0; i--) {
-					this.addTerm(this.terms[i].id,this.terms[i].term, true);
+					this.addTerm(this.terms[i].id, this.terms[i].editable,this.terms[i].term, true);
 				}
 				for (var i = this.laravel.job.sections.length - 1; i >= 0; i--) { //add reference to the rest of the terms available
 					for (var j = this.laravel.job.sections[i].options.length - 1; j >= 0; j--) {
 						for (var k = this.laravel.systems[this.laravel.job.sections[i].options[j].system.id].terms.length - 1; k >= 0; k--) {
-							this.addTerm(this.laravel.systems[this.laravel.job.sections[i].options[j].system.id].terms[k].id,this.laravel.systems[this.laravel.job.sections[i].options[j].system.id].terms[k].term, false);
+							this.addTerm(this.laravel.systems[this.laravel.job.sections[i].options[j].system.id].terms[k].id, this.laravel.systems[this.laravel.job.sections[i].options[j].system.id].terms[k].editable, this.laravel.systems[this.laravel.job.sections[i].options[j].system.id].terms[k].term, false);
 						}
 					}
 				}
 			}
 			for (var i = this.laravel.terms.length - 1; i >= 0; i--) { //creating a new job so check all default terms
-				this.addTerm(this.laravel.terms[i].id,this.laravel.terms[i].term, true);
+				this.addTerm(this.laravel.terms[i].id, this.laravel.terms[i].editable,this.laravel.terms[i].term, true);
 			}
 			if(this.laravel.job.includes){
 				for (var i = this.laravel.job.includes.length - 1; i >= 0; i--) {

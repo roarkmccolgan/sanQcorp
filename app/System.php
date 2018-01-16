@@ -71,4 +71,12 @@ class System extends Model
     {
         return $this->belongsToMany('App\Labour')->withPivot('qty');
     }
+
+    /**
+     * Get the guarantee record associated with the system.
+     */
+    public function guarantee()
+    {
+        return $this->belongsTo('App\Guarantees', 'guarantee_id');
+    }
 }

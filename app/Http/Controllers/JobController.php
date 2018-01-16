@@ -8,12 +8,15 @@ use App\Employees;
 use App\Events\JobWasCreated;
 use App\Events\JobWasUpdated;
 use App\Files;
+use App\Fuel;
+use App\Guarantees;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\GeneratePdfTrait;
 use App\Http\Requests;
 use App\Http\Requests\AddJobRequest;
 use App\JobInclude;
 use App\Jobs;
+use App\Labour;
 use App\Materials;
 use App\Option;
 use App\PandG;
@@ -24,6 +27,7 @@ use App\System;
 use App\Tasks;
 use App\Term;
 use App\User;
+use Carbon\Carbon;
 use DB;
 use Event;
 use Illuminate\Http\Request;
@@ -244,7 +248,30 @@ class JobController extends Controller
      */
     public function showBuildJob(Jobs $job)
     {
-        $systems = System::with('terms','photos','tasks.materials','tasks.variables','tasks.properties','labour')->get()->keyBy('id')->toArray();
+        $systems = System::with('terms','photos','tasks.materials','tasks.variables','tasks.properties','labour','guarantee')->get()->keyBy('id')->toArray();
+        $fuel = Fuel::whereDate('valid_from', '<=', Carbon::now())->where(function ($query) {
+                $query->whereDate('valid_to', '>=', Carbon::now())
+                      ->orWhere('valid_to', '=', null);
+            })
+            ->get();
+        $fuel = $fuel->keyBy('type');
+        $guarantees = Guarantees::all();
+        $labour = Labour::all();
+        $labour = $labour->map(function ($item, $key) {
+            if($item->type == 'Supervisor' || $item->type == 'Driver'){
+                $item->qty = 1;
+                return $item;
+            }elseif($item->type == 'Labourer'){
+                $item->qty = 2;
+                return $item;
+            }elseif($item->type == 'Builder'){
+                $item->qty = 2;
+                return $item;
+            }else{
+                $item->qty = 0;
+                return $item;
+            }
+        });
         $terms = Term::where('default',1)->get();
         $includes = JobInclude::all();
         $surveys = Survey::all();
@@ -384,12 +411,15 @@ class JobController extends Controller
         JavaScript::put([
             'job' => $job,
             'systems' => $systems,
+            'guarantees' => $guarantees,
+            'labour' => $labour,
             'terms' => $terms,
             'includes' => $includes,
             'surveys' => $surveys,
             'basic_systems' => $basic_systems,
             'pandg' => $pandgs,
-            'users' => $users
+            'users' => $users,
+            'fuel' => $fuel,
         ]);
         return view('jobs.build', compact(['job']));
         //return $job;
@@ -549,7 +579,6 @@ class JobController extends Controller
                             'days' => $task['days'],
                             'difficulty' => isset($task['difficulty']) ? $task['difficulty'] : null,
                             'total_labour_price' => isset($task['total_labour_price']) ? $task['total_labour_price'] : null,
-                            'total_supervisor_price' => isset($task['total_supervisor_price']) ? $task['total_supervisor_price'] : null,
                             'total_materials_price' => isset($task['total_materials_price']) ? $task['total_materials_price'] : null,
                             'total' => $task['quantity'],
                             'variable_id' => $variable

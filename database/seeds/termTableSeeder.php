@@ -26,7 +26,8 @@ class termTableSeeder extends Seeder
 
         DB::table('terms')->insert([ //3
             'term' => 'Above pricing includes scaffolding, access equipment, safety files, site management and all necessary safety equipment and PPE.',
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
+            'editable' => 1
         ]);
 
         DB::table('terms')->insert([ //4
@@ -37,13 +38,15 @@ class termTableSeeder extends Seeder
 
         DB::table('terms')->insert([ //5
             'term' => 'Excludes replacing of any gutters.',
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
+            'editable' => 1
         ]);
 
         DB::table('terms')->insert([ //6
             'term' => 'A 60% deposit is required with balance payable on completion (within 7 days).',
             'default' => 1,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
+            'editable' => 1
         ]);
 
         DB::table('terms')->insert([ //7
@@ -81,12 +84,14 @@ class termTableSeeder extends Seeder
 
         DB::table('terms')->insert([ //13
             'term' => 'Please note that Application step 1 and step 2 must done concurrently for the success of the job',
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
+            'editable' => 1
         ]);
 
         DB::table('terms')->insert([ //14
             'term' => 'The above proposal is to repair concrete damage / degradation that is visible. Should additional issues be evident once works have commenced these will be communicated with client and quoted for accordingly.',
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
+            'editable' => 1
         ]);
 
         DB::table('terms')->insert([ //15

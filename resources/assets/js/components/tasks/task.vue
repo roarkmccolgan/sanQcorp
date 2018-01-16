@@ -84,7 +84,6 @@
             </div>
         </div>
         <input name="section[{{sectionKey}}][options][{{optionKey}}][tasks][{{taskKey}}][total_labour_price]" type="hidden" v-model="total_labour_price">
-        <input name="section[{{sectionKey}}][options][{{optionKey}}][tasks][{{taskKey}}][total_supervisor_price]" type="hidden" v-model="total_supervisor">
         <input name="section[{{sectionKey}}][options][{{optionKey}}][tasks][{{taskKey}}][total_materials_price]" type="hidden" v-model="total_materials">
         <input name="section[{{sectionKey}}][options][{{optionKey}}][tasks][{{taskKey}}][order]" type="hidden" v-model="task.order">
         <!-- materials: {{total_materials | currency 'R'}} -->
@@ -103,8 +102,7 @@
                 rate: this.task.variable ? this.task.variable.rate:this.task.rate,
                 difficulty: '',
                 materialOptions:{},
-                chosenMaterials: {},
-                superRate: 0
+                chosenMaterials: {}
             };
         },
         computed: {
@@ -119,14 +117,11 @@
             total_labour_price: function(){
                 var tot = 0;
                 for (var i = 0; i < this.option.system.labour.length; i++) {
-                    var val = this.option.system.labour[i].day_rate * this.option.system.labour[i].pivot.qty;
+                    var qty = this.option.system.labour[i].pivot ? this.option.system.labour[i].pivot.qty : (this.option.system.labour[i].qty ? this.option.system.labour[i].qty:0);
+                    var val = this.option.system.labour[i].day_rate * qty;
                     tot+=val;
                 }
-                console.log('Labour Price ',tot);
                 return this.total_days ? this.total_days*tot:0;
-            },
-            total_supervisor: function(){
-                return this.total_days * this.superRate;
             },
             total_materials: function(){
                 var price = 0;
@@ -140,10 +135,8 @@
             },
             total_cost_price: function(){
                 var price = 0;
-                //console.log(this.total_materials, this.total_labour_price, this.total_supervisor);
                 price += this.total_materials;
                 price += this.total_labour_price == 0 ? 0 : this.total_labour_price;
-                price += this.total_supervisor == 0 ? 0 : this.total_supervisor;
                 return price;
             }
         },
@@ -224,14 +217,12 @@
                             newProp = property;
                         }  
                         this.task.materials[i].qty = Math.ceil((property/this.task.materials[i].coverage));
-                        console.log(this.task.materials[i].qty);
                         this.task.materials[i].price = this.task.materials[i].qty * this.task.materials[i].cost_price;
                     }
                     //re-do any other materials according to new property
                     if(newProp!==false){
                         for (var i = 0; i < this.task.materials.length; i++) {
                             if(this.task.materials[i].areaconversion==false){
-                                //console.log(this.task.materials[i].name);
                                 this.task.materials[i].qty = Math.ceil((newProp/this.task.materials[i].coverage));
                                 this.task.materials[i].price = this.task.materials[i].qty * this.task.materials[i].cost_price;
                             }
@@ -240,12 +231,11 @@
                 }
                 this.task.days = this.total_days;
                 this.task.total_labour = this.total_labour_price;
-                this.task.total_supervisor = this.total_supervisor;
                 this.task.total_materials = this.total_materials;
                 this.task.total_cost_price = this.total_cost_price;
 
                 
-                this.$dispatch('task-changed',this.optionKey,this.taskKey,this.total_days, this.total_labour_price, this.total_supervisor, this.total_materials, this.total_cost_price);
+                this.$dispatch('task-changed',this.optionKey,this.taskKey,this.total_days, this.total_labour_price, this.total_materials, this.total_cost_price);
             }
         },
         created(){
@@ -303,14 +293,7 @@
             }
         },
         ready(){
-            //console.log('ready');
-            //this.setDefaults(this.optionKey);
             this.updateValues();
-            for (var i = 0; i < this.option.system.labour.length; i++) {
-                if(this.option.system.labour[i].type=="Supervisor"){
-                    this.superRate = this.option.system.labour[i].day_rate;
-                }
-            }
         }
     };
 </script>

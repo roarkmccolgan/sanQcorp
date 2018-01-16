@@ -75,6 +75,28 @@
                 margin-right: 10mm;
                 vertical-align: top;
             }
+            .guarantee{
+                text-align: center;
+                border-radius: 50%;
+                width: 17mm;
+                height: 17mm;
+                border: 5px solid lightgray;
+            }
+            .guarantee .number{
+                text-transform: uppercase;
+                display: block;
+                color: red;
+                font-weight: bold;
+                font-size: 22pt;
+                line-height: 14pt;
+                margin-top: 8pt;
+            }
+            .guarantee .years{
+                text-transform: uppercase;
+                display: block;
+                color: grey;
+                font-size: 9pt;
+            }
         </style>
     </head>
 <body style="border:0; margin: 0;">
@@ -201,12 +223,14 @@
         <div class="proposal-section" v-if="sections">
             <template v-for="section in sections">
                 <h2>@{{section.name}}</h2>
-                <h3>Survey</h3>
-                <p>@{{{section.survey}}}</p>
+                <template v-if="section.survey">
+                    <h3>Survey</h3>
+                    <p>@{{{section.survey}}}</p>
+                </template>
                 
-                    <template v-for="(imageKey, image) in section.images">
-                        <img v-if="image.photo!=''" v-bind:src="'{{url('/')}}/jobmedia/'+laravel.job.order_number+'/img/'+image.photo" alt="" class="sitepic">
-                    </template>
+                <template v-for="(imageKey, image) in section.images">
+                    <img v-if="image.photo!=''" v-bind:src="'{{url('/')}}/jobmedia/'+laravel.job.order_number+'/img/'+image.photo" alt="" class="sitepic">
+                </template>
         <template v-if="section.images.length > 0">
         </div>
         <div class="proposal-section">
@@ -227,6 +251,23 @@
                                         <li v-for="task in option.tasks | orderBy 'order'">@{{task.description}}</li>
                                         <li>Clean and de-establish site</li>
                                     </ul>
+                                    <template v-if="option.system.guarantee">
+                                        <h5>Guarantee</h5>
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <div class="guarantee">
+                                                        <div class="number">@{{option.system.guarantee.years}}</div>
+                                                        <div class="years">years</div>
+                                                    </div>
+                                                </td>
+                                                <td style="padding-left: 4mm; padding-top: 2mm">
+                                                    @{{{option.system.guarantee.description}}}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </template>
+                                    
                                     <div v-if="option.notes.length > 0">
                                         <strong>Please note</strong>
                                         <h5 v-for="note in option.notes">@{{note.note}}</h5>
@@ -295,8 +336,31 @@
                 </ul>
             </div>
             <div style="clear: both"></div>
-            <h4>Guarantee</h4>
-            <p>The sections above are all guaranteed for a period of TEN years (to the mineral maintenance free torch on membrane) with minor maintenance to flashing details at client's expense (every 30-36 months).</p>
+            <template v-for="section in sections">
+                <template v-if="section.options">
+                    <h4>Guarantees</h4>
+                    <div v-for="(optionKey, option) in section.options">
+                        <template v-if="option.system">
+                            <template v-if="option.system.guarantee">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div class="guarantee">
+                                                <div class="number">@{{option.system.guarantee.years}}</div>
+                                                <div class="years">years</div>
+                                            </div>
+                                        </td>
+                                        <td style="padding-left: 4mm; padding-top: 2mm">
+                                            <strong style="margin-bottom: 0;"><span v-if="section.options.length > 1">Option @{{optionKey+1}} - </span>@{{option.name}}</strong><br/>
+                                            @{{{option.system.guarantee.description}}}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </template>
+                        </template>
+                    </div>
+                </template>
+            </template>
 
             <h4>Terms and Conditions:</h4>
             <ul>

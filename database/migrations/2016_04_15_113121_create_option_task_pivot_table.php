@@ -23,7 +23,6 @@ class CreateOptionTaskPivotTable extends Migration
             $table->decimal('days',5,2)->nullable();
             $table->integer('difficulty')->nullable();
             $table->integer('total_labour_price')->nullable();
-            $table->integer('total_supervisor_price')->nullable();
             $table->integer('total_materials_price')->nullable();
             $table->integer('total_cost_price')->nullable();
 

@@ -22,10 +22,12 @@ class DatabaseSeeder extends Seeder
 
         $this->call(SkillSeeder::class);
         $this->call(EmployeesSeeder::class);
+        $this->call(FuelSeeder::class);
 
         $this->call(CategorySeeder::class);
         $this->call(PropertySeeder::class);
         $this->call(MaterialsSeeder::class);
+        $this->call(GuaranteesSeeder::class);
         $this->call(SystemSeeder::class);
         //$this->call(ScopeSeeder::class);
         $this->call(TasksSeeder::class);

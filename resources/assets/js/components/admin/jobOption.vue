@@ -39,37 +39,37 @@
 			</template>
 			<div class="col-md-12">
 				<div class="form-group">
-					<label for="system">Select System</label>
+					<label for="system"><strong>Type of Work</strong></label>
 					<select v-model="option.system" class="form-control" @change="setSystem">
 						<option value=""></option>
 						<option v-for="system in systems" v-bind:value="system">{{system.name}}</option>
 					</select>
 				</div>
 			</div>
+			<div class="col-md-12" v-show="custom">
+				<strong>Team</strong>
+				<div class="row">
+					<div class="col-md-2" v-for="(labourer_id, labourer) in labour" track-by="id">
+						<div class="form-group">
+							<label for="">{{labourer.type}}</label>
+							<input name="section[{{key}}][options][{{optionKey}}][system][labour][{{labourer_id}}][qty]" type="number" class="form-control" placeholder="Qty" v-model="labourer.qty" @input="setLabour(labourer)" />
+						</div>
+					</div>
+					<template v-if="custom">
+						<input v-for="(labourer_id, labourer) in labour" name="section[{{key}}][options][{{optionKey}}][system][labour][{{labourer_id}}][qty]" type="hidden" :value="labourer.qty" />
+					</template>
+				</div>
+			</div>
 			<div class="col-md-12" v-if="option.system">
-				<div class="row" style="margin-bottom:14px">
-                    <div class="col-xs-12">
-                        <strong>Parameters</strong>
-                    </div>
-                    <template v-for="(propKey, property) in properties">
-                        <div class="col-xs-4" v-if="property.show">
-                            <label for="section[{{key}}][{{propKey}}]">{{propKey}}</label>
-                            <div class="input-group input-group-sm">
-                                <input name="section[{{key}}][{{propKey}}]" type="number" class="form-control" placeholder="{{propKey}}" v-model="property.value" number @keyup="setProperty | debounce 500" />
-                                <span class="input-group-addon">{{property.uom}}</span>
-                            </div>
-                        </div>
-                    </template>
-                </div>
+				<!-- CUSTOM TASK BOX -->
 				<div style="margin-bottom: 25px;">
 					<button class="btn btn-inverse pull-right" @click.prevent="newTask=!newTask">
 						<span v-if="!newTask">Custom Task</span><span v-else>Close Custom Task</span>
 					</button>
-					<strong>Tasks:</strong>
 				</div>
-				<div class="clearfix"></div>
-				<div class="" v-show="newTask">
-					<form id="newtaskForm">
+				<div class="" v-show="newTask" style="border-radius: 5px; background-color: #e3e5e6; padding: 10px; margin-bottom: 15px; margin-top: 5px;">
+					<div style="margin-bottom: 10px;" v-if="newTask">existing task? <input v-switch="newTaskExisting" type="checkbox" name="custom" data-toggle="switch" data-on-text="Yes" data-off-text="No" /></div>
+					<form id="newtaskForm" style="margin-bottom: 0">
 						<div class="row" v-if="!newTaskExisting">
 							<div class="col-xs-6 form-group">
 								<input type="text" class="form-control" placeholder="Name" id="custom-task-name" value="" />
@@ -141,7 +141,7 @@
 							</div>
 							<div class="col-xs-2 form-group">
 								<select class="form-control" data-toggle="select" id="custom-task-existing-order">
-									<option>Position</option>
+									<option value="">Position</option>
 									<option v-for="task in option.system.tasks" value="{{task.pivot ? task.pivot.order : task.order}}">{{task.pivot ? task.pivot.order : task.order}}</option>
 								</select>
 							</div>
@@ -153,18 +153,32 @@
 						</div>
 					</form>
 				</div>
-
+				<div class="row" style="margin-bottom:14px">
+                    <div class="col-xs-12">
+                        <strong>Parameters</strong>
+                    </div>
+                    <template v-for="(propKey, property) in properties">
+                        <div class="col-xs-4" v-if="property.show">
+                            <label for="section[{{key}}][{{propKey}}]">{{propKey}}</label>
+                            <div class="input-group input-group-sm">
+                                <input name="section[{{key}}][{{propKey}}]" type="number" class="form-control" placeholder="{{propKey}}" v-model="property.value" number @keyup="setProperty | debounce 500" />
+                                <span class="input-group-addon">{{property.uom}}</span>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <strong>Tasks:</strong>
 				<table class="table table-condensed table-bordered">
-					<thead>
+					<!-- <thead>
 						<tr>
 							<th class="text-center" width="20px"></th>
 							<th style="padding: 5px 5px;">&nbsp;</th>
 							<th>Description</th>
 						</tr>
-					</thead>
+					</thead> -->
 					<tbody>
 						<tr v-for="(taskKey, task) in option.system.tasks" data-order="{{task.pivot ? task.pivot.order : task.order}}"><!-- systems[option.system.id].tasks -->
-							<td class="text-center">
+							<td class="text-center" width="20px">
 								<label class="checkbox no-label" for="{{task.name}}">
 									<input type="checkbox" id="{{taskKey}}" name="section[{{key}}][options][{{optionKey}}][tasks][{{taskKey}}][id]" value="{{task.id}}" data-toggle="checkbox" v-model="checkedTasks" @click="addTask($event,task)" style="margin-left: 0;">
 								</label>
@@ -174,6 +188,29 @@
 						</tr>
 					</tbody>
 				</table>
+				<div class="row" style="margin-bottom: 5px;" v-show="custom">
+					<div class="col-md-12">
+						<strong>Guarantee:</strong>
+					</div>
+					<div class="col-md-2">
+						<label>Years</label>
+						<select name="section[{{key}}][options][{{optionKey}}][guarantee][years]" v-model="guarantee.years" class="form-control">
+							<option value=""></option>
+							<option value="1">1</option>
+							<option value="3">3</option>
+							<option value="5">5</option>
+							<option value="10">10</option>
+						</select>
+					</div>
+					<div class="col-md-8">
+						<label>Description</label>
+						<input name="section[{{key}}][options][{{optionKey}}][guarantee][description]" type="text" class="form-control" placeholder="Months" v-model="guarantee.description" />
+					</div>
+					<div class="col-md-2">
+						<label>Maintenance</label>
+						<input name="section[{{key}}][options][{{optionKey}}][guarantee][maintenance]" type="number" class="form-control" placeholder="Description" v-model="guarantee.maintenance" />
+					</div>
+				</div>
 				<div class="clearfix"></div>
 				<div style="margin-bottm: 5px;">
 					<button class="btn btn-primary pull-right btn-sm" @click.prevent="addNote(optionKey)">add Note</button>
@@ -291,17 +328,39 @@
 								<td>{{laravel.job.distance*2}}km</td>
 								<td>{{option.days}}days</td>
 								<td>{{(laravel.job.distance*2)*option.days}}km</td>
-								<td>{{((laravel.job.distance*2)*option.days)*6.5 | currency 'R'}}</td>
+								<td>{{((laravel.job.distance*2)*option.days)*laravel.fuel.diesel.rate_per_km | currency 'R'}}</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
+                <div class="row" style="margin-bottom: 30px;">
+                    <div class="col-md-3">
+                        Will there be <strong>Nightshift</strong>?
+                    </div>
+                    <div class="col-md-2">
+                        <input v-switch:hello="showNightshift" type="checkbox" data-on-text="Yes" data-off-text="No" v-bind:checked="option.nightshift" />
+                    </div>
+                    <div class="col-md-6" v-show="showNightshift">
+                    	<div class="row">
+                    		<form class="form-horizontal" id="newNightForm">
+	                            <div class="form-group">
+	                            	<label>Nightshift Nights:</label>
+	                            	<div class="col-md-12">
+	                            		<input type="text" class="form-control" v-bind:value="nightshift" v-model="nightshift" id="new-pandg-rate" />
+	                            	</div>
+	                            </div>
+	                            <input type="hidden" name="section[{{key}}][options][{{optionKey}}][nightshift][days]" value="{{(laravel.job.nightshift)}}">
+	                        </form>
+                    	</div>
+	                        
+                    </div>
+                </div>
 			</div>
 			<!-- Totals -->
 			<div class="col-sm-9 col-sm-offset-3">
 				<div class="row">
 					<div class="col-sm-4">
-						<label>Total Days:</label> <h6 style="margin:0">{{option.days}}</h6>
+						<label>Total Days:</label> <h6 style="margin:0">{{option.days == 0 ? 1:option.days}}</h6>
 						<input name="section[{{key}}][options][{{optionKey}}][days]" type="hidden" v-model="option.days">
 					</div>
 					<div class="col-sm-8">
@@ -311,8 +370,7 @@
 				</div>
 				<div class="row">
 					<div class="col-sm-8 col-sm-offset-4">
-						<label>Supervisor Cost Price:</label> <h6 style="margin:0">{{option.total_supervisor | currency 'R'}}</h6>
-						<input name="section[{{key}}][options][{{optionKey}}][total_supervisor]" type="hidden" v-model="option.total_supervisor">
+						<label>Travel Cost Price:</label> <h6 style="margin:0">{{((laravel.job.distance*2)*option.days)*laravel.fuel.diesel.rate_per_km | currency 'R'}}</h6>
 					</div>
 				</div>
 				<div class="row">
@@ -357,6 +415,8 @@
 		data: function() {
 			return {
 				newTask: false,
+				showNightshift: this.option.nightshift ? true : false,
+				nightshift: this.option.nightshift ? this.option.nightshift : 0,
 				newTaskExisting: false,
 				new_material: '',
 				customMaterials: {},
@@ -369,6 +429,8 @@
                     	{ insert: this.option.description },
                     ],
                 },
+				guarantee: this.option.system && this.option.system.guarantee ? false :{years: false, description: "", maintenance: 0},
+				labour: laravel.labour,
                 properties:{
                     area: {value: 0, uom: 'm2', show:false},
                     perimeter: {value: 0, uom: 'lm', show:false},
@@ -421,6 +483,9 @@
 					}
 				});
 				return output;
+			},
+			custom: function(){
+				return this.option.system && this.option.system.group=='Custom';
 			}
 		},
 		components:{
@@ -454,18 +519,17 @@
 	            	this.option.name = this.option.system.name;
 	            	this.option.description = this.option.system.description;
 	            	for (var i = this.option.system.terms.length - 1; i >= 0; i--) {
-	            		this.addTerm(this.option.system.terms[i].id, this.option.system.terms[i].term, true);
+	            		this.addTerm(this.option.system.terms[i].id, this.option.system.terms[i].editable, this.option.system.terms[i].term, true);
 	            	}
 	            	for (var key in this.properties) {
 	            		this.properties[key].show = false;
 	            	}
 	            	for (var key in this.option.system.tasks) {
 				        if (this.option.system.tasks.hasOwnProperty(key)) {
-				        	console.log(this.option.system.tasks[key].link_to);
 				        	this.properties[this.option.system.tasks[key].link_to].show = true;
 				        }
 				    }
-			var that = this;
+					var that = this;
 	            	var el = 'option_description_'+this.optionKey;
 	            	$('#'+el).summernote({
 	            		callbacks: {
@@ -475,32 +539,49 @@
 	            		}
 	            	});
 	            	$('#'+el).summernote('code', this.option.description);
+
+	            	if(this.custom){
+	            		this.option.system.labour = this.labour;
+	            	}
 	            }
             },
             taskChange: function(){
                 var total_days = 0;
                 var total_labour = 0;
-                var total_supervisor = 0;
                 var total_materials = 0;
-                var total_days = 0;
                 var total_price = 0;
-                
+                var total_travel = 0;
+                var dayRate = 0;
+            	for (var i = 0; i < this.option.system.labour.length; i++) {
+            		dayRate+= Number(this.option.system.labour[i].day_rate)*(this.option.system.labour[i].pivot ? Number(this.option.system.labour[i].pivot.qty) : Number(this.option.system.labour[i].qty));
+            	}
+
                 for (var key in this.tasks) {
                     if (this.tasks.hasOwnProperty(key)){
                         total_days+=Number(this.tasks[key].days);
                         total_labour+=Number(this.tasks[key].total_labour);
-                        total_supervisor+=Number(this.tasks[key].total_supervisor);
                         total_materials+=Number(this.tasks[key].total_materials);
-                        total_price+=Number(this.tasks[key].total_cost_price);
+                        //total_price+=Number(this.tasks[key].total_cost_price);
                     };
+                }
+                
+                if(total_days<1){
+                	total_labour = dayRate;
+                }else{
+                	var actualDays = total_days;
+	                var roundDays = Math.ceil(total_days);
+	                var spareTime = roundDays-actualDays;
+	                if(spareTime!=0){
+	                	total_labour+= dayRate/spareTime;
+	                }
                 }
 
                 this.option.days = Math.ceil(total_days);
+                total_travel = (laravel.job.distance*2*this.option.days)*laravel.fuel.diesel.rate_per_km;
                 this.option.total_labour = total_labour;
-                this.option.total_supervisor = total_supervisor;
                 this.option.total_materials = total_materials+this.total_extra_materials;
 
-                this.option.total_cost_price = total_price+this.total_extra_materials+(((laravel.job.distance*2)*total_days)*5);
+                this.option.total_cost_price = this.option.total_labour+this.option.total_materials+total_travel;
                 this.option.selling_price = this.option.total_cost_price+((this.option.total_cost_price/100)*this.option.markup);
                 
             },
@@ -518,7 +599,6 @@
             			system_id: task.pivot ? task.pivot.system_id : 0,
             			days: 0,
             			total_labour: 0,
-            			total_supervisor: 0,
             			total_materials: 0,
             			total_cost_price: 0
             		});
@@ -538,15 +618,14 @@
             },
             
             customTask: function(optionKey){
-                var existing = $('#custom-task-existing').val();
-                var name = $('#custom-task-name').val();
-                var alias = 'custom-'+name.replace(" ", "").toLowerCase();
-                var description = $('#custom-task-description').val();
-                var link_to = $('#custom-task-property').val();
-                var rate = $('#custom-task-rate').val();
-                var order = Number($('#custom-task-order').val());
-                var existingOrder = Number($('#custom-task-existing-order').val());
-                if(existing==''){
+            	var tasksEmpty = Object.keys(this.option.system.tasks).length === 0;
+                if(!this.newTaskExisting){
+                	var name = $('#custom-task-name').val();
+	                var alias = 'custom-'+name.replace(" ", "").toLowerCase();
+	                var description = $('#custom-task-description').val();
+	                var link_to = $('#custom-task-property').val();
+	                var rate = $('#custom-task-rate').val();
+	                var order = Number($('#custom-task-order').val());
                     var task = {
                     	id: 0,
                         alias: alias,
@@ -563,7 +642,6 @@
                     for (var taskKey in this.option.system.tasks){
                         if(this.option.system.tasks.hasOwnProperty(taskKey)){
                             if((this.option.system.tasks[taskKey].pivot && this.option.system.tasks[taskKey].pivot.order===order) || this.option.system.tasks[taskKey].order===order){
-                                newTasks[alias] = task;
                                 shiftOrder = true;
                             }
                             if(shiftOrder){
@@ -572,6 +650,7 @@
                             newTasks[taskKey] = this.option.system.tasks[taskKey];
                         }
                     }
+                    newTasks[alias] = task;
                     this.option.system.tasks = Object.assign({}, newTasks);
                     if(Object.keys(this.customMaterials).length>0){
                     	var cusMaterials = {};
@@ -594,24 +673,49 @@
                     this.newTask = false;
 
                 }else{
+                	var existing = $('#custom-task-existing').val();
+                	var existingOrder = $('#custom-task-existing-order').val() ? Number($('#custom-task-existing-order').val()) : Object.keys(this.option.system.tasks).length +1;
                 	var sysTask = existing.split('|');
                 	var newTasks = {};
                     var shiftOrder = false;
-                	for (var taskKey in this.option.system.tasks){
-                        if(this.option.system.tasks.hasOwnProperty(taskKey)){
-                            if((this.option.system.tasks[taskKey].pivot && this.option.system.tasks[taskKey].pivot.order===existingOrder) || this.option.system.tasks[taskKey].order===existingOrder){
-                                newTasks[sysTask[1]] = this.systems[sysTask[0]]['tasks'][sysTask[1]];
-                                shiftOrder = true;
-                            }
-                            if(shiftOrder){
-                            	this.option.system.tasks[taskKey].pivot ? this.option.system.tasks[taskKey].pivot.order++ : this.option.system.tasks[taskKey].order++;
-                            }
-                            newTasks[taskKey] = this.option.system.tasks[taskKey];
-                        }
-                    }
+                    var correctOrder = false;
+                    var currentOrder = Object.keys(this.option.system.tasks).length;
+                    var task = this.systems[sysTask[0]]['tasks'][sysTask[1]];
+                    if(!tasksEmpty){
+	                	for (var taskKey in this.option.system.tasks){
+	                        if(this.option.system.tasks.hasOwnProperty(taskKey)){
+	                        	var order = this.option.system.tasks[taskKey].pivot ? this.option.system.tasks[taskKey].pivot.order : this.option.system.tasks[taskKey].order;
+	                        	correctOrder = order != currentOrder+1 ? true: false;
+	                        	console.log(correctOrder, currentOrder);
+	                        	if(correctOrder) {
+	                        		console.log('correctOrder');
+	                        		task.pivot ? task.pivot.order = currentOrder+1 : task.order = currentOrder+1;
+	                        		correctOrder = false;
+	                        	}
+	                            if(order===existingOrder){
+	                                shiftOrder = true;
+	                            }
+	                            if(shiftOrder){
+	                            	this.option.system.tasks[taskKey].pivot ? this.option.system.tasks[taskKey].pivot.order++ : this.option.system.tasks[taskKey].order++;
+	                            }
+	                            newTasks[taskKey] = this.option.system.tasks[taskKey];
+	                            currentOrder+=1;
+	                        }
+	                    }
+	                }else{
+	                	//first task in system
+	                	if(task.pivot) task.pivot.order = 1;
+	                	newTasks[sysTask[1]] = task;
+	                	currentOrder=1;
+	                }
+	                newTasks[sysTask[1]] = task;
                     this.option.system.tasks = Object.assign({}, newTasks);
                 }
-
+                //set any properties to visible that come from new / existing custom task
+                for (var key in this.option.system.tasks) {
+		        	this.properties[this.option.system.tasks[key].link_to].show = true;
+			    }
+			    this.taskChange();
             },
             addMaterial: function(material){
                 this.option.materials.push({
@@ -704,6 +808,11 @@
             	//var markupStr = $('#description-'+this.optionKey).summernote('code');
             	//this.option.description = markupStr;
             },
+            setLabour: function(labourer){
+            	console.log('yup');
+            	this.option.system.labour = this.labour;
+            	this.taskChange();
+            },
             /*cke:function(el){
             	var that = this;
             	CKEDITOR.replace(el, {
@@ -747,6 +856,22 @@
             	//this.cke('option_description_'+this.optionKey);
             	this.smn('option_description_'+this.optionKey,this.optionKey);
             }
-		}
+		},
+		/*created(){
+			// Set Defualts for labour
+    		var newlabour = this.laravel.labour;
+    		for (var i = 0; i < newlabour.length; i++) {
+        		if(newlabour[i].type == 'Driver' || newlabour[i].type == 'Supervisor'){
+        			newlabour[i].qty = 1;
+        		}else if(newlabour[i].type == 'Labourer'){
+        			newlabour[i].qty = 2;
+        		}else if(newlabour[i].type == 'Builder'){
+        			newlabour[i].qty = 2;
+        		}else{
+        			newlabour[i].qty = 0;
+        		}
+        	}
+        	this.labour = newlabour;
+		}*/
 	}
 </script>

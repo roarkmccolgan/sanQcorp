@@ -53,15 +53,13 @@
                 </div>
                 <div class="form-group">
                     <textarea id="section_survey_{{key}}" name="section[{{key}}][survey]" class="form-control" rows="3" placeholder="Site Survey" v-model="section.survey"></textarea>
+                    <button class="btn btn-inverse pull-right" @click.prevent="addPhoto('','','sections',key)" style=""><i class="fui-image"></i> Section Images</button>
                     <label class="checkbox">
                         <input type="checkbox" value="true" name="section[{{key}}][save_survey]" data-toggle="checkbox">
                         Save Survey in Templates
                     </label>
                 </div>
                 <div class="row">
-                    <div class="col-md-12 clearfix">
-                        <button class="btn btn-inverse pull-right" @click.prevent="addPhoto('','','sections',key)" style=""><i class="fui-image"></i> Section Images</button>
-                    </div>
                     <!-- <div class="clearfix" style="border-radius: 5px; border: 1px solid #CCC;padding: 20px 0"> -->
                     <template v-for="(imageKey, image) in section.images">
                         <div class="col-xs-4">
@@ -145,7 +143,6 @@
                     notes: [],//add Laravel here
                     days: '',
                     total_labour: '',
-                    total_supervisor: '',
                     total_materials: '',
                     total_cost_price: '',
                     selling_price: '',

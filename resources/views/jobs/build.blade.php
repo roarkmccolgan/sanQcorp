@@ -164,24 +164,16 @@
                         <div class="col-md-12">
                             <form id="newtaskForm">
                                 <div class="row">
-                                    <div class="col-xs-12 form-group">
+                                    <div class="col-xs-6 form-group">
                                         <input type="text" class="form-control" placeholder="Name" id="new-pandg-name" />
                                     </div>
-                                    <div class="col-xs-3 form-group">
-                                        <select class="form-control" id="new-pandg-period">
-                                            <option value="fixed">Fixed</option>
-                                            <option value="daily">Daily</option>
-                                            <option value="weekly">Weekly</option>
-                                            <option value="monthly">Monthly</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-xs-3 form-group">
+                                    <div class="col-xs-2 form-group">
                                         <input type="text" class="form-control" placeholder="Rate" id="new-pandg-rate" />
                                     </div>
-                                    <div class="col-xs-3 form-group">
+                                    <div class="col-xs-2 form-group">
                                         <input type="text" class="form-control" placeholder="Qty" id="new-pandg-qty" />
                                     </div>
-                                    <div class="col-xs-3 form-group">
+                                    <div class="col-xs-2 form-group text-right">
                                         <button class="btn btn-primary" @click.prevent="addPandG($event)">Add P &amp; G</button>
                                     </div>
                                 </div>
@@ -238,7 +230,7 @@
                         <tbody>
                             <tr v-for="(termKey, term) in terms">
                                 <td class="text-center" v-bind:class="{ 'selected': checkedTerms.indexOf(term.id)!=-1 }">
-                                    <label class="checkbox no-label">
+                                    <label class="checkbox no-label" v-show="term.editable">
                                         <input type="checkbox" id="@{{term.id}}" name="terms[]" data-toggle="checkbox" v-model="checkedTerms" style="margin-left: 0;" value="@{{term.id}}" number>
                                     </label>
                                 </td>

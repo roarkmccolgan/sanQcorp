@@ -27,7 +27,8 @@ class SystemSeeder extends Seeder
 			'unit' => 'm2',
 			'group' => 'Waterproofing',
 			'base_rate' => 180.00,
-			'created_at' => Carbon::now()
+			'created_at' => Carbon::now(),
+			'guarantee_id' => 3,
 		]);
 
 		DB::table('system')->insert([ //2
@@ -45,7 +46,8 @@ class SystemSeeder extends Seeder
 			'unit' => 'm2',
 			'group' => 'Waterproofing',
 			'base_rate' => 180.00,
-			'created_at' => Carbon::now()
+			'created_at' => Carbon::now(),
+			'guarantee_id' => 3,
 		]);
 
 		DB::table('system')->insert([ //3
@@ -63,7 +65,8 @@ class SystemSeeder extends Seeder
 			'unit' => 'm2',
 			'group' => 'Waterproofing',
 			'base_rate' => 180.00,
-			'created_at' => Carbon::now()
+			'created_at' => Carbon::now(),
+			'guarantee_id' => 3,
 		]);
 
 		DB::table('system')->insert([ //4
@@ -81,7 +84,8 @@ class SystemSeeder extends Seeder
 			'unit' => 'm2',
 			'group' => 'Waterproofing',
 			'base_rate' => 180.00,
-			'created_at' => Carbon::now()
+			'created_at' => Carbon::now(),
+			'guarantee_id' => 3,
 		]);
 
 		//Torch-on
@@ -92,7 +96,8 @@ class SystemSeeder extends Seeder
 			'unit' => 'm2',
 			'group' => 'Torch-on',
 			'base_rate' => 250.00,
-			'created_at' => Carbon::now()
+			'created_at' => Carbon::now(),
+			'guarantee_id' => 1,
 		]);
 
 		DB::table('system')->insert([ //6
@@ -102,7 +107,8 @@ class SystemSeeder extends Seeder
 			'unit' => 'm2',
 			'group' => 'Torch-on',
 			'base_rate' => 210.00,
-			'created_at' => Carbon::now()
+			'created_at' => Carbon::now(),
+			'guarantee_id' => 1,
 		]);
 
 		DB::table('system')->insert([ //7
@@ -112,7 +118,8 @@ class SystemSeeder extends Seeder
 			'unit' => 'm2',
 			'group' => 'Torch-on',
 			'base_rate' => 350.00,
-			'created_at' => Carbon::now()
+			'created_at' => Carbon::now(),
+			'guarantee_id' => 1,
 		]);
 
 		DB::table('system')->insert([ //8
@@ -122,7 +129,8 @@ class SystemSeeder extends Seeder
 			'unit' => 'm2',
 			'group' => 'Torch-on',
 			'base_rate' => 350.00,
-			'created_at' => Carbon::now()
+			'created_at' => Carbon::now(),
+			'guarantee_id' => 1,
 		]);
 
 		//Insulative boarded
@@ -134,7 +142,8 @@ class SystemSeeder extends Seeder
 			'unit' => 'm2',
 			'group' => 'Insulative boarded',
 			'base_rate' => 450.00,
-			'created_at' => Carbon::now()
+			'created_at' => Carbon::now(),
+			'guarantee_id' => 1,
 		]);
 
 		DB::table('system')->insert([ //10
@@ -144,7 +153,8 @@ class SystemSeeder extends Seeder
 			'unit' => 'm2',
 			'group' => 'Insulative boarded',
 			'base_rate' => 450.00,
-			'created_at' => Carbon::now()
+			'created_at' => Carbon::now(),
+			'guarantee_id' => 1,
 		]);
 
 		DB::table('system')->insert([ //11
@@ -154,7 +164,8 @@ class SystemSeeder extends Seeder
 			'unit' => 'm2',
 			'group' => 'Insulative boarded',
 			'base_rate' => 450.00,
-			'created_at' => Carbon::now()
+			'created_at' => Carbon::now(),
+			'guarantee_id' => 1,
 		]);
 
 		DB::table('system')->insert([ //12
@@ -164,7 +175,8 @@ class SystemSeeder extends Seeder
 			'unit' => 'm2',
 			'group' => 'Insulative boarded',
 			'base_rate' => 450.00,
-			'created_at' => Carbon::now()
+			'created_at' => Carbon::now(),
+			'guarantee_id' => 1,
 		]);
 
 		DB::table('system')->insert([ //13
@@ -187,7 +199,8 @@ class SystemSeeder extends Seeder
 			'unit' => 'm2',
 			'group' => 'Thermo Regulating and Soundproofing ',
 			'base_rate' => 550.00,
-			'created_at' => Carbon::now()
+			'created_at' => Carbon::now(),
+			'guarantee_id' => 1,
 		]);
 
 		DB::table('system')->insert([ //14
@@ -210,7 +223,8 @@ class SystemSeeder extends Seeder
 			'unit' => 'm2',
 			'group' => 'Thermo Regulating and Soundproofing ',
 			'base_rate' => 550.00,
-			'created_at' => Carbon::now()
+			'created_at' => Carbon::now(),
+			'guarantee_id' => 1,
 		]);
 
 		DB::table('system')->insert([ //15
@@ -227,7 +241,8 @@ class SystemSeeder extends Seeder
 			'unit' => 'm2',
 			'group' => 'Kryton',
 			'base_rate' => 550.00,
-			'created_at' => Carbon::now()
+			'created_at' => Carbon::now(),
+			'guarantee_id' => 2,
 		]);
 
 		DB::table('system')->insert([ //16
@@ -244,24 +259,18 @@ class SystemSeeder extends Seeder
 			'unit' => 'm2',
 			'group' => 'Kryton',
 			'base_rate' => 550.00,
-			'created_at' => Carbon::now()
+			'created_at' => Carbon::now(),
+			'guarantee_id' => 4,
 		]);
 
-		/*DB::table('system')->insert([ //17
-			'name' => 'Kryton Waterproof Surface Treatment using Kryton Krystol T1<sup>&reg;</sup> System',
-			'description' => '
-				<p>
-					Krystol T1 Waterproofing System is a surface-applied crystalline slurry treatment that transforms new or existing concrete into a permanent waterproof barrier.
-				</p>
-				<p>
-					Krystol T1 Waterproofing System lowers the permeability of concrete and protects against the ingress of water and waterborne chemicals. It replaces the need for surface applied waterproofing membranes, and is often used in the remediation of failed membranes.
-				</p>
-			',
-			'alias' => 'Kryton Waterproof Surface Treatment',
+		DB::table('system')->insert([ //17
+			'name' => 'Custom - Specialised Sanika System',
+			'description' => 'Describe type of work',
+			'alias' => 'Custom System',
 			'unit' => 'm2',
-			'group' => 'Kryton',
-			'base_rate' => 550.00,
+			'group' => 'Custom',
+			'base_rate' => 0.00,
 			'created_at' => Carbon::now()
-		]);*/
+		]);
 	}
 }
