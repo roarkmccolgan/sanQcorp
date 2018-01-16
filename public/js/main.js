@@ -18982,15 +18982,16 @@ exports.default = {
 		},
 		getDistance: function getDistance() {},
 		addPandG: function addPandG(e) {
-			if ($('#new-pandg-name').val() != '' && $('#new-pandg-rate').val() != '' && $('#new-pandg-qty').val() != '') {
+			console.log($('#new-pandg-amount').val());
+			if ($('#new-pandg-name').val() != '' && $('#new-pandg-amount').val() != '' && $('#new-pandg-qty').val() != '') {
 				this.jobpsandgs.push({
 					id: '',
 					name: $('#new-pandg-name').val(),
-					rate: $('#new-pandg-rate').val(),
+					rate: $('#new-pandg-amount').val(),
 					qty: $('#new-pandg-qty').val()
 				});
 				$('#new-pandg-name').val('');
-				$('#new-pandg-rate').val('');
+				$('#new-pandg-amount').val('');
 				$('#new-pandg-qty').val('');
 
 				this.$nextTick(function () {

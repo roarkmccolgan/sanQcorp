@@ -168,7 +168,7 @@
                                         <input type="text" class="form-control" placeholder="Name" id="new-pandg-name" />
                                     </div>
                                     <div class="col-xs-2 form-group">
-                                        <input type="text" class="form-control" placeholder="Rate" id="new-pandg-rate" />
+                                        <input type="text" class="form-control" placeholder="Rate" id="new-pandg-amount" />
                                     </div>
                                     <div class="col-xs-2 form-group">
                                         <input type="text" class="form-control" placeholder="Qty" id="new-pandg-qty" />
@@ -186,7 +186,7 @@
                                     <thead>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Term</th>
+                                            {{-- <th>Term</th> --}}
                                             <th>Price</th>
                                             <th>Qty</th>
                                             <th>Total</th>
@@ -195,14 +195,14 @@
                                     <tbody>
                                         <tr v-for="(pandgKey, pandg) in jobpsandgs">
                                             <td>@{{pandg.name}}</td>
-                                            <td>@{{pandg.period}}</td>
+                                            {{-- <td>@{{pandg.period}}</td> --}}
                                             <td>@{{pandg.rate | currency 'R'}}</td>
                                             <td>@{{pandg.qty}}</td>
                                             <td>
                                                 @{{pandg.rate*pandg.qty | currency 'R'}} <span class="fui-cross-circle text-danger" @click="removePandG(pandgKey)"></span>
                                                 <input type="hidden" name="psandgs[@{{pandgKey}}][id]" value="@{{pandg.id}}">
                                                 <input type="hidden" name="psandgs[@{{pandgKey}}][name]" value="@{{pandg.name}}">
-                                                <input type="hidden" name="psandgs[@{{pandgKey}}][period]" value="@{{pandg.period}}">
+                                                {{-- <input type="hidden" name="psandgs[@{{pandgKey}}][period]" value="@{{pandg.period}}"> --}}
                                                 <input type="hidden" name="psandgs[@{{pandgKey}}][rate]" value="@{{pandg.rate}}">
                                                 <input type="hidden" name="psandgs[@{{pandgKey}}][qty]" value="@{{pandg.qty}}">
                                             </td>
