@@ -14,9 +14,9 @@ class CreateLogMaterialTable extends Migration
     public function up()
     {
         Schema::create('log_material', function (Blueprint $table) {
-            $table->unsignedInteger('log_id')->index();
+            $table->unsignedBigInteger('log_id')->index();
             $table->foreign('log_id')->references('id')->on('logs')->onDelete('cascade');
-            $table->unsignedInteger('material_id')->index();
+            $table->unsignedBigInteger('material_id')->index();
             $table->foreign('material_id')->references('id')->on('materials')->onDelete('cascade');
             $table->primary(['log_id', 'material_id']);
             $table->decimal('quantity',5,2)->nullable();

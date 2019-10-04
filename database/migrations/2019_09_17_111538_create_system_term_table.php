@@ -14,9 +14,9 @@ class CreateSystemTermTable extends Migration
     public function up()
     {
         Schema::create('system_term', function (Blueprint $table) {
-            $table->unsignedInteger('system_id')->index();
+            $table->unsignedBigInteger('system_id')->index();
             $table->foreign('system_id')->references('id')->on('systems')->onDelete('cascade');
-            $table->unsignedInteger('term_id')->index();
+            $table->unsignedBigInteger('term_id')->index();
             $table->foreign('term_id')->references('id')->on('terms')->onDelete('cascade');
             $table->primary(['system_id', 'term_id']);
         });

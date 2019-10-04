@@ -14,9 +14,9 @@ class CreateJobTermTable extends Migration
     public function up()
     {
         Schema::create('job_term', function (Blueprint $table) {
-            $table->unsignedInteger('job_id')->index();
+            $table->unsignedBigInteger('job_id')->index();
             $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade');
-            $table->unsignedInteger('term_id')->index();
+            $table->unsignedBigInteger('term_id')->index();
             $table->foreign('term_id')->references('id')->on('terms')->onDelete('cascade');
             $table->primary(['job_id', 'term_id']);
         });

@@ -17,7 +17,7 @@ class CreateFilesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->index();
             $table->longText('meta')->nullable();
-            $table->unsignedInteger('fileable_id')->index();
+            $table->unsignedBigInteger('fileable_id')->index();
             $table->string('fileable_type')->index();
             $table->timestamps();
         });

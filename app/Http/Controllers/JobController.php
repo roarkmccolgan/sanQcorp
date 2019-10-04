@@ -12,6 +12,7 @@ use App\Providers\JobWasCreated;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
+use Inertia\Inertia;
 
 class JobController extends Controller
 {
@@ -30,11 +31,13 @@ class JobController extends Controller
             ];
         }
         //return $vueJob;
-        JavaScript::put([
-            'jobs' => $vueJob
-        ]);
+        // JavaScript::put([
+        //     'jobs' => $vueJob
+        // ]);
 
-        return view('jobs.index', compact(['jobs','file']));
+        return Inertia::render('Jobs/Index');
+
+        //return view('jobs.index', compact(['jobs','file']));
     }
 
     public function create(Request $request)

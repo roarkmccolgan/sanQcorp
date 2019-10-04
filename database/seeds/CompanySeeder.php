@@ -12,7 +12,7 @@ class CompanySeeder extends Seeder
      */
     public function run()
     {
-        DB::table('company')->insert([
+        DB::table('companies')->insert([
             'name' => 'Liberty',
             'address1' => '1 Ameshoff Street',
             'address2' => 'Braamfontein',
@@ -21,7 +21,7 @@ class CompanySeeder extends Seeder
             'vat' => 123456789,
             'created_at' => Carbon::now()
         ]);
-        DB::table('company')->insert([
+        DB::table('companies')->insert([
             'name' => 'Private',
             'address1' => '',
             'address2' => '',

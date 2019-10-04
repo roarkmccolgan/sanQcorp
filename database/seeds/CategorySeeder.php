@@ -11,26 +11,26 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        DB::table('category')->insert([ //1
+        DB::table('categories')->insert([ //1
             'name' => 'Waterproofing'
         ]);
-        DB::table('category')->insert([ //2
+        DB::table('categories')->insert([ //2
             'name' => 'Cementitious'
         ]);
-        DB::table('category')->insert([ //3
+        DB::table('categories')->insert([ //3
             'name' => 'Sand'
         ]);
-        DB::table('category')->insert([ //4
+        DB::table('categories')->insert([ //4
             'name' => 'Fasteners'
         ]);
-        DB::table('category')->insert([ //5
+        DB::table('categories')->insert([ //5
             'name' => 'Coating'
         ]);
-        DB::table('category')->insert([ //6
+        DB::table('categories')->insert([ //6
             'name' => 'Fuel'
         ]);
 
-        DB::table('category')->insert([ //7
+        DB::table('categories')->insert([ //7
             'name' => 'Kryton'
         ]);
     }

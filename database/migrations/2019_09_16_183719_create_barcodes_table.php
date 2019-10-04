@@ -16,7 +16,7 @@ class CreateBarcodesTable extends Migration
         Schema::create('barcodes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('barcode')->unique()->index();
-            $table->unsignedInteger('barcodable_id')->index();
+            $table->unsignedBigInteger('barcodable_id')->index();
             $table->string('barcodable_type')->index();
             $table->timestamps();
         });

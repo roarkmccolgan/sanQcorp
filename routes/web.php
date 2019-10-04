@@ -17,8 +17,16 @@ Route::get('/', function () {
     return Inertia::render('Welcome');
 });
 
+Route::group(['prefix' => 'jobs'], function(){
+	Route::get('/', 'JobController@index');
+});
+
 Route::get('/about', function () {
     return Inertia::render('About');
+});
+
+Route::get('/contact', function () {
+    return Inertia::render('Contact');
 });
 
 Route::get('/contact', function () {

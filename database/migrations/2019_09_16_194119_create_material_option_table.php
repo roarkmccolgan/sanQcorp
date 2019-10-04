@@ -14,9 +14,9 @@ class CreateMaterialOptionTable extends Migration
     public function up()
     {
         Schema::create('material_option', function (Blueprint $table) {
-            $table->unsignedInteger('material_id')->index();
+            $table->unsignedBigInteger('material_id')->index();
             $table->foreign('material_id')->references('id')->on('materials')->onDelete('cascade');
-            $table->unsignedInteger('option_id')->index();
+            $table->unsignedBigInteger('option_id')->index();
             $table->foreign('option_id')->references('id')->on('options')->onDelete('cascade');
             $table->primary(['material_id', 'option_id']);
             

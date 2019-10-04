@@ -14,9 +14,9 @@ class CreateOptionTaskTable extends Migration
     public function up()
     {
         Schema::create('option_task', function (Blueprint $table) {
-            $table->unsignedInteger('option_id')->index();
+            $table->unsignedBigInteger('option_id')->index();
             $table->foreign('option_id')->references('id')->on('options')->onDelete('cascade');
-            $table->unsignedInteger('task_id')->index();
+            $table->unsignedBigInteger('task_id')->index();
             $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');
             $table->primary(['option_id', 'task_id']);
 

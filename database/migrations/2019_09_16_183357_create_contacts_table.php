@@ -15,7 +15,7 @@ class CreateContactsTable extends Migration
     {
         Schema::create('contacts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('company_id')->index();
+            $table->unsignedBigInteger('company_id')->index();
             $table->string('first_name');
             $table->string('last_name');
             $table->string('job_title')->nullable();
@@ -27,7 +27,6 @@ class CreateContactsTable extends Migration
             $table->string('contact2')->nullable();
             $table->string('contact3')->nullable();
             $table->string('email')->nullable();
-            $table->timestamps();
             $table->SoftDeletes();
 
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');

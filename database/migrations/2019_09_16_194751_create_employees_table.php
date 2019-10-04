@@ -16,7 +16,7 @@ class CreateEmployeesTable extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->unsignedInteger('skill_id')->index();
+            $table->unsignedBigInteger('skill_id')->index();
             $table->integer('day_rate');
             $table->dateTime('employed_date');
             $table->boolean('active')->default(1);

@@ -14,9 +14,9 @@ class CreatePropertySectionTable extends Migration
     public function up()
     {
         Schema::create('property_section', function (Blueprint $table) {
-            $table->unsignedInteger('property_id')->index();
+            $table->unsignedBigInteger('property_id')->index();
             $table->foreign('property_id')->references('id')->on('properties')->onDelete('cascade');
-            $table->unsignedInteger('section_id')->index();
+            $table->unsignedBigInteger('section_id')->index();
             $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
             $table->primary(['property_id', 'section_id']);
         });

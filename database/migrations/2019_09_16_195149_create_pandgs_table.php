@@ -16,11 +16,11 @@ class CreatePandgsTable extends Migration
         Schema::create('pandgs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->unsignedInteger('pandg_category_id');
-            $table->unsignedInteger('job_id');
+            $table->unsignedBigInteger('pandg_category_id');
+            $table->unsignedBigInteger('job_id');
             $table->longText('description')->nullable();
             $table->integer('rate');
-            $table->unsignedInteger('qty');
+            $table->unsignedBigInteger('qty');
             $table->enum('period', ['fixed', 'daily', 'weekly', 'monthly']);
             $table->timestamps();
             $table->softDeletes();

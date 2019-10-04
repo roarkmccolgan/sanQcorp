@@ -21,7 +21,7 @@ class CreateBucketsTable extends Migration
             $table->longText('body')->nullable();
             $table->dateTime('calendar');
             $table->boolean('active')->default(1);
-            $table->integer('user_id')->unsigned();
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->text('attachments')->nullable();
             $table->timestamps();

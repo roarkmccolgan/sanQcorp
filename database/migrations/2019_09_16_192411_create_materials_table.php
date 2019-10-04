@@ -16,7 +16,7 @@ class CreateMaterialsTable extends Migration
         Schema::create('materials', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->unsignedInteger('category_id')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->longText('description')->nullable();
             $table->string('image')->nullable();
             $table->decimal('stock',10,2)->default(0);

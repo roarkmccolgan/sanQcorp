@@ -15,7 +15,7 @@ class CreateTaskVariablesTable extends Migration
     {
         Schema::create('task_variables', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('tasks_id');
+            $table->unsignedBigInteger('tasks_id');
             $table->string('name')->index();
             $table->string('label');
             $table->integer('rate');

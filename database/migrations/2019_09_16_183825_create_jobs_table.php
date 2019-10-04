@@ -15,7 +15,7 @@ class CreateJobsTable extends Migration
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('user_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('order_number')->unique();
             $table->string('name');
             $table->integer('value')->nullable();
@@ -24,9 +24,9 @@ class CreateJobsTable extends Migration
             $table->boolean('accepted');
 
             $table->string('status');
-            $table->timestamp('requested_start_date')->nullable;
-            $table->timestamp('start_date')->nullable;
-            $table->timestamp('end_date')->nullable;
+            $table->timestamp('requested_start_date')->nullable();
+            $table->timestamp('start_date')->nullable();
+            $table->timestamp('end_date')->nullable();
 
             $table->string('estate')->nullable();
             $table->string('estate_address')->nullable();

@@ -17,7 +17,7 @@ class CreatePhotosTable extends Migration
             $table->bigIncrements('id');
             $table->string('photo')->index();
             $table->longText('meta')->nullable();
-            $table->unsignedInteger('photoable_id')->index();
+            $table->unsignedBigInteger('photoable_id')->index();
             $table->string('photoable_type')->index();
             $table->timestamps();
         });

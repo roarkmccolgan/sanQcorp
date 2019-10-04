@@ -14,9 +14,9 @@ class CreateLabourSystemTable extends Migration
     public function up()
     {
         Schema::create('labour_system', function (Blueprint $table) {
-            $table->unsignedInteger('labour_id')->index();
+            $table->unsignedBigInteger('labour_id')->index();
             $table->foreign('labour_id')->references('id')->on('labours')->onDelete('cascade');
-            $table->unsignedInteger('system_id')->index();
+            $table->unsignedBigInteger('system_id')->index();
             $table->foreign('system_id')->references('id')->on('systems')->onDelete('cascade');
             $table->integer('qty')->default(1);
             $table->primary(['labour_id', 'system_id']);

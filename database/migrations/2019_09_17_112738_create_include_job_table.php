@@ -14,9 +14,9 @@ class CreateIncludeJobTable extends Migration
     public function up()
     {
         Schema::create('include_job', function (Blueprint $table) {
-            $table->unsignedInteger('include_id')->index();
+            $table->unsignedBigInteger('include_id')->index();
             $table->foreign('include_id')->references('id')->on('includes')->onDelete('cascade');
-            $table->unsignedInteger('job_id')->index();
+            $table->unsignedBigInteger('job_id')->index();
             $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade');
             $table->primary(['include_id', 'job_id']);
         });

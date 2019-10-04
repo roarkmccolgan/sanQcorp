@@ -15,7 +15,7 @@ class CreateNotesTable extends Migration
     {
         Schema::create('notes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('option_id')->index();
+            $table->unsignedBigInteger('option_id')->index();
             $table->longText('note');
             $table->timestamps();
             $table->softDeletes();

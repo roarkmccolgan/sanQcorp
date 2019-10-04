@@ -15,7 +15,7 @@ class CreateSectionsTable extends Migration
     {
         Schema::create('sections', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsigedInteger('job_id');            
+            $table->unsignedBigInteger('job_id');            
             $table->boolean('accepted');          
             $table->string('name');
             $table->longText('survey')->nullable();

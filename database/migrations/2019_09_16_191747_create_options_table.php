@@ -18,8 +18,8 @@ class CreateOptionsTable extends Migration
             $table->dateTime('accepted_at')->nullable();          
             $table->string('name');
             $table->text('description');
-            $table->unsignedInteger('section_id');
-            $table->unsignedInteger('system_id');
+            $table->unsignedBigInteger('section_id');
+            $table->unsignedBigInteger('system_id');
             $table->dateTime('completed_at')->nullable();
             
             $table->integer('total_labour');
