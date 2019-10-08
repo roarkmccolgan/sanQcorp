@@ -25,5 +25,13 @@
         "tailwindcss": "^1.0",
         "vue": "^2.5.17",
         "vue-template-compiler": "^2.6.10"
+    },
+    "dependencies": {
+        "create-react-class": "^15.6.3",
+        "literallycanvas": "^0.5.2",
+        "react": "^0.14.9",
+        "react-dom": "^0.14.9",
+        "react-dom-factories": "^1.0.2",
+        "vue-feather-icons": "^5.0.0"
     }
 }

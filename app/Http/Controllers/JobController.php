@@ -35,7 +35,7 @@ class JobController extends Controller
         //     'jobs' => $vueJob
         // ]);
 
-        return Inertia::render('Jobs/Index');
+        return Inertia::render('Jobs/Index', compact('jobs'));
 
         //return view('jobs.index', compact(['jobs','file']));
     }

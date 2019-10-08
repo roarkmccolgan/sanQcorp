@@ -20,7 +20,7 @@ class CreateContactsTable extends Migration
             $table->string('last_name');
             $table->string('job_title')->nullable();
             $table->string('department')->nullable();
-            $table->boolean('send_invoice');
+            $table->boolean('send_invoice')->default(0);
             $table->string('region');
             $table->string('country');
             $table->string('contact1')->nullable();

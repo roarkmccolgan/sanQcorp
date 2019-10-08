@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Include;
+use App\Fuel;
+use App\Guarantee;
 use App\Job;
+use App\JobInclude;
+use App\Labour;
 use App\Material;
 use App\Option;
 use App\Pandg;
@@ -13,24 +16,49 @@ use App\Revision;
 use App\Section;
 use App\Survey;
 use App\System;
+use App\Task;
 use App\Term;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
+use Inertia\Inertia;
 
 class JobDetailController extends Controller
 {
     public function create(Job $job)
     {
-        $systems = System::with('terms','photos','tasks.materials','tasks.variables','tasks.properties','labour')->get()->keyBy('id')->toArray();
+        $systems = System::with('terms','photos','tasks.materials','tasks.variables','tasks.properties','labour','guarantee')->get()->keyBy('id')->toArray();
+        $fuel = Fuel::whereDate('valid_from', '<=', Carbon::now())->where(function ($query) {
+                $query->whereDate('valid_to', '>=', Carbon::now())
+                      ->orWhere('valid_to', '=', null);
+            })
+            ->get();
+        $fuel = $fuel->keyBy('type');
+        $guarantees = Guarantee::all();
+        $labour = Labour::all();
+        $labour = $labour->map(function ($item, $key) {
+            if($item->type == 'Supervisor' || $item->type == 'Driver'){
+                $item->qty = 1;
+                return $item;
+            }elseif($item->type == 'Labourer'){
+                $item->qty = 2;
+                return $item;
+            }elseif($item->type == 'Builder'){
+                $item->qty = 2;
+                return $item;
+            }else{
+                $item->qty = 0;
+                return $item;
+            }
+        });
         $terms = Term::where('default',1)->get();
-        $includes = Include::all();
+        $includes = JobInclude::all();
         $surveys = Survey::all();
         $basic_systems = $systems;
         $pandgs = Pandg::all();
         //$job->load('sections.options.materials.tasks');
-        $job = $job->toArray();
         $users = User::all()->keyBy('id');
         //return $job['sections'];
 
@@ -57,7 +85,7 @@ class JobDetailController extends Controller
             $systems[$key]['tasks'] = $modifiedtasks;
         };
         //return $systems;
-        foreach ($job['photos'] as $photoKey => $photo) {
+        foreach ($job->photos as $photoKey => $photo) {
             $meta = json_decode($photo['meta']);
             if($meta->type==='main'){
                 $job['mainPhoto']['id'] = $photo['id'];
@@ -155,23 +183,20 @@ class JobDetailController extends Controller
             }
             $job['sections'][$secKey]['show'] = false;
         }
-        //return $job;
-        
-        $job = (object) $job;
-        //dd($job);
 
-        JavaScript::put([
+       return Inertia::render('Jobs/Edit', [
             'job' => $job,
             'systems' => $systems,
+            'guarantees' => $guarantees,
+            'labour' => $labour,
             'terms' => $terms,
             'includes' => $includes,
             'surveys' => $surveys,
             'basic_systems' => $basic_systems,
             'pandg' => $pandgs,
-            'users' => $users
+            'users' => $users,
+            'fuel' => $fuel,
         ]);
-        return view('jobs.build', compact(['job']));
-        //return $job;
     }
 
     public function store(Job $job, Request $request)
@@ -296,7 +321,7 @@ class JobDetailController extends Controller
                                 'link_to'=> $task['link_to'],
                                 'rate'=> $task['rate']
                             ];
-                            $taskModel = Tasks::create($newTask);
+                            $taskModel = Task::create($newTask);
                             $task['id'] = $taskModel->id;
                             if(!empty($opt['materials'][$taskKey])){
                                 $syncCusMaterials = [];
@@ -323,7 +348,6 @@ class JobDetailController extends Controller
                             'days' => $task['days'],
                             'difficulty' => isset($task['difficulty']) ? $task['difficulty'] : null,
                             'total_labour_price' => isset($task['total_labour_price']) ? $task['total_labour_price'] : null,
-                            'total_supervisor_price' => isset($task['total_supervisor_price']) ? $task['total_supervisor_price'] : null,
                             'total_materials_price' => isset($task['total_materials_price']) ? $task['total_materials_price'] : null,
                             'total' => $task['quantity'],
                             'variable_id' => $variable

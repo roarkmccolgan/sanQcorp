@@ -13,7 +13,7 @@ class LabourSeeder extends Seeder
     public function run()
     {
         DB::table('labours')->insert([ //1
-            'type' => 'labourer',
+            'type' => 'Labourer',
             'day_rate' => 180,
             'created_at' => Carbon::now()
         ]);

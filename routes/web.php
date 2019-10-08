@@ -19,6 +19,7 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'jobs'], function(){
 	Route::get('/', 'JobController@index');
+	Route::get('/{job}/details', ['uses' => 'JobDetailController@create']);
 });
 
 Route::get('/about', function () {

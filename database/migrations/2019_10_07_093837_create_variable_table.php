@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateIncludesTable extends Migration
+class CreateVariableTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateIncludesTable extends Migration
      */
     public function up()
     {
-        Schema::create('includes', function (Blueprint $table) {
+        Schema::create('variables', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('item');
-            $table->enum('type',['includes','excludes']);
-            $table->boolean('default')->default(1);
-            $table->timestamps();
+            $table->unsignedBigInteger('tasks_id');
+            $table->string('name')->index();
+            $table->string('label');
+            $table->decimal('rate',6,2);
+
+            $table->foreign('tasks_id')->references('id')->on('tasks');
         });
     }
 
@@ -29,6 +31,6 @@ class CreateIncludesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('includes');
+        Schema::dropIfExists('variables');
     }
 }

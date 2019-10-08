@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class CreateJobsTable extends Migration
 {
@@ -21,7 +22,7 @@ class CreateJobsTable extends Migration
             $table->integer('value')->nullable();
             $table->integer('distance');
 
-            $table->boolean('accepted');
+            $table->boolean('accepted')->default(0);
 
             $table->string('status');
             $table->timestamp('requested_start_date')->nullable();
@@ -47,6 +48,9 @@ class CreateJobsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
+        $statement = "ALTER TABLE jobs AUTO_INCREMENT = 7029;";
+        DB::unprepared($statement);
     }
 
     /**

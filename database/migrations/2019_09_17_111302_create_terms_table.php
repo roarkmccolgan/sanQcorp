@@ -16,7 +16,8 @@ class CreateTermsTable extends Migration
         Schema::create('terms', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('term');
-            $table->boolean('default');
+            $table->boolean('default')->default(0);
+            $table->boolean('editable')->default(0);
             $table->timestamps();
         });
     }

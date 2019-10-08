@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Include extends Model
+class JobInclude extends Model
 {
     protected $guarded = [];
 

@@ -15,12 +15,12 @@ class CreateTaskVariablesTable extends Migration
     {
         Schema::create('task_variables', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('tasks_id');
+            $table->unsignedBigInteger('task_id');
             $table->string('name')->index();
             $table->string('label');
             $table->integer('rate');
 
-            $table->foreign('tasks_id')->references('id')->on('tasks');
+            $table->foreign('task_id')->references('id')->on('tasks');
             $table->timestamps();
         });
     }

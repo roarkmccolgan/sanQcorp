@@ -32,4 +32,9 @@ class System extends Model
     {
         return $this->belongsToMany('App\Labour')->withPivot('qty');
     }
+
+    public function guarantee()
+    {
+        return $this->belongsTo('App\Guarantee', 'guarantee_id');
+    }
 }

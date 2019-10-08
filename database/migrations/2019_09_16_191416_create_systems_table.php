@@ -22,6 +22,8 @@ class CreateSystemsTable extends Migration
             $table->string('type')->default('service');
             $table->string('group')->nullable();
             $table->integer('base_rate');
+            $table->unsignedBigInteger('guarantee_id')->nullable();
+            $table->foreign('guarantee_id')->references('id')->on('guarantees');
             $table->timestamps();
         });
     }
