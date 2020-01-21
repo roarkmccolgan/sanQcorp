@@ -1,7 +1,7 @@
 <template>
-	<div class="">
-		<file-upload @input="resize">Choose Main Image</file-upload>
-		<literally-canvas v-if="fileSrc" :background-image="fileSrc" :image-size="imageSize" image-prefix="/lc-assets/img" ></literally-canvas>		
+	<div class="flex flex-wrap justify-end">
+		<file-upload class="mb-2 block w-full text-center" :value="fileSrc" @input="resize">{{ fileSrc ? 'Change' : 'Choose'}} Main Image</file-upload>
+		<literally-canvas class="w-full" v-if="fileSrc" :background-image="fileSrc" :image-size="canvasSizes" image-prefix="/lc-assets/img" :options="options" @input="getImage" :last-change="lastChange"></literally-canvas>
 	</div>
 </template>
 
@@ -12,8 +12,12 @@
 		props:{
 			imageSize: {
 				type: Object,
-				default: {width: 640, height: 480}
-			}
+				default: {width: 800, height: 600}
+			},
+			options: {
+				default: () => {	},
+			},
+			lastChange: {}
 		},
 		components: {
 			LiterallyCanvas,
@@ -22,11 +26,13 @@
 		data () {
 			return {
 				fileSrc: null,
+				fileName: null,
+				canvasSizes: this.imageSize,
 			}
 		},
 		methods: {
 			resize: function(theFile){
-				const fileName = theFile.name;
+				this.fileName = theFile.name;
 				const reader = new FileReader();
 				reader.readAsDataURL(theFile);
 				reader.onload = event => {
@@ -36,21 +42,24 @@
 						const scaleFactor = this.imageSize.width / img.width;
 						const elem = document.createElement('canvas');
 						elem.width = this.imageSize.width;
-						elem.height = this.imageSize.height * scaleFactor;
+						elem.height = img.height * scaleFactor;
+						this.canvasSizes.height = elem.height
 						const ctx = elem.getContext('2d');
 						
-						ctx.drawImage(img, 0, 0, this.imageSize.width, this.imageSize.height * scaleFactor, 0, 0, this.imageSize.width, this.imageSize.height);
+						ctx.drawImage(img, 0, 0, this.imageSize.width, img.height * scaleFactor);
 						ctx.canvas.toBlob((blob) => {
-							const file = new File([blob], fileName, {
+							const file = new File([blob], this.fileName, {
 								type: 'image/jpeg',
 								lastModified: Date.now()
 							});
 							this.fileSrc = file;
-							console.log(file);
 						}, 'image/jpeg', 1);
 					},
 					reader.onerror = error => console.log(error);
 				};
+			},
+			getImage: function(theFile){
+				this.$emit('input', theFile);
 			}
 		}
 	}

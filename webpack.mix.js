@@ -1,7 +1,8 @@
+const cssImport = require('postcss-import')
+const cssNesting = require('postcss-nesting')
 const mix = require('laravel-mix');
-
-require('laravel-mix-tailwind');
-require('laravel-mix-purgecss');
+const path = require('path')
+const tailwindcss = require('tailwindcss')
 
 /*
  |--------------------------------------------------------------------------
@@ -16,8 +17,11 @@ require('laravel-mix-purgecss');
 
  mix.js('resources/js/app.js', 'public/js')
 	.copyDirectory('node_modules/literallycanvas/lib/img', 'public/lc-assets/img')
-	.postCss('resources/css/app.css', 'public/css')
-	.tailwind('./tailwind.config.js')
+	.postCss('resources/css/app.css', 'public/css', [
+		cssImport(),
+    	cssNesting(),
+    	tailwindcss('tailwind.config.js'),
+	])
 	.webpackConfig({
 		output: { chunkFilename: 'js/[name].js?id=[chunkhash]' },
 		resolve: {
@@ -29,10 +33,11 @@ require('laravel-mix-purgecss');
 	})
  	.babelConfig({
  		plugins: ['@babel/plugin-syntax-dynamic-import']
- 	});
+ 	})
+ 	.version()
+ 	.sourceMaps();
 
  if (mix.inProduction()) {
  	mix
- 	.version()
  	.purgeCss();
  }

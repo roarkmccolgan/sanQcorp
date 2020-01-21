@@ -24,7 +24,7 @@ class Section extends Model
 
 	public function properties()
 	{
-		return $this->hasMany('App\Property');
+		return $this->belongsToMany('App\Property')->withPivot(['value']);
 	}
 
 	public function photos()

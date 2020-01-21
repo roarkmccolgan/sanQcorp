@@ -21,7 +21,7 @@ class PropertySeeder extends Seeder
 		DB::table('properties')->insert([ //2
 			'name' => 'Perimeter',
 			'alias' => 'perimeter',
-			'uom' => 'm2',
+			'uom' => 'lm',
 			'created_at' => Carbon::now()
 		]);
 		DB::table('properties')->insert([ //3
@@ -46,6 +46,25 @@ class PropertySeeder extends Seeder
 			'name' => 'Volume',
 			'alias' => 'volume',
 			'uom' => 'm3',
+			'created_at' => Carbon::now()
+		]);
+		DB::table('properties')->insert([ //7
+			'name' => 'Ridge',
+			'alias' => 'ridge',
+			'uom' => 'lm',
+			'created_at' => Carbon::now()
+		]);
+		DB::table('properties')->insert([ //8
+			'name' => 'Sidewall',
+			'alias' => 'sidewall',
+			'uom' => 'lm',
+			'created_at' => Carbon::now()
+		]);
+
+		DB::table('properties')->insert([ //9
+			'name' => 'Valleys',
+			'alias' => 'valleys',
+			'uom' => 'lm',
 			'created_at' => Carbon::now()
 		]);
     }

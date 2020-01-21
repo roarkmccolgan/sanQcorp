@@ -20,7 +20,12 @@ class Option extends Model
 
     public function tasks()
     {
-        return $this->belongsToMany('App\Task',)->withPivot('order','days','difficulty','total_labour_price','total_supervisor_price','total_materials_price','total_cost_price','total', 'done', 'complete')->orderBy('pivot_order');
+        //return $this->belongsToMany('App\Task',)->withPivot('order','days','difficulty','total_labour_price','total_supervisor_price','total_materials_price','total_cost_price','total', 'done', 'complete', 'variable_id')->orderBy('pivot_order');
+        return $this->belongsToMany('App\Task',)->withPivot('order','days','difficulty','total_labour_price','total_materials_price','total_cost_price','total', 'done', 'complete', 'variable_id', 'property_value')->orderBy('pivot_order');
+    }
+    public function properties()
+    {
+        return $this->belongsToMany('App\Property',)->withPivot('value');
     }
 
     public function materials()

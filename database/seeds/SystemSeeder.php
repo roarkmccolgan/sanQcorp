@@ -27,7 +27,7 @@ class SystemSeeder extends Seeder
 			'alias' => 'IBR Full-spec',
 			'unit' => 'm2',
 			'group' => 'Waterproofing',
-			'base_rate' => 180.00,
+			'base_rate' => 18000,
 			'created_at' => Carbon::now(),
 			'guarantee_id' => 3,
 		]);
@@ -46,7 +46,7 @@ class SystemSeeder extends Seeder
 			'alias' => 'Tile Roof Full-spec',
 			'unit' => 'm2',
 			'group' => 'Waterproofing',
-			'base_rate' => 180.00,
+			'base_rate' => 18000,
 			'created_at' => Carbon::now(),
 			'guarantee_id' => 3,
 		]);
@@ -65,7 +65,7 @@ class SystemSeeder extends Seeder
 			'alias' => 'Tile Roof Full-spec',
 			'unit' => 'm2',
 			'group' => 'Waterproofing',
-			'base_rate' => 180.00,
+			'base_rate' => 18000,
 			'created_at' => Carbon::now(),
 			'guarantee_id' => 3,
 		]);
@@ -84,7 +84,7 @@ class SystemSeeder extends Seeder
 			'alias' => 'Corrugated Full-spec',
 			'unit' => 'm2',
 			'group' => 'Waterproofing',
-			'base_rate' => 180.00,
+			'base_rate' => 18000,
 			'created_at' => Carbon::now(),
 			'guarantee_id' => 3,
 		]);
@@ -96,7 +96,7 @@ class SystemSeeder extends Seeder
 			'alias' => 'Mineral Maintenance-Free Torch-on System',
 			'unit' => 'm2',
 			'group' => 'Torch-on',
-			'base_rate' => 250.00,
+			'base_rate' => 25000,
 			'created_at' => Carbon::now(),
 			'guarantee_id' => 1,
 		]);
@@ -107,7 +107,7 @@ class SystemSeeder extends Seeder
 			'alias' => 'Plain Torch-on System',
 			'unit' => 'm2',
 			'group' => 'Torch-on',
-			'base_rate' => 210.00,
+			'base_rate' => 21000,
 			'created_at' => Carbon::now(),
 			'guarantee_id' => 1,
 		]);
@@ -118,7 +118,7 @@ class SystemSeeder extends Seeder
 			'alias' => 'Plain Dual Layer Torch-on System',
 			'unit' => 'm2',
 			'group' => 'Torch-on',
-			'base_rate' => 350.00,
+			'base_rate' => 35000,
 			'created_at' => Carbon::now(),
 			'guarantee_id' => 1,
 		]);
@@ -129,7 +129,7 @@ class SystemSeeder extends Seeder
 			'alias' => 'Plain Fibre-reinforced Torch-on System',
 			'unit' => 'm2',
 			'group' => 'Torch-on',
-			'base_rate' => 350.00,
+			'base_rate' => 35000,
 			'created_at' => Carbon::now(),
 			'guarantee_id' => 1,
 		]);
@@ -142,7 +142,7 @@ class SystemSeeder extends Seeder
 			'alias' => 'Sanika\'s insulative Boarded System',
 			'unit' => 'm2',
 			'group' => 'Insulative boarded',
-			'base_rate' => 450.00,
+			'base_rate' => 45000,
 			'created_at' => Carbon::now(),
 			'guarantee_id' => 1,
 		]);
@@ -153,7 +153,7 @@ class SystemSeeder extends Seeder
 			'alias' => 'Sanika\'s insulative Boarded System',
 			'unit' => 'm2',
 			'group' => 'Insulative boarded',
-			'base_rate' => 450.00,
+			'base_rate' => 45000,
 			'created_at' => Carbon::now(),
 			'guarantee_id' => 1,
 		]);
@@ -164,7 +164,7 @@ class SystemSeeder extends Seeder
 			'alias' => 'Sanika\'s insulative Boarded System',
 			'unit' => 'm2',
 			'group' => 'Insulative boarded',
-			'base_rate' => 450.00,
+			'base_rate' => 45000,
 			'created_at' => Carbon::now(),
 			'guarantee_id' => 1,
 		]);
@@ -175,7 +175,7 @@ class SystemSeeder extends Seeder
 			'alias' => 'Sanika\'s insulative Boarded System',
 			'unit' => 'm2',
 			'group' => 'Insulative boarded',
-			'base_rate' => 450.00,
+			'base_rate' => 45000,
 			'created_at' => Carbon::now(),
 			'guarantee_id' => 1,
 		]);
@@ -199,7 +199,7 @@ class SystemSeeder extends Seeder
 			'alias' => 'Sanika\'s Thermo Regulating Boarded System',
 			'unit' => 'm2',
 			'group' => 'Thermo Regulating and Soundproofing ',
-			'base_rate' => 550.00,
+			'base_rate' => 55000,
 			'created_at' => Carbon::now(),
 			'guarantee_id' => 1,
 		]);
@@ -223,7 +223,7 @@ class SystemSeeder extends Seeder
 			'alias' => 'Sanika\'s Thermo Regulating Boarded System',
 			'unit' => 'm2',
 			'group' => 'Thermo Regulating and Soundproofing ',
-			'base_rate' => 550.00,
+			'base_rate' => 55000,
 			'created_at' => Carbon::now(),
 			'guarantee_id' => 1,
 		]);
@@ -241,7 +241,7 @@ class SystemSeeder extends Seeder
 			'alias' => 'Kryton Concrete Repair, Waterproofing and Rejuvination',
 			'unit' => 'm2',
 			'group' => 'Kryton',
-			'base_rate' => 550.00,
+			'base_rate' => 55000,
 			'created_at' => Carbon::now(),
 			'guarantee_id' => 2,
 		]);
@@ -259,7 +259,7 @@ class SystemSeeder extends Seeder
 			'alias' => 'Kryton KMA',
 			'unit' => 'm2',
 			'group' => 'Kryton',
-			'base_rate' => 550.00,
+			'base_rate' => 55000,
 			'created_at' => Carbon::now(),
 			'guarantee_id' => 4,
 		]);
@@ -270,7 +270,7 @@ class SystemSeeder extends Seeder
 			'alias' => 'Custom System',
 			'unit' => 'm2',
 			'group' => 'Custom',
-			'base_rate' => 0.00,
+			'base_rate' => 000,
 			'created_at' => Carbon::now()
 		]);
     }

@@ -270,7 +270,7 @@ class TasksSeeder extends Seeder
 
 		DB::table('tasks')->insert([ //28
 			'name' => 'Pressure Clean',
-			'description' => 'Clean and prepare substrate using high pressure water washers with rotating needle jets. (please note that this process is highly important for the success of crystalline repairs, if the pores are not adequately exposed there will be failures)',
+			'description' => 'Clean and prepare substrate using high pressure water washers with rotating needle jets. (please note that this process is highly important for the success of crystalline repairs, if the pores are not adequately00 exposed there will be failures)',
 			'alias' => 'clean',
 			'unit_of_measure' => 'm2',
 			'rate' => 800,

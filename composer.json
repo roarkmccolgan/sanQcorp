@@ -8,11 +8,15 @@
     ],
     "license": "MIT",
     "require": {
+        "php": "^7.2",
         "fideloper/proxy": "^4.0",
         "inertiajs/inertia-laravel": "^0.1",
         "laravel/framework": "^6.0",
+        "laravel/horizon": "^3.4",
+        "laravel/telescope": "^2.1",
         "laravel/tinker": "^1.0",
-        "php": "^7.2"
+        "spatie/browsershot": "^3.33",
+        "tightenco/ziggy": "^0.8.1"
     },
     "require-dev": {
         "facade/ignition": "^1.4",

@@ -15,6 +15,13 @@ class Material extends Model
         return $this->getRelationValue('tasks')->keyBy('id');
     }
 
+    public function getCostPriceAttribute($value) {
+        return $value / 100;
+    }
+    public function setCostPriceAttribute($value) {
+        $this->attributes['cost_price'] = $value * 100;
+    }
+
     public function barcode()
     {
         return $this->morphOne('App\Barcode', 'barcodable');

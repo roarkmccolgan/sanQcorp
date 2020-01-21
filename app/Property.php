@@ -13,6 +13,11 @@ class Property extends Model
         return $this->hasMany('App\Section');
     }
 
+    public function options()
+    {
+        return $this->hasMany('App\Option')->withPivot('value');
+    }
+
     public function systems()
     {
         return $this->hasMany('App\System');

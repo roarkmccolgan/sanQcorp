@@ -15,12 +15,12 @@ class FuelSeeder extends Seeder
         DB::table('fuels')->insert([
             'type' => 'diesel',
             'valid_from' => Carbon::now(),
-            'rate_per_km' => 4
+            'rate_per_km' => 400
         ]);
         DB::table('fuels')->insert([
             'type' => 'petrol',
             'valid_from' => Carbon::now(),
-            'rate_per_km' => 5
+            'rate_per_km' => 500
         ]);
     }
 }

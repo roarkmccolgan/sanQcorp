@@ -13,14 +13,21 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome');
-});
+// Auth
+Route::get('login')->name('login')->uses('Auth\LoginController@showLoginForm')->middleware('guest');
+Route::post('login')->name('login.attempt')->uses('Auth\LoginController@login')->middleware('guest');
+Route::post('logout')->name('logout')->uses('Auth\LoginController@logout');
+
+// Dashboard
+Route::get('/')->name('dashboard')->uses('DashboardController')->middleware('auth');
 
 Route::group(['prefix' => 'jobs'], function(){
-	Route::get('/', 'JobController@index');
-	Route::get('/{job}/details', ['uses' => 'JobDetailController@create']);
+	Route::get('/')->name('jobs')->uses('JobController@index')->middleware('auth');
+	Route::get('/{job}/details')->name('jobs.details.create')->uses('JobDetailController@create')->middleware('auth');
+	Route::post('/{job}/details')->name('jobs.details.store')->uses('JobDetailController@store')->middleware('auth');
 });
+
+Route::get('/materials', 'MaterialController@index')->middleware('auth');
 
 Route::get('/about', function () {
     return Inertia::render('About');

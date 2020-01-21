@@ -17,7 +17,7 @@ class EmployeeSeeder extends Seeder
 		DB::table('employees')->insert([
 			'name'=>'Colte Smit',
 			'skill_id' => 5,
-			'day_rate' => 400.00,
+			'day_rate' => 40000,
 			'employed_date' => '2016-04-22 12:33',
 			'active' => 1,
 			'cell' => '0829285788',
@@ -36,7 +36,7 @@ class EmployeeSeeder extends Seeder
 		DB::table('employees')->insert([
 			'name'=>'Juan Pienaar',
 			'skill_id' => 5,
-			'day_rate' => 400.00,
+			'day_rate' => 40000,
 			'employed_date' => '2016-04-22 12:33',
 			'active' => 1,
 			'cell' => '01234',
@@ -55,7 +55,7 @@ class EmployeeSeeder extends Seeder
 		DB::table('employees')->insert([
 			'name'=>'Floyd Sibeko',
 			'skill_id' => 4,
-			'day_rate' => 165.00,
+			'day_rate' => 16500,
 			'employed_date' => '2016-04-22 12:33',
 			'active' => 1,
 			'cell' => '0711628965',
@@ -74,7 +74,7 @@ class EmployeeSeeder extends Seeder
 		DB::table('employees')->insert([
 			'name'=>'Laurence Ngwenya',
 			'skill_id' =>  2,
-			'day_rate' =>  190.00,
+			'day_rate' =>  19000,
 			'employed_date' => '2016-04-22 12:33',
 			'active' => 1,
 			'cell' => '01234',
@@ -93,7 +93,7 @@ class EmployeeSeeder extends Seeder
 		DB::table('employees')->insert([
 			'name'=>'Manuel Muchanga',
 			'skill_id' => 3,
-			'day_rate' => 191.91,
+			'day_rate' => 19191,
 			'employed_date' => '2016-04-22 12:33',
 			'active' => 1,
 			'cell' => '0789891791',
@@ -112,7 +112,7 @@ class EmployeeSeeder extends Seeder
 		DB::table('employees')->insert([
 			'name'=>'Jabu Moabona',
 			'skill_id' => 3,
-			'day_rate' => 175.00,
+			'day_rate' => 17500,
 			'employed_date' => '2016-04-22 12:33',
 			'active' => 1,
 			'cell' => '01234',
@@ -131,7 +131,7 @@ class EmployeeSeeder extends Seeder
 		DB::table('employees')->insert([
 			'name'=>'James Khoza',
 			'skill_id' => 2,
-			'day_rate' => 190.00,
+			'day_rate' => 19000,
 			'employed_date' => '2016-04-22 12:33',
 			'active' => 1,
 			'cell' => '0714071767',
@@ -150,7 +150,7 @@ class EmployeeSeeder extends Seeder
 		DB::table('employees')->insert([
 			'name'=>'Thys Kruger',
 			'skill_id' => 5,
-			'day_rate' => 404.00,
+			'day_rate' => 40400,
 			'employed_date' => '2016-04-22 12:33',
 			'active' => 1,
 			'cell' => '0717099260',
@@ -169,7 +169,7 @@ class EmployeeSeeder extends Seeder
 		DB::table('employees')->insert([
 			'name'=>'Jim Mabena',
 			'skill_id' => 6,
-			'day_rate' => 185.40,
+			'day_rate' => 18540,
 			'employed_date' => '2016-04-22 12:33',
 			'active' => 1,
 			'cell' => '0714071767',
@@ -188,7 +188,7 @@ class EmployeeSeeder extends Seeder
 		DB::table('employees')->insert([
 			'name'=>'Joseph Khoza',
 			'skill_id' => 2,
-			'day_rate' => 237.50,
+			'day_rate' => 23750,
 			'employed_date' => '2016-04-22 12:33',
 			'active' => 0,
 			'cell' => '0788180868',
@@ -207,7 +207,7 @@ class EmployeeSeeder extends Seeder
 		DB::table('employees')->insert([
 			'name'=>'Welcome Mdhluli',
 			'skill_id' => 2,
-			'day_rate' => 270.93,
+			'day_rate' => 27093,
 			'employed_date' => '2016-04-22 12:33',
 			'active' => 1,
 			'cell' => '0711885640',
@@ -226,7 +226,7 @@ class EmployeeSeeder extends Seeder
 		DB::table('employees')->insert([
 			'name'=>'Solly Ndlovu',
 			'skill_id' => 7,
-			'day_rate' => 175.00,
+			'day_rate' => 17500,
 			'employed_date' => '2016-04-22 12:33',
 			'active' => 1,
 			'cell' => '01234',
@@ -245,7 +245,7 @@ class EmployeeSeeder extends Seeder
 		DB::table('employees')->insert([
 			'name'=>'Zito Mabunda',
 			'skill_id' => 4,
-			'day_rate' => 175.00,
+			'day_rate' => 17500,
 			'employed_date' => '2016-04-22 12:33',
 			'active' => 1,
 			'cell' => '0786374284',
@@ -264,7 +264,7 @@ class EmployeeSeeder extends Seeder
 		DB::table('employees')->insert([
 			'name'=>'Oscar Banda',
 			'skill_id' => 4,
-			'day_rate' => 165.00,
+			'day_rate' => 16500,
 			'employed_date' => '2016-04-22 12:33',
 			'active' => 1,
 			'cell' => '',
@@ -283,7 +283,7 @@ class EmployeeSeeder extends Seeder
 		DB::table('employees')->insert([
 			'name'=>'Anthony Mngxali',
 			'skill_id' => 4,
-			'day_rate' => 190.00,
+			'day_rate' => 19000,
 			'employed_date' => '2016-04-22 12:33',
 			'active' => 1,
 			'cell' => '0735813215',
@@ -302,7 +302,7 @@ class EmployeeSeeder extends Seeder
 		DB::table('employees')->insert([
 			'name'=>'Jabu Mgagadeli',
 			'skill_id' => 4,
-			'day_rate' => 186.26,
+			'day_rate' => 18626,
 			'employed_date' => '2016-04-22 12:33',
 			'active' => 1,
 			'cell' => '0820452778',
@@ -321,7 +321,7 @@ class EmployeeSeeder extends Seeder
 		DB::table('employees')->insert([
 			'name'=>'Lawrence Mmatladi',
 			'skill_id' =>  4,
-			'day_rate' =>  165.00,
+			'day_rate' =>  16500,
 			'employed_date' => '2016-04-22 12:33',
 			'active' => 1,
 			'cell' => '01234',
@@ -340,7 +340,7 @@ class EmployeeSeeder extends Seeder
 		DB::table('employees')->insert([
 			'name'=>'Richard Hlongwane',
 			'skill_id' => 4,
-			'day_rate' => 180.62,
+			'day_rate' => 18062,
 			'employed_date' => '2016-04-22 12:33',
 			'active' => 1,
 			'cell' => '0723284435',
@@ -359,7 +359,7 @@ class EmployeeSeeder extends Seeder
 		DB::table('employees')->insert([
 			'name'=>'Solomon Mathonsi',
 			'skill_id' => 4,
-			'day_rate' => 169.95,
+			'day_rate' => 16995,
 			'employed_date' => '2016-04-22 12:33',
 			'active' => 1,
 			'cell' => '01234',
@@ -378,7 +378,7 @@ class EmployeeSeeder extends Seeder
 		DB::table('employees')->insert([
 			'name'=>'December Mavuso',
 			'skill_id' =>  2,
-			'day_rate' =>  197.92,
+			'day_rate' =>  19792,
 			'employed_date' => '2016-04-22 12:33',
 			'active' => 1,
 			'cell' => '0123456789',
@@ -397,7 +397,7 @@ class EmployeeSeeder extends Seeder
 		DB::table('employees')->insert([
 			'name'=>'Cedric Thseko Marobela',
 			'skill_id' => 7,
-			'day_rate' =>  170.00, 
+			'day_rate' =>  17000, 
 			'employed_date' => '2016-04-22 12:33',
 			'active' => 1,
 			'cell' => '01234',
@@ -416,7 +416,7 @@ class EmployeeSeeder extends Seeder
 		DB::table('employees')->insert([
 			'name'=>'Isaac ',
 			'skill_id' => 3,
-			'day_rate' => 180.00, 
+			'day_rate' => 18000, 
 			'employed_date' => '2016-04-22 12:33',
 			'active' => 0,
 			'cell' => '01234',
@@ -435,7 +435,7 @@ class EmployeeSeeder extends Seeder
 		DB::table('employees')->insert([
 			'name'=>'Roark McColgan',
 			'skill_id' => 5,
-			'day_rate' => 150.00,
+			'day_rate' => 15000,
 			'employed_date' => '2016-04-22 12:33',
 			'active' => 1,
 			'cell' => '0712871097',
@@ -454,7 +454,7 @@ class EmployeeSeeder extends Seeder
 		DB::table('employees')->insert([
 			'name'=>'Danie Mokhatla',
 			'skill_id' => 2,
-			'day_rate' => 197.92,
+			'day_rate' => 19792,
 			'employed_date' => '2016-04-22 12:33',
 			'active' => 1,
 			'cell' => '01234',
@@ -473,7 +473,7 @@ class EmployeeSeeder extends Seeder
 		DB::table('employees')->insert([
 			'name'=>'Peter Sibisi',
 			'skill_id' => 7,
-			'day_rate' => 165.00,
+			'day_rate' => 16500,
 			'employed_date' => '2016-04-22 12:33',
 			'active' => 0,
 			'cell' => '01234',
@@ -492,7 +492,7 @@ class EmployeeSeeder extends Seeder
 		DB::table('employees')->insert([
 			'name'=>'Morgan Sibisi',
 			'skill_id' => 2,
-			'day_rate' => 200.00,
+			'day_rate' => 20000,
 			'employed_date' => '2016-04-22 12:33',
 			'active' => 1,
 			'cell' => '0769986280',
@@ -511,7 +511,7 @@ class EmployeeSeeder extends Seeder
 		DB::table('employees')->insert([
 			'name'=>'Billiat Chumachiyenda',
 			'skill_id' => 1,
-			'day_rate' => 150.00,
+			'day_rate' => 15000,
 			'employed_date' => '2016-04-22 12:33',
 			'active' => 1,
 			'cell' => '0734158300',
@@ -530,7 +530,7 @@ class EmployeeSeeder extends Seeder
 		DB::table('employees')->insert([
 			'name'=>'Alphas Khoza',
 			'skill_id' => 2,
-			'day_rate' => 190.00,
+			'day_rate' => 19000,
 			'employed_date' => '2016-04-22 12:33',
 			'active' => 1,
 			'cell' => '0840399677',
@@ -549,7 +549,7 @@ class EmployeeSeeder extends Seeder
 		DB::table('employees')->insert([
 			'name'=>'Crosby Sithole',
 			'skill_id' => 1,
-			'day_rate' => 150.00,
+			'day_rate' => 15000,
 			'employed_date' => '2016-04-22 12:33',
 			'active' => 1,
 			'cell' => '0123456789',
@@ -568,7 +568,7 @@ class EmployeeSeeder extends Seeder
 		DB::table('employees')->insert([
 			'name'=>'Andries Mahlangu',
 			'skill_id' => 4,
-			'day_rate' => 150.00,
+			'day_rate' => 15000,
 			'employed_date' => '2016-04-22 12:33',
 			'active' => 1,
 			'cell' => '0123456789',

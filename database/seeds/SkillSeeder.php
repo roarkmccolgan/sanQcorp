@@ -13,37 +13,37 @@ class SkillSeeder extends Seeder
     {
         DB::table('skills')->insert([ //1
             'name' => 'Labourer',
-            'rate' => 180.00
+            'rate' => 18000
         ]);
 
         DB::table('skills')->insert([ //2
             'name' => 'Torcher',
-            'rate' => 300.00
+            'rate' => 30000
         ]);
 
         DB::table('skills')->insert([ //3
             'name' => 'Driver',
-            'rate' => 245.00
+            'rate' => 24500
         ]);
 
         DB::table('skills')->insert([ //4
             'name' => 'Waterproofer',
-            'rate' => 180.00
+            'rate' => 18000
         ]);
 
         DB::table('skills')->insert([ //5
             'name' => 'Supervisor',
-            'rate' => 681.00
+            'rate' => 68100
         ]);
 
         DB::table('skills')->insert([ //6
             'name' => 'Builder',
-            'rate' => 220.00
+            'rate' => 22000
         ]);
 
         DB::table('skills')->insert([ //7
             'name' => 'Painter',
-            'rate' => 150.00
+            'rate' => 15000
         ]);
     }
 }

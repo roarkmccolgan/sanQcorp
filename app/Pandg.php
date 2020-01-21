@@ -8,7 +8,14 @@ class Pandg extends Model
 {
     protected $guarded = [];
 
-    public function jobs()
+    public function getRateAttribute($value) {
+        return $value / 100;
+    }
+    public function setRateAttribute($value) {
+        $this->attributes['rate'] = $value * 100;
+    }
+
+    public function job()
     {
         return $this->belongsTo('App\Job');
     }

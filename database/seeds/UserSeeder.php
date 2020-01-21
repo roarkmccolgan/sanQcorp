@@ -24,8 +24,8 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Roark McColgan',
             'username' => 'roark',
-            'email' => 'roark@sanika.co.za',
-            'password' => bcrypt('1q2w3e4R'),
+            'email' => 'roarkmccolgan@gmail.com',
+            'password' => bcrypt('sprite'),
             'cell' => '+27712871097',
             'insightly_id' => 980209,
             'created_at' => Carbon::now()

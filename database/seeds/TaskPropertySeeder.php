@@ -117,5 +117,29 @@ class TaskPropertySeeder extends Seeder
             'property_id' => 1,
             'task_id' => 15
         ]);
+
+        //Sidewall
+        DB::table('property_task')->insert([
+            'property_id' => 8,
+            'task_id' => 20
+        ]);
+
+        //Ridge
+        DB::table('property_task')->insert([
+            'property_id' => 7,
+            'task_id' => 19
+        ]);
+
+        //Valleys
+        DB::table('property_task')->insert([
+            'property_id' => 9,
+            'task_id' => 21
+        ]);
+
+        //Crosslaps
+        DB::table('property_task')->insert([
+            'property_id' => 3,
+            'task_id' => 16
+        ]);
     }
 }
