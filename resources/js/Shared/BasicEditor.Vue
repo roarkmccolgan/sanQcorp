@@ -81,6 +81,9 @@
 					new Underline(),
 					new History(),
 				],
+				parseOptions: {
+					preserveWhitespace: true,
+				},
 				content: this.value,
 				onUpdate: ({ getHTML }) => {
 					this.html=getHTML();

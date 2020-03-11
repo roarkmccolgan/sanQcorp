@@ -71,7 +71,7 @@
 					</div>
 					<div class="flex flex-wrap -mx-3 mb-6">
 						<div class="w-full px-3">
-							<image-editor :imageprefix="'/lc-assets/img'" :last-change="lastChange" :image-size="mainImgSize" :options="{primaryColor: 'rgb(215, 0, 0)', secondaryColor: 'rgba(215, 0, 0, 0.5)', defaultStrokeWidth: 2}" @input="getMainImage"></image-editor>
+							<image-editor :imageprefix="'/lc-assets/img'" :existing-file="form.mainPhoto.main" :existing-snap-shot="form.mainPhoto.snapShot" :last-change="lastChange" :image-size="mainImgSize" :options="{primaryColor: 'rgb(215, 0, 0)', secondaryColor: 'rgba(215, 0, 0, 0.5)', defaultStrokeWidth: 2}" @input="getMainImage"></image-editor>
 						</div>
 					</div>
 					<div class="flex flex-wrap -mx-3 mb-6">
@@ -222,6 +222,7 @@
 </template>
 
 <script>
+	import Vue from 'vue';
 	import objectToFormData from 'object-to-formdata';
 	import clone from 'just-clone';
 	import filter from "just-filter-object";
@@ -264,6 +265,7 @@
 		remember: 'form',
 		data() {
 			return {
+				testBody: null,
 				sending: false,
 				showdesign: false,
 				lastChange: null,
@@ -276,8 +278,8 @@
 					title1: this.job.title1,
 					title2: this.job.title2,
 					title: this.job.title,
-					mainPhoto: this.job.mainPhoto,
-					photos: this.job.photos,
+					mainPhoto: {},
+					photos: [],
 					sections: [],
 					jobpsandgs: this.pandg,
 					jobterms: this.terms,
@@ -318,42 +320,52 @@
 				this.lastChange = new Date().getTime();
 			},
 			submit() {
-				// for (const [key, prop] of Object.entries(this.form)) {
-				// 	if (Array.isArray(this.form[key])) {
-				// 		if(!this.form[key].length){
-				// 			console.log(key);
-				// 		}
-				// 	}
-				// }
-				// return;
-				this.form.proposalHtml = this.$refs.proposal.$refs.theHtml.innerHTML;
-				let submition = objectToFormData(this.form,{
-					indices: true,
-					nullsAsUndefineds: true,
-				});
+				let formData = new FormData();
+				var starRating = new Vue({
+				  ...Proposal,
+				  parent: this,
+				  propsData: {
+				  	'form': this.form,
+				  	'systems': this.systems
+				  }
+				}).$mount();
+				this.testBody = starRating.$el;
+				for (var i=0; i<document.styleSheets.length; i++) {
+					var sheet = document.styleSheets[i];
+					if (sheet.href == null) {
+						this.testBody.insertBefore(sheet.ownerNode, this.testBody.firstChild);
+					}
+				}			
+				
+				this.form.proposalHtml = this.testBody.innerHTML;
+				formData.append('data', JSON.stringify(this.form));
+				if(Object.keys(this.form.mainPhoto).length){
+					formData.append('mainPhoto', this.form.mainPhoto.file);
+					formData.append('mainPhotoSnapShot', this.form.mainPhoto.snapShot);
+					formData.append('mainPhotoEdited', this.form.mainPhoto.edited);
+				}
+				if(this.form.photos.length){
+					this.form.photos.forEach(photo => formData.append('photos[]', photo));
+				}
+				if(this.form.sections.length){
+					this.form.sections.forEach(section => {
+						if(section.photos.length){
+							section.photos.forEach(photo => formData.append('sectionPhotos[]', photo));							
+						}
+					});
+				}
 				this.sending = true;
-				// for (var pair of submition.entries()) {
-				// 	console.log(pair[0]+ ', ' + pair[1]); 
-				// }
-				// return;
-				this.$inertia.post(`/jobs/${this.job.id}/details`, submition)
+				this.$inertia.post(`/jobs/${this.job.id}/details`, formData)
 				.then(() => this.sending = false)
 			},
 			getMainImage: function(theImage){
 				//this.form.mainPhoto = URL.createObjectURL(theImage);
-				this.form.mainPhoto = theImage;
+				this.$set(this.form.mainPhoto, 'main', theImage.original);
+				this.$set(this.form.mainPhoto, 'edited', theImage.edited);
+				this.$set(this.form.mainPhoto, 'snapShot', theImage.snapShot);
 			},
-			// addImage() {
-			// 	if (this.newId === "" || this.newItem === "") return;
-			// 	this.items.push({
-			// 		id: this.newId,
-			// 		item: this.newItem
-			// 	});
-			// 	this.newId = "";
-			// 	this.newItem = "";
-			// },
 			replaceImage(theImage, index) {
-				this.loadImage(theImage).then((newFile) => this.form.photos.splice(index, 1, newFile));
+				this.loadImage(theImage).then(newFile => this.form.photos.splice(index, 1, newFile));
 			},
 			deleteImage(index) {
 				this.form.photos.splice(index, 1);
@@ -437,11 +449,35 @@
             },
             proposalChanged: function(payload){
             	this.form.proposalHtml = payload;
+            },
+            loadFileFromRemoteUrl: function(photo){
+            	return this.$http.get(photo.photo, {
+    				responseType: 'blob',
+    				timeout: 30000,
+  				});
             }
+		},
+		beforeCreate() {
+			console.log(this);
 		},
 		created: function(){
 			if(this.job.sections.length){
-				this.job.sections.forEach(s => this.form.sections.push(clone(s)))
+				this.job.sections.forEach((s,index) => {
+					let newSection = clone(s);
+					newSection.photos = [];
+					this.form.sections.push(newSection);
+					if(s.photos.length){
+						s.photos.forEach((photo,i) => {
+							this.loadFileFromRemoteUrl(photo).then(blobFile => {
+								let newFile = new File([blobFile.data], photo.photo.split("/").pop(), {
+									type: "image/"+photo.photo.split(".").pop()
+								});
+								this.$set(this.form.sections[index]['photos'], i, newFile);
+							});
+						});
+					}
+				});
+				//this.job.sections.options.forEach(o => o.concat(o.pivot));
 			}else{
 				this.addSection();
 			}
@@ -460,8 +496,30 @@
 					inex.checked = true;
 				}
 				this.form['job'+i.type].push(inex);
-			})
+			});
+			if(this.job.photos){
+				this.job.photos.forEach((photo, index) => {
+					if(photo.type == 'main' || photo.type == 'edited') {
+						this.loadFileFromRemoteUrl(photo).then(blobFile => {
+							let newFile = new File([blobFile.data], photo.photo.split("/").pop(), {
+								type: "image/"+photo.photo.split(".").pop()
+							});
+							this.$set(this.form.mainPhoto, 'main', newFile);
+							if(photo.type == 'main') {
+								this.$set(this.form.mainPhoto, 'snapShot', photo.properties);
+							}
+						});
+					} else {
+						this.loadFileFromRemoteUrl(photo).then(blobFile => {
+							let newFile = new File([blobFile.data], photo.photo.split("/").pop(), {
+								type: "image/"+photo.photo.split(".").pop()
+							});
+							this.form.photos.push(newFile);
+						});
+					}
+				})
+			}
 			
-		},
+		}
 	}
 </script>

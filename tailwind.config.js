@@ -1,9 +1,14 @@
 module.exports = {
-  theme: {
-    extend: {}
-  },
-  variants: {},
-  plugins: [
-  	require('@tailwindcss/custom-forms')
-  ]
+	theme: {
+		extend: {
+			screens: {
+				'print': {'raw': 'print'},
+				 // => @media  print { ... }
+			}
+		}
+	},
+	variants: {},
+	plugins: [
+		require('@tailwindcss/custom-forms')
+	]
 }

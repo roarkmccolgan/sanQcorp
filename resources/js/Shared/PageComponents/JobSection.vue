@@ -1,17 +1,17 @@
 <template>
 	<div class="">
-		<div class="w-full flex items-center justify-between" v-if="!show">
+		<div class="w-full flex items-center justify-between" v-show="!show">
 			<h4 class="w-full" :class="{'text-red-400 italic' : sectionName == ''}">{{ sectionName ? sectionName : 'Please provide name' }}</h4>
 			<div class="flex items-center">
-				<button class="rounded border p-1 focus:outline-none cursor-pointer hover:bg-gray-100 m-1" @click="show = !show"><chevron-down-icon class="w-6 h-6"></chevron-down-icon></button>
+				<button class="rounded border p-1 focus:outline-none cursor-pointer hover:bg-gray-100 m-1" @click.prevent="show = !show"><chevron-down-icon class="w-6 h-6"></chevron-down-icon></button>
 				<button class="rounded border p-1 focus:outline-none cursor-pointer hover:bg-red-100 m-1" @click.prevent="$emit('deletesection')"><trash-2-icon class="w-6 h-6"></trash-2-icon></button>				
 			</div>
 		</div>
-		<div class="flex flex-wrap" v-else>
+		<div class="flex flex-wrap" v-show="show">
 			<div class="w-full flex items-center justify-between px-3 my-3">
 				<input v-model="sectionName" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="sectionName" placeholder="Section Name" type="text">
 				<div class="flex items-center">
-					<button class="rounded border p-1 focus:outline-none cursor-pointer hover:bg-gray-100 m-1" @click="show = !show"><chevron-up-icon class="w-6 h-6"></chevron-up-icon></button>
+					<button class="rounded border p-1 focus:outline-none cursor-pointer hover:bg-gray-100 m-1" @click.prevent="show = !show"><chevron-up-icon class="w-6 h-6"></chevron-up-icon></button>
 					<button class="rounded border p-1 focus:outline-none cursor-pointer hover:bg-red-100 m-1" @click.prevent="$emit('deletesection')"><trash-2-icon class="w-6 h-6"></trash-2-icon></button>				
 				</div>
 			</div>
@@ -140,6 +140,11 @@
 					system_id: '',
 					system: null,
 					notes: [],
+					nightshift: {
+						id: null,
+						nights: null,
+						labours: []
+					},
 					days: '',
 					total_labour: '',
 					total_supervisor: '',
@@ -214,6 +219,13 @@
 				this.addOption();
 				this.sectionName = "Main garage";
 				this.sectionSurvey = "We checked everything";
+			}else{
+				//Add blank nightshift to options
+				this.options.forEach(option => {
+					if(!option.nightshift){
+						option.nightshift = {id: null, nights: null, labours: [] } 
+					}
+				})
 			}
 		}
 	}

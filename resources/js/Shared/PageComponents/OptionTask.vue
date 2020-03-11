@@ -92,7 +92,7 @@
 
 		data () {
 			return {
-				property: null,
+				property: {value:null},
 				selectedVariable: null,
 				difficulty: '',
 				chosenMaterials: {},
@@ -110,6 +110,7 @@
 
 			},
             selectedVariable: function(newValue, oldValue){
+                //console.log('selectedVariable');
                 this.updateValues();
             }
 		},
@@ -210,6 +211,7 @@
                     cost_price: this.total_cost_price,
                     materials: this.materials,
                     variable_id: this.selectedVariable,
+                    property_value: this.property.value,
                 };
             },
             groupedMaterials: function(){
@@ -292,20 +294,28 @@
         	}, 500);
             //console.log(this.optionProperties);
         	let prop =  this.optionProperties.filter(opProp => opProp.alias == this.task.link_to);
+            if(!prop[0].value){
+                prop[0].value = prop[0].pivot && prop[0].pivot.value ? prop[0].pivot.value : null;                
+            }
 
             this.property = { ...prop[0] };
 
+
          //    console.log('fok ',prop);
         	if(this.task.pivot){
-        		if(this.task.pivot.property_value && this.property.value !== this.task.pivot.property_value){
+        		if(this.task.pivot.property_value && this.task.pivot.property_value != this.property.value ){
         			this.property.value = this.task.pivot.property_value;					
         		}
         		if(this.task.pivot.variable_id){
         			this.selectedVariable =  this.task.pivot.variable_id;
         		}
         	}
-
-        	let systemTaskMaterials = this.systems[this.optionSystem.id].tasks[this.task.alias].materials;
+            let systemTaskMaterials = {};
+            if(this.systems[this.optionSystem.id].tasks[this.task.alias]){
+            	systemTaskMaterials = this.systems[this.optionSystem.id].tasks[this.task.alias].materials;
+            }else{
+                systemTaskMaterials = this.task.materials;
+            }
             
             Object.keys(systemTaskMaterials).forEach(matAlias => {
 

@@ -16,7 +16,7 @@ class CreateRevisionsTable extends Migration
         Schema::create('revisions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('job_id');
-            $table->binary('data');
+            $table->json('data');
 
             $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade');
             $table->timestamps();

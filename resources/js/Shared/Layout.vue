@@ -2,7 +2,7 @@
     <div class="text-gray-800">
         <navbar />
 
-        <main>
+        <main class="w-full max-w-6xl mx-auto">
             <slot />
         </main>
     </div>

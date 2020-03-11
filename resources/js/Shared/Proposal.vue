@@ -3,7 +3,7 @@
 		<div class="proposal">
 			<div id="cover" style="position: relative;">
 				<div id="header" style="width: 210mm; height: 40mm; margin: 14.219mm 20mm 10mm 10mm;">
-					<img id="logo" src="/img/proposal/logo.jpg" alt="" style="width: 77mm; height: 27.9mm; display: inline-block; vertical-align: top">
+					<img id="logo" :src="`${appUrl}/img/proposal/logo.jpg`" alt="" style="width: 77mm; height: 27.9mm; display: inline-block; vertical-align: top">
 					<div style="width: 73mm; display: inline-block; padding-top: 6mm; text-align: right; font: 10pt/14pt 'Times New Roman, Times, serif';">
 						SANIKA cc<br/>
 						P.O. BOX 303<br/>
@@ -59,7 +59,7 @@
 						</tr>
 					</table>
 				</div>
-				<img src="/img/proposal/2540years.jpg" alt="">
+				<img :src="`${appUrl}/img/proposal/2540years.jpg`" alt="">
 			</div>
 			<div class="proposal-section">
 				<p>Dear {{form.job.contacts[0].first_name}}</p>
@@ -110,12 +110,16 @@
 
 			</div>
 			<div class="proposal-section">
-				<img :src="getImageBlob(form.mainPhoto)" @load="revoke(form.mainPhoto)" alt="" v-if="form.mainPhoto">
+				<img data-main :src="getImageBlob(form.mainPhoto.edited, 'main')" @load="revoke" alt="" v-if="form.mainPhoto.edited">
 				<template v-if="form.photos.length > 0">
-					<strong>Site photos:</strong><br/>
-					<template v-for="(image, key) in form.photos">
-						<img :src="getImageBlob(image)" @load="revoke(image)" alt="" class="sitepic">
-					</template>
+					<strong>Site photos:</strong>
+					<div class="flex flex-wrap justify-between">
+						<div class="w-1/2" v-for="(image, key) in form.photos">
+							<div class="p-2">
+								<img :data-photo="key" :src="getImageBlob(image, 'photo')" @load="revoke" alt="" class="sitepic">
+							</div>
+						</div>						
+					</div>
 				</template>
 			</div>
 			<div class="proposal-section" v-if="form.sections">
@@ -125,17 +129,20 @@
 						<h3>Survey</h3>
 						<p v-html="section.survey"></p>
 					</template>
-
-					<template v-for="(image, imageKey) in section.photos">
-						<img :src="getImageBlob(image)" @load="revoke(image)" alt="" class="sitepic">
-					</template>
+					<div class="flex flex-wrap justify-between">
+						<div class="w-1/2" v-for="(image, imageKey) in section.photos">
+							<div class="p-2">
+								<img :data-section="imageKey" :src="getImageBlob(image, 'section')" @load="revoke" alt="" class="sitepic">
+							</div>
+						</div>						
+					</div>
 					
 					<template v-if="section.options">
 						<div v-for="(option, optionKey) in section.options" style="margin-bottom: 30mm; margin-left: 5mm">
 							<template v-if="option.system_id">
 								<h4 style="margin-bottom: 0;"><span v-if="section.options.length > 1">Option {{optionKey+1}} - </span>{{option.name}}</h4>
 								<p v-html="option.description"></p>
-								<img v-if="systems[option.system_id].photos.length > 0" :src="'/img/systems/'+systems[option.system_id].photos[0].photo" alt="" style="width: 170mm;margin: 10mm 0mm;">
+								<img v-if="systems[option.system_id].photos.length > 0" :src="`${appUrl}/img/systems/${systems[option.system_id].photos[0].photo}`" alt="" style="width: 170mm;margin: 10mm 0mm;">
 								<div v-if="systems[option.system_id].photos.length > 0" class="pb"></div>
 								<div>
 									<h5>Scope of Work</h5>
@@ -145,7 +152,11 @@
 										<li class="list-decimal">Clean and de-establish site</li>
 									</ul>
 									<template v-if="systems[option.system_id].guarantee">
-										<h5>Guarantee</h5>
+										<div class="mb-4" v-if="option.notes.length">
+											<h5 class="text-lg font-bold">Please note</h5>
+											<div class="mb-1" v-for="note in option.notes" v-html="note.note"></div>
+										</div>
+										<h5 class="text-lg font-bold">Guarantees</h5>
 										<table>
 											<tr>
 												<td>
@@ -160,8 +171,6 @@
 									</template>
 
 									<div v-if="option.notes.length > 0">
-										<strong>Please note</strong>
-										<h5 v-for="note in option.notes">{{note.note}}</h5>
 									</div>
 								</div>
 							</template>
@@ -198,6 +207,37 @@
 						</table>
 					</template>
 				</template>
+				<template v-if="form.jobpsandgs.length > 0">
+					<strong>P's &amp; G's:</strong><br/>
+					The above quotation includes the following P's &amp; G's
+					<ul>
+						<li v-for="pandg in form.jobpsandgs">@{{pandg.name}}</li>
+					</ul>
+					<table cellpadding="5mm" style="width: 190mm">
+						<tr>
+							<td style="width: 70%"><h6>Total for all P's &amp; G's</h6></td>
+							<td style="width: 30%"><h6>@{{pandgTotal | currency 'R'}}</h6></td>
+						</tr>
+					</table>
+				</template>
+				<div class="flex flex-wrap w-full">
+					<div class="w-1/2 border bg-gray-200">
+						<div class="p-2">
+							<h6>The above price structures INCLUDES:</h6>
+							<ul>
+								<li v-for="(include, includeKey) in form.jobincludes">{{include.item}}</li>
+							</ul>							
+						</div>
+					</div>
+					<div class="w-1/2 border bg-gray-200">
+						<div class="p-2">
+							<h6>The above price structure EXCLUDES:</h6>
+							<ul>
+								<li v-for="(exclude, excludeKey) in form.jobexcludes">{{exclude.item}}</li>
+							</ul>							
+						</div>
+					</div>					
+				</div>
 			</div>
 		</div>
 		
@@ -205,6 +245,7 @@
 </template>
 
 <script>
+
 	export default {
 
 		name: 'Proposal',
@@ -219,6 +260,9 @@
 			}
 		},
 		computed: {
+			appUrl: function(){
+				return process.env.MIX_APP_URL;
+			},
 			proposaltitle: function(){
 				if(this.form.title){
 					return this.form.title;
@@ -243,10 +287,11 @@
 			// },
 		},
 		methods: {
-			revoke: function(src){
-				URL.revokeObjectURL(src)
+			revoke: function(event){
+				URL.revokeObjectURL(event.target.getAttribute('src'))
 			},
-			getImageBlob: function(theImage){
+			getImageBlob: function(theImage, where){
+				console.log(where);
 				return URL.createObjectURL(theImage)
 			}
 		}
@@ -255,98 +300,64 @@
 
 <style lang="css" scoped>
 .zoom{
-	transform: scale(0.8);
+	/*transform: scale(0.8);*/
 }
 .proposal{
-	font-family: 'Times New Roman, Times, serif';
-	font-size: 12pt;
-	line-height: 1.3;
-	color: black;
-	background-color: white;
+	@apply .font-serif .text-black .bg-white .m-0 .p-0;
 }
+
 .proposal h1{
-	text-align: center;
-	font-weight: bold;
-	font-size: 31pt;
-	line-height: 31pt;
-	margin:10pt;
+	@apply .text-center .font-bold .text-5xl .leading-none .m-4;
 }
 .proposal h2{
-	text-decoration: underline;
-	font-size: 20pt;
-	line-height: 22pt;
+	@apply .underline .text-3xl .leading-tight;
 }
 .proposal h2.title{
-	text-align: center;
-	text-decoration: none;
+	@apply .text-center .no-underline
 }
-#proposal h3{
-	font-size: 18pt;
+.proposal h3{
+	@apply text-2xl;
 }
 .proposal-section h4{
-	font-size: 16pt;
-	text-decoration: underline;
+	@apply .text-2xl .font-bold;
 }
 .proposal-section h5{
-	font-size: 14pt;
+	@apply .text-lg .mb-2;
 }
 .proposal-section h6{
-	font-size: 12pt;
+	@apply .font-bold .mb-2;
 }
 .proposal-section {
+	@apply .relative;
 	page-break-before: always;
-	margin: 0 20mm;
-	width: 190mm;
-	color: black;
-	font-family: 'Times New Roman, Times, serif';
-	font-size: 12pt;
 }
 .pb{
 	page-break-before: always;
 }
 #proposal .proposal-section h2.profile{
-	text-align: center;
-	text-decoration: none;
+	@apply .text-center .no-underline .font-bold;
 	margin-top: 20mm;
-	font-weight: bold;
 }
 
 .proposal-section p {
-	font-size: 12pt;
-	color: black;
 }
 .proposal-section ul li {
-	margin-bottom: 0.8em;
+	@apply .mb-2;
 }
 .sitepic{
-	
+	@apply .m-1 .border .inline-block;
 }
-.proposal-section .width50{
-	display: inline-block;
-	width: 80mm;
-	margin-right: 10mm;
-	vertical-align: top;
-}
+
 .guarantee{
-	text-align: center;
-	border-radius: 50%;
+	@apply .text-center .rounded-full .border-4 .border-gray-400;
 	width: 17mm;
 	height: 17mm;
-	border: 5px solid lightgray;
 }
 .guarantee .number{
-	text-transform: uppercase;
-	display: block;
-	color: red;
-	font-weight: bold;
-	font-size: 22pt;
-	line-height: 14pt;
-	margin-top: 8pt;
+	@apply .uppercase .block .text-red-600 .font-bold .text-3xl .leading-none .mt-1;
 }
 .guarantee .years{
-	text-transform: uppercase;
-	display: block;
-	color: grey;
-	font-size: 9pt;
+	@apply .uppercase .block .text-gray-600 .text-xs .leading-none;
 }
+
 </style>

@@ -2,14 +2,14 @@
 	<div class="relative" v-on-clickaway="() => { isOpen ? cancel() : null }">
 		<div ref="input" class="block w-full border px-3 py-2 bg-white rounded focus:outline-0 focus:shadow-focus" :class="{ 'shadow-focus': isOpen }" @click="open" tabindex="0" @keydown.up.prevent="open" @keydown.down.prevent="open" @keydown.space.prevent="open">
 			<span v-if="value !== null">{{ value.name }}</span>
-			<span v-else class="text-grey-dark">Material...</span>
+			<span v-else class="text-gray-600">Material...</span>
 		</div>
 		<div v-show="isOpen" class="mt-1 absolute inset-x-0 bg-gray-700 p-2 rounded shadow z-50">
 			<input :value="search" @input="e => { $emit('search', e.target.value) }" ref="search" type="text" class="block mb-2 w-full px-3 py-2 bg-gray-600 text-white rounded" style="outline: 0;" @keydown.up="highlightPrev" @keydown.down="highlightNext" @keydown.enter.prevent="commitSelection" @keydown.esc="cancel" @keydown.tab.prevent>
 			<ul ref="options" v-show="options.length > 0" class="list-reset relative overflow-y-auto scrolling-touch" style="max-height: 200px;">
 				<li ref="option" v-for="(option, i) in options" :key="option.id" class="px-3 py-2 text-white cursor-pointer rounded" :class="[i === highlightedIndex ? 'bg-blue-700' : 'hover:bg-gray-600']" @click="select(i)">{{ option.name }}</li>
 			</ul>
-			<div v-show="options.length === 0" class="px-3 py-2 text-grey">No results found for "{{ search }}"</div>
+			<div v-show="options.length === 0" class="px-3 py-2 text-gray-300">No results found for "{{ search }}"</div>
 		</div>
 	</div>
 </template>

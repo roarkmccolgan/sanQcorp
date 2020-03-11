@@ -137,8 +137,8 @@
 										<input class="w-full appearance-none block text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" v-model="material.coverage" :name="`custom-material-coverage-${matType}`" :id="`custom-material-coverage-${matType}`" placeholder="" type="text">
 									</div>
 									<div class="px-2">
-										<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" :for="`custom-material-coverage-${matType}`">Cost Price</label>
-										<input class="w-full appearance-none block text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" v-model="material.cost_price" :name="`custom-material-coverage-${matType}`" :id="`custom-material-coverage-${matType}`" placeholder="" type="text">
+										<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" :for="`custom-material-cost-${matType}`">Cost Price</label>
+										<input class="w-full appearance-none block text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" v-model="material.cost_price" :name="`custom-material-cost-${matType}`" :id="`custom-material-cost-${matType}`" placeholder="" type="text">
 									</div>
 									<div class="self-center">
 										<button class="focus:outline-none cursor-pointer rounded border hover:bg-gray-200 p-1 mt-1 mr-1 text-red-400" @click.prevent="removeCustomMaterial(matType)"><trash-2-icon class="w-4 h-4"></trash-2-icon></button>										
@@ -208,7 +208,7 @@
 							<td class="border px-2 py-1">{{ material.product_type }}</td>
 							<td class="border px-2 py-1">{{ material.name }}</td>
 							<td class="border px-2 py-1">
-								<input v-model="material.qty" class="appearance-none w-full block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="qty" type="number">
+								<input v-model="material.qty" @change="updateExtraMaterialPrice(material,$event)" class="appearance-none w-full block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="qty" type="number">
 							</td>
 							<td class="border px-2 py-1 relative">
 								{{ material.cost_price * material.qty | toCurrency }}
@@ -227,36 +227,40 @@
 				</table>
 			</div>
 			<div class="w-full mt-2">
-				<div class="p-3">
+				<div class="p-3" v-show="tasks.length">
 					<h3 class="text-2xl font-light mb-1">Option Details</h3>
 					<div class="flex items-center flex-wrap">
 						<div class="p-2">
 							<label class="items-start cursor-pointer flex items-center">
-								<input type="checkbox" v-model="nightshift" class="form-checkbox border-gray-400 text-teal-400 w-6 h-6">
+								<input type="checkbox" v-model="changeNightShift" class="form-checkbox border-gray-400 text-teal-400 w-6 h-6">
 								<div class="font-medium ml-2">Nightshift</div>
 							</label>
 						</div>
-						<template v-if="nightshift">
-							<div class="p-2">
-								<label class="items-start cursor-pointer flex items-center">
-									<input type="number" v-model="nightshiftNights" class="appearance-none block w-16 bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-									<div class="font-medium ml-2">Nights</div>
-								</label>
+						<template v-if="changeNightShift">
+							<div class="w-full">
+								<div class="flex p-2">
+									<label class="items-start cursor-pointer flex items-center border border-gray-400 rounded pl-2">
+										<div class="mr-2">Nights</div>
+										<input type="number" v-model="optionNightshift.nights" class="appearance-none block w-12 bg-gray-200 text-gray-700 border border-gray-200 rounded-r py-2 px-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+									</label>
+								</div>
 							</div>
-							<div class="w-full flex items-center">
-								<div class="p-2" v-for="labours in nightshiftLabour">
-									<label class="items-start cursor-pointer flex items-center">
-										<input type="number" v-model="labours.qty" class="appearance-none block w-16 bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-										<div class="font-medium ml-2">{{ labours.type }}</div>
+							<div class="w-full flex flex-wrap items-center">
+								<div class="p-2" v-for="labours in nightshift.labours">
+									<label class="items-start cursor-pointer flex items-center border border-gray-400 rounded pl-2">
+										<div class="mr-2">{{ labours.type }}</div>
+										<input type="number" v-model="labours.qty" class="appearance-none block w-12 bg-gray-200 text-gray-700 border border-gray-200 rounded-r py-2 px-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
 									</label>
 								</div>
 								
 							</div>							
 						</template>
-						<div class="p-2 w-full">
-							<label class="items-start cursor-pointer flex items-center">
-								<input type="number" v-model="driverDaysOverride" class="appearance-none block w-16 bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-								<div class="font-medium ml-2">Driver Days</div>
+						<hr class="border-1 w-full my-2">
+						<h4 class="font-medium mt-1 ml-2 w-full">Number of round trips the driver makes</h4>
+						<div class="flex p-2">
+							<label class="items-start cursor-pointer flex items-center border border-gray-400 rounded pl-2">
+								<div class="mr-2">Driver days</div>
+								<input type="number" v-model="driverDaysOverride" class="appearance-none block w-12 bg-gray-200 text-gray-700 border border-gray-200 rounded-r py-2 px-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
 							</label>
 						</div>
 					</div>
@@ -287,7 +291,7 @@
 								{{ totalMaterials | toCurrency }}
 							</div>
 						</div>
-						<div class="p-6" v-if="nightshift && totalNightShift">
+						<div class="p-6" v-if="totalNightShift">
 							<h5 class="uppercase tracking-wide text-gray-700 text-xs font-bold">Nightshift Total</h5>
 							<div class="text-2xl font-light">
 								{{ totalNightShift | toCurrency }}
@@ -322,6 +326,7 @@
 <script>
 	import debounce from 'just-debounce-it';
 	import clone from 'just-clone';
+	import merge from "just-merge";
 	//import map from 'just-map-values';
 	//import filter from 'just-filter-object';
 	//import reduce from 'just-reduce-object';
@@ -349,6 +354,7 @@
 			'markup',
 			'selectedTasks',
 			'tasks',
+			'nightshift',
 			'orderedTasks',
 			'materials',
 			'images',
@@ -366,8 +372,6 @@
 				optionTasks: clone(this.tasks),
 				optionMaterials: [],
 				optionSystem: clone(this.system),
-				
-				optionNotes: [],
 				customMaterials: {},
 				extraMaterials: [],
 				showNewTask: false,
@@ -375,9 +379,8 @@
 				searchText: '',
 				dataMaterials: [],
 				selectedDataMaterial: null,
-				nightshift: false,
-				nightshiftNights: 1,
-				nightshiftLabour: [],
+				changeNightShift: this.nightshift.nights ? true : false,
+				//nightshiftNights: 1,
 				driverDaysOverride: 0,
 			}
 		},
@@ -393,8 +396,13 @@
 				}
 				this.debounceSearch.call(this, value);	
 			},
+			// driverDaysOverride: function(value, oldValue) {
+			// 	if(value < this.totalDays){
+			// 		this.driverDaysOverride = this.totalDays;
+			// 	}
+			// },
 			optionSystem: function(system, oldValue){
-				console.log('watch triggered syste,');
+				console.log('watch triggered system');
 				this.optionName =  system.name;
 				this.optionDescription = system.description;
 				this.optionSystemId = system.id;
@@ -402,12 +410,30 @@
 				this.optionMaterials = [];
 				this.updateNightShiftLabour();
 				this.loadUniqueProps();
+			},
+			changeNightShift: function (newVal, oldVal){
+				if(newVal && newVal != oldVal){
+					this.optionNightshift.nights = 1;
+				}else{
+					this.optionNightshift.nights = null;
+				}
+				this.updateOption();
+     		},
+			'optionNightshift.nights': function(newValue,oldValue){
+				if(newValue > this.totalDays){
+					this.optionNightshift.nights = oldValue;
+				}
+				this.updateOption();
+			},
+			totalDays: function(newValue,oldValue){
+				this.driverDaysOverride = newValue;
+				this.updateOption();
 			}
 		},
 		computed: {
 			orderedOptionSystemTasks: function(){
 				if(!this.optionSystem) return [];
-				let tasksArr = Object.entries(this.systems[this.optionSystem.id].tasks).map((arr, index) =>{ 
+				let tasksArr = Object.entries(this.optionSystem.tasks).map((arr, index) =>{ 
 					return arr[1];
 				}).sort((a, b) => a.pivot.order - b.pivot.order);
 				//tasksArr = map(tasksArr, (value, key) => value[1]); 
@@ -460,8 +486,8 @@
 			totalDays: function(){
 				let days = 0;
 				this.optionTasks.forEach(task => days+= task.pivot.days);
-				if(this.nightshift && this.totalNightShift){
-					days-= this.nightshiftNights/2;
+				if(this.optionNightshift.nights && this.totalNightShift){
+					days-= this.optionNightshift.nights/2;
 				}
 				return Math.ceil(days);
 			},
@@ -483,7 +509,9 @@
 			},
 			totalSupervisor: function(){
 				let supervisor = 0;
-				this.optionTasks.forEach(task => supervisor+= task.pivot.total_supervisor_price);
+				this.optionTasks.forEach(task => {
+					supervisor+= task.pivot.total_supervisor_price;
+				});
 				return supervisor;
 			},
 			totalCostPrice: function(){
@@ -492,7 +520,7 @@
 				cost+= this.totalDriver;
 				cost+= this.totalSupervisor;
 				cost+= this.totalMaterials;
-				if(this.nightshiftNights){
+				if(this.optionNightshift.nights){
 					cost+= this.totalNightShift;
 				}
 				return cost;
@@ -504,9 +532,12 @@
 				return materials;
 			},
 			totalNightShift: function(){
-				if(!this.nightshift) return 0;
+				if(!this.optionNightshift.nights) return 0;
 				let tot = 0;
-				this.nightshiftLabour.forEach(labour => tot+= (labour.rate * labour.qty) * this.nightshiftNights);
+				this.optionNightshift.labours.forEach(labour => {
+					let qty = labour.qty ? labour.qty : labour.pivot.qty;
+					tot+= (labour.day_rate * qty) * this.optionNightshift.nights
+				});
 				return tot;
 			},
 			sellingPrice: function(){
@@ -542,6 +573,20 @@
 					this.$emit('update:properties', newValue)
 				}
 			},
+			optionNotes: {
+				get() { return this.notes },
+				set(newValue){
+					this.$emit('update:notes', newValue)
+				}
+			},
+			optionNightshift: {
+				get() {
+					return this.nightshift
+				},
+				set(newValue){
+					this.$emit('update:nightshift', newValue)
+				}
+			},
 		},
 		methods: {
 			setSystem: function(system){
@@ -559,11 +604,12 @@
 			updateNightShiftLabour: function(){
 				this.optionSystem.labour.forEach((labour, index) => {
 					let newLabour = {
+						id: labour.id,
 						qty: labour.pivot.qty,
 						type: labour.type,
-						rate: labour.day_rate * 1.5,
+						day_rate: labour.day_rate * 1.5,
 					};
-					this.nightshiftLabour.push(newLabour);
+					this.nightshift.labours.push(newLabour);
 				});
 			},
 			loadUniqueProps: function(){
@@ -577,7 +623,6 @@
 							property.value = null;
 							let existingOptionPropIndex = this.optionProperties.findIndex((prop) => prop.id == property.id);
 							if(existingOptionPropIndex  !== -1){
-								console.log('yes we have',this.optionProperties[existingOptionPropIndex]);
 								let existProp = this.optionProperties[existingOptionPropIndex];
 								property.value = existProp.value ? existProp.value : (existProp.pivot.value ? existProp.pivot.value : null);
 							}
@@ -665,6 +710,7 @@
 					this.optionTasks[taskIndex].pivot.total_supervisor_price = totals.supervisor_price;
 					this.optionTasks[taskIndex].pivot.total_materials_price = totals.materials_price;
 					this.optionTasks[taskIndex].pivot.total_cost_price = totals.cost_price;
+					this.optionTasks[taskIndex].pivot.property_value = totals.property_value;
 					this.optionTasks[taskIndex].variable_id = totals.variable_id;
 				}
 				this.driverDaysOverride = this.totalDays;
@@ -707,7 +753,7 @@
 					product_type: material.product_type,
 					name: material.name,
 					pack_size: material.pack_size,
-					price: material.price,
+					price: material.cost_price,
 					qty: 1,
 					stock: material.stock,
 					task: "extra",
@@ -719,9 +765,20 @@
                     // }
                 };
                 this.extraMaterials.push(mat);
+                this.updateOption();
             },
             removeExtraMaterial: function(key){
                 this.extraMaterials.splice(key,1);
+                this.updateOption();
+            },
+            updateExtraMaterialPrice: function(material, event){
+            	let newValue = event.target.value;
+            	if(newValue >=1) {
+            		material.price = material.cost_price * newValue;
+            	}else{
+            		material.qty = 1;
+            		material.price = material.cost_price;
+            	}
             },
             removeMaterial: function(matKey,optionKey){
                 this.option.materials.splice(matKey,1);
@@ -867,17 +924,14 @@
             	}
             	this.$emit('update:tasks', this.optionTasks);
             	this.$emit('update:materials', this.allMaterials);
+            	// if(this.changeNightShift){		
+            	// 	this.$emit('update:nightshift', this.optionNightshift);
+            	// }
             }
 		},
 		created: function(){
 			this.debounceValue = debounce((prop, newValue) => this.$emit(`update:${prop}`, newValue), 500);
 			this.debounceSearch = debounce(term => this.searchMaterials(term), 400);
-			if(this.notes.length){
-				this.notes.forEach((note, key) => {
-					
-					this.addNote(note);
-				});
-			}
 			if(!this.optionProperties.length){
 				console.log('no option props from db');
 				this.setSystem(this.systems[5]);
@@ -889,6 +943,7 @@
 						this.$emit('modify-properties', this.optionProperties);
 					});
 				});
+				//this.updateNightShiftLabour();
 			}else{
 				this.loadUniqueProps();
 			}
@@ -905,6 +960,24 @@
 					
 					this.$set(this.optionTasks[index], 'materials', obj);
 				});
+				if(this.optionNightshift.labours.length){
+					this.optionNightshift.labours.forEach(labour => {
+						if(labour.pivot.qty){
+							labour.qty = labour.pivot.qty;
+						}
+					});
+				}
+
+				let extraMaterials = this.materials.filter(material => material.pivot.task == 'extra');
+				if(extraMaterials.length){
+					extraMaterials.forEach(material => {
+						material.qty = material.pivot.qty;
+						material.task = material.pivot.task;
+						material.price = material.cost_price * material.pivot.qty;
+						this.extraMaterials.push(material);
+					});
+					this.updateOption();
+				}
 			}
 			// if(this.optionTasks.length){
 			// 	var obj = this.optionTasks.reduce((acc, cur, i) => {

@@ -1,13 +1,16 @@
 require('./bootstrap')
 import Vue from 'vue'
+import axios from 'axios'
 import VueMeta from 'vue-meta'
 import { InertiaApp } from '@inertiajs/inertia-vue'
+import ChevronComponent from './Shared/ChevronComponent.vue'
 import { ChevronRightIcon, ChevronDownIcon, ChevronUpIcon, EditIcon, PlusIcon, MinusIcon, Trash2Icon, ImageIcon } from 'vue-feather-icons'
 
 Vue.mixin({ methods: { route: window.route } })
 Vue.use(VueMeta)
 Vue.use(InertiaApp)
 
+Vue.component('chevron-component', ChevronComponent)
 Vue.component('chevron-right-icon', ChevronRightIcon)
 Vue.component('chevron-down-icon', ChevronDownIcon)
 Vue.component('chevron-up-icon', ChevronUpIcon)
@@ -16,6 +19,12 @@ Vue.component('plus-icon', PlusIcon)
 Vue.component('minus-icon', MinusIcon)
 Vue.component('trash-2-icon', Trash2Icon)
 Vue.component('image-icon', ImageIcon)
+
+Vue.component('v-style', {
+  render: function (createElement) {
+    return createElement('style', this.$slots.default)
+  }
+});
 
 Vue.filter('toCurrency', function (value) {
     if (typeof value !== "number") {
@@ -29,7 +38,7 @@ Vue.filter('toCurrency', function (value) {
     return formatter.format(value);
 });
 
-Vue.prototype.$http = window.axios;
+Vue.prototype.$http = axios.create({baseURL: '/'});
 
 let app = document.getElementById('app')
 

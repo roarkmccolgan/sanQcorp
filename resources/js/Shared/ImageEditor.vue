@@ -1,7 +1,7 @@
 <template>
 	<div class="flex flex-wrap justify-end">
 		<file-upload class="mb-2 block w-full text-center" :value="fileSrc" @input="resize">{{ fileSrc ? 'Change' : 'Choose'}} Main Image</file-upload>
-		<literally-canvas class="w-full" v-if="fileSrc" :background-image="fileSrc" :image-size="canvasSizes" image-prefix="/lc-assets/img" :options="options" @input="getImage" :last-change="lastChange"></literally-canvas>
+		<literally-canvas class="w-full" v-if="fileSrc" :background-image="fileSrc" :existing-snap-shot="existingSnapShot" :image-size="canvasSizes" image-prefix="/lc-assets/img" :options="options" @input="getImage" :last-change="lastChange"></literally-canvas>
 	</div>
 </template>
 
@@ -17,7 +17,9 @@
 			options: {
 				default: () => {	},
 			},
-			lastChange: {}
+			lastChange: {},
+			existingFile: {required: false},
+			existingSnapShot: {required: false},
 		},
 		components: {
 			LiterallyCanvas,
@@ -25,9 +27,20 @@
 		},
 		data () {
 			return {
+				loadedInitial: false,
+				newFile: null,
 				fileSrc: null,
 				fileName: null,
 				canvasSizes: this.imageSize,
+			}
+		},
+		watch: {
+			existingFile: function(newVal){
+				if(!this.loadedInitial){
+					console.log('loading_first');
+					this.loadedInitial = true;
+					this.fileSrc = newVal;
+				}
 			}
 		},
 		methods: {
@@ -60,6 +73,11 @@
 			},
 			getImage: function(theFile){
 				this.$emit('input', theFile);
+			}
+		},
+		created: function(){
+			if(this.existingFile){
+				this.fileSrc = this.existingFile;
 			}
 		}
 	}

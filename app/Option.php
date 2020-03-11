@@ -13,6 +13,11 @@ class Option extends Model
         return $this->hasMany('App\Log');
     }
 
+    public function nightshift()
+    {
+        return $this->hasOne('App\Nightshift');
+    }
+
     public function section()
     {
         return $this->belongsTo('App\Section');
@@ -21,7 +26,7 @@ class Option extends Model
     public function tasks()
     {
         //return $this->belongsToMany('App\Task',)->withPivot('order','days','difficulty','total_labour_price','total_supervisor_price','total_materials_price','total_cost_price','total', 'done', 'complete', 'variable_id')->orderBy('pivot_order');
-        return $this->belongsToMany('App\Task',)->withPivot('order','days','difficulty','total_labour_price','total_materials_price','total_cost_price','total', 'done', 'complete', 'variable_id', 'property_value')->orderBy('pivot_order');
+        return $this->belongsToMany('App\Task',)->withPivot('order','days','difficulty','total_labour_price','total_supervisor_price','total_materials_price','total_cost_price','total', 'done', 'complete', 'variable_id', 'property_value')->orderBy('pivot_order');
     }
     public function properties()
     {
