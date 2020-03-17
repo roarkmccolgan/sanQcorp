@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateOptionsTable extends Migration
 {
@@ -15,13 +15,13 @@ class CreateOptionsTable extends Migration
     {
         Schema::create('options', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->dateTime('accepted_at')->nullable();          
+            $table->dateTime('accepted_at')->nullable();
             $table->string('name');
             $table->text('description');
             $table->unsignedBigInteger('section_id');
             $table->unsignedBigInteger('system_id');
             $table->dateTime('completed_at')->nullable();
-            
+
             $table->integer('total_labour');
             $table->integer('total_supervisor');
             $table->integer('days');

@@ -16,7 +16,8 @@ class Nightshift extends Model
         return $this->belongsTo('App\Option');
     }
 
-    public function labours(){
-    	return $this->belongsToMany('App\Labour')->withPivot('qty');
+    public function labours()
+    {
+        return $this->belongsToMany('App\Labour')->withPivot('qty');
     }
 }

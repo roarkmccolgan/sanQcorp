@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateMaterialOptionTable extends Migration
 {
@@ -19,7 +19,7 @@ class CreateMaterialOptionTable extends Migration
             $table->unsignedBigInteger('option_id')->index();
             $table->foreign('option_id')->references('id')->on('options')->onDelete('cascade');
             $table->primary(['material_id', 'option_id']);
-            
+
             $table->integer('qty')->nullable();
             $table->integer('price')->nullable();
             $table->integer('cost_price')->nullable();

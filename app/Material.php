@@ -11,14 +11,18 @@ class Material extends Model
 
     protected $guarded = [];
 
-    public function getTasksAttribute() {
+    public function getTasksAttribute()
+    {
         return $this->getRelationValue('tasks')->keyBy('id');
     }
 
-    public function getCostPriceAttribute($value) {
+    public function getCostPriceAttribute($value)
+    {
         return $value / 100;
     }
-    public function setCostPriceAttribute($value) {
+
+    public function setCostPriceAttribute($value)
+    {
         $this->attributes['cost_price'] = $value * 100;
     }
 
@@ -27,8 +31,9 @@ class Material extends Model
         return $this->morphOne('App\Barcode', 'barcodable');
     }
 
-    public function category(){
-    	return $this->belongsTo('App\Category');
+    public function category()
+    {
+        return $this->belongsTo('App\Category');
     }
 
     public function logs()

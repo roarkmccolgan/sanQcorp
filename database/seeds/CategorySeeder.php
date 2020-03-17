@@ -12,26 +12,26 @@ class CategorySeeder extends Seeder
     public function run()
     {
         DB::table('categories')->insert([ //1
-            'name' => 'Waterproofing'
+            'name' => 'Waterproofing',
         ]);
         DB::table('categories')->insert([ //2
-            'name' => 'Cementitious'
+            'name' => 'Cementitious',
         ]);
         DB::table('categories')->insert([ //3
-            'name' => 'Sand'
+            'name' => 'Sand',
         ]);
         DB::table('categories')->insert([ //4
-            'name' => 'Fasteners'
+            'name' => 'Fasteners',
         ]);
         DB::table('categories')->insert([ //5
-            'name' => 'Coating'
+            'name' => 'Coating',
         ]);
         DB::table('categories')->insert([ //6
-            'name' => 'Fuel'
+            'name' => 'Fuel',
         ]);
 
         DB::table('categories')->insert([ //7
-            'name' => 'Kryton'
+            'name' => 'Kryton',
         ]);
     }
 }

@@ -23,7 +23,7 @@ class JobSeeder extends Seeder
             'city' => 'Johannesburg',
             'country' => 'South Africa',
             'type' => 'service',
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         /*DB::table('jobs')->insert([
             'order_number' => 'SAN7030-17',

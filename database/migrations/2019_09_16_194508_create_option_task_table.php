@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateOptionTaskTable extends Migration
 {
@@ -21,10 +21,10 @@ class CreateOptionTaskTable extends Migration
             $table->primary(['option_id', 'task_id']);
 
             $table->integer('order');
-            $table->decimal('days',5,2)->nullable();
+            $table->decimal('days', 5, 2)->nullable();
             $table->integer('difficulty')->nullable();
             $table->integer('total_labour_price')->nullable();
-            
+
             $table->integer('total_materials_price')->nullable();
             $table->integer('total_cost_price')->nullable();
 

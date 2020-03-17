@@ -40,7 +40,6 @@ class Job extends Model
         return $this->belongsToMany('App\Contact');
     }
 
-
     /**
      * @return Job Sections
      */
@@ -64,7 +63,7 @@ class Job extends Model
     {
         return $this->hasMany('App\Log');
     }
-    
+
     /**
      * @return Jobs Payments
      */
@@ -72,7 +71,6 @@ class Job extends Model
     {
         return $this->hasMany('App\Payment');
     }
-
 
     /**
      * @return Job PandGs
@@ -98,7 +96,7 @@ class Job extends Model
         return $this->belongsToMany('App\Term');
     }
 
-     /**
+    /**
      * @return Job Includes
      */
     public function jobincludes()

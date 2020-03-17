@@ -19,7 +19,7 @@ class CompanySeeder extends Seeder
             'address3' => 'Johannesburg',
             'post_code' => 0,
             'vat' => 123456789,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('companies')->insert([
             'name' => 'Private',
@@ -28,7 +28,7 @@ class CompanySeeder extends Seeder
             'address3' => '',
             'post_code' => 0,
             'vat' => 123456789,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
     }
 }

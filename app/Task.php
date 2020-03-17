@@ -15,7 +15,7 @@ class Task extends Model
 
     public function materials()
     {
-        return $this->belongsToMany('App\Material')->withPivot('area','coverage');
+        return $this->belongsToMany('App\Material')->withPivot('area', 'coverage');
     }
 
     public function properties()

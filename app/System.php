@@ -8,10 +8,13 @@ class System extends Model
 {
     protected $guarded = [];
 
-    public function getBaseRateAttribute($value) {
+    public function getBaseRateAttribute($value)
+    {
         return $value / 100;
     }
-    public function setBaseRateAttribute($value) {
+
+    public function setBaseRateAttribute($value)
+    {
         $this->attributes['base_rate'] = $value * 100;
     }
 

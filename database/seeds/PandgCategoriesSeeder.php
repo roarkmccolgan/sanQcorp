@@ -12,22 +12,22 @@ class PandgCategoriesSeeder extends Seeder
     public function run()
     {
         DB::table('pandg_categories')->insert([ //1
-            'name' => 'Access'
+            'name' => 'Access',
         ]);
         DB::table('pandg_categories')->insert([ //2
-            'name' => 'Medicals'
+            'name' => 'Medicals',
         ]);
         DB::table('pandg_categories')->insert([ //3
-            'name' => 'Induction'
+            'name' => 'Induction',
         ]);
         DB::table('pandg_categories')->insert([ //4
-            'name' => 'Accomodation'
+            'name' => 'Accomodation',
         ]);
         DB::table('pandg_categories')->insert([ //5
-            'name' => 'Overtime'
+            'name' => 'Overtime',
         ]);
         DB::table('pandg_categories')->insert([ //6
-            'name' => 'Sub-Contractor'
+            'name' => 'Sub-Contractor',
         ]);
     }
 }

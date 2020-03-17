@@ -17,21 +17,21 @@ class PhotoSeeder extends Seeder
             'photoable_id' => 9,
             'photoable_type' => 'App\system',
             'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
+            'updated_at' => Carbon::now(),
         ]);
         DB::table('photos')->insert([
             'photo' => 'boarded_ibr.jpg',
             'photoable_id' => 10,
             'photoable_type' => 'App\system',
             'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
+            'updated_at' => Carbon::now(),
         ]);
         DB::table('photos')->insert([
             'photo' => 'boarded_poly.jpg',
             'photoable_id' => 13,
             'photoable_type' => 'App\system',
             'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
+            'updated_at' => Carbon::now(),
         ]);
     }
 }

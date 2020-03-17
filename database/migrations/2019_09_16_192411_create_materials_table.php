@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateMaterialsTable extends Migration
 {
@@ -19,13 +19,13 @@ class CreateMaterialsTable extends Migration
             $table->unsignedBigInteger('category_id')->nullable();
             $table->longText('description')->nullable();
             $table->string('image')->nullable();
-            $table->decimal('stock',10,2)->default(0);
+            $table->decimal('stock', 10, 2)->default(0);
             $table->integer('pack_size');
             $table->integer('cost_price');
             $table->integer('day_rate')->nullable();
             $table->string('unit_of_measure');
             $table->string('product_type');
-            $table->decimal('coverage',10,6);
+            $table->decimal('coverage', 10, 6);
             $table->timestamps();
             $table->softDeletes();
 

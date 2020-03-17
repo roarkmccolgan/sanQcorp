@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('1q2w3e4R'),
             'cell' => '+27825654026',
             'insightly_id' => 918110,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('users')->insert([
             'name' => 'Roark McColgan',
@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('sprite'),
             'cell' => '+27712871097',
             'insightly_id' => 980209,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('users')->insert([
             'name' => 'Tanika McColgan',
@@ -37,7 +37,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('1q2w3e4R'),
             'cell' => '+27837934504',
             'insightly_id' => 918109,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('users')->insert([
             'name' => 'Colte Smit',
@@ -46,7 +46,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('1q2w3e4R'),
             'cell' => '+27829285788',
             'insightly_id' => 918110,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('users')->insert([
             'name' => 'Sandor Dowling',
@@ -55,7 +55,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('1q2w3e4R'),
             'cell' => '+27829225586',
             'insightly_id' => 913412,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('users')->insert([
             'name' => 'Lynda Smit',
@@ -64,7 +64,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('1q2w3e4R'),
             'cell' => '+27825530151',
             'insightly_id' => 918110,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
     }
 }

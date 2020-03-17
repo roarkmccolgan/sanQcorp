@@ -25,7 +25,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'm2',
             'product_type'=>'torchon',
             'coverage'=> 9.00,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //2
             'name' => 'Axter Mineral Torch-on',
@@ -39,7 +39,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'm2',
             'product_type'=>'torchon',
             'coverage'=>9.00,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //3
             'name' => 'ABE Bitu-Prime',
@@ -53,7 +53,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'Lt',
             'product_type'=>'primer',
             'coverage'=>125.00,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //4
             'name' => 'Gas 9kg',
@@ -67,7 +67,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'Kg',
             'product_type'=>'gas',
             'coverage'=>50,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //5
             'name' => 'Membrane 100',
@@ -81,7 +81,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'lm',
             'product_type'=>'membrane',
             'coverage'=>2.00,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //6
             'name' => 'Membrane 200',
@@ -95,7 +95,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'lm',
             'product_type'=>'membrane',
             'coverage'=>4.00,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //7
             'name' => 'Membrane 300',
@@ -109,7 +109,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'lm',
             'product_type'=>'membrane',
             'coverage'=>6.66,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //8
             'name' => 'Membrane 500',
@@ -123,7 +123,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'lm',
             'product_type'=>'membrane',
             'coverage'=>10.00,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //9
             'name' => 'Membrane 1000',
@@ -137,10 +137,10 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'lm',
             'product_type'=>'membrane',
             'coverage'=>20.00,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //10
-            'name' => 'ABE Super Laycryl', 
+            'name' => 'ABE Super Laycryl',
             'category_id' => 1,
             'description' => 'Blah Blah',
             'image' => 'blank.jpg',
@@ -151,7 +151,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'lt',
             'product_type'=>'acrylic',
             'coverage'=>9.5,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //11
             'name' => '16DV 15mm 4mm Fibre Cement',
@@ -165,7 +165,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'each',
             'product_type' => 'sanika_board',
             'coverage' => 2.88,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //12
             'name' => '20DV 15mm 4mm Fibre Cement',
@@ -179,7 +179,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'each',
             'product_type' => 'sanika_board',
             'coverage' => 2.88,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //13
             'name' => '24DV 15mm 4mm Fibre Cement',
@@ -193,7 +193,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'each',
             'product_type' => 'sanika_board',
             'coverage' => 2.88,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //14
             'name' => '16DV 25mm 4mm Fibre Cement',
@@ -207,7 +207,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'each',
             'product_type' => 'sanika_board',
             'coverage' => 2.88,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //15
             'name' => '20DV 25mm 4mm Fibre Cement',
@@ -221,7 +221,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'each',
             'product_type' => 'sanika_board',
             'coverage' => 2.88,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //16
             'name' => '24DV 25mm 4mm Fibre Cement',
@@ -235,7 +235,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'each',
             'product_type' => 'sanika_board',
             'coverage' => 2.88,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //17
             'name' => '16DV 15mm 6mm Fibre Cement',
@@ -249,7 +249,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'each',
             'product_type' => 'sanika_board',
             'coverage' => 2.88,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //18
             'name' => '20DV 15mm 6mm Fibre Cement',
@@ -263,7 +263,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'each',
             'product_type' => 'sanika_board',
             'coverage' => 2.88,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //19
             'name' => '24DV 15mm 6mm Fibre Cement',
@@ -277,7 +277,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'each',
             'product_type' => 'sanika_board',
             'coverage' => 2.88,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //20
             'name' => '16DV 25mm 6mm Fibre Cement',
@@ -291,7 +291,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'each',
             'product_type' => 'sanika_board',
             'coverage' => 2.88,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //21
             'name' => '20DV 25mm 6mm Fibre Cement',
@@ -305,7 +305,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'each',
             'product_type' => 'sanika_board',
             'coverage' => 2.88,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //22
             'name' => '24DV 25mm 6mm Fibre Cement',
@@ -319,7 +319,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'each',
             'product_type' => 'sanika_board',
             'coverage' => 2.88,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //23
             'name' => 'Fillets IBR',
@@ -333,7 +333,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'each',
             'product_type' => 'fillets',
             'coverage' => 0.41,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //24
             'name' => 'Fillets Clip Lock',
@@ -347,7 +347,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'each',
             'product_type' => 'fillets',
             'coverage' => 0.538,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //25
             'name' => 'Fillets Wide Span',
@@ -361,7 +361,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'each',
             'product_type' => 'fillets',
             'coverage' => 0.4587,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //26
             'name' => '50mm Tek Screws',
@@ -375,7 +375,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'each',
             'product_type' => 'screws',
             'coverage' => 0.28,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //27
             'name' => 'Sanika 60mm Washer',
@@ -389,7 +389,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'each',
             'product_type' => 'washers',
             'coverage' => 0.28,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //28
             'name' => 'Flashing Galvanised 50X50 Hellenic',
@@ -403,7 +403,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'lm',
             'product_type' => 'flashing',
             'coverage' => 2.40,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //29
             'name' => 'Flashing Galvanised 100X100 Hellenic',
@@ -417,7 +417,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'lm',
             'product_type' => 'flashing',
             'coverage' => 2.40,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //30
             'name' => 'MCC Grout',
@@ -431,7 +431,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'kg',
             'product_type' => 'cement',
             'coverage' => 4,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
 
         DB::table('materials')->insert([ //31
@@ -446,7 +446,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'kg',
             'product_type' => 'cement',
             'coverage' => 6,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
 
         DB::table('materials')->insert([ //32
@@ -461,7 +461,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'm3',
             'product_type' => 'sand',
             'coverage' => 4,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
 
         DB::table('materials')->insert([ //33
@@ -476,11 +476,11 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'each',
             'product_type' => 'poly_board',
             'coverage' => 2.88,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
 
         DB::table('materials')->insert([ //34
-            'name' => 'Frogskin Grey', 
+            'name' => 'Frogskin Grey',
             'category_id' => 5,
             'description' => 'Blah Blah',
             'image' => 'blank.jpg',
@@ -491,10 +491,10 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'lt',
             'product_type'=>'paint',
             'coverage'=>60,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //35
-            'name' => 'Frogskin Terracotta', 
+            'name' => 'Frogskin Terracotta',
             'category_id' => 5,
             'description' => 'Blah Blah',
             'image' => 'blank.jpg',
@@ -505,10 +505,10 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'lt',
             'product_type'=>'paint',
             'coverage'=>60,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //36
-            'name' => 'Frogskin Green', 
+            'name' => 'Frogskin Green',
             'category_id' => 5,
             'description' => 'Blah Blah',
             'image' => 'blank.jpg',
@@ -519,10 +519,10 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'lt',
             'product_type'=>'paint',
             'coverage'=>60,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //37
-            'name' => 'Frogskin Brown', 
+            'name' => 'Frogskin Brown',
             'category_id' => 5,
             'description' => 'Blah Blah',
             'image' => 'blank.jpg',
@@ -533,10 +533,10 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'lt',
             'product_type'=>'paint',
             'coverage'=>60,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //38
-            'name' => 'Frogskin White', 
+            'name' => 'Frogskin White',
             'category_id' => 5,
             'description' => 'Blah Blah',
             'image' => 'blank.jpg',
@@ -547,10 +547,10 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'lt',
             'product_type'=>'paint',
             'coverage'=>60,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //39
-            'name' => 'Membrane Patch', 
+            'name' => 'Membrane Patch',
             'category_id' => 5,
             'description' => 'Blah Blah',
             'image' => 'blank.jpg',
@@ -561,7 +561,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'each',
             'product_type'=>'membrane',
             'coverage'=>0.005625,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //40
             'name' => 'Butyl Washer',
@@ -575,7 +575,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'each',
             'product_type' => 'washer',
             'coverage' => 0.4,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
 
         //kryton Stuff
@@ -591,7 +591,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'lt',
             'product_type' => 'fuel',
             'coverage' => 200,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
 
         DB::table('materials')->insert([ //42
@@ -606,7 +606,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'lt',
             'product_type' => 'fuel',
             'coverage' => 10,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
 
         DB::table('materials')->insert([ //43
@@ -621,7 +621,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'lt',
             'product_type' => 'fuel',
             'coverage' => 0,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
 
         DB::table('materials')->insert([ //44
@@ -636,7 +636,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'm3',
             'product_type' => 'Grit',
             'coverage' => 80,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
 
         DB::table('materials')->insert([ //45
@@ -651,7 +651,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'kg',
             'product_type' => 'Plug',
             'coverage' => 25,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
 
         DB::table('materials')->insert([ //46
@@ -666,7 +666,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'kg',
             'product_type' => 'Grout',
             'coverage' => 25,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
 
         DB::table('materials')->insert([ //47
@@ -681,7 +681,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'kg',
             'product_type' => 'T1',
             'coverage' => 25,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
 
         DB::table('materials')->insert([ //48
@@ -696,7 +696,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'kg',
             'product_type' => 'T2',
             'coverage' => 25,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
 
         DB::table('materials')->insert([ //49
@@ -711,7 +711,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'm2',
             'product_type'=>'torchon',
             'coverage'=> 9.00,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
 
         DB::table('materials')->insert([ //50
@@ -726,7 +726,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'm2',
             'product_type'=>'torchon',
             'coverage'=> 9.00,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
 
         DB::table('materials')->insert([ //51
@@ -741,7 +741,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'm2',
             'product_type'=>'torchon',
             'coverage'=> 9.00,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
 
         // Plaster KMA
@@ -757,7 +757,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'kg',
             'product_type'=>'kryton',
             'coverage'=> 300,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //53
             'name' => 'Plaster Sand',
@@ -771,7 +771,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'm3',
             'product_type' => 'sand',
             'coverage' => 100,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
 
         //Alkali Primer
@@ -787,7 +787,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'lt',
             'product_type' => 'paint',
             'coverage' => 40,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
 
         // MCC MultiSeal
@@ -803,7 +803,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'kg',
             'product_type' => 'slurry',
             'coverage' => 20,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
 
         DB::table('materials')->insert([ //56
@@ -818,7 +818,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'kg',
             'product_type' => 'slurry',
             'coverage' => 20,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
 
         DB::table('materials')->insert([ //57
@@ -833,7 +833,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'lt',
             'product_type' => 'bonding',
             'coverage' => 10,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
 
         DB::table('materials')->insert([ //58
@@ -848,7 +848,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'lt',
             'product_type' => 'cement',
             'coverage' => 8.5,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
 
         //silvakote
@@ -864,7 +864,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'lt',
             'product_type' => 'silvakote',
             'coverage' => 175,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
 
         DB::table('materials')->insert([ //60
@@ -879,7 +879,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'lt',
             'product_type' => 'silvakote',
             'coverage' => 35,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
 
         //Rubberised Bitumin
@@ -895,7 +895,7 @@ class MaterialSeeder extends Seeder
             'unit_of_measure' => 'lt',
             'product_type' => 'rubberised',
             'coverage' => 9.5,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
