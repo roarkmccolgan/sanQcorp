@@ -16,7 +16,8 @@
         "laravel/telescope": "^2.1",
         "laravel/tinker": "^1.0",
         "spatie/browsershot": "^3.33",
-        "tightenco/ziggy": "^0.8.1"
+        "tightenco/ziggy": "^0.8.1",
+        "laravel/ui": "^2.0"
     },
     "require-dev": {
         "facade/ignition": "^1.4",
