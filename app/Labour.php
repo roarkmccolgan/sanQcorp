@@ -23,6 +23,6 @@ class Labour extends Model
 
     public function system()
     {
-        return $this->belongsToMany('App\System');
+        return $this->belongsToMany(\App\System::class);
     }
 }

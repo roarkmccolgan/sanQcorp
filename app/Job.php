@@ -14,22 +14,22 @@ class Job extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(\App\User::class);
     }
 
     public function photos()
     {
-        return $this->morphMany('App\Photo', 'photoable');
+        return $this->morphMany(\App\Photo::class, 'photoable');
     }
 
     public function barcode()
     {
-        return $this->morphOne('App\Barcode', 'barcodable');
+        return $this->morphOne(\App\Barcode::class, 'barcodable');
     }
 
     public function order()
     {
-        return $this->hasOne('App\Order');
+        return $this->hasOne(\App\Order::class);
     }
 
     /**
@@ -37,7 +37,7 @@ class Job extends Model
      */
     public function contacts()
     {
-        return $this->belongsToMany('App\Contact');
+        return $this->belongsToMany(\App\Contact::class);
     }
 
     /**
@@ -45,7 +45,7 @@ class Job extends Model
      */
     public function sections()
     {
-        return $this->hasMany('App\Section');
+        return $this->hasMany(\App\Section::class);
     }
 
     /**
@@ -53,7 +53,7 @@ class Job extends Model
      */
     public function options()
     {
-        return $this->hasManyThrough('App\Option', 'App\Section');
+        return $this->hasManyThrough(\App\Option::class, \App\Section::class);
     }
 
     /**
@@ -61,7 +61,7 @@ class Job extends Model
      */
     public function log()
     {
-        return $this->hasMany('App\Log');
+        return $this->hasMany(\App\Log::class);
     }
 
     /**
@@ -69,7 +69,7 @@ class Job extends Model
      */
     public function payments()
     {
-        return $this->hasMany('App\Payment');
+        return $this->hasMany(\App\Payment::class);
     }
 
     /**
@@ -85,7 +85,7 @@ class Job extends Model
      */
     public function revisions()
     {
-        return $this->hasMany('App\Revision');
+        return $this->hasMany(\App\Revision::class);
     }
 
     /**
@@ -93,7 +93,7 @@ class Job extends Model
      */
     public function terms()
     {
-        return $this->belongsToMany('App\Term');
+        return $this->belongsToMany(\App\Term::class);
     }
 
     /**
@@ -101,7 +101,7 @@ class Job extends Model
      */
     public function jobincludes()
     {
-        return $this->belongsToMany('App\JobInclude');
+        return $this->belongsToMany(\App\JobInclude::class);
     }
 
     /**
@@ -109,6 +109,6 @@ class Job extends Model
      */
     public function files()
     {
-        return $this->morphMany('App\File', 'fileable');
+        return $this->morphMany(\App\File::class, 'fileable');
     }
 }

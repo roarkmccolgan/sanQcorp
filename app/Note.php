@@ -10,6 +10,6 @@ class Note extends Model
 
     public function option()
     {
-        return $this->belongsTo('App\Option');
+        return $this->belongsTo(\App\Option::class);
     }
 }

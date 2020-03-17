@@ -10,6 +10,6 @@ class PandgCategory extends Model
 
     public function options()
     {
-        return $this->hasMany('App\Pandg');
+        return $this->hasMany(\App\Pandg::class);
     }
 }

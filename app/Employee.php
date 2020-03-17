@@ -23,6 +23,6 @@ class Employee extends Model
 
     public function skill()
     {
-        return $this->belongsTo('App\Skill');
+        return $this->belongsTo(\App\Skill::class);
     }
 }

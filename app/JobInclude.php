@@ -10,6 +10,6 @@ class JobInclude extends Model
 
     public function job()
     {
-        return $this->belongsToMany('App\Job');
+        return $this->belongsToMany(\App\Job::class);
     }
 }

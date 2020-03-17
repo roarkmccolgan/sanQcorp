@@ -20,6 +20,6 @@ class Skill extends Model
 
     public function employees()
     {
-        return $this->hasMany('App\Employee');
+        return $this->hasMany(\App\Employee::class);
     }
 }

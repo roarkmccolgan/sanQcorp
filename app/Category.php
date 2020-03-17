@@ -8,6 +8,6 @@ class Category extends Model
 {
     public function material()
     {
-        return $this->hasMany('App\Material');
+        return $this->hasMany(\App\Material::class);
     }
 }

@@ -10,11 +10,11 @@ class Term extends Model
 
     public function system()
     {
-        return $this->belongsToMany('App\System');
+        return $this->belongsToMany(\App\System::class);
     }
 
     public function job()
     {
-        return $this->belongsToMany('App\Job');
+        return $this->belongsToMany(\App\Job::class);
     }
 }
