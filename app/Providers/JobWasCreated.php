@@ -13,12 +13,11 @@ use Illuminate\Queue\SerializesModels;
 
 class JobWasCreated
 {
-
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $job;
     public $user_insightly_id;
-    
+
     /**
      * Create a new event instance.
      *

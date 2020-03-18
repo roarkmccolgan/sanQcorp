@@ -14,7 +14,7 @@ class GuaranteesSeeder extends Seeder
         DB::table('guarantees')->insert([ // torch-on
             'description' => '<p>The above scope of work is guaranteed for a period of TEN years (to the torch on membrane) with minor maintenance to flashing details at client\'s expense (every 30-36 months).</p>',
             'years' => 10,
-            'maintenance' => 30
+            'maintenance' => 30,
         ]);
 
         DB::table('guarantees')->insert([ // kryton product
@@ -34,26 +34,26 @@ class GuaranteesSeeder extends Seeder
 				the exact Kryton supplied specification in order to validate the attached Kryton guarantee.</p>
             ',
             'years' => 10,
-            'maintenance' => 0
+            'maintenance' => 0,
         ]);
 
         DB::table('guarantees')->insert([ // Coatings
             'description' => '<p>The above scope of work is guaranteed for a period of 5 years (on the roof coating) with minor maintenance to flashing details at client\'s expense (every 30-36 months).</p>',
             'years' => 5,
-            'maintenance' => 30
+            'maintenance' => 30,
         ]);
 
         DB::table('guarantees')->insert([ // Kryton KMA
             'description' => '<p>The Kryton KMA carries a standard 5-year product warranty</p>',
             'years' => 5,
-            'maintenance' => 0
+            'maintenance' => 0,
         ]);
 
         DB::table('guarantees')->insert([ // Kryton KMA
             'description' => '<p>Waterproofing of gutter system is guaranteed for a period of ten years with maintenance to the entire system every 36 months at
 clients’ expense.</p>',
             'years' => 10,
-            'maintenance' => 30
+            'maintenance' => 30,
         ]);
     }
 }

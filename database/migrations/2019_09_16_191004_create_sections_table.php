@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateSectionsTable extends Migration
 {
@@ -15,8 +15,8 @@ class CreateSectionsTable extends Migration
     {
         Schema::create('sections', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('job_id');            
-            $table->boolean('accepted')->default(0);          
+            $table->unsignedBigInteger('job_id');
+            $table->boolean('accepted')->default(0);
             $table->string('name');
             $table->longText('survey')->nullable();
             $table->dateTime('completed_at')->nullable();

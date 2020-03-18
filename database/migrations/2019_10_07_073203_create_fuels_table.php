@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateFuelsTable extends Migration
 {
@@ -15,7 +15,7 @@ class CreateFuelsTable extends Migration
     {
         Schema::create('fuels', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('type',['diesel','petrol'])->default('diesel');
+            $table->enum('type', ['diesel', 'petrol'])->default('diesel');
             $table->integer('rate_per_km');
             $table->dateTime('valid_from')->useCurrent();
             $table->dateTime('valid_to')->nullable();

@@ -49,7 +49,7 @@ class CreateJobsTable extends Migration
             $table->softDeletes();
         });
 
-        $statement = "ALTER TABLE jobs AUTO_INCREMENT = 7029;";
+        $statement = 'ALTER TABLE jobs AUTO_INCREMENT = 7029;';
         DB::unprepared($statement);
     }
 

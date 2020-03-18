@@ -21,10 +21,10 @@ Route::post('logout')->name('logout')->uses('Auth\LoginController@logout');
 // Dashboard
 Route::get('/')->name('dashboard')->uses('DashboardController')->middleware('auth');
 
-Route::group(['prefix' => 'jobs'], function(){
-	Route::get('/')->name('jobs')->uses('JobController@index')->middleware('auth');
-	Route::get('/{job}/details')->name('jobs.details.create')->uses('JobDetailController@create')->middleware('auth');
-	Route::post('/{job}/details')->name('jobs.details.store')->uses('JobDetailController@store')->middleware('auth');
+Route::group(['prefix' => 'jobs'], function () {
+    Route::get('/')->name('jobs')->uses('JobController@index')->middleware('auth');
+    Route::get('/{job}/details')->name('jobs.details.create')->uses('JobDetailController@create')->middleware('auth');
+    Route::post('/{job}/details')->name('jobs.details.store')->uses('JobDetailController@store')->middleware('auth');
 });
 
 Route::get('/materials', 'MaterialController@index')->middleware('auth');

@@ -13,6 +13,6 @@ class Guarantee extends Model
      */
     public function systems()
     {
-        return $this->hasMany('App\System');
+        return $this->hasMany(\App\System::class);
     }
 }

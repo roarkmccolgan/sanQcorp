@@ -14,17 +14,18 @@ class Bucket extends Model
         'email',
         'message',
         'calendar',
-        'user_id'
+        'user_id',
     ];
 
     protected $dates = ['deleted_at'];
 
-    public function setCalendarAttribute($date){
+    public function setCalendarAttribute($date)
+    {
         $this->attributes['calendar'] = Carbon::parse($date);
     }
 
     public function user()
     {
-       return $this->belongsTo('App\User');
+        return $this->belongsTo(\App\User::class);
     }
 }

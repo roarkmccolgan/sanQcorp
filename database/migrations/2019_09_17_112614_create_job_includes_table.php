@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateJobIncludesTable extends Migration
 {
@@ -16,7 +16,7 @@ class CreateJobIncludesTable extends Migration
         Schema::create('job_includes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('item');
-            $table->enum('type',['includes','excludes']);
+            $table->enum('type', ['includes', 'excludes']);
             $table->boolean('default')->default(1);
             $table->timestamps();
         });

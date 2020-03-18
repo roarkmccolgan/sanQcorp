@@ -13,16 +13,16 @@ class Log extends Model
 
     public function job()
     {
-        return $this->belongsTo('App\Job');
+        return $this->belongsTo(\App\Job::class);
     }
 
     public function materials()
     {
-        return $this->belongsToMany('App\Material');
+        return $this->belongsToMany(\App\Material::class);
     }
 
     public function option()
     {
-        return $this->belongsTo('App\Option');
+        return $this->belongsTo(\App\Option::class);
     }
 }

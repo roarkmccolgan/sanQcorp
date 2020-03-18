@@ -15,21 +15,21 @@ class Task extends Model
 
     public function materials()
     {
-        return $this->belongsToMany('App\Material')->withPivot('area','coverage');
+        return $this->belongsToMany(\App\Material::class)->withPivot('area', 'coverage');
     }
 
     public function properties()
     {
-        return $this->belongsToMany('App\Property')->withPivot('conversion');
+        return $this->belongsToMany(\App\Property::class)->withPivot('conversion');
     }
 
     public function options()
     {
-        return $this->belongsToMany('App\Option');
+        return $this->belongsToMany(\App\Option::class);
     }
 
     public function variables()
     {
-        return $this->hasMany('App\TaskVariable');
+        return $this->hasMany(\App\TaskVariable::class);
     }
 }

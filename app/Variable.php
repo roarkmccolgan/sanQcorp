@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Variable extends Model
 {
-	protected $guarded = [];
+    protected $guarded = [];
 
     public function task()
     {
-        return $this->belongsTo('App\Task');
+        return $this->belongsTo(\App\Task::class);
     }
 }

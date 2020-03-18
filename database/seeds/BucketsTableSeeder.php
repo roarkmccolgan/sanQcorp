@@ -11,6 +11,5 @@ class BucketsTableSeeder extends Seeder
      */
     public function run()
     {
-        
     }
 }

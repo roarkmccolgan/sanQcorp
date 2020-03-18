@@ -9,14 +9,15 @@ class MaterialController extends Controller
 {
     public function index(Request $request)
     {
-    	$q = $request->q ?? '';
+        $q = $request->q ?? '';
 
-    	$materials = Material::query()
-    	->whereLike('name', "%{$q}%") 
-    	->get();
-    	if($request->ajax()){
-    		 return response()->json(['materials'=>$materials]);
-    	}
-    	return "HTTP";
+        $materials = Material::query()
+        ->whereLike('name', "%{$q}%")
+        ->get();
+        if ($request->ajax()) {
+            return response()->json(['materials'=>$materials]);
+        }
+
+        return 'HTTP';
     }
 }

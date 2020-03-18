@@ -23,7 +23,7 @@ class ContactSeeder extends Seeder
             'country' => 'South Africa',
             'contact1' => '828344545',
             'email' => 'sam@libprop.co.za',
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('contacts')->insert([
             'company_id' => 2,
@@ -35,7 +35,7 @@ class ContactSeeder extends Seeder
             'country' => 'South Africa',
             'contact1' => '828344545',
             'email' => 'trevor@michaels.co.za',
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::table('contacts')->insert([
             'company_id' => 2,
@@ -47,7 +47,7 @@ class ContactSeeder extends Seeder
             'country' => 'South Africa',
             'contact1' => '715647890',
             'email' => 'granny@seape.co.za',
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }

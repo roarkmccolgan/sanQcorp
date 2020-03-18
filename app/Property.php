@@ -10,16 +10,16 @@ class Property extends Model
 
     public function sections()
     {
-        return $this->hasMany('App\Section');
+        return $this->hasMany(\App\Section::class);
     }
 
     public function options()
     {
-        return $this->hasMany('App\Option')->withPivot('value');
+        return $this->hasMany(\App\Option::class)->withPivot('value');
     }
 
     public function systems()
     {
-        return $this->hasMany('App\System');
+        return $this->hasMany(\App\System::class);
     }
 }

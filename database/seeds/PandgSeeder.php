@@ -17,7 +17,7 @@ class PandgSeeder extends Seeder
             'description' => 'Supply and erect Alluminium Scaffolding in accordance with OHS and client requirements',
             'rate' => 2000000,
             'period' => 'fixed',
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
 
         DB::table('pandgs')->insert([
@@ -25,7 +25,7 @@ class PandgSeeder extends Seeder
             'description' => 'Supply and erect specialised ladders to achieve safe access in accordance with OHS and client requirements',
             'rate' => 500000,
             'period' => 'fixed',
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
     }
 }
