@@ -243,11 +243,11 @@ class JobDetailController extends Controller
         $jobValue = 0;
         foreach ($requestData['sections'] as $secKey => $sec) {
             $newSection = [
-                'name'=>$sec['name'],
-                'survey'=>$sec['survey'],
+                'name' => $sec['name'],
+                'survey' => $sec['survey'],
             ];
             if (isset($sec['save_survey'])) {
-                Survey::create(['survey'=>$sec['survey']]);
+                Survey::create(['survey' => $sec['survey']]);
             }
 
             //return $newSection;
@@ -268,7 +268,7 @@ class JobDetailController extends Controller
                 foreach ($request->sectionPhotos as $photKey => $photo) {
                     if ($photo != '') {
                         $filepath = $photo->store($job->id, 'public');
-                        $section->photos()->create(['photo'=>$filepath, 'type'=>'section']);
+                        $section->photos()->create(['photo' => $filepath, 'type' => 'section']);
                     }
                 }
             }
@@ -295,8 +295,8 @@ class JobDetailController extends Controller
 
                 //option
                 $newOption = [
-                    'name'  => $opt['name'],
-                    'system_id'  => $opt['system_id'],
+                    'name' => $opt['name'],
+                    'system_id' => $opt['system_id'],
                     'description' => $opt['description'],
                     'total_labour' => $opt['total_labour'],
                     'total_supervisor' => $opt['total_supervisor'],
@@ -350,7 +350,7 @@ class JobDetailController extends Controller
                 if (isset($opt['notes']) && count($opt['notes']) > 0) {
                     foreach ($opt['notes'] as $noteKey => $note) {
                         if ($note['note'] != '') {
-                            $option->notes()->create(['note'=>$note['note']]);
+                            $option->notes()->create(['note' => $note['note']]);
                         }
                     }
                 }
@@ -363,7 +363,7 @@ class JobDetailController extends Controller
                     $nightshift = new Nightshift(['nights' => $opt['nightshift']['nights']]);
                     $option->nightshift()->save($nightshift);
                     $nightshiftLabours = collect($opt['nightshift']['labours'])->mapWithKeys(function ($item) {
-                        return [$item['id'] => ['qty'=>$item['qty']]];
+                        return [$item['id'] => ['qty' => $item['qty']]];
                     })->toArray();
                     $option->fresh()->nightshift->labours()->sync($nightshiftLabours);
                 }
@@ -385,12 +385,12 @@ class JobDetailController extends Controller
 
                         if ($task['id'] == 0 || $task['id'] == '0') { //custom Task
                             $newTask = [
-                                'name'=> $task['name'],
-                                'description'=> $task['description'],
-                                'alias'=> 'custom',
-                                'unit_of_measure'=> $task['unit_of_measure'],
-                                'link_to'=> $task['link_to'],
-                                'rate'=> $task['rate'],
+                                'name' => $task['name'],
+                                'description' => $task['description'],
+                                'alias' => 'custom',
+                                'unit_of_measure' => $task['unit_of_measure'],
+                                'link_to' => $task['link_to'],
+                                'rate' => $task['rate'],
                             ];
                             $taskModel = Task::create($newTask);
                             $task['id'] = $taskModel->id;
@@ -399,12 +399,12 @@ class JobDetailController extends Controller
                                 foreach ($task['materials'] as $matType => $materials) {
                                     foreach ($materials as $cusMaterial) {
                                         $newMaterial = [
-                                            'name'=> $cusMaterial['name'],
-                                            'pack_size'=> $cusMaterial['pack_size'],
-                                            'cost_price'=> $cusMaterial['cost_price'],
-                                            'unit_of_measure'=> $cusMaterial['unit_of_measure'],
-                                            'product_type'=> $matType,
-                                            'coverage'=> $cusMaterial['coverage'],
+                                            'name' => $cusMaterial['name'],
+                                            'pack_size' => $cusMaterial['pack_size'],
+                                            'cost_price' => $cusMaterial['cost_price'],
+                                            'unit_of_measure' => $cusMaterial['unit_of_measure'],
+                                            'product_type' => $matType,
+                                            'coverage' => $cusMaterial['coverage'],
                                         ];
                                         $matModel = Material::create($newMaterial);
                                         foreach ($opt['materials'] as $key => $optMaterial) {
@@ -491,17 +491,17 @@ class JobDetailController extends Controller
 
         if ($request->hasFile('mainPhoto')) {
             $filepath = $request->file('mainPhoto')->store($job->id, 'public');
-            $job->photos()->create(['photo'=>$filepath, 'type'=>'main', 'properties'=>$request->mainPhotoSnapShot]);
+            $job->photos()->create(['photo' => $filepath, 'type' => 'main', 'properties' => $request->mainPhotoSnapShot]);
         }
         if ($request->hasFile('mainPhotoEdited')) {
             $filepath = $request->file('mainPhotoEdited')->store($job->id, 'public');
-            $job->photos()->create(['photo'=>$filepath, 'type'=>'edited']);
+            $job->photos()->create(['photo' => $filepath, 'type' => 'edited']);
         }
 
         if ($request->has('photos')) {
             foreach ($request['photos'] as $photo) {
                 $filepath = $photo->store($job->id, 'public');
-                $job->photos()->create(['photo'=>$filepath, 'type'=>'photo']);
+                $job->photos()->create(['photo' => $filepath, 'type' => 'photo']);
             }
         }
 
@@ -509,13 +509,13 @@ class JobDetailController extends Controller
             foreach ($requestData['jobpsandgs'] as $pandgKey => $pandg) {
                 if ($pandg) {
                     $details = [
-                        'name'=>$pandg['name'],
-                        'description'=>isset($pandg['description']) ? $pandg['description'] : null,
-                        'pandg_category_id'=>1,
-                        'job_id'=>$job->id,
-                        'rate'=>$pandg['rate'],
-                        'qty'=>$pandg['qty'],
-                        'period'=>isset($pandg['period']) ? $pandg['period'] : 'fixed',
+                        'name' => $pandg['name'],
+                        'description' => isset($pandg['description']) ? $pandg['description'] : null,
+                        'pandg_category_id' => 1,
+                        'job_id' => $job->id,
+                        'rate' => $pandg['rate'],
+                        'qty' => $pandg['qty'],
+                        'period' => isset($pandg['period']) ? $pandg['period'] : 'fixed',
                     ];
 
                     if ($pandg['id'] != '') {
@@ -563,7 +563,7 @@ class JobDetailController extends Controller
         if (! isset($requestData['_santoken'])) {
             //add Revision
             unset($requestData['proposalHtml']);
-            $revision = new Revision(['data'=>json_encode($requestData)]);
+            $revision = new Revision(['data' => json_encode($requestData)]);
             $job->revisions()->save($revision);
         }
         //Trait GeneratePDF

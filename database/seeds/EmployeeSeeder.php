@@ -15,7 +15,7 @@ class EmployeeSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
         DB::table('employees')->insert([
-            'name'=>'Colte Smit',
+            'name' => 'Colte Smit',
             'skill_id' => 5,
             'day_rate' => 40000,
             'employed_date' => '2016-04-22 12:33',
@@ -23,7 +23,7 @@ class EmployeeSeeder extends Seeder
             'cell' => '0829285788',
             'id_num' => '9311105179081',
             'image' => '',
-            'nok_name'=> 'Tanika McCOlgan',
+            'nok_name' => 'Tanika McCOlgan',
             'nok_number' => '0837934504',
             'fp_id' => 25,
             'card_id' => null,
@@ -34,7 +34,7 @@ class EmployeeSeeder extends Seeder
         ]);
 
         DB::table('employees')->insert([
-            'name'=>'Juan Pienaar',
+            'name' => 'Juan Pienaar',
             'skill_id' => 5,
             'day_rate' => 40000,
             'employed_date' => '2016-04-22 12:33',
@@ -42,7 +42,7 @@ class EmployeeSeeder extends Seeder
             'cell' => '01234',
             'id_num' => '0',
             'image' => '',
-            'nok_name'=> 'na',
+            'nok_name' => 'na',
             'nok_number' => 'na',
             'fp_id' => 18,
             'card_id' => null,
@@ -53,7 +53,7 @@ class EmployeeSeeder extends Seeder
         ]);
 
         DB::table('employees')->insert([
-            'name'=>'Floyd Sibeko',
+            'name' => 'Floyd Sibeko',
             'skill_id' => 4,
             'day_rate' => 16500,
             'employed_date' => '2016-04-22 12:33',
@@ -61,7 +61,7 @@ class EmployeeSeeder extends Seeder
             'cell' => '0711628965',
             'id_num' => '2147483647',
             'image' => '',
-            'nok_name'=> 'Pretty',
+            'nok_name' => 'Pretty',
             'nok_number' => '0767375024',
             'fp_id' => 13,
             'card_id' => null,
@@ -72,15 +72,15 @@ class EmployeeSeeder extends Seeder
         ]);
 
         DB::table('employees')->insert([
-            'name'=>'Laurence Ngwenya',
-            'skill_id' =>  2,
-            'day_rate' =>  19000,
+            'name' => 'Laurence Ngwenya',
+            'skill_id' => 2,
+            'day_rate' => 19000,
             'employed_date' => '2016-04-22 12:33',
             'active' => 1,
             'cell' => '01234',
             'id_num' => '0',
             'image' => '',
-            'nok_name'=> 'na',
+            'nok_name' => 'na',
             'nok_number' => 'na',
             'fp_id' => 21,
             'card_id' => null,
@@ -91,7 +91,7 @@ class EmployeeSeeder extends Seeder
         ]);
 
         DB::table('employees')->insert([
-            'name'=>'Manuel Muchanga',
+            'name' => 'Manuel Muchanga',
             'skill_id' => 3,
             'day_rate' => 19191,
             'employed_date' => '2016-04-22 12:33',
@@ -99,7 +99,7 @@ class EmployeeSeeder extends Seeder
             'cell' => '0789891791',
             'id_num' => '2147483647',
             'image' => '',
-            'nok_name'=> 'na',
+            'nok_name' => 'na',
             'nok_number' => 'na',
             'fp_id' => 23,
             'card_id' => null,
@@ -110,7 +110,7 @@ class EmployeeSeeder extends Seeder
         ]);
 
         DB::table('employees')->insert([
-            'name'=>'Jabu Moabona',
+            'name' => 'Jabu Moabona',
             'skill_id' => 3,
             'day_rate' => 17500,
             'employed_date' => '2016-04-22 12:33',
@@ -118,7 +118,7 @@ class EmployeeSeeder extends Seeder
             'cell' => '01234',
             'id_num' => '0',
             'image' => '',
-            'nok_name'=> 'na',
+            'nok_name' => 'na',
             'nok_number' => 'na',
             'fp_id' => 16,
             'card_id' => null,
@@ -129,7 +129,7 @@ class EmployeeSeeder extends Seeder
         ]);
 
         DB::table('employees')->insert([
-            'name'=>'James Khoza',
+            'name' => 'James Khoza',
             'skill_id' => 2,
             'day_rate' => 19000,
             'employed_date' => '2016-04-22 12:33',
@@ -137,7 +137,7 @@ class EmployeeSeeder extends Seeder
             'cell' => '0714071767',
             'id_num' => '2147483647',
             'image' => '',
-            'nok_name'=> 'Jack Mudupi',
+            'nok_name' => 'Jack Mudupi',
             'nok_number' => '0738941431',
             'fp_id' => 17,
             'card_id' => null,
@@ -148,7 +148,7 @@ class EmployeeSeeder extends Seeder
         ]);
 
         DB::table('employees')->insert([
-            'name'=>'Thys Kruger',
+            'name' => 'Thys Kruger',
             'skill_id' => 5,
             'day_rate' => 40400,
             'employed_date' => '2016-04-22 12:33',
@@ -156,7 +156,7 @@ class EmployeeSeeder extends Seeder
             'cell' => '0717099260',
             'id_num' => '2147483647',
             'image' => '',
-            'nok_name'=> 'na',
+            'nok_name' => 'na',
             'nok_number' => 'na',
             'fp_id' => 30,
             'card_id' => null,
@@ -167,7 +167,7 @@ class EmployeeSeeder extends Seeder
         ]);
 
         DB::table('employees')->insert([
-            'name'=>'Jim Mabena',
+            'name' => 'Jim Mabena',
             'skill_id' => 6,
             'day_rate' => 18540,
             'employed_date' => '2016-04-22 12:33',
@@ -175,7 +175,7 @@ class EmployeeSeeder extends Seeder
             'cell' => '0714071767',
             'id_num' => '2147483647',
             'image' => '',
-            'nok_name'=> 'Jack Mudupi',
+            'nok_name' => 'Jack Mudupi',
             'nok_number' => '0738941431',
             'fp_id' => 19,
             'card_id' => null,
@@ -186,7 +186,7 @@ class EmployeeSeeder extends Seeder
         ]);
 
         DB::table('employees')->insert([
-            'name'=>'Joseph Khoza',
+            'name' => 'Joseph Khoza',
             'skill_id' => 2,
             'day_rate' => 23750,
             'employed_date' => '2016-04-22 12:33',
@@ -194,7 +194,7 @@ class EmployeeSeeder extends Seeder
             'cell' => '0788180868',
             'id_num' => '2147483647',
             'image' => '',
-            'nok_name'=> 'Mavis Nakhauhambe',
+            'nok_name' => 'Mavis Nakhauhambe',
             'nok_number' => '0844951492',
             'fp_id' => 20,
             'card_id' => null,
@@ -205,7 +205,7 @@ class EmployeeSeeder extends Seeder
         ]);
 
         DB::table('employees')->insert([
-            'name'=>'Welcome Mdhluli',
+            'name' => 'Welcome Mdhluli',
             'skill_id' => 2,
             'day_rate' => 27093,
             'employed_date' => '2016-04-22 12:33',
@@ -213,7 +213,7 @@ class EmployeeSeeder extends Seeder
             'cell' => '0711885640',
             'id_num' => '2147483647',
             'image' => '',
-            'nok_name'=> 'na',
+            'nok_name' => 'na',
             'nok_number' => 'na',
             'fp_id' => 31,
             'card_id' => null,
@@ -224,7 +224,7 @@ class EmployeeSeeder extends Seeder
         ]);
 
         DB::table('employees')->insert([
-            'name'=>'Solly Ndlovu',
+            'name' => 'Solly Ndlovu',
             'skill_id' => 7,
             'day_rate' => 17500,
             'employed_date' => '2016-04-22 12:33',
@@ -232,18 +232,18 @@ class EmployeeSeeder extends Seeder
             'cell' => '01234',
             'id_num' => '2147483647',
             'image' => '',
-            'nok_name'=> 'Nomvula',
+            'nok_name' => 'Nomvula',
             'nok_number' => '0783835178',
             'fp_id' => 28,
             'card_id' => '6BAAF004',
-            'payroll' =>  3073,
+            'payroll' => 3073,
             'clocked' => 0,
             'lastscan' => Carbon::now()->subDay(),
             'created_at' => Carbon::now(),
         ]);
 
         DB::table('employees')->insert([
-            'name'=>'Zito Mabunda',
+            'name' => 'Zito Mabunda',
             'skill_id' => 4,
             'day_rate' => 17500,
             'employed_date' => '2016-04-22 12:33',
@@ -251,7 +251,7 @@ class EmployeeSeeder extends Seeder
             'cell' => '0786374284',
             'id_num' => '0',
             'image' => '',
-            'nok_name'=> 'na',
+            'nok_name' => 'na',
             'nok_number' => 'na',
             'fp_id' => 32,
             'card_id' => null,
@@ -262,7 +262,7 @@ class EmployeeSeeder extends Seeder
         ]);
 
         DB::table('employees')->insert([
-            'name'=>'Oscar Banda',
+            'name' => 'Oscar Banda',
             'skill_id' => 4,
             'day_rate' => 16500,
             'employed_date' => '2016-04-22 12:33',
@@ -270,7 +270,7 @@ class EmployeeSeeder extends Seeder
             'cell' => '',
             'id_num' => '0',
             'image' => '',
-            'nok_name'=> 'na',
+            'nok_name' => 'na',
             'nok_number' => 'na',
             'fp_id' => 24,
             'card_id' => null,
@@ -281,7 +281,7 @@ class EmployeeSeeder extends Seeder
         ]);
 
         DB::table('employees')->insert([
-            'name'=>'Anthony Mngxali',
+            'name' => 'Anthony Mngxali',
             'skill_id' => 4,
             'day_rate' => 19000,
             'employed_date' => '2016-04-22 12:33',
@@ -289,7 +289,7 @@ class EmployeeSeeder extends Seeder
             'cell' => '0735813215',
             'id_num' => '2147483647',
             'image' => '',
-            'nok_name'=> 'na',
+            'nok_name' => 'na',
             'nok_number' => 'na',
             'fp_id' => 10,
             'card_id' => null,
@@ -300,7 +300,7 @@ class EmployeeSeeder extends Seeder
         ]);
 
         DB::table('employees')->insert([
-            'name'=>'Jabu Mgagadeli',
+            'name' => 'Jabu Mgagadeli',
             'skill_id' => 4,
             'day_rate' => 18626,
             'employed_date' => '2016-04-22 12:33',
@@ -308,26 +308,26 @@ class EmployeeSeeder extends Seeder
             'cell' => '0820452778',
             'id_num' => '2147483647',
             'image' => '',
-            'nok_name'=> 'na',
+            'nok_name' => 'na',
             'nok_number' => 'na',
             'fp_id' => 15,
             'card_id' => '9BF1F204',
-            'payroll' =>  3008,
+            'payroll' => 3008,
             'clocked' => 0,
             'lastscan' => Carbon::now()->subDay(),
             'created_at' => Carbon::now(),
         ]);
 
         DB::table('employees')->insert([
-            'name'=>'Lawrence Mmatladi',
-            'skill_id' =>  4,
-            'day_rate' =>  16500,
+            'name' => 'Lawrence Mmatladi',
+            'skill_id' => 4,
+            'day_rate' => 16500,
             'employed_date' => '2016-04-22 12:33',
             'active' => 1,
             'cell' => '01234',
             'id_num' => '2147483647',
             'image' => '',
-            'nok_name'=> 'na',
+            'nok_name' => 'na',
             'nok_number' => 'na',
             'fp_id' => 22,
             'card_id' => null,
@@ -338,7 +338,7 @@ class EmployeeSeeder extends Seeder
         ]);
 
         DB::table('employees')->insert([
-            'name'=>'Richard Hlongwane',
+            'name' => 'Richard Hlongwane',
             'skill_id' => 4,
             'day_rate' => 18062,
             'employed_date' => '2016-04-22 12:33',
@@ -346,18 +346,18 @@ class EmployeeSeeder extends Seeder
             'cell' => '0723284435',
             'id_num' => '2147483647',
             'image' => '',
-            'nok_name'=> 'na',
+            'nok_name' => 'na',
             'nok_number' => 'na',
             'fp_id' => 27,
             'card_id' => '1B69EF04',
-            'payroll' =>  3002,
+            'payroll' => 3002,
             'clocked' => 0,
             'lastscan' => Carbon::now()->subDay(),
             'created_at' => Carbon::now(),
         ]);
 
         DB::table('employees')->insert([
-            'name'=>'Solomon Mathonsi',
+            'name' => 'Solomon Mathonsi',
             'skill_id' => 4,
             'day_rate' => 16995,
             'employed_date' => '2016-04-22 12:33',
@@ -365,26 +365,26 @@ class EmployeeSeeder extends Seeder
             'cell' => '01234',
             'id_num' => '2147483647',
             'image' => '',
-            'nok_name'=> 'na',
+            'nok_name' => 'na',
             'nok_number' => 'na',
             'fp_id' => 29,
             'card_id' => 'DB60E504',
-            'payroll' =>  3017,
+            'payroll' => 3017,
             'clocked' => 0,
             'lastscan' => Carbon::now()->subDay(),
             'created_at' => Carbon::now(),
         ]);
 
         DB::table('employees')->insert([
-            'name'=>'December Mavuso',
-            'skill_id' =>  2,
-            'day_rate' =>  19792,
+            'name' => 'December Mavuso',
+            'skill_id' => 2,
+            'day_rate' => 19792,
             'employed_date' => '2016-04-22 12:33',
             'active' => 1,
             'cell' => '0123456789',
             'id_num' => '2147483647',
             'image' => '',
-            'nok_name'=> 'na',
+            'nok_name' => 'na',
             'nok_number' => 'na',
             'fp_id' => 33,
             'card_id' => null,
@@ -395,26 +395,26 @@ class EmployeeSeeder extends Seeder
         ]);
 
         DB::table('employees')->insert([
-            'name'=>'Cedric Thseko Marobela',
+            'name' => 'Cedric Thseko Marobela',
             'skill_id' => 7,
-            'day_rate' =>  17000,
+            'day_rate' => 17000,
             'employed_date' => '2016-04-22 12:33',
             'active' => 1,
             'cell' => '01234',
             'id_num' => '1',
             'image' => '',
-            'nok_name'=> 'na',
+            'nok_name' => 'na',
             'nok_number' => 'na',
             'fp_id' => 11,
             'card_id' => null,
             'payroll' => 3100,
             'clocked' => 0,
-            'lastscan' =>  Carbon::now()->subDay(),
+            'lastscan' => Carbon::now()->subDay(),
             'created_at' => Carbon::now(),
         ]);
 
         DB::table('employees')->insert([
-            'name'=>'Isaac ',
+            'name' => 'Isaac ',
             'skill_id' => 3,
             'day_rate' => 18000,
             'employed_date' => '2016-04-22 12:33',
@@ -422,7 +422,7 @@ class EmployeeSeeder extends Seeder
             'cell' => '01234',
             'id_num' => '0',
             'image' => '',
-            'nok_name'=> 'na',
+            'nok_name' => 'na',
             'nok_number' => 'na',
             'fp_id' => 14,
             'card_id' => null,
@@ -433,7 +433,7 @@ class EmployeeSeeder extends Seeder
         ]);
 
         DB::table('employees')->insert([
-            'name'=>'Roark McColgan',
+            'name' => 'Roark McColgan',
             'skill_id' => 5,
             'day_rate' => 15000,
             'employed_date' => '2016-04-22 12:33',
@@ -441,18 +441,18 @@ class EmployeeSeeder extends Seeder
             'cell' => '0712871097',
             'id_num' => '2147483647',
             'image' => '',
-            'nok_name'=> 'Tanika McColgan',
+            'nok_name' => 'Tanika McColgan',
             'nok_number' => '0837934504',
             'fp_id' => 1,
             'card_id' => '5BC6E604',
-            'payroll' =>  3105,
+            'payroll' => 3105,
             'clocked' => 1,
             'lastscan' => Carbon::now()->subDay(),
             'created_at' => Carbon::now(),
         ]);
 
         DB::table('employees')->insert([
-            'name'=>'Danie Mokhatla',
+            'name' => 'Danie Mokhatla',
             'skill_id' => 2,
             'day_rate' => 19792,
             'employed_date' => '2016-04-22 12:33',
@@ -460,7 +460,7 @@ class EmployeeSeeder extends Seeder
             'cell' => '01234',
             'id_num' => '0',
             'image' => '',
-            'nok_name'=> 'na',
+            'nok_name' => 'na',
             'nok_number' => 'na',
             'fp_id' => 12,
             'card_id' => null,
@@ -471,7 +471,7 @@ class EmployeeSeeder extends Seeder
         ]);
 
         DB::table('employees')->insert([
-            'name'=>'Peter Sibisi',
+            'name' => 'Peter Sibisi',
             'skill_id' => 7,
             'day_rate' => 16500,
             'employed_date' => '2016-04-22 12:33',
@@ -479,7 +479,7 @@ class EmployeeSeeder extends Seeder
             'cell' => '01234',
             'id_num' => '0',
             'image' => '',
-            'nok_name'=> 'na',
+            'nok_name' => 'na',
             'nok_number' => 'na',
             'fp_id' => 26,
             'card_id' => null,
@@ -490,7 +490,7 @@ class EmployeeSeeder extends Seeder
         ]);
 
         DB::table('employees')->insert([
-            'name'=>'Morgan Sibisi',
+            'name' => 'Morgan Sibisi',
             'skill_id' => 2,
             'day_rate' => 20000,
             'employed_date' => '2016-04-22 12:33',
@@ -498,7 +498,7 @@ class EmployeeSeeder extends Seeder
             'cell' => '0769986280',
             'id_num' => '7102106030080',
             'image' => '',
-            'nok_name'=> 'Patricia',
+            'nok_name' => 'Patricia',
             'nok_number' => '0799631737',
             'fp_id' => 37,
             'card_id' => null,
@@ -509,7 +509,7 @@ class EmployeeSeeder extends Seeder
         ]);
 
         DB::table('employees')->insert([
-            'name'=>'Billiat Chumachiyenda',
+            'name' => 'Billiat Chumachiyenda',
             'skill_id' => 1,
             'day_rate' => 15000,
             'employed_date' => '2016-04-22 12:33',
@@ -517,7 +517,7 @@ class EmployeeSeeder extends Seeder
             'cell' => '0734158300',
             'id_num' => '0',
             'image' => '',
-            'nok_name'=> 'Maria',
+            'nok_name' => 'Maria',
             'nok_number' => '0732004832',
             'fp_id' => 38,
             'card_id' => null,
@@ -528,7 +528,7 @@ class EmployeeSeeder extends Seeder
         ]);
 
         DB::table('employees')->insert([
-            'name'=>'Alphas Khoza',
+            'name' => 'Alphas Khoza',
             'skill_id' => 2,
             'day_rate' => 19000,
             'employed_date' => '2016-04-22 12:33',
@@ -536,7 +536,7 @@ class EmployeeSeeder extends Seeder
             'cell' => '0840399677',
             'id_num' => '7902065655086',
             'image' => '',
-            'nok_name'=> 'Joseph Khoza',
+            'nok_name' => 'Joseph Khoza',
             'nok_number' => '0',
             'fp_id' => 40,
             'card_id' => null,
@@ -547,7 +547,7 @@ class EmployeeSeeder extends Seeder
         ]);
 
         DB::table('employees')->insert([
-            'name'=>'Crosby Sithole',
+            'name' => 'Crosby Sithole',
             'skill_id' => 1,
             'day_rate' => 15000,
             'employed_date' => '2016-04-22 12:33',
@@ -555,7 +555,7 @@ class EmployeeSeeder extends Seeder
             'cell' => '0123456789',
             'id_num' => '123456789012',
             'image' => '',
-            'nok_name'=> 'Tom Petty',
+            'nok_name' => 'Tom Petty',
             'nok_number' => '0123456789',
             'fp_id' => 41,
             'card_id' => '',
@@ -566,7 +566,7 @@ class EmployeeSeeder extends Seeder
         ]);
 
         DB::table('employees')->insert([
-            'name'=>'Andries Mahlangu',
+            'name' => 'Andries Mahlangu',
             'skill_id' => 4,
             'day_rate' => 15000,
             'employed_date' => '2016-04-22 12:33',
@@ -574,7 +574,7 @@ class EmployeeSeeder extends Seeder
             'cell' => '0123456789',
             'id_num' => '123456789012',
             'image' => '',
-            'nok_name'=> 'Tom Petty',
+            'nok_name' => 'Tom Petty',
             'nok_number' => '0123456789',
             'fp_id' => 42,
             'card_id' => '',

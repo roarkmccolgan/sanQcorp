@@ -10,6 +10,7 @@ class Job extends Model
     use SoftDeletes;
 
     protected $guarded = [];
+
     protected $dates = ['start_date', 'requested_start_date'];
 
     public function user()

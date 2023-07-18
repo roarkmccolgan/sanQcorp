@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Providers\JobWasCreated;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Log;
@@ -24,7 +23,6 @@ class AddOpportunityToInsightly implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  JobWasCreated  $event
      * @return void
      */
     public function handle(JobWasCreated $event)
@@ -57,7 +55,7 @@ class AddOpportunityToInsightly implements ShouldQueue
             $body = $request->getBody();
             $jsonResponse = json_decode((string) $body, true);
 
-            $job->update(['insightly_opportunity_id'=>$jsonResponse['OPPORTUNITY_ID']]);
+            $job->update(['insightly_opportunity_id' => $jsonResponse['OPPORTUNITY_ID']]);
 
             return $jsonResponse['OPPORTUNITY_ID'];
         } catch (GuzzleHttp\Exception\RequestException $e) {

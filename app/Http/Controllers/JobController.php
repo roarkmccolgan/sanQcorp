@@ -25,9 +25,9 @@ class JobController extends Controller
         $vueJob = [];
         foreach ($jobs as $key => $job) {
             $vueJob[$job->id] = [
-                'key'=> $key,
-                'show'=> false,
-                'sections'=>count($job->sections),
+                'key' => $key,
+                'show' => false,
+                'sections' => count($job->sections),
             ];
         }
         //return $vueJob;
@@ -61,12 +61,12 @@ class JobController extends Controller
         if (! $company_id) {
             //return $request->all();
             $company = Company::create([
-                'name'=>$request->input('company_name'),
-                'address1'=>$request->input('company_address1'),
-                'address2'=>$request->input('company_address2'),
-                'address3'=>$request->input('company_address3'),
-                'post_code'=>$request->input('company_post_code'),
-                'vat'=>$request->input('company_vat'),
+                'name' => $request->input('company_name'),
+                'address1' => $request->input('company_address1'),
+                'address2' => $request->input('company_address2'),
+                'address3' => $request->input('company_address3'),
+                'post_code' => $request->input('company_post_code'),
+                'vat' => $request->input('company_vat'),
             ]);
             $company_id = $company->id;
         }
@@ -75,17 +75,17 @@ class JobController extends Controller
             foreach ($request->input('new_contact') as $new_contact) {
                 if ($new_contact['first_name'] !== '' && $new_contact['last_name'] !== '') {
                     $contact = Contact::create([
-                        'company_id'=>$company_id,
-                        'first_name'=>$new_contact['first_name'],
-                        'last_name'=>$new_contact['last_name'],
-                        'job_title'=>$new_contact['job_title'],
-                        'department'=>$new_contact['department'],
-                        'region'=>$new_contact['region'],
-                        'country'=>$new_contact['country'],
-                        'contact1'=>$new_contact['contact1'],
-                        'contact2'=>$new_contact['contact2'],
-                        'contact3'=>$new_contact['contact3'],
-                        'email'=>$new_contact['email'],
+                        'company_id' => $company_id,
+                        'first_name' => $new_contact['first_name'],
+                        'last_name' => $new_contact['last_name'],
+                        'job_title' => $new_contact['job_title'],
+                        'department' => $new_contact['department'],
+                        'region' => $new_contact['region'],
+                        'country' => $new_contact['country'],
+                        'contact1' => $new_contact['contact1'],
+                        'contact2' => $new_contact['contact2'],
+                        'contact3' => $new_contact['contact3'],
+                        'email' => $new_contact['email'],
                     ]);
                     $new_contacts[] = $contact->id;
                 }
@@ -106,19 +106,19 @@ class JobController extends Controller
         //return $job_contacts;
 
         $job = Job::create([
-            'order_number'=>$this->generateOrderNumber(),
-            'user_id'=>null,
-            'name'=>$request->input('name'),
-            'distance'=>$distance[0],
-            'status'=>'build',
-            'estate'=>$request->input('estate'),
-            'estate_address'=>$request->input('estate_address'),
-            'estate_suburb'=>$request->input('estate_suburb'),
-            'address'=>$request->input('address'),
-            'suburb'=>$request->input('suburb'),
-            'city'=>$request->input('city'),
-            'country'=>$request->input('country'),
-            'template'=>$request->input('supply') ? 'supply' : 'service',
+            'order_number' => $this->generateOrderNumber(),
+            'user_id' => null,
+            'name' => $request->input('name'),
+            'distance' => $distance[0],
+            'status' => 'build',
+            'estate' => $request->input('estate'),
+            'estate_address' => $request->input('estate_address'),
+            'estate_suburb' => $request->input('estate_suburb'),
+            'address' => $request->input('address'),
+            'suburb' => $request->input('suburb'),
+            'city' => $request->input('city'),
+            'country' => $request->input('country'),
+            'template' => $request->input('supply') ? 'supply' : 'service',
         ]);
 
         $job->contacts()->sync($job_contacts);

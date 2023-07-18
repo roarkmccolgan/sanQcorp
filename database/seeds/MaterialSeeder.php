@@ -23,8 +23,8 @@ class MaterialSeeder extends Seeder
             'cost_price' => 66000,
             'day_rate' => 0.00,
             'unit_of_measure' => 'm2',
-            'product_type'=>'torchon',
-            'coverage'=> 9.00,
+            'product_type' => 'torchon',
+            'coverage' => 9.00,
             'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //2
@@ -37,8 +37,8 @@ class MaterialSeeder extends Seeder
             'cost_price' => 55000,
             'day_rate' => 0.00,
             'unit_of_measure' => 'm2',
-            'product_type'=>'torchon',
-            'coverage'=>9.00,
+            'product_type' => 'torchon',
+            'coverage' => 9.00,
             'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //3
@@ -51,8 +51,8 @@ class MaterialSeeder extends Seeder
             'cost_price' => 46000,
             'day_rate' => 0.00,
             'unit_of_measure' => 'Lt',
-            'product_type'=>'primer',
-            'coverage'=>125.00,
+            'product_type' => 'primer',
+            'coverage' => 125.00,
             'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //4
@@ -65,8 +65,8 @@ class MaterialSeeder extends Seeder
             'cost_price' => 18600,
             'day_rate' => 0.00,
             'unit_of_measure' => 'Kg',
-            'product_type'=>'gas',
-            'coverage'=>50,
+            'product_type' => 'gas',
+            'coverage' => 50,
             'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //5
@@ -79,8 +79,8 @@ class MaterialSeeder extends Seeder
             'cost_price' => 1800,
             'day_rate' => 0.00,
             'unit_of_measure' => 'lm',
-            'product_type'=>'membrane',
-            'coverage'=>2.00,
+            'product_type' => 'membrane',
+            'coverage' => 2.00,
             'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //6
@@ -93,8 +93,8 @@ class MaterialSeeder extends Seeder
             'cost_price' => 2035,
             'day_rate' => 0.00,
             'unit_of_measure' => 'lm',
-            'product_type'=>'membrane',
-            'coverage'=>4.00,
+            'product_type' => 'membrane',
+            'coverage' => 4.00,
             'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //7
@@ -107,8 +107,8 @@ class MaterialSeeder extends Seeder
             'cost_price' => 5000,
             'day_rate' => 0.00,
             'unit_of_measure' => 'lm',
-            'product_type'=>'membrane',
-            'coverage'=>6.66,
+            'product_type' => 'membrane',
+            'coverage' => 6.66,
             'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //8
@@ -121,8 +121,8 @@ class MaterialSeeder extends Seeder
             'cost_price' => 8300,
             'day_rate' => 0.00,
             'unit_of_measure' => 'lm',
-            'product_type'=>'membrane',
-            'coverage'=>10.00,
+            'product_type' => 'membrane',
+            'coverage' => 10.00,
             'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //9
@@ -135,8 +135,8 @@ class MaterialSeeder extends Seeder
             'cost_price' => 15600,
             'day_rate' => 0.00,
             'unit_of_measure' => 'lm',
-            'product_type'=>'membrane',
-            'coverage'=>20.00,
+            'product_type' => 'membrane',
+            'coverage' => 20.00,
             'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //10
@@ -149,8 +149,8 @@ class MaterialSeeder extends Seeder
             'cost_price' => 71647,
             'day_rate' => 0.00,
             'unit_of_measure' => 'lt',
-            'product_type'=>'acrylic',
-            'coverage'=>9.5,
+            'product_type' => 'acrylic',
+            'coverage' => 9.5,
             'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //11
@@ -489,8 +489,8 @@ class MaterialSeeder extends Seeder
             'cost_price' => 55000,
             'day_rate' => 0.00,
             'unit_of_measure' => 'lt',
-            'product_type'=>'paint',
-            'coverage'=>60,
+            'product_type' => 'paint',
+            'coverage' => 60,
             'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //35
@@ -503,8 +503,8 @@ class MaterialSeeder extends Seeder
             'cost_price' => 55000,
             'day_rate' => 0.00,
             'unit_of_measure' => 'lt',
-            'product_type'=>'paint',
-            'coverage'=>60,
+            'product_type' => 'paint',
+            'coverage' => 60,
             'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //36
@@ -517,8 +517,8 @@ class MaterialSeeder extends Seeder
             'cost_price' => 55000,
             'day_rate' => 0.00,
             'unit_of_measure' => 'lt',
-            'product_type'=>'paint',
-            'coverage'=>60,
+            'product_type' => 'paint',
+            'coverage' => 60,
             'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //37
@@ -531,8 +531,8 @@ class MaterialSeeder extends Seeder
             'cost_price' => 55000,
             'day_rate' => 0.00,
             'unit_of_measure' => 'lt',
-            'product_type'=>'paint',
-            'coverage'=>60,
+            'product_type' => 'paint',
+            'coverage' => 60,
             'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //38
@@ -545,8 +545,8 @@ class MaterialSeeder extends Seeder
             'cost_price' => 64800,
             'day_rate' => 0.00,
             'unit_of_measure' => 'lt',
-            'product_type'=>'paint',
-            'coverage'=>60,
+            'product_type' => 'paint',
+            'coverage' => 60,
             'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //39
@@ -559,8 +559,8 @@ class MaterialSeeder extends Seeder
             'cost_price' => 015,
             'day_rate' => 0.00,
             'unit_of_measure' => 'each',
-            'product_type'=>'membrane',
-            'coverage'=>0.005625,
+            'product_type' => 'membrane',
+            'coverage' => 0.005625,
             'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //40
@@ -709,8 +709,8 @@ class MaterialSeeder extends Seeder
             'cost_price' => 53000,
             'day_rate' => 0.00,
             'unit_of_measure' => 'm2',
-            'product_type'=>'torchon',
-            'coverage'=> 9.00,
+            'product_type' => 'torchon',
+            'coverage' => 9.00,
             'created_at' => Carbon::now(),
         ]);
 
@@ -724,8 +724,8 @@ class MaterialSeeder extends Seeder
             'cost_price' => 58000,
             'day_rate' => 0.00,
             'unit_of_measure' => 'm2',
-            'product_type'=>'torchon',
-            'coverage'=> 9.00,
+            'product_type' => 'torchon',
+            'coverage' => 9.00,
             'created_at' => Carbon::now(),
         ]);
 
@@ -739,8 +739,8 @@ class MaterialSeeder extends Seeder
             'cost_price' => 66000,
             'day_rate' => 0.00,
             'unit_of_measure' => 'm2',
-            'product_type'=>'torchon',
-            'coverage'=> 9.00,
+            'product_type' => 'torchon',
+            'coverage' => 9.00,
             'created_at' => Carbon::now(),
         ]);
 
@@ -755,8 +755,8 @@ class MaterialSeeder extends Seeder
             'cost_price' => 165000,
             'day_rate' => 0.00,
             'unit_of_measure' => 'kg',
-            'product_type'=>'kryton',
-            'coverage'=> 300,
+            'product_type' => 'kryton',
+            'coverage' => 300,
             'created_at' => Carbon::now(),
         ]);
         DB::table('materials')->insert([ //53
