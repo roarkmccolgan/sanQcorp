@@ -8,9 +8,10 @@ class Section extends Model
 {
     protected $guarded = [];
 
-    protected $dates = ['completed_at'];
-
-    protected $casts = ['properties' => 'array'];
+    protected $casts = [
+        'completed_at' => 'datetime',
+        'properties' => 'array'
+    ];
 
     public function job()
     {

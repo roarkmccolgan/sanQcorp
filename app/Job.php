@@ -11,7 +11,10 @@ class Job extends Model
 
     protected $guarded = [];
 
-    protected $dates = ['start_date', 'requested_start_date'];
+    protected $casts = [
+        'start_date' => 'datetime',
+        'requested_start_date' => 'datetime',
+    ];
 
     public function user()
     {
