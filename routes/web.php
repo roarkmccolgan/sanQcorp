@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\MaterialController;
+use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 /*
@@ -27,7 +29,7 @@ Route::prefix('jobs')->group(function () {
     Route::post('/{job}/details')->name('jobs.details.store')->uses('JobDetailController@store')->middleware('auth');
 });
 
-Route::get('/materials', 'MaterialController@index')->middleware('auth');
+Route::get('/materials', [MaterialController::class, 'index'])->middleware('auth');
 
 Route::get('/about', function () {
     return Inertia::render('About');
