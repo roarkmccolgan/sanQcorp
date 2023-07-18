@@ -37,11 +37,11 @@ class BucketController extends Controller
                 }
             }*/
             Bucket::create([
-                'username'=>$name[0],
-                'fromEmail'=>$input['sender'],
-                'message'=>$input['subject'],
-                'calendar'=>Carbon::now(),
-                'user_id' =>$user->id,
+                'username' => $name[0],
+                'fromEmail' => $input['sender'],
+                'message' => $input['subject'],
+                'calendar' => Carbon::now(),
+                'user_id' => $user->id,
             ]);
         }
 

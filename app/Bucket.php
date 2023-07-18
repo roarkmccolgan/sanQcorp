@@ -17,8 +17,6 @@ class Bucket extends Model
         'user_id',
     ];
 
-    protected $dates = ['deleted_at'];
-
     public function setCalendarAttribute($date)
     {
         $this->attributes['calendar'] = Carbon::parse($date);

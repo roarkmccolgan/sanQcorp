@@ -8,7 +8,6 @@ use App\Option;
 use App\Order;
 use App\Providers\JobWasAccepted;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
@@ -56,13 +55,13 @@ class OrderController extends Controller
 
         foreach ($request->input('job.option') as $id => $option) {
             $option = Option::with('section')->find($id);
-            $option->section->update(['accepted'=>1]);
-            $option->update(['accepted'=>1]);
+            $option->section->update(['accepted' => 1]);
+            $option->update(['accepted' => 1]);
         }
 
         $requested_start_date = Carbon::parse($request->input('job.start_date'));
 
-        if ($job->update(['accepted'=>1, 'status'=>'accepted', 'requested_start_date'=>$requested_start_date])) {
+        if ($job->update(['accepted' => 1, 'status' => 'accepted', 'requested_start_date' => $requested_start_date])) {
             Event::fire(new JobWasAccepted($job));
         }
 

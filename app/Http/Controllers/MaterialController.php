@@ -15,7 +15,7 @@ class MaterialController extends Controller
         ->whereLike('name', "%{$q}%")
         ->get();
         if ($request->ajax()) {
-            return response()->json(['materials'=>$materials]);
+            return response()->json(['materials' => $materials]);
         }
 
         return 'HTTP';

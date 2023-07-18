@@ -6,7 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Fuel extends Model
 {
-    protected $dates = ['valid_from', 'valid_to'];
+    protected $casts = [
+        'valid_from' => 'datetime',
+        'valid_to' => 'datetime',
+    ];
+
     protected $guarded = [];
 
     public function getRatePerKmAttribute($value)

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\MaterialController;
+use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 /*
@@ -21,13 +23,13 @@ Route::post('logout')->name('logout')->uses('Auth\LoginController@logout');
 // Dashboard
 Route::get('/')->name('dashboard')->uses('DashboardController')->middleware('auth');
 
-Route::group(['prefix' => 'jobs'], function () {
+Route::prefix('jobs')->group(function () {
     Route::get('/')->name('jobs')->uses('JobController@index')->middleware('auth');
     Route::get('/{job}/details')->name('jobs.details.create')->uses('JobDetailController@create')->middleware('auth');
     Route::post('/{job}/details')->name('jobs.details.store')->uses('JobDetailController@store')->middleware('auth');
 });
 
-Route::get('/materials', 'MaterialController@index')->middleware('auth');
+Route::get('/materials', [MaterialController::class, 'index'])->middleware('auth');
 
 Route::get('/about', function () {
     return Inertia::render('About');

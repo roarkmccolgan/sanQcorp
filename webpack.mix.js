@@ -16,6 +16,7 @@ const tailwindcss = require('tailwindcss')
  */
 
  mix.js('resources/js/app.js', 'public/js')
+ 	.vue()
 	.copyDirectory('node_modules/literallycanvas/lib/img', 'public/lc-assets/img')
 	.postCss('resources/css/app.css', 'public/css', [
 		cssImport(),

@@ -2,10 +2,6 @@
 
 namespace App\Providers;
 
-use App\Providers\JobWasAccepted;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
-
 class SendAcceptedNotifications
 {
     /**
@@ -21,7 +17,6 @@ class SendAcceptedNotifications
     /**
      * Handle the event.
      *
-     * @param  JobWasAccepted  $event
      * @return void
      */
     public function handle(JobWasAccepted $event)

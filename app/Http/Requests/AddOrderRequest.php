@@ -25,7 +25,7 @@ class AddOrderRequest extends FormRequest
     {
         return [
             'contact_id' => 'exists:contacts,id',
-            'job.option.*.accepted'=>'required|in:on,1,true',
+            'job.option.*.accepted' => 'required|in:on,1,true',
         ];
     }
 
@@ -38,7 +38,7 @@ class AddOrderRequest extends FormRequest
     {
         return [
             //'order_number'=>'required|unique:jobs|min:10|max:11',
-            'contact_id.exists'=>'Please select a contact from the company',
+            'contact_id.exists' => 'Please select a contact from the company',
         ];
     }
 }
