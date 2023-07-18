@@ -10,7 +10,7 @@ class Section extends Model
 
     protected $casts = [
         'completed_at' => 'datetime',
-        'properties' => 'array'
+        'properties' => 'array',
     ];
 
     public function job()
